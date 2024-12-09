@@ -14,6 +14,7 @@ Emscripten | The webassembly C/C++ compiler used to build the game and engine
 JavaScript | Game engine wrapper for the web app
 HTML5/CSS | The Foundation to giving the game engine a DOM to work with
 Doxygen | Generated documentation pages similar to javadocs for C++
+PlantUML | Designing software structure before implementing
 
 # Building the Engine
 

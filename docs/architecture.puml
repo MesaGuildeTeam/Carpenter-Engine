@@ -24,6 +24,10 @@ namespace Engine {
     + {method} IsMouseDown(int button)
   }
 
+  class FileManager <<Singleton>> {
+    
+  }
+
   class Game {
     + Scene* m_currentScene
     + std::map<string, Scene*> m_loadedScenes
@@ -51,7 +55,12 @@ namespace Engine {
 
   class Scene extends Node
 
+  class InputManager {
+
+  }
+
   Scene -* Game
+  Window .> InputManager
 
   namespace Graphics {
     abstract Mesh {
