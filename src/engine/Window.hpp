@@ -19,10 +19,7 @@ namespace Engine {
     /**
      * Returns a reference to the window singleton
      */
-    static Window& getWindow() {
-      static Window instance;
-      return instance;
-    }
+    static Window& getWindow();
   };
 }
 
