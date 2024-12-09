@@ -1,0 +1,104 @@
+@startuml EngineArchitecture
+
+namespace Engine {
+  class Window <<Singleton>> {
+    - {static} Window window
+    - {method} Window()
+
+    + {method} {static} Window& GetWindow()
+    
+    + {method} DrawMesh()
+    + {method} DrawMesh2D()
+
+    + {method} LoadTexture()
+    + {method} ClearTexture()
+    + {method} SetMaterial()
+    + {method} SetFilters(string)
+
+    + {method} IsKeyboardPressed(char key)
+    + {method} IsKeyboardRelease(char key)
+    + {method} IsKeyboardDown(char key)
+
+    + {method} IsMousePressed(int button)
+    + {method} IsMouseReleased(int button)
+    + {method} IsMouseDown(int button)
+  }
+
+  class Game {
+    + Scene* m_currentScene
+    + std::map<string, Scene*> m_loadedScenes
+    
+    + {method} AddScene()
+    + {method} RemoveScene()
+    + {method} SwitchScene()
+
+    + {method} CallDraw()
+    + {method} CallUpdate()
+  }
+  
+  abstract Node {
+    - Node* m_parent
+    - std::vector<Node*> m_children
+    - bool m_enabled
+
+    + {method} void Enable()
+    + {method} void Disable()
+
+    + {method} unsigned int AddChild(Node*)
+    + {method} Node& GetChild(unsigned int)
+    + {method} void RemoveChild(unsigned int)
+  }
+
+  class Scene extends Node
+
+  Scene -* Game
+
+  namespace Graphics {
+    abstract Mesh {
+      + {method} Vec3 getVertex()
+      + {method} Vec2 getVertex2D()
+    }
+
+    class Texture {
+      - int TextureID
+      + {method} Texture(string filename)
+      + {method} const int getTextureID()
+    }
+
+    class Shader {
+
+    }
+
+    class Material {
+
+    }
+
+    Texture --* Material    
+    Shader -* Material
+  }
+
+  Graphics.Material .> Window
+  Graphics.Mesh .> Window
+}
+
+namespace Browser {
+  Object Canvas {
+
+  }
+
+  Object User_Interface {
+
+  }
+
+  Object DOM {
+
+  }
+
+  DOM *.. User_Interface
+  DOM *.. Canvas
+}
+
+Engine.Window .> Browser.Canvas
+Engine.Game ..* Browser.DOM : "CallDraw and CallUpdate are running through a loop created \nwith javascript on window.addEventListener('load')"
+
+@enduml
