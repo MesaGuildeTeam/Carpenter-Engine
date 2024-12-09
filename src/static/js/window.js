@@ -6,17 +6,21 @@ const game = {
 };
 
 function windowLoop() {
-  if (game.ready == true) {
-      _CallUpdate();
-      _CallDraw();
-  }
+  if (!game.ready)
+    return;
+  
+  _CallUpdate();
+  _CallDraw();
 }
 
-window.addEventListener('resize', function() {
+window.addEventListener('resize', () => {
+  if (!game.ready)
+    return;
+
   game.canvas.width = window.innerWidth;
   game.canvas.height = window.innerHeight;
 });
 
-window.addEventListener('load', function() {
+window.addEventListener('load', () => {
   setInterval(windowLoop, 1000/60);
 });
