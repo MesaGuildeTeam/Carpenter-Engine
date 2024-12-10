@@ -46,6 +46,7 @@ Engine::Success Engine::Node::SetEnabled(bool enabled) {
 void Engine::Node::Draw() {
   if (!m_enabled)
     return;
+  
   for (Node* child : m_children)
     child->Draw();
 }

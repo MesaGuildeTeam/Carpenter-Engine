@@ -76,14 +76,14 @@ namespace Engine {
      * 
      * @warning To maintain recursiveness, this method must be called in each method override
      */
-    void Draw();
+    virtual void Draw();
 
     /**
      * Overridable update method for the node
      * 
      * @warning To maintain recursiveness, this method must be called in each method override
      */
-    void Update(float dt);
+    virtual void Update(float dt);
   };
 
   /**
