@@ -3,6 +3,7 @@
 
 #include "Utils.hpp"
 #include <vector>
+#include <string>
 
 namespace Engine {
   
@@ -16,12 +17,16 @@ namespace Engine {
     std::vector<Node*> m_children;
     bool m_enabled;
 
+    protected:
+
+    std::string m_name;
+
     public:
 
     /** 
      * Default constructor
      */  
-    Node();
+    Node(std::string name);
   
     /** 
      * Default destructor

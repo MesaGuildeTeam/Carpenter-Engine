@@ -1,6 +1,7 @@
 #include "Node.hpp"
 
-Engine::Node::Node() {
+Engine::Node::Node(std::string name) {
+  m_name = name;
   m_parent = nullptr;
   m_enabled = true;
 }
