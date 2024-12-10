@@ -13,15 +13,17 @@ namespace Engine {
   class Node{
     private:
     
-    Node* m_parent;
-    std::vector<Node*> m_children;
     bool m_enabled;
 
     protected:
 
-    std::string m_name;
+    Node* m_parent;
+    std::vector<Node*> m_children;
 
     public:
+
+    const char* m_nodeType;
+    std::string m_name;
 
     /** 
      * Default constructor
@@ -75,6 +77,8 @@ namespace Engine {
     virtual void OnDisable() {};
     
     // Behaviour Methods //
+
+    virtual void Init();
 
     /**
      * Overridable draw method for the node

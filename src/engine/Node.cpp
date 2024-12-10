@@ -4,6 +4,7 @@ Engine::Node::Node(std::string name) {
   m_name = name;
   m_parent = nullptr;
   m_enabled = true;
+  m_nodeType = "Node";
 }
 
 Engine::Node::~Node() {
@@ -13,6 +14,7 @@ Engine::Node::~Node() {
 
 size_t Engine::Node::AddChild(Node* child) {
   child->m_parent = this;
+  child->Init();
   m_children.push_back(child);
   return m_children.size() - 1;
 }
@@ -43,6 +45,8 @@ Engine::Success Engine::Node::SetEnabled(bool enabled) {
 
   return SUCCESS;
 }
+
+void Engine::Node::Init() {}
 
 void Engine::Node::Draw() {
   if (!m_enabled)
