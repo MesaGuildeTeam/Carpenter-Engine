@@ -1,5 +1,5 @@
-#include "Game.hpp"
-#include "Window.hpp"
+#include <Game.hpp>
+#include <Window.hpp>
 
 #include <iostream>
 
@@ -11,13 +11,13 @@ class TestScene : public Engine::Scene {
     };
 
     void Draw() override {
-      std::cout << "Drawing scene" << std::endl;
+      //std::cout << "Drawing scene" << std::endl;
       Engine::Node::Draw();
     };
 
     void Update(float dt) override {
       Engine::Node::Update(dt);
-      std::cout << "Updating scene" << std::endl;
+      //std::cout << "Updating scene" << std::endl;
     };
 };
 
