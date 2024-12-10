@@ -6,7 +6,7 @@
 class TestScene : public Engine::Scene {
   public:
 
-    TestScene() : Engine::Scene() {
+    TestScene() : Engine::Scene("TestScene") {
       std::cout << "Creating test scene" << std::endl;
     };
 
