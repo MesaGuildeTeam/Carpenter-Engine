@@ -1,6 +1,8 @@
 #include <Game.hpp>
-#include <UI/UIElement.hpp>
 #include <Window.hpp>
+
+#include <UI/UIElement.hpp>
+#include <UI/UILabel.hpp>
 
 #include <iostream>
 
@@ -10,6 +12,8 @@ class TestScene : public Engine::Scene {
     TestScene() : Engine::Scene("TestScene") {
       std::cout << "Creating test scene" << std::endl;
       AddChild((Engine::Node*)(new Engine::UI::UIElement("BaseUI")));
+
+      GetChild(0)->AddChild((Engine::Node*)(new Engine::UI::UILabel("Label", "Hello World")));
     };
 
     void Draw() override {
