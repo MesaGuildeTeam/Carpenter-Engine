@@ -3,8 +3,17 @@
 
 #include <UI/UIElement.hpp>
 #include <UI/UILabel.hpp>
+#include <UI/UIButton.hpp>
 
 #include <iostream>
+
+void functionCallback() {
+  std::cout << "Button clicked" << std::endl;
+}
+
+void functionCallback2() {
+  std::cout << "Another Button clicked" << std::endl;
+}
 
 class TestScene : public Engine::Scene {
   public:
@@ -14,6 +23,8 @@ class TestScene : public Engine::Scene {
       AddChild((Engine::Node*)(new Engine::UI::UIElement("BaseUI")));
 
       GetChild(0)->AddChild((Engine::Node*)(new Engine::UI::UILabel("Label", "Hello World")));
+      GetChild(0)->AddChild((Engine::Node*)(new Engine::UI::UIButton("Button", "Click me", functionCallback)));
+      GetChild(0)->AddChild((Engine::Node*)(new Engine::UI::UIButton("Button2", "Click me 2", functionCallback2)));
     };
 
     void Draw() override {

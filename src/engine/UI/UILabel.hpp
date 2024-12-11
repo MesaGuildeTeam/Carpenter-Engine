@@ -5,7 +5,7 @@
 
 namespace Engine::UI {
   class UILabel : public UIElement {
-    private:
+    protected:
     std::string m_text;
 
     public:
