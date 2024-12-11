@@ -1,4 +1,5 @@
 #include <Game.hpp>
+#include <UI/UIElement.hpp>
 #include <Window.hpp>
 
 #include <iostream>
@@ -8,6 +9,7 @@ class TestScene : public Engine::Scene {
 
     TestScene() : Engine::Scene("TestScene") {
       std::cout << "Creating test scene" << std::endl;
+      AddChild((Engine::Node*)(new Engine::UI::UIElement("BaseUI")));
     };
 
     void Draw() override {
