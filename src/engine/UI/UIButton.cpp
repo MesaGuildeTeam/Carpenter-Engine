@@ -20,7 +20,7 @@ void Engine::UI::UIButton::Init() {
   char element[256];
   sprintf(element, "#%s-%s", m_uiClass, m_name.c_str());
 
-  std::cout << "Writing Callback to button with id " << element << std::endl;
+  std::cout << "DEBUG: Linking callback to button " << element << std::endl;
   
   emscripten_set_click_callback(element, (void *)this, false, Engine::UI::UIButton::m_mouseClickEmscripten);
 }

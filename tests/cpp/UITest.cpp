@@ -19,7 +19,7 @@ class TestScene : public Engine::Scene {
   public:
 
     TestScene() : Engine::Scene("TestScene") {
-      std::cout << "Creating test scene" << std::endl;
+      std::cout << "TEST: Creating test scene" << std::endl;
       AddChild((Engine::Node*)(new Engine::UI::UIElement("BaseUI")));
 
       GetChild(0)->AddChild((Engine::Node*)(new Engine::UI::UILabel("Label", "Hello World")));
