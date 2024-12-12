@@ -21,3 +21,22 @@ void Engine::UI::UIElement::Init() {
         .appendChild(uielement);
     }, parentElement, parentClass, m_name.c_str(), m_uiTag, m_uiClass);
 }
+
+void Engine::UI::UIElement::AddTheme(const char* theme) {
+  EM_ASM({
+    document.getElementById(`${UTF8ToString($1) != "" ? UTF8ToString($1) + "-" : ""}${UTF8ToString($0)}`).classList.add(UTF8ToString($2));
+  }, m_name.c_str(), m_uiClass, theme);
+}
+
+void Engine::UI::UIElement::SetAnchor(const char* anchor) {
+  EM_ASM({
+    document.getElementById(`${UTF8ToString($1) != "" ? UTF8ToString($1) + "-" : ""}${UTF8ToString($0)}`).classList.add(`ui-anchor-${UTF8ToString($2)}`);
+  }, m_name.c_str(), m_uiClass, anchor);
+}
+
+void Engine::UI::UIElement::SetDimensions(Vec2f dimensions) {
+  EM_ASM({
+    document.getElementById(`${UTF8ToString($1) != "" ? UTF8ToString($1) + "-" : ""}${UTF8ToString($0)}`).style.width = `${$2}px`;
+    document.getElementById(`${UTF8ToString($1) != "" ? UTF8ToString($1) + "-" : ""}${UTF8ToString($0)}`).style.height = `${$3}px`;
+  }, m_name.c_str(), m_uiClass, dimensions.x, dimensions.y);
+}

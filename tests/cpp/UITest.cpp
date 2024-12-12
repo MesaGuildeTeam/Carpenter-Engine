@@ -20,11 +20,13 @@ class TestScene : public Engine::Scene {
 
     TestScene() : Engine::Scene("TestScene") {
       std::cout << "TEST: Creating test scene" << std::endl;
+      
       AddChild((Engine::Node*)(new Engine::UI::UIElement("BaseUI")));
+      ((Engine::UI::UIElement*)GetChild(0))->SetDimensions({500, 200});
 
       GetChild(0)->AddChild((Engine::Node*)(new Engine::UI::UILabel("Label", "Hello World")));
       GetChild(0)->AddChild((Engine::Node*)(new Engine::UI::UIButton("Button", "Click me", functionCallback)));
-      GetChild(0)->AddChild((Engine::Node*)(new Engine::UI::UIButton("Button2", "Click me 2", functionCallback2)));
+      ((Engine::UI::UIButton*)GetChild(0)->GetChild(1))->SetAnchor("topright");
     };
 
     void Draw() override {

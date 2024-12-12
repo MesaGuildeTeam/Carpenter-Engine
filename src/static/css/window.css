@@ -17,8 +17,19 @@ body {
 }
 
 .ui-element {
+  --offset-x: 10px;
+  --offset-y: 10px;
+
+  top: var(--offset-y);
+  left: var(--offset-x);
+
   display: block;
   position: relative;
+}
+
+.ui-generic {
+  --offset-x: 0px;
+  --offset-y: 0px;
 }
 
 .ui-label, .ui-button, .ui-input {
@@ -26,6 +37,25 @@ body {
 }
 
 .ui-anchor-topright {
-  right: 0;
-  top: 0;
+  left: initial;
+  right: var(--offset-x);
+}
+
+.ui-anchor-bottomleft {
+  top: initial;
+  bottom: var(--offset-y);
+}
+
+.ui-anchor-bottomright {
+  top: initial;
+  bottom: var(--offset-y);
+  left: initial;
+  right: var(--offset-x);
+}
+
+.ui-anchor-center {
+  top: 50%;
+  left: 50%;
+
+  transform: translateX(calc(var(--offset-x) - 50%)) translateY(calc(var(--offset-y) - 50%));
 }
