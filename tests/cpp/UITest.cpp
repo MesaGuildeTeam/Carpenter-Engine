@@ -11,10 +11,6 @@ void functionCallback() {
   std::cout << "Button clicked" << std::endl;
 }
 
-void functionCallback2() {
-  std::cout << "Another Button clicked" << std::endl;
-}
-
 class TestScene : public Engine::Scene {
   public:
 
@@ -23,6 +19,8 @@ class TestScene : public Engine::Scene {
       
       AddChild((Engine::Node*)(new Engine::UI::UIElement("BaseUI")));
       ((Engine::UI::UIElement*)GetChild(0))->SetDimensions({500, 200});
+      ((Engine::UI::UIElement*)GetChild(0))->SetOffset({0, 0});
+      ((Engine::UI::UIElement*)GetChild(0))->SetAnchor("center");
 
       GetChild(0)->AddChild((Engine::Node*)(new Engine::UI::UILabel("Label", "Hello World")));
       GetChild(0)->AddChild((Engine::Node*)(new Engine::UI::UIButton("Button", "Click me", functionCallback)));
