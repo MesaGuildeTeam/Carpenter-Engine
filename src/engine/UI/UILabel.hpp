@@ -13,6 +13,9 @@ namespace Engine::UI {
 
       void Init() override;
 
+      /**
+       * Sets the text of the label
+       */
       void SetText(std::string text);
   };
 }
