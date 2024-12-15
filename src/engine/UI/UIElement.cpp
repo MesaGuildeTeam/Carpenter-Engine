@@ -47,3 +47,15 @@ void Engine::UI::UIElement::SetOffset(Vec2f offset) {
     document.getElementById(`${UTF8ToString($1) != "" ? UTF8ToString($1) + "-" : ""}${UTF8ToString($0)}`).style.setProperty('--offset-y', `${$3}px`);
   }, m_name.c_str(), m_uiClass, offset.x, offset.y);
 }
+
+void Engine::UI::UIElement::OnEnable() {
+  EM_ASM({
+    document.getElementById(`${UTF8ToString($1) != "" ? UTF8ToString($1) + "-" : ""}${UTF8ToString($0)}`).style.display = "block";
+  }, m_name.c_str(), m_uiClass);
+}
+
+void Engine::UI::UIElement::OnDisable() {
+  EM_ASM({
+    document.getElementById(`${UTF8ToString($1) != "" ? UTF8ToString($1) + "-" : ""}${UTF8ToString($0)}`).style.display = "none";
+  }, m_name.c_str(), m_uiClass);
+}

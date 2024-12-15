@@ -42,11 +42,6 @@ namespace Engine::UI {
     void SetAnchor(const char* anchor);
 
     /**
-     * Sets the offset of the UI element
-     */
-    //void SetOffset(Vec2f offset);
-
-    /**
      * Sets the dimensions of the UI element
      * 
      * @param dimensions The dimensions where x is the width, and y is the height
@@ -59,6 +54,10 @@ namespace Engine::UI {
      * @param dimensions The dimensions where x is the width, and y is the height
      */
     void SetOffset(Vec2f offset);
+
+    void OnEnable() override;
+
+    void OnDisable() override;
   };
 }
 
