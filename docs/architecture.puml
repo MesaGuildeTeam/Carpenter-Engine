@@ -41,9 +41,11 @@ namespace Engine {
   }
   
   abstract Node {
-    - Node* m_parent
     - std::vector<Node*> m_children
     - bool m_enabled
+    # Node* m_parent
+    + const char* m_nodeType;
+    + string m_name;
 
     + {method} void Enable()
     + {method} void Disable()
@@ -51,6 +53,12 @@ namespace Engine {
     + {method} unsigned int AddChild(Node*)
     + {method} Node& GetChild(unsigned int)
     + {method} void RemoveChild(unsigned int)
+
+    + {method} void OnEnable()
+    + {method} void OnDisable()
+    + {method} void Init();
+    + {method} void Draw();
+    + {method} void Update(dt);
   }
 
   class Scene extends Node
@@ -61,6 +69,40 @@ namespace Engine {
 
   Scene -* Game
   Window .> InputManager
+
+  namespace UI {
+    class UIElement {
+      # const char* m_uiTag;
+      # const char* m_uiClass;
+
+      + {method} void AddTheme(themeName);
+      + {method} void SetAnchor(anchor);
+      + {method} void SetDimensions(Vec2f dimensions);
+      + {method} void SetOffset(Vec2f offset);
+    }
+
+    class UILabel extends UIElement {
+      # std::string m_text;
+
+      + {method} SetText(text);
+    }
+
+    class UIButton extends UILabel {
+      - {method} m_mouseClickEnscripten();
+      + void& OnClick()
+    }
+
+    class UIInput extends UIElement {
+      - const char* m_placeholder;
+      - std::string m_value;
+
+      + {method} int getInputInt();
+      + {method} double getInputDouble();
+      + {method} std::string getInputString();
+    }
+  }
+
+  UI.UIElement -|> Node
 
   namespace Graphics {
     abstract Mesh {
@@ -109,5 +151,6 @@ namespace Browser {
 
 Engine.Window .> Browser.Canvas
 Engine.Game ..* Browser.DOM : "CallDraw and CallUpdate are running through a loop created \nwith javascript on window.addEventListener('load')"
+Engine.UI.UIElement ..> Browser.User_Interface
 
 @enduml

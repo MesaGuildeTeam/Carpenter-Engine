@@ -31,7 +31,7 @@ this will not be the final build process. The game engine will be packaged withi
 ## Project Structure
 
 `docs`
-- All the documentation. If you use doxygen on the source code, you will see the game documentation will be packaged into docs/doxygen
+- All the documentation. If you use doxygen on the source code, you will see the game engine documentation will be packaged into docs/doxygen
 
 `src`
 - All the source code of the product. Currently, the only code stored in here is the engine code, and the distributed static page for the game engine
