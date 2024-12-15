@@ -44,5 +44,5 @@ std::string Engine::UI::UIInput::getInputString() {
 
   m_value = inputField["value"].as<std::string>();
 
-  return m_value.c_str();
+  return m_value;
 }
