@@ -35,3 +35,6 @@ this will not be the final build process. The game engine will be packaged withi
 
 `src`
 - All the source code of the product. Currently, the only code stored in here is the engine code, and the distributed static page for the game engine
+
+'examples'
+- examples used to test the modules of the game engine in a manual environment. They can either be practical examples, or they can be generic tests to see how the features behave.
