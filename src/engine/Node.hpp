@@ -14,11 +14,11 @@ namespace Engine {
     private:
     
     bool m_enabled;
+    std::vector<Node*> m_children;
 
     protected:
 
     Node* m_parent;
-    std::vector<Node*> m_children;
 
     public:
 
