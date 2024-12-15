@@ -4,11 +4,17 @@
 #include <UI/UIElement.hpp>
 #include <UI/UILabel.hpp>
 #include <UI/UIButton.hpp>
+#include <UI/UIInput.hpp>
 
 #include <iostream>
 
+Engine::UI::UIInput* inputField;
+
 void functionCallback() {
-  std::cout << "Button clicked" << std::endl;
+  std::cout << "Button clicked. Input is:\nint: " << inputField->getInputInt() 
+  << "\ndouble: " << inputField->getInputDouble() 
+  << "\nstring: " << inputField->getInputString() 
+  << std::endl;
 }
 
 class TestScene : public Engine::Scene {
@@ -25,6 +31,10 @@ class TestScene : public Engine::Scene {
       GetChild(0)->AddChild((Engine::Node*)(new Engine::UI::UILabel("Label", "Hello World")));
       GetChild(0)->AddChild((Engine::Node*)(new Engine::UI::UIButton("Button", "Click me", functionCallback)));
       ((Engine::UI::UIButton*)GetChild(0)->GetChild(1))->SetAnchor("topright");
+
+      GetChild(0)->AddChild((Engine::Node*)(new Engine::UI::UIInput("Input", "This is a Test Input")));
+      inputField = (Engine::UI::UIInput*)GetChild(0)->GetChild(2);
+      inputField->SetAnchor("bottomleft");
     };
 
     void Draw() override {
@@ -42,6 +52,6 @@ Engine::Window& window{Engine::Window::getWindow()};
 Engine::Game game(new TestScene());
 
 extern "C" {
-  void CallDraw() { game.DrawScene(); }
-  void CallUpdate() { game.UpdateScene(0.1f); }
+  EMSCRIPTEN_KEEPALIVE void CallDraw() { game.DrawScene(); }
+  EMSCRIPTEN_KEEPALIVE void CallUpdate() { game.UpdateScene(0.1f); }
 }
