@@ -1,6 +1,13 @@
 .vscode
+
+# Emscripten Build Process
 build
 docs/doxygen
 
 **/*.o
 **/*.tmp
+
+# Nodejs stuff
+node_modules
+package-lock.json
+yarn.lock
