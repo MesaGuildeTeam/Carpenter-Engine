@@ -4,17 +4,21 @@
  * @author Roberto Selles
  */
 
-const Table = "┬─┬"
-const FlippedTable = "┴─┴"
-const TableFlipper = "(╯°□°)╯︵ ┻━┻"
+const Asciis = {
+  Table: "┬─┬",
+  FlippedTable: "┴─┴",
+  TableFlip: "(╯°□°)╯︵ ┻━┻",
+  Unflip: "┬─┬ノ( º _ ºノ)",
+  Success: "\x1b[32m[✓]\x1b[0m",
+  Fail: "\x1b[31m[X]\x1b[0m",
+  Waiting: "\x1b[33m[⌛︎]\x1b[0m",
+}
 
 function throwError(message) {
-  console.error("An error has occured" + TableFlipper + "\n\n" + message);
+  console.error("An error has occured" + Asciis.TableFlipper + "\n\n" + message);
 }
 
 module.exports = {
-  Table: Table,
-  FlippedTable: FlippedTable,
-  TableFlipper: TableFlipper,
+  Asciis: Asciis,
   throwError: throwError
 };
