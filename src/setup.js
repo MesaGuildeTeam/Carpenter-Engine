@@ -77,8 +77,9 @@ async function findCompiler(program, callback, considerLocalPath) {
   });
 }
 
-function findPathLocal(folder) {
-  fs.stat(folder, (err, status) => {
+async function findPathLocal(folder) {
+  await fs.stat(folder, (err, status) => {
+    console.log(err != null);
     return err != null;
   })
 }
@@ -98,16 +99,20 @@ async function callShellProgram(script) {
   child.stderr.on('data', (data) => {
     process.stdout.write("\x1b[31m\x1b[0m" + data);
   });
+
+  child.on('exit', (code, signal) => {
+    return code;
+  });
 }
 
 async function installEmscripten(config = {}) {
   // Check if emscripten is installed first 
-  findCompiler('em++', (result) => {
-    if (findPathLocal("emsdk") || result) {
+  findCompiler('em++', async (result) => {
+    if (await findPathLocal("emsdk") || result) {
       console.log("emsdk has already been downloaded", utils.Asciis.Unflip);
     } else {
       console.log(`Downloading Emscripten`);
-      callShellProgram(process.cwd() + "/scripts/downloadEmcc")
+      await callShellProgram(process.cwd() + "/scripts/downloadEmcc")
     }
 
     console.log(`Installing/Updating Emscripten`);
