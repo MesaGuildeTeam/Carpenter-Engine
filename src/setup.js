@@ -4,7 +4,12 @@
 
 const child_process = require('child_process');
 const utils = require('./utils.js');
-const fs = require('fs');
+const fs = require('node:fs');
+const path = require('path');
+
+const packageDir = require.resolve('../package.json');
+
+const scriptExtension = process.platform === 'win32' ? 'bat' : 'sh';
 
 /**
  * Checks if the specified compiler is installed and runs the callback on response
@@ -66,24 +71,45 @@ async function findCompiler(program, callback, considerLocalPath) {
   });
 }
 
-function findFolderLocal(folder) {
-
+function findPathLocal(folder) {
+  fs.stat(folder, (err, status) => {
+    return err != null;
+  })
 }
 
 /**
  * Installs Emscripten if it is not installed
  */
-function callShellProgram(script) { 
-  child_process.execSync(`sh ${script}`);
+async function callShellProgram(script) { 
+  let child = await child_process.exec(`sh "${script}.${scriptExtension}"`, (err, stdout, stderr) => {
+    console.log("\x1b[0m");
+  });
+
+  child.stdout.on('data', (data) => {
+    process.stdout.write(data);
+  });
+
+  child.stderr.on('data', (data) => {
+    process.stdout.write(data);
+  });
 }
 
 async function installEmscripten(config = {}) {
   // Check if emscripten is installed first 
-  findCompiler('emscripten', (result) => {
+  findCompiler('emsdk', async (result) => {
     if (result)
       return;
 
-    console.log("Installing Emscripten");
+    if (findPathLocal("emsdk")) {
+      console.log("emsdk has already been downloaded", utils.Asciis.Unflip);
+    } else {
+      console.log(`Downloading Emscripten\x1b[2m`);
+      await callShellProgram(process.cwd() + "/scripts/downloadEmcc")
+    }
+
+    console.log(`Installing/Updating Emscripten\x1b[2m`);
+    await callShellProgram(process.cwd() + "/scripts/installEmcc")
+
   }, false);
 }
 
