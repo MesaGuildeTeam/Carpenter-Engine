@@ -29,6 +29,7 @@ async function findCompiler(program, callback, considerLocalPath) {
       process.stdout.write(` ${utils.Asciis.Success} `);
       console.log(`${program} found in ${stdout}`);
       callback(true);
+      return;
     }
 
     process.stdout.write(`${utils.Asciis.Fail} `);
@@ -43,6 +44,7 @@ async function findCompiler(program, callback, considerLocalPath) {
         process.stdout.write(` ${utils.Asciis.Success} `);
         console.log(`${program} found in ${stdout}`);
         callback(true);
+        return;
       }
 
       process.stdout.write(` ${utils.Asciis.Fail} `);
@@ -53,20 +55,24 @@ async function findCompiler(program, callback, considerLocalPath) {
         return;
       } 
       
+      if (considerLocalPath) {
       process.stdout.write(`Searching for ${program} in local` + utils.Asciis.Waiting);
-      await child_process.exec(`find ~/ -name ${program}`, (err, stdout, stderr) => {
-        process.stdout.moveCursor(-5, 0);
-      
-        if (!err && stdout.length > 0) {
-          process.stdout.write(` ${utils.Asciis.Success} `);
-          console.log(`${program} found in ${stdout}`);
-          callback(true);
-        }
+        await child_process.exec(`find ~/ -name ${program}`, (err, stdout, stderr) => {
+          process.stdout.moveCursor(-5, 0);
         
-        process.stdout.write(` ${utils.Asciis.Fail} `);
-        console.log(`${program} not found in local path`);
-        callback(false);
-      })
+          if (!err && stdout.length > 0) {
+            process.stdout.write(` ${utils.Asciis.Success} `);
+            console.log(`${program} found in ${stdout}`);
+            callback(true);
+            return;
+          }
+
+          process.stdout.write(` ${utils.Asciis.Fail} `);
+          console.log(`${program} not found in local path`);
+          callback(false);
+          return;
+        })
+      }
     });
   });
 }
@@ -86,29 +92,26 @@ async function callShellProgram(script) {
   });
 
   child.stdout.on('data', (data) => {
-    process.stdout.write(data);
+    process.stdout.write("\x1b[2m" + data);
   });
 
   child.stderr.on('data', (data) => {
-    process.stdout.write(data);
+    process.stdout.write("\x1b[31m\x1b[0m" + data);
   });
 }
 
 async function installEmscripten(config = {}) {
   // Check if emscripten is installed first 
-  findCompiler('emsdk', async (result) => {
-    if (result)
-      return;
-
-    if (findPathLocal("emsdk")) {
+  findCompiler('em++', (result) => {
+    if (findPathLocal("emsdk") || result) {
       console.log("emsdk has already been downloaded", utils.Asciis.Unflip);
     } else {
-      console.log(`Downloading Emscripten\x1b[2m`);
-      await callShellProgram(process.cwd() + "/scripts/downloadEmcc")
+      console.log(`Downloading Emscripten`);
+      callShellProgram(process.cwd() + "/scripts/downloadEmcc")
     }
 
-    console.log(`Installing/Updating Emscripten\x1b[2m`);
-    await callShellProgram(process.cwd() + "/scripts/installEmcc")
+    console.log(`Installing/Updating Emscripten`);
+    callShellProgram(process.cwd() + "/scripts/installEmcc")
 
   }, false);
 }
