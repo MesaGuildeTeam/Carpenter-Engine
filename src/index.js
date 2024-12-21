@@ -15,7 +15,7 @@ ${pkg.description}\n`
 const usage = `Usage: table <command> [options]\n`
   
 const commands = `Commands:
-  setup      Setup the game engine environment
+  setup   Check and install emscripten to compile the project
 `
 
 function ShowHelp() {
@@ -28,15 +28,17 @@ function ShowHelp() {
 if (process.argv.length <= 2) {
   console.log(title);
   ShowHelp();
-  return 0;
+  return process.exit(0);
 }
 
 switch (process.argv[2]) {
   case 'setup': 
     setup.installEmscripten(); 
-    return 0;
+    break;
   default:
     console.error(`${utils.Asciis.TableFlipper} Unknown command ${process.argv[2]}\n`);
     ShowHelp();
-    throw 1;
+    return process.exit(1);
 }
+
+return process.exit(0);
