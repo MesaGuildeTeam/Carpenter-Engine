@@ -1,7 +1,3 @@
-/**
- * Javascript module that sets up the game development environment for the game engine
- */
-
 const child_process = require('child_process');
 const utils = require('./utils.js');
 const fs = require('node:fs');
