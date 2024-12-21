@@ -1,6 +1,6 @@
-# Install emscripten
-git clone https://github.com/emscripten-core/emsdk.git
+#!/bin/bash
+
 cd emsdk
 git pull
-./emsdk install latest || ./emsdk.bat install latest
-./emsdk activate latest || ./emsdk.bat activate latest
+./emsdk install latest
+./emsdk activate latest
