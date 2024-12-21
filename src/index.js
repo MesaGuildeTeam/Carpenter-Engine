@@ -33,8 +33,7 @@ if (process.argv.length <= 2) {
 
 switch (process.argv[2]) {
   case 'setup': 
-    setup.installEmscripten(); 
-    break;
+    return setup.installEmscripten();
   default:
     console.error(`${utils.Asciis.TableFlipper} Unknown command ${process.argv[2]}\n`);
     ShowHelp();

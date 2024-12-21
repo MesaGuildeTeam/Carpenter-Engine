@@ -111,7 +111,7 @@ async function callShellProgram(script) {
 /**
  * Installs Emscripten if it is not installed with the configuration defnined in its parameters 
  */
-async function installEmscripten(config = {}) {
+function installEmscripten(config = {}) {
   // Check if emscripten is installed first 
   findCompiler('em++', async (result) => {
     if (await findPathLocal("emsdk") || result) {
@@ -122,8 +122,7 @@ async function installEmscripten(config = {}) {
     }
 
     console.log(`Installing/Updating Emscripten`);
-    callShellProgram(process.cwd() + "/scripts/installEmcc")
-
+    return callShellProgram(process.cwd() + "/scripts/installEmcc")
   }, false);
 }
 
