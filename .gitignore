@@ -1,8 +1,7 @@
 .vscode
 
-# Emscripten Build Process
+# C++ Build Stuff
 build
-docs/doxygen
 
 **/*.o
 **/*.tmp
@@ -11,3 +10,8 @@ docs/doxygen
 node_modules
 package-lock.json
 yarn.lock
+emsdk
+
+# Generated Documentation
+docs/jsdoc
+docs/doxygen
