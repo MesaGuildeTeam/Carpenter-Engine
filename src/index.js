@@ -3,13 +3,14 @@
  */
 
 const setup = require('./setup.js');
-const package = require('../package.json');
+const pkg = require('../package.json');
 const utils = require('./utils.js');
 
 // Debug to see what the arguments are
 //console.log(process.argv);
-const title = `${utils.Asciis.Table} Table Engine v${package.version} ${utils.Asciis.Table}
-${package.description}\n`
+const title = `  ${utils.Asciis.Table} Table Engine v${pkg.version} ${utils.Asciis.Table}
+-----------------${'-'.repeat(pkg.version.length)}---------
+${pkg.description}\n`
 
 const usage = `Usage: table <command> [options]\n`
   
