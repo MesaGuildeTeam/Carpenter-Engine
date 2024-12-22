@@ -1,9 +1,10 @@
 {
-    "plugins": [],
+    "plugins": ["plugins/markdown"],
     "recurseDepth": 10,
     "source": {
         "includePattern": ".+\\.js(doc|x)?$",
-        "excludePattern": "(^|\\/|\\\\)_"
+        "excludePattern": "(^|\\/|\\\\)_",
+        "exclude": ["node_modules", "emsdk", "build", "docs/jsdoc", "docs/doxygen"]
     },
     "sourceType": "module",
     "tags": {

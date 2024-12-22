@@ -11,6 +11,7 @@ node_modules
 package-lock.json
 yarn.lock
 emsdk
+objs
 
 # Generated Documentation
 docs/jsdoc

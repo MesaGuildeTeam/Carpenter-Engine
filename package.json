@@ -9,7 +9,7 @@
   },
   "scripts": {
     "test": "jest --coverage",
-    "build_docs": "jsdoc src -c jsdoc.json -r -d docs/jsdoc/"
+    "build_docs": "jsdoc ./ -c jsdoc.json -r -d docs/jsdoc/ -R ./docs/overview.md"
   },
   "repository": {
     "type": "git",

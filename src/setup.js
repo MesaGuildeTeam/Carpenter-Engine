@@ -1,3 +1,5 @@
+/** @namespace Setup */
+
 const child_process = require('child_process');
 const utils = require('./utils.js');
 const fs = require('node:fs');
@@ -15,6 +17,8 @@ const scriptExtension = process.platform === 'win32' ? 'bat' : 'sh';
  * @param {boolean} considerLocalPath Whether to search for the compiler from the local home directory
  * 
  * @warning This function will currently check for the compiler your whole drive if considerLocalPath is set to true. It is not recommended for now until the tool knows who the user is.
+ * 
+ * @memberof Setup
  */
 async function findCompiler(program, callback, considerLocalPath) {
   process.stdout.write(`Searching for ${program} in PATH ` + utils.Asciis.Waiting);
@@ -77,6 +81,7 @@ async function findCompiler(program, callback, considerLocalPath) {
  * returns true if the path exists in the project directory
  *  
  * @param {string} path the name of the directory to check
+ * @memberof Setup
  */
 async function findPathLocal(path) {
   await fs.stat(path, (err, status) => {
@@ -88,7 +93,8 @@ async function findPathLocal(path) {
 /**
  * Runs the following script from the scripts folder. Uses the appropriate extension based on the OS
  * 
- * @param {string} script The script to run 
+ * @param {string} script The script to run
+ * @memberof Setup
  */
 async function callShellProgram(script) { 
   let child = await child_process.exec(`sh "${script}.${scriptExtension}"`, (err, stdout, stderr) => {
@@ -110,6 +116,7 @@ async function callShellProgram(script) {
 
 /**
  * Installs Emscripten if it is not installed with the configuration defnined in its parameters 
+ * @memberof Setup
  */
 function installEmscripten(config = {}) {
   // Check if emscripten is installed first 
