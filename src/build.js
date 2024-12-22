@@ -12,7 +12,7 @@ const EMCC = (process.platform == 'win32' ? "emsdk\\upstream\\emscripten\\em++.b
 
 const srcLocation = buildConfig.inputPath || process.cwd() + '/src';
 const outputLocation = buildConfig.outputPath || process.cwd() + '/objs';
-const FrameworkLibrary = buildConfig.frameworkPath || '../objs';
+const FrameworkLibrary = buildConfig.frameworkPath != null ? buildConfig.frameworkPath : process.cwd() + '/node_modules/table-engine/objs';
 
 /**
  * Recursive function
@@ -22,7 +22,7 @@ const FrameworkLibrary = buildConfig.frameworkPath || '../objs';
 function processFiles(folder, extension, callback) {
   fs.readdirSync(folder).forEach(file => {
     if (fs.statSync(path.join(folder, file)).isDirectory()) {
-      processCppFiles(path.join(folder, file), callback);
+      processFiles(path.join(folder, file), ".cpp", callback);
     } else if (file.endsWith(extension)) {
       callback(file.split('.')[0], folder);
     }
@@ -65,7 +65,12 @@ function buildGame(config = {}) {
     let filesList = "";
     processFiles(outputLocation, ".o", (file, folder) => {
       filesList = filesList + `${folder}/${file}.o `;
-    })
+    });
+    if (FrameworkLibrary != "")
+      processFiles(FrameworkLibrary, ".o", (file, folder) => {
+        filesList = filesList + `${folder}/${file}.o `;
+      });
+
     let exec = `${EMCC} ${filesList} -o ./build/engine.js -sEXPORTED_FUNCTIONS=_CallUpdate,_CallDraw -sEXPORTED_RUNTIME_METHODS=ccall,cwrap --bind -sALLOW_MEMORY_GROWTH`;
     console.log(exec);
     child_process.execSync(exec);
