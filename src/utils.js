@@ -15,7 +15,7 @@ const Asciis = {
 }
 
 function throwError(message) {
-  console.error("An error has occured" + Asciis.TableFlipper + "\n\n" + message);
+  console.error("An error has occured" + Asciis.TableFlip + "\n\n" + message);
 }
 
 module.exports = {
