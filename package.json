@@ -9,7 +9,8 @@
   },
   "scripts": {
     "test": "jest --coverage",
-    "build_docs": "jsdoc ./ -c jsdoc.json -r -d docs/jsdoc/ -R ./docs/overview.md"
+    "build_docs": "jsdoc ./ -c jsdoc.json -r -d docs/jsdoc/ -R ./docs/overview.md",
+    "build": "npx table setup && npx table build -b"
   },
   "repository": {
     "type": "git",
