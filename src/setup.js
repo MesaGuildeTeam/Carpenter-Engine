@@ -3,7 +3,7 @@
 const child_process = require('child_process');
 const utils = require('./utils.js');
 const fs = require('node:fs');
-const path = require('path');
+const os = require('os');
 
 const packageDir = require.resolve('../package.json');
 
@@ -35,45 +35,23 @@ async function findCompiler(program, callback, considerLocalPath) {
     process.stdout.write(`${utils.Asciis.Fail} `);
     console.log(`${program} not found in path `);
 
-    process.stdout.write(`Searching for ${program} in local` + utils.Asciis.Waiting);
+    process.stdout.write(`Searching for ${program} in local ` + utils.Asciis.Waiting);
 
-    await child_process.exec(`find ./ -name ${program}`, {cwd: process.cwd()}, async(err, stdout, stderr) => {
+    fs.stat(os.homedir() + '/.table-engine/emsdk', (err, status) => {
       process.stdout.moveCursor(-5, 0);
-    
-      if (!err && stdout.length > 0) {
-        process.stdout.write(` ${utils.Asciis.Success} `);
-        console.log(`${program} found in ${stdout}`);
-        callback(true);
-        return;
-      }
-
-      process.stdout.write(` ${utils.Asciis.Fail} `);
-      console.log(`${program} not found in project`);
-      
-      if (!considerLocalPath) {
+      if (err) {
+        process.stdout.write(` ${utils.Asciis.Fail} `);
+        console.log(`${program} not found in local`);
         callback(false);
         return;
-      } 
-      
-      if (considerLocalPath) {
-      process.stdout.write(`Searching for ${program} in local` + utils.Asciis.Waiting);
-        await child_process.exec(`find ~/ -name ${program}`, {cwd: process.cwd()}, (err, stdout, stderr) => {
-          process.stdout.moveCursor(-5, 0);
-        
-          if (!err && stdout.length > 0) {
-            process.stdout.write(` ${utils.Asciis.Success} `);
-            console.log(`${program} found in ${stdout}`);
-            callback(true);
-            return;
-          }
-
-          process.stdout.write(` ${utils.Asciis.Fail} `);
-          console.log(`${program} not found in local path`);
-          callback(false);
-          return;
-        })
       }
-    });
+
+      process.stdout.write(` ${utils.Asciis.Success} `);
+      console.log(`${program} found in ${os.homedir()}/.table-engine/emsdk`);
+      callback(true);
+      return
+    })
+    
   });
 }
 
@@ -121,14 +99,14 @@ async function callShellProgram(script) {
 function installEmscripten(config = {}) {
   // Check if emscripten is installed first 
   findCompiler('em++', async (result) => {
-    if (await findPathLocal("emsdk") || result) {
-      console.log("emsdk has already been downloaded", utils.Asciis.Unflip);
+    if (result) {
+      console.log("emsdk has already been setup for table engine", utils.Asciis.Unflip);
     } else {
       console.log(`Downloading Emscripten`);
       await callShellProgram(__dirname + "/../scripts/downloadEmcc")
     }
 
-    console.log(`Installing/Updating Emscripten`);
+    console.log(`Activating Emscripten`);
     return callShellProgram(__dirname + "/../scripts/installEmcc")
   }, false);
 }
