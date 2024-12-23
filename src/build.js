@@ -3,6 +3,7 @@
 const child_process = require('child_process');
 const fs = require('node:fs');
 const path = require('path');
+const os = require('os');
 
 const utils = require('./utils');
 
@@ -14,11 +15,13 @@ try {
   buildConfig = {};
 };
 
-const EMCC = (process.platform == 'win32' ? "emsdk\\upstream\\emscripten\\em++.bat" : "./emsdk/upstream/emscripten/em++");
+const EMCC = (process.platform == 'win32' ? os.homedir() + "\\.table-engine\\emsdk\\upstream\\emscripten\\em++.bat" : "~/.table-engine/emsdk/upstream/emscripten/em++");
 
 const srcLocation = buildConfig.inputPath || process.cwd() + '/src';
 const outputLocation = buildConfig.outputPath || process.cwd() + '/objs';
 const FrameworkLibrary = buildConfig.frameworkPath != null ? buildConfig.frameworkPath : process.cwd() + '/node_modules/table-engine/objs';
+const includeDir = buildConfig.includeDir != null ? buildConfig.includeDir : 'node_modules/table-engine/src/engine/';
+const staticDir = buildConfig.static != null ? buildConfig.static : 'node_modules/table-engine/src/static/';
 
 /**
  * Recursive function
@@ -42,7 +45,7 @@ function processFiles(folder, extension, callback) {
  * @memberof Build
  */
 function buildFile(path, folder) {
-  let execCmd = `${EMCC} -c ${folder}/${path}.cpp -o ${outputLocation}/${path}.o -std=c++20 ${buildConfig.includeDir != null ? `-I${buildConfig.includeDir}` : ""}`
+  let execCmd = `${EMCC} -c "${folder}/${path}.cpp" -o "${outputLocation}/${path}.o" -std=c++20 -I${includeDir}`
   console.log(execCmd);
   child_process.execSync(execCmd, {"cwd": process.cwd()});
 }
@@ -58,7 +61,7 @@ const defaultBuildSteps = {
  * Goes through the whole build process of the game and its engine
  * @memberof Build
  */
-function buildGame(config = {}) {
+function buildGame(config = defaultBuildSteps) {
   console.log(process.cwd())
   // Build process
   if (config.runBuild)
@@ -70,11 +73,11 @@ function buildGame(config = {}) {
   if (config.runLink) {
     let filesList = "";
     processFiles(outputLocation, ".o", (file, folder) => {
-      filesList = filesList + `${folder}/${file}.o `;
+      filesList = filesList + `"${folder}/${file}.o" `;
     });
     if (FrameworkLibrary != "")
       processFiles(FrameworkLibrary, ".o", (file, folder) => {
-        filesList = filesList + `${folder}/${file}.o `;
+        filesList = filesList + `"${folder}/${file}.o" `;
       });
 
     let exec = `${EMCC} ${filesList} -o ./build/engine.js -sEXPORTED_FUNCTIONS=_CallUpdate,_CallDraw -sEXPORTED_RUNTIME_METHODS=ccall,cwrap --bind -sALLOW_MEMORY_GROWTH`;
@@ -84,12 +87,15 @@ function buildGame(config = {}) {
 
   // Package process
   if (config.runPackage)
-    console.log(child_process.execSync(`cp -r ${buildConfig.static}/* ./build/`));
+    console.log(child_process.execSync(`cp -r ${staticDir}/* ./build/`));
 
   return process.exit(0);
 }
 
 function processArgs(argv) {
+  if (argv.length == 0)
+    return defaultBuildSteps;
+
   let buildSettings = {};
   argv.forEach(element => {
     switch (element) {
