@@ -24,7 +24,7 @@ async function findCompiler(program, callback, considerLocalPath) {
   process.stdout.write(`Searching for ${program} in PATH ` + utils.Asciis.Waiting);
   process.stdout.moveCursor(-5, 0);
 
-  await child_process.exec(`which ${program}`, async (err, stdout, stderr) => {
+  await child_process.exec(`which ${program}`, {cwd: process.cwd()}, async (err, stdout, stderr) => {
     if (!err) {
       process.stdout.write(` ${utils.Asciis.Success} `);
       console.log(`${program} found in ${stdout}`);
@@ -37,7 +37,7 @@ async function findCompiler(program, callback, considerLocalPath) {
 
     process.stdout.write(`Searching for ${program} in local` + utils.Asciis.Waiting);
 
-    await child_process.exec(`find ./ -name ${program}`, async(err, stdout, stderr) => {
+    await child_process.exec(`find ./ -name ${program}`, {cwd: process.cwd()}, async(err, stdout, stderr) => {
       process.stdout.moveCursor(-5, 0);
     
       if (!err && stdout.length > 0) {
@@ -57,7 +57,7 @@ async function findCompiler(program, callback, considerLocalPath) {
       
       if (considerLocalPath) {
       process.stdout.write(`Searching for ${program} in local` + utils.Asciis.Waiting);
-        await child_process.exec(`find ~/ -name ${program}`, (err, stdout, stderr) => {
+        await child_process.exec(`find ~/ -name ${program}`, {cwd: process.cwd()}, (err, stdout, stderr) => {
           process.stdout.moveCursor(-5, 0);
         
           if (!err && stdout.length > 0) {
@@ -97,7 +97,7 @@ async function findPathLocal(path) {
  * @memberof Setup
  */
 async function callShellProgram(script) { 
-  let child = await child_process.exec(`sh "${script}.${scriptExtension}"`, (err, stdout, stderr) => {
+  let child = await child_process.exec(`sh "${script}.${scriptExtension}"`, {cwd: process.cwd()}, (err, stdout, stderr) => {
     console.log("\x1b[0m");
   });
 
@@ -125,11 +125,11 @@ function installEmscripten(config = {}) {
       console.log("emsdk has already been downloaded", utils.Asciis.Unflip);
     } else {
       console.log(`Downloading Emscripten`);
-      await callShellProgram(process.cwd() + "/scripts/downloadEmcc")
+      await callShellProgram(__dirname + "/../scripts/downloadEmcc")
     }
 
     console.log(`Installing/Updating Emscripten`);
-    return callShellProgram(process.cwd() + "/scripts/installEmcc")
+    return callShellProgram(__dirname + "/../scripts/installEmcc")
   }, false);
 }
 

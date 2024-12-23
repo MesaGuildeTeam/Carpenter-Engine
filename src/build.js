@@ -6,7 +6,13 @@ const path = require('path');
 
 const utils = require('./utils');
 
-const buildConfig = require(process.cwd() + '/tableconf.json') || {};
+var buildConfig;
+
+try {
+  buildConfig = require(process.cwd() + '/tableconf.json') 
+} catch (exception) {
+  buildConfig = {};
+};
 
 const EMCC = (process.platform == 'win32' ? "emsdk\\upstream\\emscripten\\em++.bat" : "./emsdk/upstream/emscripten/em++");
 
