@@ -6,11 +6,13 @@
 A Modular C++ Game Engine designed to take advantage of WebAssembly and web browser technology to create flexible web clients.
 The purpose of the game engine will be to develop 2D and 2.5D games, but the goal is for the engine to be engine to be flexible that you can add any feature possible.
 
+The game engine comes with both the framework to develop games in the game engine, and a CLI to assist developing the game such as installing compilers and building the game for you.
+
 ## Tech Stack
 
 Building the game engine requires the following packages before proceeding:
 - node.js
-- Python (may need if python can not be setup on computer immediately)
+- Python (may be needed if the emsdk installer can not use its own python)
 
 ## Usage
 To use the the engine in your own project:

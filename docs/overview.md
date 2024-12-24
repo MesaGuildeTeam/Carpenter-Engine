@@ -4,6 +4,8 @@
 Table Engine is a Modular C++ Game Engine designed to take advantage of WebAssembly and web browser technology to create flexible web clients.
 The purpose of the game engine will be to develop 2D and 2.5D games, but the goal is for the engine to be engine to be flexible that you can add any feature possible.
 
+The game engine comes with both the framework to develop games in the game engine, and a CLI to assist developing the game such as installing compilers and building the game for you.
+
 For the design document, please refer to [This Google Document](https://docs.google.com/document/d/1oLOHmxrwEfjTDFo12rYifWIXcJgFl-JyXFgPHCGT00A)
 
 # Tech Stack
