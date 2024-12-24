@@ -1,0 +1,14 @@
+#!/usr/bin/env node
+
+const child_process = require('child_process')
+const path = require('path')
+const fs = require('fs')
+const os = require('os')
+
+const emscriptenCmd = `${os.homedir()}/.table-engine/emsdk/upstream/emscripten/${process.argv[2]}`;
+
+//var result = child_process.spawnSync(emscriptenCmd, process.argv.slice(3, process.argv.length), {cwd: process.cwd()});
+
+var arguments = process.argv.slice(3, process.argv.length).join(' ');
+
+child_process.execSync(`${emscriptenCmd} ${arguments}`, {cwd: process.cwd()});

@@ -17,7 +17,8 @@
     "url": "git+https://github.com/MesaGuildeTeam/Table-Engine.git"
   },
   "bin": {
-    "table": "./bin/table"
+    "table": "./bin/table",
+    "emsc_sc": "./bin/emsc_sc"
   },
   "keywords": [
     "C++",
