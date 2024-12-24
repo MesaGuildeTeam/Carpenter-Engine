@@ -101,10 +101,10 @@ function installEmscripten(config = {}) {
   findCompiler('em++', async (result) => {
     if (result) {
       console.log("emsdk has already been setup for table engine", utils.Asciis.Unflip);
-      return;
-    } 
-    console.log(`Installing and/or Activating Emscripten`);
-    callShellProgram(__dirname + "/../scripts/installEmcc")
+    } else {
+      console.log(`Installing and/or Activating Emscripten`);
+      callShellProgram(__dirname + "/../scripts/installEmcc")
+    }
 
     console.log("Creating directories");
     fs.mkdir(process.cwd() + "/objs", (err) => {
