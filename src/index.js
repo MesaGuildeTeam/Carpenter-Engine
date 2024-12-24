@@ -16,7 +16,7 @@ const commands = `Commands:
 
   build   Build the project with the configuration used. If no configuration is provided, the complete build process will be used
   options:
-    -b    Run the build process and convert the .cpp files into modules
+    -b    Compile the .cpp files into wasm .o files
     -l    Link all the files together
     -p    Package the static html into the project
 `
