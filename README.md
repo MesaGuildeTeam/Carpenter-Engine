@@ -8,17 +8,27 @@ The purpose of the game engine will be to develop 2D and 2.5D games, but the goa
 
 ## Tech Stack
 
-Building the game engine requires the following packages (can be installed in ubuntu's package repos):
-- emscripten
-- make
+Building the game engine requires the following packages before proceeding:
+- node.js
+- Python (may need if python can not be setup on computer immediately)
+
+## Usage
+To use the the engine in your own project:
+```sh
+npm install --save-dev table-engine
+npx table setup # install emscripten into your project, and generates necessary folders
+npx table build # takes the existing game code from src, compiles, links, and packages it with a static HTML5 and CSS page
+```
+
+This process will generate the following standardized folders: `objs` and `build`. From here you can distribute the static webpage as needed.
 
 ## Building Process
-Use the following build process to build the engine
+to build the game engine yourself, you will need to use the following 
 
 ```
 git clone https://github.com/MesaGuildeTeam/Table-Engine
 cd Table-Engine
-make
+npm run build
 ```
 
-this will not be the final build process. The game engine will be packaged within an npm package(?) along with any other tools the game engine will come with in the future.
+The game engine uses its own cli to build itself allowing its compatibility with other projects a lot easier.

@@ -1,6 +1,5 @@
 {
   "inputPath": "./src/engine",
-  "outputPath": "objs",
   "frameworkPath": "",
   "includeDir": "src/engine/",
   "static": "src/static"
