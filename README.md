@@ -24,13 +24,15 @@ npx table build # takes the existing game code from src, compiles, links, and pa
 
 This process will generate the following standardized folders: `objs` and `build`. From here you can distribute the static webpage as needed.
 
-## Building Process
-to build the game engine yourself, you will need to use the following 
+## Build it Yourself
+to build the game engine yourself (assuming you have not cloned the repo yet), you will need to use the following process.
 
-```
+```sh
 git clone https://github.com/MesaGuildeTeam/Table-Engine
 cd Table-Engine
 npm run build
 ```
 
-The game engine uses its own cli to build itself allowing its compatibility with other projects a lot easier.
+This will install emsdk similar to using a release of the project, and build the game engine into .o files.
+
+If you want to read more about the technical details of the game engine, I recommend to start with docs/overview.md
