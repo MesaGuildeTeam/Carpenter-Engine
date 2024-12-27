@@ -29,7 +29,7 @@ async function findPathLocal(path) {
  * @memberof Setup
  */
 async function callShellProgram(script) { 
-  let child = await child_process.exec(`${process.platform === 'win32' ? "sh " : ""}"${script}.${scriptExtension}"`, {cwd: process.cwd()}, (err, stdout, stderr) => {
+  let child = await child_process.exec(`${process.platform === 'win32' ? "" : "sh "}"${script}.${scriptExtension}"`, {cwd: process.cwd()}, (err, stdout, stderr) => {
     console.log("\x1b[0m");
   });
 
