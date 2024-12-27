@@ -7,7 +7,7 @@ const os = require('os');
 
 const packageDir = require.resolve('../package.json');
 
-const scriptExtension = process.platform === 'win32' ? 'bat' : 'sh';
+const scriptExtension = process.platform === 'win32' ? 'ps1' : 'sh';
 
 /**
  * returns true if the path exists in the project directory
@@ -29,7 +29,7 @@ async function findPathLocal(path) {
  * @memberof Setup
  */
 async function callShellProgram(script) { 
-  let child = await child_process.exec(`${process.platform === 'win32' ? "" : "sh "}"${script}.${scriptExtension}"`, {cwd: process.cwd()}, (err, stdout, stderr) => {
+  let child = await child_process.exec(`${process.platform === 'win32' ? "powershell.exe -File " : "sh "}"${script}.${scriptExtension}"`, {cwd: process.cwd()}, (err, stdout, stderr) => {
     console.log("\x1b[0m");
   });
 
