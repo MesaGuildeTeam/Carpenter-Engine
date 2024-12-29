@@ -1,0 +1,40 @@
+{
+  "name": "table-engine",
+  "version": "0.1.0-snapshot",
+  "description": "A C++ game engine that takes advantage of WASM, and the web browser DOM",
+  "main": "src/index.js",
+  "directories": {
+    "doc": "docs",
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "jest --coverage",
+    "build_docs": "jsdoc ./ -c jsdoc.json -r -d docs/jsdoc/ -R ./docs/overview.md",
+    "build": "npx table setup && npx table build -b"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MesaGuildeTeam/Table-Engine.git"
+  },
+  "bin": {
+    "table": "./bin/table",
+    "emsc_sc": "./bin/emsc_sc"
+  },
+  "keywords": [
+    "C++",
+    "WASM",
+    "Gamedev",
+    "Engine",
+    "Games"
+  ],
+  "author": "MesaGuilde Studios",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MesaGuildeTeam/Table-Engine/issues"
+  },
+  "homepage": "https://github.com/MesaGuildeTeam/Table-Engine#readme",
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "jsdoc": "^4.0.4"
+  }
+}

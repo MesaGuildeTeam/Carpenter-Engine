@@ -6,10 +6,10 @@ Engine::UI::UIButton::UIButton(std::string name, std::string text, void (&callba
   m_uiClass = "ui-button";
 }
 
-int Engine::UI::UIButton::m_mouseClickEmscripten(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData) {
+bool Engine::UI::UIButton::m_mouseClickEmscripten(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData) {
   Engine::UI::UIButton* button = (Engine::UI::UIButton*)userData;
   button->OnClick();
-  return 1;
+  return true;
 }
 
 void Engine::UI::UIButton::Init() {
@@ -22,5 +22,5 @@ void Engine::UI::UIButton::Init() {
 
   std::cout << "DEBUG: Linking callback to button " << element << std::endl;
   
-  emscripten_set_click_callback(element, (void *)this, false, Engine::UI::UIButton::m_mouseClickEmscripten);
+  emscripten_set_click_callback(element, (void *)this, false, &Engine::UI::UIButton::m_mouseClickEmscripten);
 }

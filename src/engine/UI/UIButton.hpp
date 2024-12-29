@@ -16,7 +16,7 @@ namespace Engine::UI {
      * @param mouseEvent The mouse event
      * @param userData The class itself
      */
-    static int m_mouseClickEmscripten(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData);
+    static bool m_mouseClickEmscripten(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData);
 
     public:
 

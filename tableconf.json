@@ -1,0 +1,6 @@
+{
+  "inputPath": "./src/engine",
+  "frameworkPath": "",
+  "includeDir": "src/engine/",
+  "static": "src/static"
+}
