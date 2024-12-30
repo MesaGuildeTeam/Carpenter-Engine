@@ -1,5 +1,4 @@
 #include <Game.hpp>
-#include <Window.hpp>
 
 #include <UI/UIElement.hpp>
 #include <UI/UILabel.hpp>
@@ -48,8 +47,7 @@ class TestScene : public Engine::Scene {
     };
 };
 
-Engine::Window& window{Engine::Window::getWindow()};
-Engine::Game game(new TestScene());
+Engine::Game game = Engine::Game::getInstance(new TestScene());
 
 extern "C" {
   EMSCRIPTEN_KEEPALIVE void CallDraw() { game.DrawScene(); }

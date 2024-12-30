@@ -1,6 +1,6 @@
 const game = {
-  gl: null,
-  canvas: null,
+  gl: {},
+  canvases: {},
   uiContainer: null,
   ready: false
 };

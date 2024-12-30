@@ -1,36 +1,24 @@
 @startuml EngineArchitecture
 
 namespace Engine {
-  class Window <<Singleton>> {
-    - {static} Window window
-    - {method} Window()
-
-    + {method} {static} Window& GetWindow()
+  class Renderer {
+    + {method} Renderer(elementId)
     
     + {method} DrawMesh()
     + {method} DrawMesh2D()
-
-    + {method} LoadTexture()
-    + {method} ClearTexture()
-    + {method} SetMaterial()
-    + {method} SetFilters(string)
-
-    + {method} IsKeyboardPressed(char key)
-    + {method} IsKeyboardRelease(char key)
-    + {method} IsKeyboardDown(char key)
-
-    + {method} IsMousePressed(int button)
-    + {method} IsMouseReleased(int button)
-    + {method} IsMouseDown(int button)
   }
 
   class FileManager <<Singleton>> {
     
   }
 
-  class Game {
+  class Game <<Singleton>> {
     + Scene* m_currentScene
     + std::map<string, Scene*> m_loadedScenes
+
+    - {static} Renderer m_Instance
+    + {static} {method} getInstance()
+
     
     + {method} AddScene()
     + {method} RemoveScene()
@@ -68,7 +56,7 @@ namespace Engine {
   }
 
   Scene -* Game
-  Window .> InputManager
+  Renderer --* Game
 
   namespace UI {
     class UIElement {
@@ -128,8 +116,8 @@ namespace Engine {
     Shader -* Material
   }
 
-  Graphics.Material .> Window
-  Graphics.Mesh .> Window
+  Graphics.Material .> Renderer 
+  Graphics.Mesh .> Renderer 
 }
 
 namespace Browser {
@@ -149,7 +137,7 @@ namespace Browser {
   DOM *.. Canvas
 }
 
-Engine.Window .> Browser.Canvas
+Engine.Renderer .> Browser.Canvas
 Engine.Game ..* Browser.DOM : "CallDraw and CallUpdate are running through a loop created \nwith javascript on window.addEventListener('load')"
 Engine.UI.UIElement ..> Browser.User_Interface
 

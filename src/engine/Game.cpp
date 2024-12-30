@@ -1,6 +1,21 @@
 #include "Game.hpp"
+#include <emscripten.h>
+
+Engine::Game& Engine::Game::getInstance(Engine::Scene* startingScene) {
+  static Game instance(startingScene);
+  return instance;
+}
 
 Engine::Game::Game(Scene* startingScene) {
+  m_renderer = Renderer("canvas");
+  EM_ASM(
+    game.ready = true;
+    game.canvases["canvas"].width = window.innerWidth;
+    game.canvases["canvas"].height = window.innerHeight;
+
+    game.uiContainer = document.getElementById('ui-layer');
+  );
+
   AddScene("Scene0", startingScene);
   SwitchScene("Scene0");
 }

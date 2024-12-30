@@ -2,26 +2,34 @@
 #define ENGINE_GAME
 
 #include "Node.hpp"
+#include "Renderer.hpp"
 #include <map>
 
 namespace Engine {
   
   /**
-   * The game class (singleton?) used to run the game loop
+   * The game class singleton used to run the game loop
    */
   class Game {
     private:
     Scene* m_currentScene;
     std::map<const char*, Scene*> m_loadedScenes;
 
-    public:
-    
+    Renderer m_renderer;
+
+    // SINGLETON STUFF //
+    static Game* m_instance;
+
     /**
      * Constructor with default scene
      * 
      * @param startingScene The scene to start the game with
      */
     Game(Scene* startingScene);
+
+    public:
+
+    static Game& getInstance(Engine::Scene* startingScene = nullptr); 
 
     /**
      * Adds a scene to the game
