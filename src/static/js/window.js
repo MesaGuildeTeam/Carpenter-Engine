@@ -2,16 +2,15 @@ const game = {
   gl: {},
   canvases: {},
   uiContainer: null,
-  ready: false
+  ready: false,
+
+  soundManager: new AudioContext(),
+  songQueue: [],
+  soundElements: {},
+  sounds: {}
 };
 
-function windowLoop() {
-  if (!game.ready)
-    return;
-  
-  _CallUpdate();
-  _CallDraw();
-}
+// Window Management
 
 window.addEventListener('resize', () => {
   if (!game.ready)
@@ -20,6 +19,15 @@ window.addEventListener('resize', () => {
   game.canvas.width = window.innerWidth;
   game.canvas.height = window.innerHeight;
 });
+
+// Game Loop 
+function windowLoop() {
+  if (!game.ready)
+    return;
+  
+  _CallUpdate();
+  _CallDraw();
+}
 
 window.addEventListener('load', () => {
   setInterval(windowLoop, 1000/60);
