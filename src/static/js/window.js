@@ -17,8 +17,8 @@ window.addEventListener('resize', () => {
   if (!game.ready)
     return;
 
-  game.canvas.width = window.innerWidth;
-  game.canvas.height = window.innerHeight;
+  game.canvases["canvas"].width = window.innerWidth;
+  game.canvases["canvas"].height = window.innerHeight;
 });
 
 window.addEventListener('load', () => {
