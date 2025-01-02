@@ -128,7 +128,6 @@ WARN_LOGFILE           =
 #---------------------------------------------------------------------------
 INPUT                  = ./src \
                          ./docs \
-                         ./examples \
                          ./tests \
                          ./scripts
 INPUT_ENCODING         = UTF-8
