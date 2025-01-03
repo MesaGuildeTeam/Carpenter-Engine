@@ -13,6 +13,12 @@ void Engine::Audio::Music::Play() {
   }, m_filename);
 }
 
+void Engine::Audio::Music::Pause() {
+  EM_ASM({
+    game.sounds[UTF8ToString($0)].pause();
+  }, m_filename);
+}
+
 Engine::Audio::SoundState Engine::Audio::Music::playing() {
   int result = EM_ASM_INT({
     if (game.songQueue.includes(game.sounds[UTF8ToString($0)])) {

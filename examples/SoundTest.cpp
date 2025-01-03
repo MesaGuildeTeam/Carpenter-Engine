@@ -10,7 +10,7 @@ Engine::Audio::Music sampleSong("Assets/demo.wav");
 
 void MusicToggle() {
   if (sampleSong.playing() == Engine::Audio::SoundState::Playing) {
-    return;
+    sampleSong.Pause();
   } else {
     sampleSong.Play();
   }

@@ -19,6 +19,11 @@ const game = {
 
 // Audio System
 
+/**
+ * A callback used to run the music queue when the window has been clicked anywhere once.
+ * 
+ * Due to autoplay by default being disabled on browsers, the autoplay must occur when the screen has been clicked once. This method is called to do that when the screen is clicked.
+ */
 function PrepareAudioModule() {
   if (game.playerReady) {
     game.songQueue[0].play();
@@ -82,6 +87,13 @@ game.Audio = class {
     }
 
     throw new Error(`ERROR: Although this should have been done already, this needs to be prepared as a Song or a Sound before use`);
+  }
+
+  /**
+   * Pauses the audio file
+   */
+  pause() {
+    this.element.pause();
   }
 
   isPlaying() {
