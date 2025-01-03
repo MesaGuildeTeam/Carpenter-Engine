@@ -1,10 +1,19 @@
 #include <Game.hpp>
 #include <UI/UIButton.hpp>
+#include <Audio/Music.hpp>
 
 #include <iostream>
 
-void MusicToggle() {
+// Song
 
+Engine::Audio::Music sampleSong("Assets/demo.wav");
+
+void MusicToggle() {
+  if (sampleSong.playing() == Engine::Audio::SoundState::Playing) {
+    return;
+  } else {
+    sampleSong.Play();
+  }
 }
 
 void PlaySound() {
@@ -31,6 +40,8 @@ class TestContainer: public Engine::UI::UIElement {
     
     ((Engine::UI::UIElement*)GetChild(SoundsTestContainer))->SetAnchor("topright");
     ((Engine::UI::UIElement*)GetChild(SoundsTestContainer))->AddChild((Engine::Node*) new Engine::UI::UIButton("SoundPulse", "Play Sound", PlaySound));
+
+    sampleSong.Play();
   };
 };
 
