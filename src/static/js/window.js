@@ -7,6 +7,7 @@ const game = {
   ready: false,
 
   musicManager: null,
+  playerReady: false,
   songQueue: [],
   sounds: {},
   musicNodes: {},
@@ -17,6 +18,14 @@ const game = {
 };
 
 // Audio System
+
+function PrepareAudioModule() {
+  if (game.playerReady) {
+    game.songQueue[0].play();
+    game.musicManager.resume();
+    window.removeEventListener('click', PrepareAudioModule);
+  }
+}
 
 /**
  * A sound class container implemented in JavaScript.
@@ -56,12 +65,18 @@ game.Audio = class {
    */
   play() {
     if (this.type == 'song') {
-      if (game.musicManager.paused || game.musicManager.state == 'suspended')
-        game.musicManager.resume();
-
       if (!game.songQueue.includes(this))
         game.songQueue.push(this);
       
+      if (game.musicManager.state == 'suspended') {
+        game.songQueue[0].element.play().catch(e => {
+          console.warn("WARNING: Engine can not play audio yet. Engine will tell music queue ");
+          game.playerReady = true;
+          window.addEventListener('click', PrepareAudioModule);
+        });
+        return;
+      }     
+
       game.songQueue[0].element.play();
       return;
     }
