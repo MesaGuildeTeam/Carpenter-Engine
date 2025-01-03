@@ -4,7 +4,7 @@ const game = {
   uiContainer: null,
   ready: false,
 
-  soundManager: new AudioContext(),
+  soundManager: null,
   songQueue: [],
   soundElements: {},
   sounds: {}
@@ -30,5 +30,7 @@ function windowLoop() {
 }
 
 window.addEventListener('load', () => {
+  game.soundManager = new AudioContext();
+  
   setInterval(windowLoop, 1000/60);
 });
