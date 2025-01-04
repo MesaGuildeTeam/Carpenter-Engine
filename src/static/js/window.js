@@ -63,12 +63,25 @@ game.Audio = class {
     this.source.connect(game.musicManager.destination);
   }
 
+  makeSound() {
+    this.type = 'sound';
+  }
+
   /**
    * Plays the audio file as defined by the type.
    * 
    * If this is a song, it will play the first song in the queue
    */
   play() {
+    if (this.type == 'sound') {
+      let soundClone = this.element.cloneNode(true);
+      game.musicManager.createMediaElementSource(soundClone).connect(game.musicManager.destination);
+      
+      soundClone.play();
+
+      return;
+    }
+
     if (this.type == 'song') {
       if (!game.songQueue.includes(this))
         game.songQueue.push(this);
@@ -91,6 +104,8 @@ game.Audio = class {
 
   /**
    * Pauses the audio file
+   * 
+   * @warn This is only useful if this is a song
    */
   pause() {
     this.element.pause();
