@@ -11,7 +11,9 @@ Engine::Audio::Music sampleSong("../Assets/demo.wav");
 Engine::Audio::Sound sampleSound("../Assets/drop.mp3");
 
 void MusicToggle() {
-  if (sampleSong.playing() == Engine::Audio::SoundState::Playing) {
+  Engine::Audio::SoundState state = sampleSong.playing();
+  //std::cout << state << "\n"; // Used to debug the state of the song
+  if (state == Engine::Audio::SoundState::Playing) {
     sampleSong.Pause();
   } else {
     sampleSong.Play();

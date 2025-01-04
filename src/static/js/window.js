@@ -113,7 +113,7 @@ game.Audio = class {
 
   isPlaying() {
     if (this.type == 'song')
-      return this.element.currentTime > 0 && this.element.currentTime < this.element.duration;
+      return this.element.paused == false;
 
     return false;
   }
