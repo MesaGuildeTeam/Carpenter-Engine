@@ -125,6 +125,8 @@ function windowLoop() {
 
 window.addEventListener('load', () => {
   game.musicManager = new AudioContext({autoplay: true});
-  
-  setInterval(windowLoop, 1000/60);
+
+  import('../engine.js').then(module => {
+    windowLoop();
+  });
 });
