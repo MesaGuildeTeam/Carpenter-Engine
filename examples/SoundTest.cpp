@@ -1,12 +1,14 @@
 #include <Game.hpp>
 #include <UI/UIButton.hpp>
 #include <Audio/Music.hpp>
+#include <Audio/Sound.hpp>
 
 #include <iostream>
 
 // Song
 
-Engine::Audio::Music sampleSong("Assets/demo.wav");
+Engine::Audio::Music sampleSong("../Assets/demo.wav");
+Engine::Audio::Sound sampleSound("../Assets/drop.mp3");
 
 void MusicToggle() {
   if (sampleSong.playing() == Engine::Audio::SoundState::Playing) {
@@ -17,7 +19,7 @@ void MusicToggle() {
 }
 
 void PlaySound() {
-
+  sampleSound.Play();
 }
 
 class TestContainer: public Engine::UI::UIElement {
