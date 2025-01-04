@@ -3,8 +3,8 @@
  * @brief The basic foundation to all audio classes in the framework
  */
 
-#ifndef ENGINE_SOUND
-#define ENGINE_SOUND
+#ifndef ENGINE_AUDIO
+#define ENGINE_AUDIO
 
 namespace Engine::Audio {
  
@@ -43,14 +43,7 @@ namespace Engine::Audio {
     /**
      * Plays the audio file
      */
-    virtual void Play() = 0;
-
-    /**
-     * Returns if the sound is playing or not
-     * 
-     * @return bool if sound is playing or not
-     */
-    virtual SoundState playing() = 0;
+    void Play();
   };
 };
 

@@ -9,3 +9,9 @@ Engine::Audio::Audio::Audio(const char* filename) {
   }, m_filename);
 
 }
+
+void Engine::Audio::Audio::Play() {
+  EM_ASM({
+    game.sounds[UTF8ToString($0)].play();
+  }, m_filename);
+}

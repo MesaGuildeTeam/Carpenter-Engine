@@ -12,10 +12,16 @@ namespace Engine::Audio {
   public:
     Music(const char* filename);
 
-    void Play() override;
+    /**
+     * Returns if the sound is playing or not
+     * 
+     * @return SoundState if sound is playing or not
+     */
+    SoundState playing();
 
-    SoundState playing() override;
-
+    /**
+     * Pauses the music
+     */
     void Pause();
   };
 

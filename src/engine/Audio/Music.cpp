@@ -7,12 +7,6 @@ Engine::Audio::Music::Music(const char* filename) : Audio(filename) {
   }, m_filename);
 }
 
-void Engine::Audio::Music::Play() {
-  EM_ASM({
-    game.sounds[UTF8ToString($0)].play();
-  }, m_filename);
-}
-
 void Engine::Audio::Music::Pause() {
   EM_ASM({
     game.sounds[UTF8ToString($0)].pause();
