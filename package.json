@@ -36,5 +36,8 @@
   "devDependencies": {
     "jest": "^29.7.0",
     "jsdoc": "^4.0.4"
+  },
+  "dependencies": {
+    "commander": "^13.0.0"
   }
 }
