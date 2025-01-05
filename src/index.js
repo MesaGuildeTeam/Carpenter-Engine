@@ -8,7 +8,7 @@ const build = require('./build.js');
 
 program.name('table')
   .description(pkg.description)
-  .version(pkg.version);
+  .version(pkg.version, '-v, --version');
 
 program.command('setup')
   .description('setup your environment by installing emscripten and creating the necessary folders')

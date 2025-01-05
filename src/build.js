@@ -92,31 +92,6 @@ function buildGame(config = defaultBuildSteps) {
   return process.exit(0);
 }
 
-function processArgs(argv) {
-  if (argv.length == 0)
-    return defaultBuildSteps;
-
-  let buildSettings = {};
-  argv.forEach(element => {
-    switch (element) {
-      case '-b':
-        buildSettings.runBuild = true;
-        break;
-      case '-l':
-        buildSettings.runLink = true;
-        break;
-      case '-p':
-        buildSettings.runPackage = true;
-        break;
-      default:
-        utils.throwError("This parameter does not exist");
-    }
-  });
-
-  return buildSettings;
-}
-
 module.exports = {
   buildGame: buildGame,
-  processArgs: processArgs
 }
