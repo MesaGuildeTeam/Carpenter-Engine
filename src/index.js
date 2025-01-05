@@ -6,9 +6,13 @@ const pkg = require('../package.json');
 const utils = require('./utils.js');
 const build = require('./build.js');
 
+const title = `  ${utils.Asciis.Table} Table Engine v${pkg.version} ${utils.Asciis.Table}
+-----------------${'-'.repeat(pkg.version.length)}---------`
+
 program.name('table')
   .description(pkg.description)
-  .version(pkg.version, '-v, --version');
+  .version(pkg.version, '-v, --version')
+  .addHelpText('beforeAll', title);
 
 program.command('setup')
   .description('setup your environment by installing emscripten and creating the necessary folders')
