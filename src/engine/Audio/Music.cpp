@@ -34,3 +34,14 @@ void Engine::Audio::Music::setLoop(bool shouldLoop) {
     game.sounds[UTF8ToString($0)].setLoop($1);
   }, m_filename, shouldLoop);
 };
+
+EMSCRIPTEN_KEEPALIVE
+void Engine::Audio::SkipTrack() {
+  EM_ASM({
+    game.songQueue[0].element.pause();
+    game.songQueue[0].element.currentTime = 0;
+    game.songQueue.shift();
+    if (game.songQueue.length > 0)
+      game.songQueue[0].element.play();
+  });
+}

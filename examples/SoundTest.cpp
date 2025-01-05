@@ -35,8 +35,11 @@ class TestContainer: public Engine::UI::UIElement {
     size_t MusicTestContainer = AddChild((Engine::Node*) new Engine::UI::UIElement("MusicSection"));
     ((Engine::UI::UIElement*)GetChild(MusicTestContainer))->SetDimensions({300, 300});
 
-    std::cout << "TEST: Adding a Button\n";
     ((Engine::UI::UIElement*)GetChild(MusicTestContainer))->AddChild((Engine::Node*) new Engine::UI::UIButton("MusicToggle", "Play/Pause Music", MusicToggle));
+
+    size_t SkipTrack = ((Engine::UI::UIElement*)GetChild(MusicTestContainer))->AddChild((Engine::Node*) new Engine::UI::UIButton("SkipTrack", "Skip Track", Engine::Audio::SkipTrack));
+
+    ((Engine::UI::UIButton*)GetChild(MusicTestContainer)->GetChild(1))->SetAnchor("topright");
 
     std::cout << "TEST: Creating Sound Container\n";
     size_t SoundsTestContainer = AddChild((Engine::Node*) new Engine::UI::UIElement("SoundSection"));

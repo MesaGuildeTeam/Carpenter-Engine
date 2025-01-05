@@ -20,7 +20,7 @@ namespace Engine::Audio {
     SoundState playing();
 
     /**
-     * Pauses the music
+     * Pauses the music. This will pause the whole queue, but lets assume that the song will be playing when this song is playing
      */
     void Pause();
 
@@ -31,6 +31,11 @@ namespace Engine::Audio {
      */
     void setLoop(bool shouldLoop);
   };
+
+  /**
+   * Skips the current song being played
+   */
+  extern void SkipTrack();
 
 };
 
