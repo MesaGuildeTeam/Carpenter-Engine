@@ -28,3 +28,9 @@ Engine::Audio::SoundState Engine::Audio::Music::playing() {
 
   return (Engine::Audio::SoundState)result;
 }
+
+void Engine::Audio::Music::setLoop(bool shouldLoop) {
+  EM_ASM({
+    game.sounds[UTF8ToString($0)].setLoop($1);
+  }, m_filename, shouldLoop);
+};

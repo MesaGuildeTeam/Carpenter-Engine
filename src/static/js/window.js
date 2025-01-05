@@ -46,12 +46,14 @@ game.Audio = class {
     this.element = new Audio(filename);
     this.source = game.musicManager.createMediaElementSource(this.element);
     this.type = null;
+    this.loop = false;
 
     this.element.addEventListener('ended', () => {
-      game.songQueue.shift();
+      if (!this.loop)
+        game.songQueue.shift();
 
-      if (this.musicManager.songQueue.length > 0)
-        this.songQueue[0].Play();
+      if (game.songQueue.length > 0)
+        game.songQueue[0].play();
     });
   }
 
@@ -116,6 +118,10 @@ game.Audio = class {
       return this.element.paused == false;
 
     return false;
+  }
+
+  setLoop(mode) {
+    this.loop = mode;
   }
 }
 

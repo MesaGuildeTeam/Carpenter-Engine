@@ -23,7 +23,9 @@ namespace Engine::Audio {
   } SoundState;
 
   /**
-   * An abstract class used to hold the information of an audio file.
+   * An abstract C++ class used to hold the information of an audio file.
+   * Wraps the JS class `game.Audio` into a C++ class usable within the C++ framework
+   *
    * This gets derived into two different classes that should be used instead:
    * - `Engine::Audio::Sound` which plays a multi-threaded impulse
    * - `Engine::Audio::Music` which queues itself into the music player of the engine if it is not queued yet

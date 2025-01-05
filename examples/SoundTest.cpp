@@ -45,7 +45,7 @@ class TestContainer: public Engine::UI::UIElement {
     ((Engine::UI::UIElement*)GetChild(SoundsTestContainer))->SetAnchor("topright");
     ((Engine::UI::UIElement*)GetChild(SoundsTestContainer))->AddChild((Engine::Node*) new Engine::UI::UIButton("SoundPulse", "Play Sound", PlaySound));
 
-    sampleSong.Play();
+    sampleSong.setLoop(true);
   };
 };
 

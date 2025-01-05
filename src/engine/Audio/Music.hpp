@@ -23,6 +23,13 @@ namespace Engine::Audio {
      * Pauses the music
      */
     void Pause();
+
+    /**
+     * Sets if the song should loop
+     *
+     * @param {shouldLoop} the value set to the song
+     */
+    void setLoop(bool shouldLoop);
   };
 
 };
