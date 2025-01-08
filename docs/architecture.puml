@@ -116,29 +116,67 @@ namespace Engine {
     Shader -* Material
   }
 
+  namespace Audio {
+    enum SoundState {
+      READY
+      QUEUED
+      PLAYING
+    }
+
+    abstract Audio {
+      + void Play()
+    }
+
+    class Sound extends Audio {
+      
+    }
+
+    class Music extends Audio {
+      + SoundState playing()
+      + void Pause()
+      + void setLoop()
+    }
+
+    SoundState -* Music
+  }
+
   Graphics.Material .> Renderer 
   Graphics.Mesh .> Renderer 
 }
 
 namespace Browser {
-  Object Canvas {
+  Object Canvas
+  Object User_Interface
+  Object DOM
+  Object Web_Audio_API
 
-  }
+  class game.Audio {
+    - string filename
+    - HTMLElement element
+    - WebAPINode source
+    - string type
+    - bool loop
+    - float[2] buffers
 
-  Object User_Interface {
-
-  }
-
-  Object DOM {
-
+    + {method} void makeSong()
+    + {method} void makeSound()
+    + {method} void setBuffers(float gain, float panning)
+    + {method} void play()
+    + {method} void pause()
+    + {method} void isPlaying()
+    + {method} void setLoop(bool)
   }
 
   DOM *.. User_Interface
   DOM *.. Canvas
+  DOM *. Web_Audio_API
+
+  game.Audio -> Web_Audio_API
 }
 
 Engine.Renderer .> Browser.Canvas
 Engine.Game ..* Browser.DOM : "CallDraw and CallUpdate are running through a loop created \nwith javascript on window.addEventListener('load')"
 Engine.UI.UIElement ..> Browser.User_Interface
+Engine.Audio.Audio ..* Browser.game.Audio
 
 @enduml
