@@ -27,9 +27,7 @@ class TestScene : public Engine::Scene {
       ((Engine::UI::UIElement*)GetChild(0))->SetOffset({0, 0});
       ((Engine::UI::UIElement*)GetChild(0))->SetAnchor("center");
 
-      GetChild(0)->AddChild((Engine::Node*)(new Engine::UI::UILabel("Label", "Hello World")));
-      GetChild(0)->AddChild((Engine::Node*)(new Engine::UI::UIButton("Button", "Click me", functionCallback)));
-      ((Engine::UI::UIButton*)GetChild(0)->GetChild(1))->SetAnchor("topright");
+      GetChild(0)->AddChild((Engine::Node*)(new Engine::UI::UIRendererCanvas("Renderer")));
 
       GetChild(0)->AddChild((Engine::Node*)(new Engine::UI::UIInput("Input", "This is a Test Input")));
       inputField = (Engine::UI::UIInput*)GetChild(0)->GetChild(2);
