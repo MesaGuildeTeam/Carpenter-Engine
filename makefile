@@ -4,7 +4,7 @@ CC=npx emsc_sc em++
 OBJS=${shell find objs -name "*.o" -type f | grep objs/}
 EXPFUNCS=_CallUpdate,_CallDraw
 COMPILE=-std=c++20
-LINKER=-sALLOW_MEMORY_GROWTH -sEXPORTED_RUNTIME_METHODS=ccall,cwrap --bind 
+LINKER=-sALLOW_MEMORY_GROWTH -sEXPORTED_RUNTIME_METHODS=ccall,cwrap --bind -sMIN_WEBGL_VERSION=2
 
 default: build_example
 
