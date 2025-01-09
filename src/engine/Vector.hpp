@@ -2,9 +2,7 @@
 #include <string>
 #include <iostream>
 
-namespace std {
-    std::string to_string(const vec4& vec);
-}
+namespace Engine {
 
 class vec4 {
     private:
@@ -60,84 +58,62 @@ class vec4 {
     #pragma region constructors
 
     /**
-     * default constructor, fills the vector with the default value of the base type (0 for most things)
+     * default constructor, fills the vector with 0
      */
-    vec4(){
-        x = 0.0f;
-        y = 0.0f;
-        z = 0.0f;
-        w = 0.0f;
-    }
+    vec4();
 
     /**
      * fill constructor, fills the vector with the provided scalar value
      */
-    vec4(const float& a){
-        x = a;
-        y = a;
-        z = a;
-        w = a;
-    }
+    vec4(const float& a);
 
     /**
      * concatenation constructor
-     * creates a vector from a list of vectors of a convertible type and of total dimensions summing to the target dimension
+     * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
      */
-    vec4(const vec4& a) {
-        x = a.x;
-        y = a.y;
-        z = a.z;
-        w = a.w;
-    }
+    vec4(const vec4& a);
 
-    vec4(const vec3& a, const float& b) {
-        x = a.x;
-        y = a.y;
-        z = a.z;
-        w = b;
-    }
+    /**
+     * concatenation constructor
+     * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
+     */
+    vec4(const vec3& a, const float& b);
 
-    vec4(const float& a, const vec3& b) {
-        x = a;
-        y = b.x;
-        z = b.y;
-        w = b.z;
-    }
+    /**
+     * concatenation constructor
+     * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
+     */
+    vec4(const float& a, const vec3& b);
 
-    vec4(const vec2& a, const vec2& b) {
-        x = a.x;
-        y = a.y;
-        z = b.x;
-        w = b.y;
-    }
+    /**
+     * concatenation constructor
+     * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
+     */
+    vec4(const vec2& a, const vec2& b);
 
-    vec4(const vec2& a, const float& b, const float& c) {
-        x = a.x;
-        y = a.y;
-        z = b;
-        w = c;
-    }
+    /**
+     * concatenation constructor
+     * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
+     */
+    vec4(const vec2& a, const float& b, const float& c);
 
-    vec4(const float& a, const vec2& b, const float& c) {
-        x = a;
-        y = b.x;
-        z = b.y;
-        w = c;
-    }
+    /**
+     * concatenation constructor
+     * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
+     */
+    vec4(const float& a, const vec2& b, const float& c);
 
-    vec4(const float& a, const float& b, const vec2& c) {
-        x = a;
-        y = b;
-        z = c.x;
-        w = c.y;
-    }
+    /**
+     * concatenation constructor
+     * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
+     */
+    vec4(const float& a, const float& b, const vec2& c);
 
-    vec4(const float& a, const float& b, const float& c, const float& d) {
-        x = a;
-        y = b;
-        z = c;
-        w = d;
-    }
+    /**
+     * concatenation constructor
+     * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
+     */
+    vec4(const float& a, const float& b, const float& c, const float& d);
 
     #pragma endregion constructors
 
@@ -146,21 +122,14 @@ class vec4 {
     /**
      * casts a vector to a bool
      * true if all components are non-zero
-     * to check if any components are non-zero, compare with vec4.zero rather than casting
+     * to check if any components are non-zero, compare with vec4::zero rather than casting
      */
-    explicit operator bool() const {
-        return x && y && z && w;
-    }
+    explicit operator bool() const;
 
     /**
      * casts a boolean vector to a float vector
      */
-    vec4(const bvec4& vec){
-        x = vec.x;
-        y = vec.y;
-        z = vec.z;
-        w = vec.w;
-    }
+    vec4(const bvec4& vec);
 
     #pragma endregion conversions
 
@@ -170,23 +139,13 @@ class vec4 {
      * Array accessor
      * Returns the component at index i, 0-indexed
      */
-    float& operator [](unsigned int i) {
-        if (i >= 4) {
-            throw std::out_of_range("Index out of range");
-        }
-        return data[i];
-    }
+    float& operator [](unsigned int i);
 
     /**
      * Array accessor
      * Returns the component at index i, 0-indexed
      */
-    const float& operator [](unsigned int i) const {
-        if (i >= 4) {
-            throw std::out_of_range("Index out of range");
-        }
-        return data[i];
-    }
+    const float& operator [](unsigned int i) const;
 
     // position
     /**
@@ -251,86 +210,62 @@ class vec4 {
     /**
      * iterator to the first component
      */
-    auto begin() noexcept {
-        return data.begin();
-    }
+    auto begin() noexcept;
 
     /**
      * iterator to the end of the components
      */
-    auto end() noexcept {
-        return data.end();
-    }
+    auto end() noexcept;
 
     /**
      * iterator to the first component
      */
-    auto begin() const noexcept {
-        return data.begin();
-    }
+    auto begin() const noexcept;
 
     /**
      * iterator to the end of the components
      */
-    auto end() const noexcept {
-        return data.end();
-    }
+    auto end() const noexcept;
 
     /**
      * iterator to the first component
      */
-    auto cbegin() const noexcept {
-        return data.cbegin();
-    }
+    auto cbegin() const noexcept;
 
     /**
      * iterator to the end of the components
      */
-    auto cend() const noexcept {
-        return data.cend();
-    }
+    auto cend() const noexcept;
 
     /**
      * reverse iterator to the first component
      */
-    auto rbegin() noexcept {
-        return data.rbegin();
-    }
+    auto rbegin() noexcept;
 
     /**
      * reverse iterator to the end of the components
      */
-    auto rend() noexcept {
-        return data.rend();
-    }
+    auto rend() noexcept;
 
     /**
      * reverse iterator to the first component
      */
-    auto rbegin() const noexcept {
-        return data.rbegin();
-    }
+    auto rbegin() const noexcept;
 
     /**
      * reverse iterator to the end of the components
      */
-    auto rend() const noexcept {
-        return data.rend();
-    }
+    auto rend() const noexcept;
 
     /**
      * reverse iterator to the first component
      */
-    auto crbegin() const noexcept {
-        return data.crbegin();
-    }
+    auto crbegin() const noexcept;
 
     /**
      * reverse iterator to the end of the components
      */
-    auto crend() const noexcept {
-        return data.crend();
-    }
+    auto crend() const noexcept;
 
     #pragma endregion iteration
     
@@ -339,264 +274,157 @@ class vec4 {
     /**
      * stream insertion operator
      */
-    friend std::ostream& operator <<(std::ostream& os, const vec4& vec) {
-        os << std::to_string(vec);
-        return os;
-    }
+    friend std::ostream& operator <<(std::ostream& os, const vec4& vec);
 
     /**
      * Copy assignment operator
      */
-    vec4& operator =(const vec4& other) {
-        x = other.x;
-        y = other.y;
-        z = other.z;
-        w = other.w;
-        return *this;
-    }
+    vec4& operator =(const vec4& other);
 
     /**
      * component-wise addition operator
      */
-    friend vec4 operator +(const vec4& a, const vec4& b) {
-        return vec4(a.x + b.x, a.y + b.y, a.z + b.z, a.w + b.w);
-    }
+    friend vec4 operator +(const vec4& a, const vec4& b);
 
     /**
      * component-wise addition operator
      */
-    friend vec4 operator +(const float& a, const vec4& b) {
-        return vec4(a + b.x, a + b.y, a + b.z, a + b.w);
-    }
+    friend vec4 operator +(const float& a, const vec4& b);
 
     /**
      * component-wise addition operator
      */
-    friend vec4 operator +(const vec4& a, const float& b) {
-        return vec4(a.x + b, a.y + b, a.z + b, a.w + b);
-    }
+    friend vec4 operator +(const vec4& a, const float& b);
 
     /**
      * component-wise subtraction operator
      */
-    friend vec4 operator -(const vec4& a, const vec4& b) {
-        return vec4(a.x - b.x, a.y - b.y, a.z - b.z, a.w - b.w);
-    }
+    friend vec4 operator -(const vec4& a, const vec4& b);
 
     /**
      * component-wise subtraction operator
      */
-    friend vec4 operator -(const float& a, const vec4& b) {
-        return vec4(a - b.x, a - b.y, a - b.z, a - b.w);
-    }
+    friend vec4 operator -(const float& a, const vec4& b);
 
     /**
      * component-wise subtraction operator
      */
-    friend vec4 operator -(const vec4& a, const float& b) {
-        return vec4(a.x - b, a.y - b, a.z - b, a.w - b);
-    }
+    friend vec4 operator -(const vec4& a, const float& b);
 
     /**
      * component-wise negation operator
      */
-    vec4 operator -() const {
-        return vec4(-x, -y, -z, -w);
-    }
+    vec4 operator -() const;
 
     /**
      * component-wise multiplication operator
      */
-    friend vec4 operator *(const vec4& a, const vec4& b) {
-        return vec4(a.x * b.x, a.y * b.y, a.z * b.z, a.w * b.w);
-    }
+    friend vec4 operator *(const vec4& a, const vec4& b);
 
     /**
      * component-wise multiplication operator
      */
-    friend vec4 operator *(const float& a, const vec4& b) {
-        return vec4(a * b.x, a * b.y, a * b.z, a * b.w);
-    }
+    friend vec4 operator *(const float& a, const vec4& b);
 
     /**
      * component-wise multiplication operator
      */
-    friend vec4 operator *(const vec4& a, const float& b) {
-        return vec4(a.x * b, a.y * b, a.z * b, a.w * b);
-    }
+    friend vec4 operator *(const vec4& a, const float& b);
 
     /**
      * component-wise division operator
      */
-    friend vec4 operator /(const vec4& a, const vec4& b) {
-        return vec4(a.x / b.x, a.y / b.y, a.z / b.z, a.w / b.w);
-    }
+    friend vec4 operator /(const vec4& a, const vec4& b);
 
     /**
      * component-wise division operator
      */
-    friend vec4 operator /(const float& a, const vec4& b) {
-        return vec4(a / b.x, a / b.y, a / b.z, a / b.w);
-    }
+    friend vec4 operator /(const float& a, const vec4& b);
 
     /**
      * component-wise division operator
      */
-    friend vec4 operator /(const vec4& a, const float& b) {
-        return vec4(a.x / b, a.y / b, a.z / b, a.w / b);
-    }
+    friend vec4 operator /(const vec4& a, const float& b);
 
     /**
      * component-wise equality operator
      */
-    bvec4 operator ==(const vec4& other) const {
-        return bvec4(x == other.x, y == other.y, z == other.z, w == other.w);
-    }
+    bvec4 operator ==(const vec4& other) const;
 
     /**
      * component-wise inequality operator
      */
-    bvec4 operator !=(const vec4& other) const {
-        return bvec4(x != other.x, y != other.y, z != other.z, w != other.w);
-    }
+    bvec4 operator !=(const vec4& other) const;
 
     /**
      * component-wise less than operator
      */
-    bvec4 operator <(const vec4& other) const {
-        return bvec4(x < other.x, y < other.y, z < other.z, w < other.w);
-    }
+    bvec4 operator <(const vec4& other) const;
 
     /**
      * component-wise greater than operator
      */
-    bvec4 operator >(const vec4& other) const {
-        return bvec4(x > other.x, y > other.y, z > other.z, w > other.w);
-    }
+    bvec4 operator >(const vec4& other) const;
 
     /**
      * component-wise less than or equal to operator
      */
-    bvec4 operator <=(const vec4& other) const {
-        return bvec4(x <= other.x, y <= other.y, z <= other.z, w <= other.w);
-    }
+    bvec4 operator <=(const vec4& other) const;
 
     /**
      * component-wise greater than or equal to operator
      */
-    bvec4 operator >=(const vec4& other) const {
-        return bvec4(x >= other.x, y >= other.y, z >= other.z, w >= other.w);   
-    }
+    bvec4 operator >=(const vec4& other) const;
 
     /**
      * component-wise addition assignment operator
      */
-    vec4 operator +=(const vec4& other) {
-        x += other.x;
-        y += other.y;
-        z += other.z;
-        w += other.w;
-        return *this;
-    }
+    vec4 operator +=(const vec4& other);
 
     /**
      * component-wise addition assignment operator
      */
-    vec4 operator +=(const float& other) {
-        x += other;
-        y += other;
-        z += other;
-        w += other;
-        return *this;
-    }
+    vec4 operator +=(const float& other);
 
     /**
      * component-wise subtraction assignment operator
      */
-    vec4 operator -=(const vec4& other) {
-        x -= other.x;
-        y -= other.y;
-        z -= other.z;
-        w -= other.w;
-        return *this;
-    }
+    vec4 operator -=(const vec4& other);
 
     /**
      * component-wise subtraction assignment operator
      */
-    vec4 operator -=(const float& other) {
-        x -= other;
-        y -= other;
-        z -= other;
-        w -= other;
-        return *this;
-    }
+    vec4 operator -=(const float& other);
 
     /**
      * component-wise multiplication assignment operator
      */
-    vec4 operator *=(const vec4& other) {
-        x *= other.x;
-        y *= other.y;
-        z *= other.z;
-        w *= other.w;
-        return *this;
-    }
+    vec4 operator *=(const vec4& other);
 
     /**
      * component-wise multiplication assignment operator
      */
-    vec4 operator *=(const float& other) {
-        x *= other;
-        y *= other;
-        z *= other;
-        w *= other;
-        return *this;
-    }
+    vec4 operator *=(const float& other);
 
     /**
      * component-wise division assignment operator
      */
-    vec4 operator /=(const vec4& other) {
-        x /= other.x;
-        y /= other.y;
-        z /= other.z;
-        w /= other.w;
-        return *this;
-    }
+    vec4 operator /=(const vec4& other);
 
     /**
      * component-wise division assignment operator
      */
-    vec4 operator /=(const float& other) {
-        x /= other;
-        y /= other;
-        z /= other;
-        w /= other;
-        return *this;
-    }
+    vec4 operator /=(const float& other);
 
     /**
      * component-wise increment operator
      */
-    vec4 operator ++() {
-        x++;
-        y++;
-        z++;
-        w++;
-        return *this;
-    }
+    vec4 operator ++();
 
     /**
      * component-wise decrement operator
      */
-    vec4 operator --() {
-        x--;
-        y--;
-        z--;
-        w--;
-        return *this;
-    }
+    vec4 operator --();
 
     #pragma endregion overloads
 
@@ -605,123 +433,1277 @@ class vec4 {
     /**
      * dot product of two vectors
      */
-    static float dot(const vec4& a, const vec4& b) {
-        return a.x*b.x + a.y*b.y + a.z*b.z + a.w*b.w;
-    }
+    static float dot(const vec4& a, const vec4& b);
 
     /**
      * angle between two vectors
      */
-    static double angleBetween(const vec4& a, const vec4& b) {
-        return acos( dot(a,b) / sqrt(a.lengthSquared()*b.lengthSquared()) );
-    }
+    static double angleBetween(const vec4& a, const vec4& b);
 
     /**
      * reflects incident vector, I, over normal, N
      * see https://registry.khronos.org/OpenGL-Refpages/gl4/html/reflect.xhtml
      */
-    static vec4 reflect(const vec4& I, const vec4& N) {
-        return I - 2.0*dot(N, I)*N;
-    }
+    static vec4 reflect(const vec4& I, const vec4& N);
 
     /**
      * returns a vector in the same direction as the input vector, but with a length of 1
      */
-    static vec4 normalize(const vec4& vec) {
-        return vec/vec.length();
-    }
+    static vec4 normalize(const vec4& vec);
 
     /**
      * returns a vector in the same direction as this vector, but with a length of 1
      */
-    vec4 normalized() const {
-        return *this/length();
-    }
+    vec4 normalized() const;
+
+    /**
+     * returns the squared distance between two vectors
+     */
+    static float distanceSquared(const vec4& a, const vec4& b);
 
     /**
      * returns the distance between two vectors
      */
-    static float distanceSquared(const vec4& a, const vec4& b) {
-        return (b - a).lengthSquared();
-    }
-
-    /**
-     * returns the distance between two vectors
-     */
-    static float distance(const vec4& a, const vec4& b) {
-        return (b - a).length();
-    }
+    static float distance(const vec4& a, const vec4& b);
 
     /**
      * Returns the length squared of the vector
      * equivalent to dot product with itself
      */
-    float lengthSquared() const {
-        return dot(*this, *this);
-    }
+    float lengthSquared() const;
 
     /**
      * Returns the length squared of the vector
      * equivalent to dot product with itself
      */
-    static float lengthSquared(const vec4& a) {
-        return dot(a, a);
-    }
+    static float lengthSquared(const vec4& a);
 
     /**
      * Returns the length of the vector
      */
-    float length() const {
-        return sqrtf(lengthSquared());
-    }
+    float length() const;
 
     /**
      * Returns the length of the vector
      */
-    static float length(const vec4& a) {
-        return sqrtf(a.lengthSquared());
-    }
+    static float length(const vec4& a);
 
     #pragma endregion vector operations
 };
 
-/**
- * vector of all zeros
- */
-const vec4 vec4::zero = vec4(0);
-/**
- * vector of all ones
- */
-const vec4 vec4::one = vec4(1);
-/**
- * positive x unit vector
- */
-const vec4 vec4::up = vec4(1,0,0,0);
-/**
- * negative x unit vector
- */
-const vec4 vec4::down = vec4(-1,0,0,0);
-/**
- * positive y unit vector
- */
-const vec4 vec4::left = vec4(0,1,0,0);
-/**
- * negative y unit vector
- */
-const vec4 vec4::right = vec4(0,-1,0,0);
-/**
- * positive z unit vector
- */
-const vec4 vec4::forward = vec4(0,0,1,0);
-/**
- * negative z unit vector
- */
-const vec4 vec4::back = vec4(0,0,-1,0);
-/**
- * positive w unit vector
- */
-const vec4 vec4::ana = vec4(0,0,0,1);
-/**
- * negative w unit vector
- */
-const vec4 vec4::kata = vec4(0,0,0,-1);
+class vec3 {
+    private:
+    // components
+    std::array<float,3> data;
+
+    public:
+
+    #pragma region constants
+    /**
+     * vector of all zeros
+     */
+    static const vec3 zero;
+    /**
+     * vector of all ones
+     */
+    static const vec3 one;
+    /**
+     * positive x unit vector
+     */
+    static const vec3 right;
+    /**
+     * negative x unit vector
+     */
+    static const vec3 left;
+    /**
+     * positive y unit vector
+     */
+    static const vec3 up;
+    /**
+     * negative y unit vector
+     */
+    static const vec3 down;
+    /**
+     * positive z unit vector
+     */
+    static const vec3 forward;
+    /**
+     * negative z unit vector
+     */
+    static const vec3 back;
+
+    #pragma endregion constants
+
+    #pragma region constructors
+
+    /**
+     * default constructor, fills the vector with 0
+     */
+    vec3();
+
+    /**
+     * fill constructor, fills the vector with the provided scalar value
+     */
+    vec3(const float& a);
+
+    /**
+     * concatenation constructor
+     * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
+     */
+    vec3(const vec3& a);
+
+    /**
+     * concatenation constructor
+     * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
+     */
+    vec3(const vec2& a, const float& b);
+
+    /**
+     * concatenation constructor
+     * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
+     */
+    vec3(const float& a, const vec2& b);
+
+    /**
+     * concatenation constructor
+     * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
+     */
+    vec3(const float& a, const float& b, const float& c);
+
+    #pragma endregion constructors
+
+    #pragma region conversions
+
+    /**
+     * casts a vector to a bool
+     * true if all components are non-zero
+     * to check if any components are non-zero, compare with vec3::zero rather than casting
+     */
+    explicit operator bool() const;
+
+    /**
+     * casts a boolean vector to a float vector
+     */
+    vec3(const bvec3& vec);
+
+    #pragma endregion conversions
+
+    #pragma region accessors
+
+    /**
+     * Array accessor
+     * Returns the component at index i, 0-indexed
+     */
+    float& operator [](unsigned int i);
+
+    /**
+     * Array accessor
+     * Returns the component at index i, 0-indexed
+     */
+    const float& operator [](unsigned int i) const;
+
+    // position
+    /**
+     * The 1st component of the vector
+     * equivalent to vec[0]
+     */
+    float& x = data[0];
+    /**
+     * The 2nd component of the vector
+     * equivalent to vec[1]
+     */
+    float& y = data[1];
+    /**
+     * The 3rd component of the vector
+     * equivalent to vec[2]
+     */
+    float& z = data[2];
+
+    // color
+    /**
+     * The 1st component of the vector
+     * equivalent to vec[0]
+     */
+    float& r = data[0];
+    /**
+     * The 2nd component of the vector
+     * equivalent to vec[1]
+     */
+    float& g = data[1];
+    /**
+     * The 3rd component of the vector
+     * equivalent to vec[2]
+     */
+    float& b = data[2];
+
+    // texture coordinate
+    /**
+     * The 1st component of the vector
+     * equivalent to vec[0]
+     */
+    float& u = data[0];
+    /**
+     * The 2nd component of the vector
+     * equivalent to vec[1]
+     */
+    float& v = data[1];
+
+    #pragma endregion accessors
+
+    #pragma region iteration
+
+    /**
+     * iterator to the first component
+     */
+    auto begin() noexcept;
+
+    /**
+     * iterator to the end of the components
+     */
+    auto end() noexcept;
+
+    /**
+     * iterator to the first component
+     */
+    auto begin() const noexcept;
+
+    /**
+     * iterator to the end of the components
+     */
+    auto end() const noexcept;
+
+    /**
+     * iterator to the first component
+     */
+    auto cbegin() const noexcept;
+
+    /**
+     * iterator to the end of the components
+     */
+    auto cend() const noexcept;
+
+    /**
+     * reverse iterator to the first component
+     */
+    auto rbegin() noexcept;
+
+    /**
+     * reverse iterator to the end of the components
+     */
+    auto rend() noexcept;
+
+    /**
+     * reverse iterator to the first component
+     */
+    auto rbegin() const noexcept;
+
+    /**
+     * reverse iterator to the end of the components
+     */
+    auto rend() const noexcept;
+
+    /**
+     * reverse iterator to the first component
+     */
+    auto crbegin() const noexcept;
+
+    /**
+     * reverse iterator to the end of the components
+     */
+    auto crend() const noexcept;
+
+    #pragma endregion iteration
+    
+    #pragma region overloads
+
+    /**
+     * stream insertion operator
+     */
+    friend std::ostream& operator <<(std::ostream& os, const vec3& vec);
+
+    /**
+     * Copy assignment operator
+     */
+    vec3& operator =(const vec3& other);
+
+    /**
+     * component-wise addition operator
+     */
+    friend vec3 operator +(const vec3& a, const vec3& b);
+
+    /**
+     * component-wise addition operator
+     */
+    friend vec3 operator +(const float& a, const vec3& b);
+
+    /**
+     * component-wise addition operator
+     */
+    friend vec3 operator +(const vec3& a, const float& b);
+
+    /**
+     * component-wise subtraction operator
+     */
+    friend vec3 operator -(const vec3& a, const vec3& b);
+
+    /**
+     * component-wise subtraction operator
+     */
+    friend vec3 operator -(const float& a, const vec3& b);
+
+    /**
+     * component-wise subtraction operator
+     */
+    friend vec3 operator -(const vec3& a, const float& b);
+
+    /**
+     * component-wise negation operator
+     */
+    vec3 operator -() const;
+
+    /**
+     * component-wise multiplication operator
+     */
+    friend vec3 operator *(const vec3& a, const vec3& b);
+
+    /**
+     * component-wise multiplication operator
+     */
+    friend vec3 operator *(const float& a, const vec3& b);
+
+    /**
+     * component-wise multiplication operator
+     */
+    friend vec3 operator *(const vec3& a, const float& b);
+
+    /**
+     * component-wise division operator
+     */
+    friend vec3 operator /(const vec3& a, const vec3& b);
+
+    /**
+     * component-wise division operator
+     */
+    friend vec3 operator /(const float& a, const vec3& b);
+
+    /**
+     * component-wise division operator
+     */
+    friend vec3 operator /(const vec3& a, const float& b);
+
+    /**
+     * component-wise equality operator
+     */
+    bvec3 operator ==(const vec3& other) const;
+
+    /**
+     * component-wise inequality operator
+     */
+    bvec3 operator !=(const vec3& other) const;
+    
+    /**
+     * component-wise less than operator
+     */
+    bvec3 operator <(const vec3& other) const;
+
+    /**
+     * component-wise greater than operator
+     */
+    bvec3 operator >(const vec3& other) const;
+
+    /**
+     * component-wise less than or equal to operator
+     */
+    bvec3 operator <=(const vec3& other) const;
+
+    /**
+     * component-wise greater than or equal to operator
+     */
+    bvec3 operator >=(const vec3& other) const;
+
+    /**
+     * component-wise addition assignment operator
+     */
+    vec3 operator +=(const vec3& other);
+
+    /**
+     * component-wise addition assignment operator
+     */
+    vec3 operator +=(const float& other);
+
+    /**
+     * component-wise subtraction assignment operator
+     */
+    vec3 operator -=(const vec3& other);
+
+    /**
+     * component-wise subtraction assignment operator
+     */
+    vec3 operator -=(const float& other);
+
+    /**
+     * component-wise multiplication assignment operator
+     */
+    vec3 operator *=(const vec3& other);
+
+    /**
+     * component-wise multiplication assignment operator
+     */
+    vec3 operator *=(const float& other);
+
+    /**
+     * component-wise division assignment operator
+     */
+    vec3 operator /=(const vec3& other);
+
+    /**
+     * component-wise division assignment operator
+     */
+    vec3 operator /=(const float& other);
+
+    /**
+     * component-wise increment operator
+     */
+    vec3 operator ++();
+
+    /**
+     * component-wise decrement operator
+     */
+    vec3 operator --();
+
+    #pragma endregion overloads
+
+    #pragma region vector operations
+
+    /**
+     * dot product of two vectors
+     */
+    static float dot(const vec3& a, const vec3& b);
+
+    /**
+     * cross product of two vectors
+     * returns a vector tangent to both input vectors
+     */
+    static vec3 cross(const vec3& a, const vec3& b);
+
+    /**
+     * angle between two vectors
+     */
+    static double angleBetween(const vec3& a, const vec3& b);
+
+    /**
+     * reflects incident vector, I, over normal, N
+     * see https://registry.khronos.org/OpenGL-Refpages/gl4/html/reflect.xhtml
+     */
+    static vec3 reflect(const vec3& I, const vec3& N);
+
+    /**
+     * returns a vector in the same direction as the input vector, but with a length of 1
+     */
+    static vec3 normalize(const vec3& vec);
+
+    /**
+     * returns a vector in the same direction as this vector, but with a length of 1
+     */
+    vec3 normalized() const;
+
+    /**
+     * returns the squared distance between two vectors
+     */
+    static float distanceSquared(const vec3& a, const vec3& b);
+
+    /**
+     * returns the distance between two vectors
+     */
+    static float distance(const vec3& a, const vec3& b);
+
+    /**
+     * Returns the length squared of the vector
+     * equivalent to dot product with itself
+     */
+    float lengthSquared() const;
+
+    /**
+     * Returns the length squared of the vector
+     * equivalent to dot product with itself
+     */
+    static float lengthSquared(const vec3& a);
+
+    /**
+     * Returns the length of the vector
+     */
+    float length() const;
+
+    /**
+     * Returns the length of the vector
+     */
+    static float length(const vec3& a);
+
+    /**
+     * Returns a tangent vector of the same length to the current vector
+     * the eexpression used is (-y,x,0) if |x| <= |z|, else (0,-z,y)
+     */
+    vec3 tangent() const;
+
+    /**
+     * Returns a tangent vector of the same length to the current vector
+     * the eexpression used is (-y,x,0) if |x| <= |z|, else (0,-z,y)
+     */
+    static vec3 tangent(const vec3& vec);
+
+    #pragma endregion vector operations
+};
+
+class vec2 {
+    private:
+    // components
+    std::array<float,2> data;
+
+    public:
+
+    #pragma region constants
+
+    /**
+     * vector of all zeros
+     */
+    static const vec2 zero;
+    /**
+     * vector of all ones
+     */
+    static const vec2 one;
+    /**
+     * positive x unit vector
+     */
+    static const vec2 right;
+    /**
+     * negative x unit vector
+     */
+    static const vec2 left;
+    /**
+     * positive y unit vector
+     */
+    static const vec2 up;
+    /**
+     * negative y unit vector
+     */
+    static const vec2 down;
+
+    #pragma endregion constants
+
+    #pragma region constructors
+
+    /**
+     * default constructor, fills the vector with 0
+     */
+    vec2();
+
+    /**
+     * fill constructor, fills the vector with the provided scalar value
+     */
+    vec2(const float& a);
+
+    /**
+     * concatenation constructor
+     * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
+     */
+    vec2(const vec2& a);
+    
+    /**
+     * concatenation constructor
+     * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
+     */
+    vec2(const float& a, const float& b);
+
+    #pragma endregion constructors
+
+    #pragma region conversions
+
+    /**
+     * casts a vector to a bool
+     * true if all components are non-zero
+     * to check if any components are non-zero, compare with vec2::zero rather than casting
+     */
+    explicit operator bool() const;
+
+    /**
+     * casts a boolean vector to a float vector
+     */
+    vec2(const bvec2& vec);
+
+    #pragma endregion conversions
+
+    #pragma region accessors
+
+    /**
+     * Array accessor
+     * Returns the component at index i, 0-indexed
+     */
+    float& operator [](unsigned int i);
+
+    /**
+     * Array accessor
+     * Returns the component at index i, 0-indexed
+     */
+    const float& operator [](unsigned int i) const;
+
+    // position
+    /**
+     * The 1st component of the vector
+     * equivalent to vec[0]
+     */
+
+    float& x = data[0];
+    /**
+     * The 2nd component of the vector
+     * equivalent to vec[1]
+     */
+    float& y = data[1];
+
+    // color
+    /**
+     * The 1st component of the vector
+     * equivalent to vec[0]
+     */
+    float& r = data[0];
+    /**
+     * The 2nd component of the vector
+     * equivalent to vec[1]
+     */
+    float& g = data[1];
+
+    // texture coordinate
+    /**
+     * The 1st component of the vector
+     * equivalent to vec[0]
+     */
+    float& u = data[0];
+    /**
+     * The 2nd component of the vector
+     * equivalent to vec[1]
+     */
+    float& v = data[1];
+
+    #pragma endregion accessors
+
+    #pragma region iteration
+
+    /**
+     * iterator to the first component
+     */
+    auto begin() noexcept;
+
+    /**
+     * iterator to the end of the components
+     */
+    auto end() noexcept;
+
+    /**
+     * iterator to the first component
+     */
+    auto begin() const noexcept;
+
+    /**
+     * iterator to the end of the components
+     */
+    auto end() const noexcept;
+
+    /**
+     * iterator to the first component
+     */
+    auto cbegin() const noexcept;
+
+    /**
+     * iterator to the end of the components
+     */
+    auto cend() const noexcept;
+
+    /**
+     * reverse iterator to the first component
+     */
+    auto rbegin() noexcept;
+
+    /**
+     * reverse iterator to the end of the components
+     */
+    auto rend() noexcept;
+
+    /**
+     * reverse iterator to the first component
+     */
+    auto rbegin() const noexcept;
+
+    /**
+     * reverse iterator to the end of the components
+     */
+    auto rend() const noexcept;
+
+    /**
+     * reverse iterator to the first component
+     */
+    auto crbegin() const noexcept;
+
+    /**
+     * reverse iterator to the end of the components
+     */
+    auto crend() const noexcept;
+
+    #pragma endregion iteration
+
+    #pragma region overloads
+
+    /**
+     * stream insertion operator
+     */
+    friend std::ostream& operator <<(std::ostream& os, const vec2& vec);
+
+    /**
+     * Copy assignment operator
+     */
+    vec2& operator =(const vec2& other);
+
+    /**
+     * component-wise addition operator
+     */
+    friend vec2 operator +(const vec2& a, const vec2& b);
+
+    /**
+     * component-wise addition operator
+     */
+    friend vec2 operator +(const float& a, const vec2& b);
+
+    /**
+     * component-wise addition operator
+     */
+    friend vec2 operator +(const vec2& a, const float& b);
+
+    /**
+     * component-wise subtraction operator
+     */
+    friend vec2 operator -(const vec2& a, const vec2& b);
+
+    /**
+     * component-wise subtraction operator
+     */
+    friend vec2 operator -(const float& a, const vec2& b);
+
+    /**
+     * component-wise subtraction operator
+     */
+    friend vec2 operator -(const vec2& a, const float& b);
+
+    /**
+     * component-wise negation operator
+     */
+    vec2 operator -() const;
+
+    /**
+     * component-wise multiplication operator
+     */
+    friend vec2 operator *(const vec2& a, const vec2& b);
+
+    /**
+     * component-wise multiplication operator
+     */
+    friend vec2 operator *(const float& a, const vec2& b);
+
+    /**
+     * component-wise multiplication operator
+     */
+    friend vec2 operator *(const vec2& a, const float& b);
+
+    /**
+     * component-wise division operator
+     */
+    friend vec2 operator /(const vec2& a, const vec2& b);
+
+    /**
+     * component-wise division operator
+     */
+    friend vec2 operator /(const float& a, const vec2& b);
+
+    /**
+     * component-wise division operator
+     */
+    friend vec2 operator /(const vec2& a, const float& b);
+
+    /**
+     * component-wise equality operator
+     */
+    bvec2 operator ==(const vec2& other) const;
+
+    /**
+     * component-wise inequality operator
+     */
+    bvec2 operator !=(const vec2& other) const;
+
+    /**
+     * component-wise less than operator
+     */
+    bvec2 operator <(const vec2& other) const;
+
+    /**
+     * component-wise greater than operator
+     */
+    bvec2 operator >(const vec2& other) const;
+
+    /**
+     * component-wise less than or equal to operator
+     */
+    bvec2 operator <=(const vec2& other) const;
+
+    /**
+     * component-wise greater than or equal to operator
+     */
+    bvec2 operator >=(const vec2& other) const;
+
+    /**
+     * component-wise addition assignment operator
+     */
+    vec2 operator +=(const vec2& other);
+
+    /**
+     * component-wise addition assignment operator
+     */
+    vec2 operator +=(const float& other);
+
+    /**
+     * component-wise subtraction assignment operator
+     */
+    vec2 operator -=(const vec2& other);
+
+    /**
+     * component-wise subtraction assignment operator
+     */
+    vec2 operator -=(const float& other);
+
+    /**
+     * component-wise multiplication assignment operator
+     */
+    vec2 operator *=(const vec2& other);
+
+    /**
+     * component-wise multiplication assignment operator
+     */
+    vec2 operator *=(const float& other);
+
+    /**
+     * component-wise division assignment operator
+     */
+    vec2 operator /=(const vec2& other);
+
+    /**
+     * component-wise division assignment operator
+     */
+    vec2 operator /=(const float& other);
+
+    /**
+     * component-wise increment operator
+     */
+    vec2 operator ++();
+
+    /**
+     * component-wise decrement operator
+     */
+    vec2 operator --();
+
+    #pragma endregion overloads
+
+    #pragma region vector operations
+
+    /**
+     * dot product of two vectors
+     */
+    static float dot(const vec2& a, const vec2& b);
+
+    /**
+     * cross product of two vectors
+     * returns the determinant of the 2x2 matrix formed by the vectors
+     */
+    static float cross(const vec2& a, const vec2& b);
+
+    /**
+     * angle between two vectors
+     */
+    static double angleBetween(const vec2& a, const vec2& b);
+
+    /**
+     * reflects incident vector, I, over normal, N
+     * see https://registry.khronos.org/OpenGL-Refpages/gl4/html/reflect.xhtml
+     */
+    static vec2 reflect(const vec2& I, const vec2& N);
+
+    /**
+     * returns a vector in the same direction as the input vector, but with a length of 1
+     */
+    static vec2 normalize(const vec2& vec);
+
+    /**
+     * returns a vector in the same direction as this vector, but with a length of 1
+     */
+    vec2 normalized() const;
+
+    /**
+     * returns the squared distance between two vectors
+     */
+    static float distanceSquared(const vec2& a, const vec2& b);
+
+    /**
+     * returns the distance between two vectors
+     */
+    static float distance(const vec2& a, const vec2& b);
+
+    /**
+     * Returns the length squared of the vector
+     * equivalent to dot product with itself
+     */
+    float lengthSquared() const;
+
+    /**
+     * Returns the length squared of the vector
+     * equivalent to dot product with itself
+     */
+    static float lengthSquared(const vec2& a);
+
+    /**
+     * Returns the length of the vector
+     */
+    float length() const;
+
+    /**
+     * Returns the length of the vector
+     */
+    static float length(const vec2& a);
+
+    /**
+     * Returns a tangent vector of the same length to the current vector
+     * the expression used is (-y,x)
+     */
+    vec2 tangent() const;
+
+    /**
+     * Returns a tangent vector of the same length to the current vector
+     * the expression used is (-y,x)
+     */
+    static vec2 tangent(const vec2& vec);
+
+    #pragma endregion vector operations
+};
+
+class bvec4 {
+    private:
+    // components
+    std::array<bool,4> data;
+
+    public:
+
+    #pragma region constants
+
+    /**
+     * vector of all falses
+     */
+    static const bvec4 zero;
+    /**
+     * vector of all trues
+     */
+    static const bvec4 one;
+    /**
+     * positive x unit vector
+     */
+    static const bvec4 right;
+    /**
+     * negative x unit vector
+     */
+    static const bvec4 left;
+    /**
+     * positive y unit vector
+     */
+    static const bvec4 up;
+    /**
+     * negative y unit vector
+     */
+    static const bvec4 down;
+    /**
+     * positive z unit vector
+     */
+    static const bvec4 forward;
+    /**
+     * negative z unit vector
+     */
+    static const bvec4 back;
+    /**
+     * positive w unit vector
+     */
+    static const bvec4 ana;
+    /**
+     * negative w unit vector
+     */
+    static const bvec4 kata;
+
+    #pragma endregion constants
+
+    #pragma region constructors
+
+    /**
+     * default constructor, fills the vector with false
+     */
+    bvec4();
+
+    /**
+     * fill constructor, fills the vector with the provided scalar value
+     */
+    bvec4(const bool& a);
+
+    /**
+     * concatenation constructor
+     * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
+     */
+    bvec4(const bvec4& a);
+
+    /**
+     * concatenation constructor
+     * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
+     */
+    bvec4(const bvec3& a, const bool& b);
+
+    /**
+     * concatenation constructor
+     * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
+     */
+    bvec4(const bool& a, const bvec3& b);
+
+    /**
+     * concatenation constructor
+     * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
+     */
+    bvec4(const bvec2& a, const bvec2& b);
+
+    /**
+     * concatenation constructor
+     * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
+     */
+    bvec4(const bvec2& a, const bool& b, const bool& c);
+
+    /**
+     * concatenation constructor
+     * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
+     */
+    bvec4(const bool& a, const bvec2& b, const bool& c);
+
+    /**
+     * concatenation constructor
+     * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
+     */
+    bvec4(const bool& a, const bool& b, const bvec2& c);
+
+    /**
+     * concatenation constructor
+     * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
+     */
+    bvec4(const bool& a, const bool& b, const bool& c, const bool& d);
+
+    #pragma endregion constructors
+
+    #pragma region conversions
+
+    /**
+     * casts a vector to a bool
+     * true if all components are non-zero
+     * to check if any components are non-zero, compare with bvec4::zero rather than casting
+     */
+    explicit operator bool() const;
+
+    /**
+     * casts a float vector to a boolean vector
+     */
+    bvec4(const vec4& vec);
+
+    #pragma endregion conversions
+
+    #pragma region accessors
+
+    /**
+     * Array accessor
+     * Returns the component at index i, 0-indexed
+     */
+    bool& operator [](unsigned int i);
+
+    /**
+     * Array accessor
+     * Returns the component at index i, 0-indexed
+     */
+    const bool& operator [](unsigned int i) const;
+
+    // position
+    /**
+     * The 1st component of the vector
+     * equivalent to vec[0]
+     */
+    bool& x = data[0];
+    /**
+     * The 2nd component of the vector
+     * equivalent to vec[1]
+     */
+    bool& y = data[1];
+    /**
+     * The 3rd component of the vector
+     * equivalent to vec[2]
+     */
+    bool& z = data[2];
+    /**
+     * The 4th component of the vector
+     * equivalent to vec[3]
+     */
+    bool& w = data[3];
+
+    // color
+    /**
+     * The 1st component of the vector
+     * equivalent to vec[0]
+     */
+    bool& r = data[0];
+    /**
+     * The 2nd component of the vector
+     * equivalent to vec[1]
+     */
+    bool& g = data[1];
+    /**
+     * The 3rd component of the vector
+     * equivalent to vec[2]
+     */
+    bool& b = data[2];
+    /**
+     * The 4th component of the vector
+     * equivalent to vec[3]
+     */
+    bool& a = data[3];
+
+    // texture coordinate
+    /**
+     * The 1st component of the vector
+     * equivalent to vec[0]
+     */
+    bool& u = data[0];
+    /**
+     * The 2nd component of the vector
+     * equivalent to vec[1]
+     */
+    bool& v = data[1];
+
+    #pragma endregion accessors
+
+    #pragma region iteration
+
+    /**
+     * iterator to the first component
+     */
+    auto begin() noexcept;
+
+    /**
+     * iterator to the end of the components
+     */
+    auto end() noexcept;
+
+    /**
+     * iterator to the first component
+     */
+    auto begin() const noexcept;
+
+    /**
+     * iterator to the end of the components
+     */
+    auto end() const noexcept;
+
+    /**
+     * iterator to the first component
+     */
+    auto cbegin() const noexcept;
+
+    /**
+     * iterator to the end of the components
+     */
+    auto cend() const noexcept;
+
+    /**
+     * reverse iterator to the first component
+     */
+    auto rbegin() noexcept;
+
+    /**
+     * reverse iterator to the end of the components
+     */
+    auto rend() noexcept;
+
+    /**
+     * reverse iterator to the first component
+     */
+    auto rbegin() const noexcept;
+
+    /**
+     * reverse iterator to the end of the components
+     */
+    auto rend() const noexcept;
+
+    /**
+     * reverse iterator to the first component
+     */
+    auto crbegin() const noexcept;
+
+    /**
+     * reverse iterator to the end of the components
+     */
+    auto crend() const noexcept;
+
+    #pragma endregion iteration
+
+    #pragma region overloads
+
+    /**
+     * stream insertion operator
+     */
+    friend std::ostream& operator <<(std::ostream& os, const bvec4& vec);
+
+    /**
+     * Copy assignment operator
+     */
+    bvec4& operator =(const bvec4& other);
+
+    /**
+     * component-wise and operator
+     */
+    friend bvec4 operator &&(const bvec4& a, const bvec4& b);
+
+    /**
+     * component-wise and operator
+     */
+    friend bvec4 operator &&(const bool& a, const bvec4& b);
+
+    /**
+     * component-wise and operator
+     */
+    friend bvec4 operator &&(const bvec4& a, const bool& b);
+
+    /**
+     * component-wise or operator
+     */
+    friend bvec4 operator ||(const bvec4& a, const bvec4& b);
+
+    // to be continued
+};
+
+}
+
+namespace std {
+    /**
+     * converts a vector to a string
+     */
+    std::string to_string(const Engine::vec4& vec);
+    /**
+     * converts a vector to a string
+     */
+    std::string to_string(const Engine::vec3& vec);
+    /**
+     * converts a vector to a string
+     */
+    std::string to_string(const Engine::vec2& vec);
+}
+
