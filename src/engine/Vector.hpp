@@ -1,69 +1,168 @@
-#include <type_traits>
-#include <initializer_list>
-#include <stdexcept>
 #include <array>
-#include <concepts>
-#include <cmath>
 #include <string>
-#include <iterator>
+#include <iostream>
 
-typedef Vector<float, 3> vec3
+namespace std {
+    std::string to_string(const vec4& vec);
+}
 
-/**
- * mathematical vector class
- * note: multiplication & division are component-wise
- */
-template <typename T, unsigned int N>
-class Vector {
+class vec4 {
     private:
     // components
-    std::array<T,N> data;
+    std::array<float,4> data;
 
     public:
-    // needed for the concatenation constructor
-    using value_type = T;
-    using dimension = N;
+
+    #pragma region constants
+    /**
+     * vector of all zeros
+     */
+    static const vec4 zero;
+    /**
+     * vector of all ones
+     */
+    static const vec4 one;
+    /**
+     * positive x unit vector
+     */
+    static const vec4 up;
+    /**
+     * negative x unit vector
+     */
+    static const vec4 down;
+    /**
+     * positive y unit vector
+     */
+    static const vec4 left;
+    /**
+     * negative y unit vector
+     */
+    static const vec4 right;
+    /**
+     * positive z unit vector
+     */
+    static const vec4 forward;
+    /**
+     * negative z unit vector
+     */
+    static const vec4 back;
+    /**
+     * positive w unit vector
+     */
+    static const vec4 ana;
+    /**
+     * negative w unit vector
+     */
+    static const vec4 kata;
+
+    #pragma endregion constants
 
     #pragma region constructors
 
     /**
      * default constructor, fills the vector with the default value of the base type (0 for most things)
      */
-    Vector() {
-        for (int i = 0; i < N; i++) {
-            data[i] = T(); // use the type's default constructor (zero value for most things)
-        }
+    vec4(){
+        x = 0.0f;
+        y = 0.0f;
+        z = 0.0f;
+        w = 0.0f;
     }
 
     /**
      * fill constructor, fills the vector with the provided scalar value
      */
-    Vector(const T& a){
-        for (int i = 0; i < N; i++) {
-            data[i] = a;
-        }
+    vec4(const float& a){
+        x = a;
+        y = a;
+        z = a;
+        w = a;
     }
 
     /**
      * concatenation constructor
      * creates a vector from a list of vectors of a convertible type and of total dimensions summing to the target dimension
      */
-    template <IsVectorOf<T>... Vectors>
-    Vector(const Vectors&... vectors) {
-        // need to handle scalar arguments
-        constexpr unsigned int totaldim = (Vectors::dimension + ...);
-        static_assert(totaldim == N, "Input dimensions do not sum to target dimension");
+    vec4(const vec4& a) {
+        x = a.x;
+        y = a.y;
+        z = a.z;
+        w = a.w;
+    }
 
-        unsigned int i = 0;
-        ([&] {
-            for (unsigned int j = 0; j < Vectors::dimension; ++j) {
-                data[i + j] = vectors[j];
-            }
-            i += Vectors::dimension;
-        }(), ...);
+    vec4(const vec3& a, const float& b) {
+        x = a.x;
+        y = a.y;
+        z = a.z;
+        w = b;
+    }
+
+    vec4(const float& a, const vec3& b) {
+        x = a;
+        y = b.x;
+        z = b.y;
+        w = b.z;
+    }
+
+    vec4(const vec2& a, const vec2& b) {
+        x = a.x;
+        y = a.y;
+        z = b.x;
+        w = b.y;
+    }
+
+    vec4(const vec2& a, const float& b, const float& c) {
+        x = a.x;
+        y = a.y;
+        z = b;
+        w = c;
+    }
+
+    vec4(const float& a, const vec2& b, const float& c) {
+        x = a;
+        y = b.x;
+        z = b.y;
+        w = c;
+    }
+
+    vec4(const float& a, const float& b, const vec2& c) {
+        x = a;
+        y = b;
+        z = c.x;
+        w = c.y;
+    }
+
+    vec4(const float& a, const float& b, const float& c, const float& d) {
+        x = a;
+        y = b;
+        z = c;
+        w = d;
     }
 
     #pragma endregion constructors
+
+    #pragma region conversions
+
+    /**
+     * casts a vector to a bool
+     * true if all components are non-zero
+     * to check if any components are non-zero, compare with vec4.zero rather than casting
+     */
+    explicit operator bool() const {
+        return x && y && z && w;
+    }
+
+    /**
+     * casts a boolean vector to a float vector
+     */
+    vec4(const bvec4& vec){
+        x = vec.x;
+        y = vec.y;
+        z = vec.z;
+        w = vec.w;
+    }
+
+    #pragma endregion conversions
 
     #pragma region accessors
 
@@ -71,15 +170,19 @@ class Vector {
      * Array accessor
      * Returns the component at index i, 0-indexed
      */
-    T& operator [](unsigned int i) {
-        if (i >= N) {
+    float& operator [](unsigned int i) {
+        if (i >= 4) {
             throw std::out_of_range("Index out of range");
         }
         return data[i];
     }
 
-    const T& operator [](unsigned int i) const {
-        if (i >= N) {
+    /**
+     * Array accessor
+     * Returns the component at index i, 0-indexed
+     */
+    const float& operator [](unsigned int i) const {
+        if (i >= 4) {
             throw std::out_of_range("Index out of range");
         }
         return data[i];
@@ -90,425 +193,60 @@ class Vector {
      * The 1st component of the vector
      * equivalent to vec[0]
      */
-    T& x = data[0];
+    float& x = data[0];
     /**
      * The 2nd component of the vector
      * equivalent to vec[1]
      */
-    T& y = data[1];
+    float& y = data[1];
     /**
      * The 3rd component of the vector
      * equivalent to vec[2]
      */
-    T& z = data[2];
+    float& z = data[2];
     /**
      * The 4th component of the vector
      * equivalent to vec[3]
      */
-    T& w = data[3];
+    float& w = data[3];
 
     // color
     /**
      * The 1st component of the vector
      * equivalent to vec[0]
      */
-    T& r = data[0];
+    float& r = data[0];
     /**
      * The 2nd component of the vector
      * equivalent to vec[1]
      */
-    T& g = data[1];
+    float& g = data[1];
     /**
      * The 3rd component of the vector
      * equivalent to vec[2]
      */
-    T& b = data[2];
+    float& b = data[2];
     /**
      * The 4th component of the vector
      * equivalent to vec[3]
      */
-    T& a = data[3];
+    float& a = data[3];
 
     // texture coordinate
     /**
      * The 1st component of the vector
      * equivalent to vec[0]
      */
-    T& u = data[0];
+    float& u = data[0];
     /**
      * The 2nd component of the vector
      * equivalent to vec[1]
      */
-    T& v = data[1];
+    float& v = data[1];
 
     #pragma endregion accessors
-    
-    #pragma region overloads
 
-    /**
-     * Copy assignment operator
-     */
-    Vector<T,N>& operator =(const Vector<T,N>& other) {
-        for (unsigned int i = 0; i < N; i++) {
-            data[i] = other[i];
-        }
-        return *this;
-    }
-
-    /**
-     * component-wise addition operator
-     */
-    Vector<T,N> operator +(const Vector<T,N>& other) const {
-        Vector<T,N> result;
-        for (unsigned int i = 0; i < N; i++) {
-            result[i] = data[i] + other[i];
-        }
-        return result;
-    }
-
-    /**
-     * component-wise subtraction operator
-     */
-    Vector<T,N> operator -(const Vector<T,N>& other) const {
-        Vector<T,N> result;
-        for (unsigned int i = 0; i < N; i++) {
-            result[i] = data[i] - other[i];
-        }
-        return result;
-    }
-
-    /**
-     * component-wise negation operator
-     */
-    Vector<T,N> operator -() const {
-        Vector<T,N> result;
-        for (unsigned int i = 0; i < N; i++) {
-            result[i] = -data[i];
-        }
-        return result;
-    }
-
-    /**
-     * component-wise multiplication operator
-     */
-    Vector<T,N> operator *(const Vector<T,N>& other) const {
-        Vector<T,N> result;
-        for (unsigned int i = 0; i < N; i++) {
-            result[i] = data[i] * other[i];
-        }
-        return result;
-    }
-
-    /**
-     * component-wise division operator
-     */
-    Vector<T,N> operator /(const Vector<T,N>& other) const {
-        Vector<T,N> result;
-        for (unsigned int i = 0; i < N; i++) {
-            result[i] = data[i] / other[i];
-        }
-        return result;
-    }
-
-    /**
-     * component-wise modulo operator
-     */
-    Vector<T,N> operator %(const Vector<T,N>& other) const {
-        Vector<T,N> result;
-        for (unsigned int i = 0; i < N; i++) {
-            result[i] = data[i] % other[i];
-        }
-        return result;
-    }
-
-    /**
-     * component-wise bitwise and operator
-     */
-    Vector<T,N> operator &(const Vector<T,N>& other) const {
-        Vector<T,N> result;
-        for (unsigned int i = 0; i < N; i++) {
-            result[i] = data[i] & other[i];
-        }
-        return result;
-    }
-
-    /**
-     * component-wise bitwise or operator
-     */
-    Vector<T,N> operator |(const Vector<T,N>& other) const {
-        Vector<T,N> result;
-        for (unsigned int i = 0; i < N; i++) {
-            result[i] = data[i] | other[i];
-        }
-        return result;
-    }
-
-    /**
-     * component-wise bitwise xor operator
-     */
-    Vector<T,N> operator ^(const Vector<T,N>& other) const {
-        Vector<T,N> result;
-        for (unsigned int i = 0; i < N; i++) {
-            result[i] = data[i] ^ other[i];
-        }
-        return result;
-    }
-
-    /**
-     * component-wise bitwise not operator
-     */
-    Vector<T,N> operator ~(const Vector<T,N>& other) const {
-        Vector<T,N> result;
-        for (unsigned int i = 0; i < N; i++) {
-            result[i] = ~data[i];
-        }
-        return result;
-    }
-
-    /**
-     * component-wise shift left operator
-     */
-    Vector<T,N> operator <<(const Vector<T,N>& other) const {
-        Vector<T,N> result;
-        for (unsigned int i = 0; i < N; i++) {
-            result[i] = data[i] << other[i];
-        }
-        return result;
-    }
-
-    /**
-     * component-wise shift right operator
-     */
-    Vector<T,N> operator >>(const Vector<T,N>& other) const {
-        Vector<T,N> result;
-        for (unsigned int i = 0; i < N; i++) {
-            result[i] = data[i] >> other[i];
-        }
-        return result;
-    }
-
-    /**
-     * component-wise equality operator
-     */
-    Vector<bool,N> operator ==(const Vector<T,N>& other) const {
-        Vector<T,N> result;
-        for (unsigned int i = 0; i < N; i++) {
-            result[i] = data[i] == other[i];
-        }
-        return result;
-    }
-
-    /**
-     * component-wise inequality operator
-     */
-    Vector<bool,N> operator !=(const Vector<T,N>& other) const {
-        Vector<T,N> result;
-        for (unsigned int i = 0; i < N; i++) {
-            result[i] = data[i] != other[i];
-        }
-        return result;
-    }
-
-    /**
-     * component-wise less than operator
-     */
-    Vector<bool,N> operator <(const Vector<T,N>& other) const {
-        Vector<T,N> result;
-        for (unsigned int i = 0; i < N; i++) {
-            result[i] = data[i] < other[i];
-        }
-        return result;
-    }
-
-    /**
-     * component-wise greater than operator
-     */
-    Vector<bool,N> operator >(const Vector<T,N>& other) const {
-        Vector<T,N> result;
-        for (unsigned int i = 0; i < N; i++) {
-            result[i] = data[i] > other[i];
-        }
-        return result;
-    }
-
-    /**
-     * component-wise less than or equal to operator
-     */
-    Vector<bool,N> operator <=(const Vector<T,N>& other) const {
-        Vector<T,N> result;
-        for (unsigned int i = 0; i < N; i++) {
-            result[i] = data[i] <= other[i];
-        }
-        return result;
-    }
-
-    /**
-     * component-wise greater than or equal to operator
-     */
-    Vector<bool,N> operator >=(const Vector<T,N>& other) const {
-        Vector<T,N> result;
-        for (unsigned int i = 0; i < N; i++) {
-            result[i] = data[i] >= other[i];
-        }
-        return result;
-    }
-
-    /**
-     * component-wise logical and operator
-     */
-    Vector<bool,N> operator &&(const Vector<T,N>& other) const {
-        Vector<T,N> result;
-        for (unsigned int i = 0; i < N; i++) {
-            result[i] = data[i] && other[i];
-        }
-        return result;
-    }
-
-    /**
-     * component-wise logical or operator
-     */
-    Vector<bool,N> operator ||(const Vector<T,N>& other) const {
-        Vector<T,N> result;
-        for (unsigned int i = 0; i < N; i++) {
-            result[i] = data[i] || other[i];
-        }
-        return result;
-    }
-
-    /**
-     * component-wise logical not operator
-     */
-    Vector<bool,N> operator !(const Vector<T,N>& other) const {
-        Vector<T,N> result;
-        for (unsigned int i = 0; i < N; i++) {
-            result[i] = !data[i];
-        }
-        return result;
-    }
-
-    /**
-     * component-wise increment operator
-     */
-    Vector<T,N> operator ++() {
-        for (unsigned int i = 0; i < N; i++) {
-            data[i] ++;
-        }
-        return *this;
-    }
-
-    /**
-     * component-wise decrement operator
-     */
-    Vector<T,N> operator --() {
-        for (unsigned int i = 0; i < N; i++) {
-            data[i] --;
-        }
-        return *this;
-    }
-
-    /**
-     * component-wise addition assignment operator
-     */
-    Vector<T,N> operator +=(const Vector<T,N>& other) {
-        for (unsigned int i = 0; i < N; i++) {
-            data[i] += other[i];
-        }
-        return *this;
-    }
-
-    /**
-     * component-wise subtraction assignment operator
-     */
-    Vector<T,N> operator -=(const Vector<T,N>& other) {
-        for (unsigned int i = 0; i < N; i++) {
-            data[i] -= other[i];
-        }
-        return *this;
-    }
-
-    /**
-     * component-wise multiplication assignment operator
-     */
-    Vector<T,N> operator *=(const Vector<T,N>& other) {
-        for (unsigned int i = 0; i < N; i++) {
-            data[i] *= other[i];
-        }
-        return *this;
-    }
-
-    /**
-     * component-wise division assignment operator
-     */
-    Vector<T,N> operator /=(const Vector<T,N>& other) {
-        for (unsigned int i = 0; i < N; i++) {
-            data[i] /= other[i];
-        }
-        return *this;
-    }
-
-    /**
-     * component-wise modulo assignment operator
-     */
-    Vector<T,N> operator %=(const Vector<T,N>& other) {
-        for (unsigned int i = 0; i < N; i++) {
-            data[i] %= other[i];
-        }
-        return *this;
-    }
-
-    /**
-     * component-wise bitwise and assignment operator
-     */
-    Vector<T,N> operator &=(const Vector<T,N>& other) {
-        for (unsigned int i = 0; i < N; i++) {
-            data[i] &= other[i];
-        }
-        return *this;
-    }
-
-    /**
-     * component-wise bitwise or assignment operator
-     */
-    Vector<T,N> operator |=(const Vector<T,N>& other) {
-        for (unsigned int i = 0; i < N; i++) {
-            data[i] |= other[i];
-        }
-        return *this;
-    }
-
-    /**
-     * component-wise bitwise xor assignment operator
-     */
-    Vector<T,N> operator ^=(const Vector<T,N>& other) {
-        for (unsigned int i = 0; i < N; i++) {
-            data[i] ^= other[i];
-        }
-        return *this;
-    }
-
-    /**
-     * component-wise shift left assignment operator
-     */
-    Vector<T,N> operator <<=(const Vector<T,N>& other) {
-        for (unsigned int i = 0; i < N; i++) {
-            data[i] <<= other[i];
-        }
-        return *this;
-    }
-
-    /**
-     * component-wise shift right assignment operator
-     */
-    Vector<T,N> operator >>=(const Vector<T,N>& other) {
-        for (unsigned int i = 0; i < N; i++) {
-            data[i] >>= other[i];
-        }
-        return *this;
-    }
-
-    #pragma endregion overloads
-
-    #pragma region iterator functions
+    #pragma region iteration
 
     /**
      * iterator to the first component
@@ -594,166 +332,396 @@ class Vector {
         return data.crend();
     }
 
-    #pragma endregion iterator functions
-
-    // misc
-
-    /**
-     * converts a vector to a string
-     */
-    friend std::to_string(const Vector<T,N>& vec) {
-        std::string result = "[";
-        for (unsigned int i = 0; i < N; i++) {
-            result += std::to_string(vec[i]);
-            if (i != N - 1) {
-                result += ", ";
-            }
-        }
-        result += "]";
-        return result;
-    }
-
-    /**
-     * casts a vector to bool
-     * true if all components cast to true
-     */
-    explicit operator bool() const {
-        for (unsigned int i = 0; i < N; i++) {
-            if (!bool(data[i])) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
-     * Returns the dimension of a vector
-     */
-    unsigned int dim() const {
-        return N;
-    }
+    #pragma endregion iteration
     
+    #pragma region overloads
+    
+    /**
+     * stream insertion operator
+     */
+    friend std::ostream& operator <<(std::ostream& os, const vec4& vec) {
+        os << std::to_string(vec);
+        return os;
+    }
+
+    /**
+     * Copy assignment operator
+     */
+    vec4& operator =(const vec4& other) {
+        x = other.x;
+        y = other.y;
+        z = other.z;
+        w = other.w;
+        return *this;
+    }
+
+    /**
+     * component-wise addition operator
+     */
+    friend vec4 operator +(const vec4& a, const vec4& b) {
+        return vec4(a.x + b.x, a.y + b.y, a.z + b.z, a.w + b.w);
+    }
+
+    /**
+     * component-wise addition operator
+     */
+    friend vec4 operator +(const float& a, const vec4& b) {
+        return vec4(a + b.x, a + b.y, a + b.z, a + b.w);
+    }
+
+    /**
+     * component-wise addition operator
+     */
+    friend vec4 operator +(const vec4& a, const float& b) {
+        return vec4(a.x + b, a.y + b, a.z + b, a.w + b);
+    }
+
+    /**
+     * component-wise subtraction operator
+     */
+    friend vec4 operator -(const vec4& a, const vec4& b) {
+        return vec4(a.x - b.x, a.y - b.y, a.z - b.z, a.w - b.w);
+    }
+
+    /**
+     * component-wise subtraction operator
+     */
+    friend vec4 operator -(const float& a, const vec4& b) {
+        return vec4(a - b.x, a - b.y, a - b.z, a - b.w);
+    }
+
+    /**
+     * component-wise subtraction operator
+     */
+    friend vec4 operator -(const vec4& a, const float& b) {
+        return vec4(a.x - b, a.y - b, a.z - b, a.w - b);
+    }
+
+    /**
+     * component-wise negation operator
+     */
+    vec4 operator -() const {
+        return vec4(-x, -y, -z, -w);
+    }
+
+    /**
+     * component-wise multiplication operator
+     */
+    friend vec4 operator *(const vec4& a, const vec4& b) {
+        return vec4(a.x * b.x, a.y * b.y, a.z * b.z, a.w * b.w);
+    }
+
+    /**
+     * component-wise multiplication operator
+     */
+    friend vec4 operator *(const float& a, const vec4& b) {
+        return vec4(a * b.x, a * b.y, a * b.z, a * b.w);
+    }
+
+    /**
+     * component-wise multiplication operator
+     */
+    friend vec4 operator *(const vec4& a, const float& b) {
+        return vec4(a.x * b, a.y * b, a.z * b, a.w * b);
+    }
+
+    /**
+     * component-wise division operator
+     */
+    friend vec4 operator /(const vec4& a, const vec4& b) {
+        return vec4(a.x / b.x, a.y / b.y, a.z / b.z, a.w / b.w);
+    }
+
+    /**
+     * component-wise division operator
+     */
+    friend vec4 operator /(const float& a, const vec4& b) {
+        return vec4(a / b.x, a / b.y, a / b.z, a / b.w);
+    }
+
+    /**
+     * component-wise division operator
+     */
+    friend vec4 operator /(const vec4& a, const float& b) {
+        return vec4(a.x / b, a.y / b, a.z / b, a.w / b);
+    }
+
+    /**
+     * component-wise equality operator
+     */
+    bvec4 operator ==(const vec4& other) const {
+        return bvec4(x == other.x, y == other.y, z == other.z, w == other.w);
+    }
+
+    /**
+     * component-wise inequality operator
+     */
+    bvec4 operator !=(const vec4& other) const {
+        return bvec4(x != other.x, y != other.y, z != other.z, w != other.w);
+    }
+
+    /**
+     * component-wise less than operator
+     */
+    bvec4 operator <(const vec4& other) const {
+        return bvec4(x < other.x, y < other.y, z < other.z, w < other.w);
+    }
+
+    /**
+     * component-wise greater than operator
+     */
+    bvec4 operator >(const vec4& other) const {
+        return bvec4(x > other.x, y > other.y, z > other.z, w > other.w);
+    }
+
+    /**
+     * component-wise less than or equal to operator
+     */
+    bvec4 operator <=(const vec4& other) const {
+        return bvec4(x <= other.x, y <= other.y, z <= other.z, w <= other.w);
+    }
+
+    /**
+     * component-wise greater than or equal to operator
+     */
+    bvec4 operator >=(const vec4& other) const {
+        return bvec4(x >= other.x, y >= other.y, z >= other.z, w >= other.w);   
+    }
+
+    /**
+     * component-wise addition assignment operator
+     */
+    vec4 operator +=(const vec4& other) {
+        x += other.x;
+        y += other.y;
+        z += other.z;
+        w += other.w;
+        return *this;
+    }
+
+    /**
+     * component-wise addition assignment operator
+     */
+    vec4 operator +=(const float& other) {
+        x += other;
+        y += other;
+        z += other;
+        w += other;
+        return *this;
+    }
+
+    /**
+     * component-wise subtraction assignment operator
+     */
+    vec4 operator -=(const vec4& other) {
+        x -= other.x;
+        y -= other.y;
+        z -= other.z;
+        w -= other.w;
+        return *this;
+    }
+
+    /**
+     * component-wise subtraction assignment operator
+     */
+    vec4 operator -=(const float& other) {
+        x -= other;
+        y -= other;
+        z -= other;
+        w -= other;
+        return *this;
+    }
+
+    /**
+     * component-wise multiplication assignment operator
+     */
+    vec4 operator *=(const vec4& other) {
+        x *= other.x;
+        y *= other.y;
+        z *= other.z;
+        w *= other.w;
+        return *this;
+    }
+
+    /**
+     * component-wise multiplication assignment operator
+     */
+    vec4 operator *=(const float& other) {
+        x *= other;
+        y *= other;
+        z *= other;
+        w *= other;
+        return *this;
+    }
+
+    /**
+     * component-wise division assignment operator
+     */
+    vec4 operator /=(const vec4& other) {
+        x /= other.x;
+        y /= other.y;
+        z /= other.z;
+        w /= other.w;
+        return *this;
+    }
+
+    /**
+     * component-wise division assignment operator
+     */
+    vec4 operator /=(const float& other) {
+        x /= other;
+        y /= other;
+        z /= other;
+        w /= other;
+        return *this;
+    }
+
+    /**
+     * component-wise increment operator
+     */
+    vec4 operator ++() {
+        x++;
+        y++;
+        z++;
+        w++;
+        return *this;
+    }
+
+    /**
+     * component-wise decrement operator
+     */
+    vec4 operator --() {
+        x--;
+        y--;
+        z--;
+        w--;
+        return *this;
+    }
+
+    #pragma endregion overloads
 
     #pragma region vector operations
     
     /**
      * dot product of two vectors
      */
-    friend T dot(const Vector<T,N>& a, const Vector<T,N>& b) const {
-        T result = T();
-        for (int i = 0; i < N; i++) {
-            result += a[i]*b[i];
-        }
-        return result;
+    static float dot(const vec4& a, const vec4& b) {
+        return a.x*b.x + a.y*b.y + a.z*b.z + a.w*b.w;
     }
 
     /**
      * angle between two vectors
      */
-    friend double angleBetween(const Vector<T,N>& a, const Vector<T,N>& b) const {
-        return acos( dot(other) / sqrt(a.lengthSquared()*b.lengthSquared()) );
-    }
-
-    /**
-     * cross product of two vectors
-     * defined only for 2d and 3d vectors
-     * for 2d vectors, returns a scalar
-     * for 3d vectors, returns a vector tangent to both input vectors
-     */
-    template <typename = std::enable_if_t<N == 2>>
-    friend T cross(const Vector<T,2>& a, const Vector<T,2>& b) const {
-        return a.x*b.y - a.y*a.x;
-    }
-
-    /**
-     * cross product of two vectors
-     * defined only for 2d and 3d vectors
-     * for 2d vectors, returns a scalar
-     * for 3d vectors, returns a vector tangent to both input vectors
-     */
-    template <typename = std::enable_if_t<N == 3>>
-    friend Vector<T,3> cross(const Vector<T,3>& a, const Vector<T,3>& b) const {
-        return Vector<T,3>(a.y*b.z - a.z*b.y, a.z*b.x - a.x*b.z, a.x*b.y - a.y*b.x);
-    }
-
-    /**
-     * distance between two vectors
-     */
-    template <typename = std::enable_if_t<N == 3>>
-    friend Vector<T,3> cross(const Vector<T,3>& a, const Vector<T,3>& b) const {
-        return Vector<T,3>(a.y*b.z - a.z*b.y, a.z*b.x - a.x*b.z, a.x*b.y - a.y*b.x);
+    static double angleBetween(const vec4& a, const vec4& b) {
+        return acos( dot(a,b) / sqrt(a.lengthSquared()*b.lengthSquared()) );
     }
 
     /**
      * reflects incident vector, I, over normal, N
+     * see https://registry.khronos.org/OpenGL-Refpages/gl4/html/reflect.xhtml
      */
-    friend Vector<T,N> reflect(const Vector<T,N>& I, const Vector<T,N>& N) const {
-        I - 2.0 * dot(N, I) * N
+    static vec4 reflect(const vec4& I, const vec4& N) {
+        return I - 2.0*dot(N, I)*N;
     }
 
     /**
      * returns a vector in the same direction as the input vector, but with a length of 1
      */
-    friend Vector<T,N> normalize(const Vector<T,N>& vec) {
+    static vec4 normalize(const vec4& vec) {
         return vec/vec.length();
     }
 
     /**
      * returns a vector in the same direction as this vector, but with a length of 1
      */
-    Vector<T,N> normalized() {
+    vec4 normalized() const {
         return *this/length();
     }
 
     /**
      * returns the distance between two vectors
      */
-    friend T distanceSquared(const Vector<T,N>& other) {
-        return (other - *this).lengthSquared();
+    static float distanceSquared(const vec4& a, const vec4& b) {
+        return (b - a).lengthSquared();
     }
 
     /**
      * returns the distance between two vectors
      */
-    friend T distance(const Vector<T,N>& other) {
-        return (other - *this).length();
+    static float distance(const vec4& a, const vec4& b) {
+        return (b - a).length();
     }
 
     /**
      * Returns the length squared of the vector
      * equivalent to dot product with itself
      */
-    T lengthSquared() const {
+    float lengthSquared() const {
         return dot(*this, *this);
+    }
+
+    /**
+     * Returns the length squared of the vector
+     * equivalent to dot product with itself
+     */
+    static float lengthSquared(const vec4& a) {
+        return dot(a, a);
     }
 
     /**
      * Returns the length of the vector
      */
-    T length() const {
-        return sqrt(lengthSquared());
+    float length() const {
+        return sqrtf(lengthSquared());
     }
 
     /**
-     * Returns a tangent vector of the same length to the current vector
-     * in 2d the equation used is (-y, x)
-     * in 3d the equation used is (-y,x,0) if |x| <= |z|, else (0,-z,y)
+     * Returns the length of the vector
      */
-    template <typename = std::enable_if_t<N == 2>>
-    Vector<T,2> tangent() const {
-        return Vector<T,2>(-y, x);
-    }
-
-    /**
-     * Returns a tangent vector of the same length to the current vector
-     * in 2d the equation used is (-y, x)
-     * in 3d the equation used is (-y,x,0) if |x| <= |z|, else (0,-z,y)
-     */
-    template <typename = std::enable_if_t<N == 3>>
-    Vector<T,3> tangent() const {
-        Vector<T,3> a = |x| <= |z| ? Vector<T,3>(-y,x,0) : Vector<T,3>(0,-z,y);
-        return a*sqrt(lengthSquared()/a.lengthSquared());
+    static float length(const vec4& a) {
+        return sqrtf(a.lengthSquared());
     }
 
     #pragma endregion vector operations
 };
+
+/**
+ * vector of all zeros
+ */
+const vec4 vec4::zero = vec4(0);
+/**
+ * vector of all ones
+ */
+const vec4 vec4::one = vec4(1);
+/**
+ * positive x unit vector
+ */
+const vec4 vec4::up = vec4(1,0,0,0);
+/**
+ * negative x unit vector
+ */
+const vec4 vec4::down = vec4(-1,0,0,0);
+/**
+ * positive y unit vector
+ */
+const vec4 vec4::left = vec4(0,1,0,0);
+/**
+ * negative y unit vector
+ */
+const vec4 vec4::right = vec4(0,-1,0,0);
+/**
+ * positive z unit vector
+ */
+const vec4 vec4::forward = vec4(0,0,1,0);
+/**
+ * negative z unit vector
+ */
+const vec4 vec4::back = vec4(0,0,-1,0);
+/**
+ * positive w unit vector
+ */
+const vec4 vec4::ana = vec4(0,0,0,1);
+/**
+ * negative w unit vector
+ */
+const vec4 vec4::kata = vec4(0,0,0,-1);
