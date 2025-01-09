@@ -1,0 +1,35 @@
+#ifndef ENGINE_UIElement_hpp
+#define ENGINE_UIElement_hpp
+
+#include "../Node.hpp"
+#include "../Utils.hpp"
+
+class Camera : public Engine::Node {
+    protected:
+
+    mat3 m_projectionMatrix;
+    vec3 m_position;
+    vec3 m_direction;
+    float m_fov;
+
+    public:
+
+    Camera();
+
+    vec3 getPosition();
+    void setPosition(vec3 position);
+
+    vec3 getDirection();
+    void setDirection(vec3 direction);
+
+    mat3f getProjectionMatrix();
+    void setProjectionMatrix(mat3f projectionMatrix);
+
+    // horizontal fov in radians
+    // < 0 : reverse perspective, = 0 : orthographic, > 0 : perspective
+    // see https://www.desmos.com/calculator/zz2v1m0pxw
+    float getFov();
+    void setFov(float fov);
+};
+
+#endif

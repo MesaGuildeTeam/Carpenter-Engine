@@ -14,13 +14,6 @@ namespace Engine::UI {
 
     public:
 
-    struct onGlLoadEventData {
-      EMSCRIPTEN_WEBGL_CONTEXT_HANDLE ctx;
-      UIRenderCanvas* element;
-    };
-    
-    BasicEvent<onGlLoadEventData> onGLLoad;
-
     /** 
      * Creates a render canvas with the given id
      */
