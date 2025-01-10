@@ -26,6 +26,7 @@ class Camera : public Engine::Node {
     // horizontal fov in radians
     // < 0 : reverse perspective, = 0 : orthographic, > 0 : perspective
     // see https://www.desmos.com/calculator/zz2v1m0pxw
+    // may have to provide for vertical fov too later on
     float getFov();
     void setFov(float fov);
 
