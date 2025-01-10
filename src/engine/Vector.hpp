@@ -1,3 +1,6 @@
+#ifndef ENGINE_VECTOR
+#define ENGINE_VECTOR
+
 #include <array>
 #include <string>
 #include <iostream>
@@ -7,10 +10,26 @@ namespace Engine {
 class vec4;
 class vec3;
 class vec2;
-class bvec4;
-class bvec3;
-class bvec2;
+class vec4b;
+class vec3b;
+class vec2b;
 
+/**
+ * 4d vector of float
+ */
+typedef vec4 vec4f;
+/**
+ * 3d vector of float
+ */
+typedef vec3 vec3f;
+/**
+ * 2d vector of float
+ */
+typedef vec2 vec2f;
+
+/**
+ * 4d vector of float
+ */
 class vec4 {
     private:
     // components
@@ -136,7 +155,7 @@ class vec4 {
     /**
      * casts a boolean vector to a float vector
      */
-    vec4(const bvec4& vec);
+    vec4(const vec4b& vec);
 
     #pragma endregion conversions
 
@@ -356,32 +375,32 @@ class vec4 {
     /**
      * component-wise equality operator
      */
-    bvec4 operator ==(const vec4& other) const;
+    vec4b operator ==(const vec4& other) const;
 
     /**
      * component-wise inequality operator
      */
-    bvec4 operator !=(const vec4& other) const;
+    vec4b operator !=(const vec4& other) const;
 
     /**
      * component-wise less than operator
      */
-    bvec4 operator <(const vec4& other) const;
+    vec4b operator <(const vec4& other) const;
 
     /**
      * component-wise greater than operator
      */
-    bvec4 operator >(const vec4& other) const;
+    vec4b operator >(const vec4& other) const;
 
     /**
      * component-wise less than or equal to operator
      */
-    bvec4 operator <=(const vec4& other) const;
+    vec4b operator <=(const vec4& other) const;
 
     /**
      * component-wise greater than or equal to operator
      */
-    bvec4 operator >=(const vec4& other) const;
+    vec4b operator >=(const vec4& other) const;
 
     /**
      * component-wise addition assignment operator
@@ -498,6 +517,9 @@ class vec4 {
     #pragma endregion vector operations
 };
 
+/**
+ * 3d vector of float
+ */
 class vec3 {
     private:
     // components
@@ -591,7 +613,7 @@ class vec3 {
     /**
      * casts a boolean vector to a float vector
      */
-    vec3(const bvec3& vec);
+    vec3(const vec3b& vec);
 
     #pragma endregion conversions
 
@@ -801,32 +823,32 @@ class vec3 {
     /**
      * component-wise equality operator
      */
-    bvec3 operator ==(const vec3& other) const;
+    vec3b operator ==(const vec3& other) const;
 
     /**
      * component-wise inequality operator
      */
-    bvec3 operator !=(const vec3& other) const;
+    vec3b operator !=(const vec3& other) const;
     
     /**
      * component-wise less than operator
      */
-    bvec3 operator <(const vec3& other) const;
+    vec3b operator <(const vec3& other) const;
 
     /**
      * component-wise greater than operator
      */
-    bvec3 operator >(const vec3& other) const;
+    vec3b operator >(const vec3& other) const;
 
     /**
      * component-wise less than or equal to operator
      */
-    bvec3 operator <=(const vec3& other) const;
+    vec3b operator <=(const vec3& other) const;
 
     /**
      * component-wise greater than or equal to operator
      */
-    bvec3 operator >=(const vec3& other) const;
+    vec3b operator >=(const vec3& other) const;
 
     /**
      * component-wise addition assignment operator
@@ -961,6 +983,9 @@ class vec3 {
     #pragma endregion vector operations
 };
 
+/**
+ * 2d vector of float
+ */
 class vec2 {
     private:
     // components
@@ -1035,7 +1060,7 @@ class vec2 {
     /**
      * casts a boolean vector to a float vector
      */
-    vec2(const bvec2& vec);
+    vec2(const vec2b& vec);
 
     #pragma endregion conversions
 
@@ -1236,32 +1261,32 @@ class vec2 {
     /**
      * component-wise equality operator
      */
-    bvec2 operator ==(const vec2& other) const;
+    vec2b operator ==(const vec2& other) const;
 
     /**
      * component-wise inequality operator
      */
-    bvec2 operator !=(const vec2& other) const;
+    vec2b operator !=(const vec2& other) const;
 
     /**
      * component-wise less than operator
      */
-    bvec2 operator <(const vec2& other) const;
+    vec2b operator <(const vec2& other) const;
 
     /**
      * component-wise greater than operator
      */
-    bvec2 operator >(const vec2& other) const;
+    vec2b operator >(const vec2& other) const;
 
     /**
      * component-wise less than or equal to operator
      */
-    bvec2 operator <=(const vec2& other) const;
+    vec2b operator <=(const vec2& other) const;
 
     /**
      * component-wise greater than or equal to operator
      */
-    bvec2 operator >=(const vec2& other) const;
+    vec2b operator >=(const vec2& other) const;
 
     /**
      * component-wise addition assignment operator
@@ -1396,7 +1421,10 @@ class vec2 {
     #pragma endregion vector operations
 };
 
-class bvec4 {
+/**
+ * 4d vector of bool
+ */
+class vec4b {
     private:
     // components
     std::array<bool,4> data;
@@ -1408,11 +1436,11 @@ class bvec4 {
     /**
      * vector of all falses
      */
-    static const bvec4 zero;
+    static const vec4b zero;
     /**
      * vector of all trues
      */
-    static const bvec4 one;
+    static const vec4b one;
 
     #pragma endregion constants
 
@@ -1421,60 +1449,60 @@ class bvec4 {
     /**
      * default constructor, fills the vector with false
      */
-    bvec4();
+    vec4b();
 
     /**
      * fill constructor, fills the vector with the provided scalar value
      */
-    bvec4(const bool& a);
+    vec4b(const bool& a);
 
     /**
      * concatenation constructor
      * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
      */
-    bvec4(const bvec4& a);
+    vec4b(const vec4b& a);
 
     /**
      * concatenation constructor
      * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
      */
-    bvec4(const bvec3& a, const bool& b);
+    vec4b(const vec3b& a, const bool& b);
 
     /**
      * concatenation constructor
      * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
      */
-    bvec4(const bool& a, const bvec3& b);
+    vec4b(const bool& a, const vec3b& b);
 
     /**
      * concatenation constructor
      * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
      */
-    bvec4(const bvec2& a, const bvec2& b);
+    vec4b(const vec2b& a, const vec2b& b);
 
     /**
      * concatenation constructor
      * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
      */
-    bvec4(const bvec2& a, const bool& b, const bool& c);
+    vec4b(const vec2b& a, const bool& b, const bool& c);
 
     /**
      * concatenation constructor
      * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
      */
-    bvec4(const bool& a, const bvec2& b, const bool& c);
+    vec4b(const bool& a, const vec2b& b, const bool& c);
 
     /**
      * concatenation constructor
      * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
      */
-    bvec4(const bool& a, const bool& b, const bvec2& c);
+    vec4b(const bool& a, const bool& b, const vec2b& c);
 
     /**
      * concatenation constructor
      * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
      */
-    bvec4(const bool& a, const bool& b, const bool& c, const bool& d);
+    vec4b(const bool& a, const bool& b, const bool& c, const bool& d);
 
     #pragma endregion constructors
 
@@ -1483,14 +1511,14 @@ class bvec4 {
     /**
      * casts a vector to a bool
      * true if all components are non-zero
-     * to check if any components are non-zero, compare with bvec4::zero rather than casting
+     * to check if any components are non-zero, compare with vec4b::zero rather than casting
      */
     explicit operator bool() const;
 
     /**
      * casts a float vector to a boolean vector
      */
-    bvec4(const vec4& vec);
+    vec4b(const vec4& vec);
 
     #pragma endregion conversions
 
@@ -1635,57 +1663,57 @@ class bvec4 {
     /**
      * stream insertion operator
      */
-    friend std::ostream& operator <<(std::ostream& os, const bvec4& vec);
+    friend std::ostream& operator <<(std::ostream& os, const vec4b& vec);
 
     /**
      * Copy assignment operator
      */
-    bvec4& operator =(const bvec4& other);
+    vec4b& operator =(const vec4b& other);
 
     /**
      * component-wise and operator
      */
-    friend bvec4 operator &&(const bvec4& a, const bvec4& b);
+    friend vec4b operator &&(const vec4b& a, const vec4b& b);
 
     /**
      * component-wise and operator
      */
-    friend bvec4 operator &&(const bool& a, const bvec4& b);
+    friend vec4b operator &&(const bool& a, const vec4b& b);
 
     /**
      * component-wise and operator
      */
-    friend bvec4 operator &&(const bvec4& a, const bool& b);
+    friend vec4b operator &&(const vec4b& a, const bool& b);
 
     /**
      * component-wise or operator
      */
-    friend bvec4 operator ||(const bvec4& a, const bvec4& b);
+    friend vec4b operator ||(const vec4b& a, const vec4b& b);
 
     /**
      * component-wise or operator
      */
-    friend bvec4 operator ||(const bool& a, const bvec4& b);
+    friend vec4b operator ||(const bool& a, const vec4b& b);
 
     /**
      * component-wise or operator
      */
-    friend bvec4 operator ||(const bvec4& a, const bool& b);
+    friend vec4b operator ||(const vec4b& a, const bool& b);
 
     /**
      * component-wise not operator
      */
-    bvec4 operator !() const;
+    vec4b operator !() const;
 
     /**
      * component-wise equality operator
      */
-    friend bvec4 operator ==(const bvec4& a, const bvec4& b);
+    friend vec4b operator ==(const vec4b& a, const vec4b& b);
 
     /**
      * component-wise inequality operator
      */
-    friend bvec4 operator !=(const bvec4& a, const bvec4& b);
+    friend vec4b operator !=(const vec4b& a, const vec4b& b);
 
     #pragma endregion overloads
 
@@ -1699,7 +1727,7 @@ class bvec4 {
     /**
      * returns if any component is true
      */
-    friend bool any(const bvec4& vec);
+    friend bool any(const vec4b& vec);
 
     /**
      * returns if all components are true
@@ -1709,7 +1737,7 @@ class bvec4 {
     /**
      * returns if all components are true
      */
-    friend bool all(const bvec4& vec);
+    friend bool all(const vec4b& vec);
 
     /**
      * returns the number of true components
@@ -1719,12 +1747,15 @@ class bvec4 {
     /**
      * returns the number of true components
     */
-   friend unsigned int count(const bvec4& vec);
+   friend unsigned int count(const vec4b& vec);
 
     #pragma endregion vector operations
 };
 
-class bvec3 {
+/**
+ * 3d vector of bool
+ */
+class vec3b {
     private:
     // components
     std::array<bool,3> data;
@@ -1736,11 +1767,11 @@ class bvec3 {
     /**
      * vector of all falses
      */
-    static const bvec3 zero;
+    static const vec3b zero;
     /**
      * vector of all trues
      */
-    static const bvec3 one;
+    static const vec3b one;
 
     #pragma endregion constants
 
@@ -1749,36 +1780,36 @@ class bvec3 {
     /**
      * default constructor, fills the vector with false
      */
-    bvec3();
+    vec3b();
 
     /**
      * fill constructor, fills the vector with the provided scalar value
      */
-    bvec3(const bool& a);
+    vec3b(const bool& a);
 
     /**
      * concatenation constructor
      * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
      */
-    bvec3(const bvec3& a);
+    vec3b(const vec3b& a);
 
     /**
      * concatenation constructor
      * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
      */
-    bvec3(const bool& a, const bvec2& b);
+    vec3b(const bool& a, const vec2b& b);
 
     /**
      * concatenation constructor
      * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
      */
-    bvec3(const bvec2& a, const bool& b);
+    vec3b(const vec2b& a, const bool& b);
 
     /**
      * concatenation constructor
      * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
      */
-    bvec3(const bool& a, const bool& b, const bool& c);
+    vec3b(const bool& a, const bool& b, const bool& c);
 
     #pragma endregion constructors
 
@@ -1787,14 +1818,14 @@ class bvec3 {
     /**
      * casts a vector to a bool
      * true if all components are non-zero
-     * to check if any components are non-zero, compare with bvec4::zero rather than casting
+     * to check if any components are non-zero, compare with vec4b::zero rather than casting
      */
     explicit operator bool() const;
 
     /**
      * casts a float vector to a boolean vector
      */
-    bvec3(const vec3& vec);
+    vec3b(const vec3& vec);
 
     #pragma endregion conversions
 
@@ -1929,57 +1960,57 @@ class bvec3 {
     /**
      * stream insertion operator
      */
-    friend std::ostream& operator <<(std::ostream& os, const bvec3& vec);
+    friend std::ostream& operator <<(std::ostream& os, const vec3b& vec);
 
     /**
      * Copy assignment operator
      */
-    bvec3& operator =(const bvec3& other);
+    vec3b& operator =(const vec3b& other);
 
     /**
      * component-wise and operator
      */
-    friend bvec3 operator &&(const bvec3& a, const bvec3& b);
+    friend vec3b operator &&(const vec3b& a, const vec3b& b);
 
     /**
      * component-wise and operator
      */
-    friend bvec3 operator &&(const bool& a, const bvec3& b);
+    friend vec3b operator &&(const bool& a, const vec3b& b);
 
     /**
      * component-wise and operator
      */
-    friend bvec3 operator &&(const bvec3& a, const bool& b);
+    friend vec3b operator &&(const vec3b& a, const bool& b);
 
     /**
      * component-wise or operator
      */
-    friend bvec3 operator ||(const bvec3& a, const bvec3& b);
+    friend vec3b operator ||(const vec3b& a, const vec3b& b);
 
     /**
      * component-wise or operator
      */
-    friend bvec3 operator ||(const bool& a, const bvec3& b);
+    friend vec3b operator ||(const bool& a, const vec3b& b);
 
     /**
      * component-wise or operator
      */
-    friend bvec3 operator ||(const bvec3& a, const bool& b);
+    friend vec3b operator ||(const vec3b& a, const bool& b);
 
     /**
      * component-wise not operator
      */
-    bvec3 operator !() const;
+    vec3b operator !() const;
 
     /**
      * component-wise equality operator
      */
-    friend bvec3 operator ==(const bvec3& a, const bvec3& b);
+    friend vec3b operator ==(const vec3b& a, const vec3b& b);
 
     /**
      * component-wise inequality operator
      */
-    friend bvec3 operator !=(const bvec3& a, const bvec3& b);
+    friend vec3b operator !=(const vec3b& a, const vec3b& b);
 
     #pragma endregion overloads
 
@@ -1993,7 +2024,7 @@ class bvec3 {
     /**
      * returns if any component is true
      */
-    friend bool any(const bvec3& vec);
+    friend bool any(const vec3b& vec);
 
     /**
      * returns if all components are true
@@ -2003,7 +2034,7 @@ class bvec3 {
     /**
      * returns if all components are true
      */
-    friend bool all(const bvec3& vec);
+    friend bool all(const vec3b& vec);
 
     /**
      * returns the number of true components
@@ -2013,12 +2044,15 @@ class bvec3 {
     /**
      * returns the number of true components
     */
-   friend unsigned int count(const bvec3& vec);
+   friend unsigned int count(const vec3b& vec);
 
     #pragma endregion vector operations
 };
 
-class bvec2 {
+/**
+ * 2d vector of bool
+ */
+class vec2b {
     private:
     // components
     std::array<bool,2> data;
@@ -2030,11 +2064,11 @@ class bvec2 {
     /**
      * vector of all falses
      */
-    static const bvec2 zero;
+    static const vec2b zero;
     /**
      * vector of all trues
      */
-    static const bvec2 one;
+    static const vec2b one;
 
     #pragma endregion constants
 
@@ -2043,24 +2077,24 @@ class bvec2 {
     /**
      * default constructor, fills the vector with false
      */
-    bvec2();
+    vec2b();
 
     /**
      * fill constructor, fills the vector with the provided scalar value
      */
-    bvec2(const bool& a);
+    vec2b(const bool& a);
 
     /**
      * concatenation constructor
      * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
      */
-    bvec2(const bvec2& a);
+    vec2b(const vec2b& a);
 
     /**
      * concatenation constructor
      * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
      */
-    bvec2(const bool& a, const bool& b);
+    vec2b(const bool& a, const bool& b);
 
     #pragma endregion constructors
 
@@ -2069,14 +2103,14 @@ class bvec2 {
     /**
      * casts a vector to a bool
      * true if all components are non-zero
-     * to check if any components are non-zero, compare with bvec4::zero rather than casting
+     * to check if any components are non-zero, compare with vec4b::zero rather than casting
      */
     explicit operator bool() const;
 
     /**
      * casts a float vector to a boolean vector
      */
-    bvec2(const vec2& vec);
+    vec2b(const vec2& vec);
 
     #pragma endregion conversions
 
@@ -2201,57 +2235,57 @@ class bvec2 {
     /**
      * stream insertion operator
      */
-    friend std::ostream& operator <<(std::ostream& os, const bvec2& vec);
+    friend std::ostream& operator <<(std::ostream& os, const vec2b& vec);
 
     /**
      * Copy assignment operator
      */
-    bvec2& operator =(const bvec2& other);
+    vec2b& operator =(const vec2b& other);
 
     /**
      * component-wise and operator
      */
-    friend bvec2 operator &&(const bvec2& a, const bvec2& b);
+    friend vec2b operator &&(const vec2b& a, const vec2b& b);
 
     /**
      * component-wise and operator
      */
-    friend bvec2 operator &&(const bool& a, const bvec2& b);
+    friend vec2b operator &&(const bool& a, const vec2b& b);
 
     /**
      * component-wise and operator
      */
-    friend bvec2 operator &&(const bvec2& a, const bool& b);
+    friend vec2b operator &&(const vec2b& a, const bool& b);
 
     /**
      * component-wise or operator
      */
-    friend bvec2 operator ||(const bvec2& a, const bvec2& b);
+    friend vec2b operator ||(const vec2b& a, const vec2b& b);
 
     /**
      * component-wise or operator
      */
-    friend bvec2 operator ||(const bool& a, const bvec2& b);
+    friend vec2b operator ||(const bool& a, const vec2b& b);
 
     /**
      * component-wise or operator
      */
-    friend bvec2 operator ||(const bvec2& a, const bool& b);
+    friend vec2b operator ||(const vec2b& a, const bool& b);
 
     /**
      * component-wise not operator
      */
-    bvec2 operator !() const;
+    vec2b operator !() const;
 
     /**
      * component-wise equality operator
      */
-    friend bvec2 operator ==(const bvec2& a, const bvec2& b);
+    friend vec2b operator ==(const vec2b& a, const vec2b& b);
 
     /**
      * component-wise inequality operator
      */
-    friend bvec2 operator !=(const bvec2& a, const bvec2& b);
+    friend vec2b operator !=(const vec2b& a, const vec2b& b);
 
     #pragma endregion overloads
 
@@ -2265,7 +2299,7 @@ class bvec2 {
     /**
      * returns if any component is true
      */
-    friend bool any(const bvec2& vec);
+    friend bool any(const vec2b& vec);
 
     /**
      * returns if all components are true
@@ -2275,7 +2309,7 @@ class bvec2 {
     /**
      * returns if all components are true
      */
-    friend bool all(const bvec2& vec);
+    friend bool all(const vec2b& vec);
 
     /**
      * returns the number of true components
@@ -2285,7 +2319,7 @@ class bvec2 {
     /**
      * returns the number of true components
     */
-   friend unsigned int count(const bvec2& vec);
+   friend unsigned int count(const vec2b& vec);
 
     #pragma endregion vector operations
 };
@@ -2308,14 +2342,15 @@ namespace std {
     /**
      * converts a vector to a string
      */
-    std::string to_string(const Engine::bvec4& vec);
+    std::string to_string(const Engine::vec4b& vec);
     /**
      * converts a vector to a string
      */
-    std::string to_string(const Engine::bvec3& vec);
+    std::string to_string(const Engine::vec3b& vec);
     /**
      * converts a vector to a string
      */
-    std::string to_string(const Engine::bvec2& vec);
+    std::string to_string(const Engine::vec2b& vec);
 }
 
+#endif

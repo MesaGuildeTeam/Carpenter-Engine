@@ -184,7 +184,7 @@ explicit vec4::operator bool() const {
 /**
  * casts a boolean vector to a float vector
  */
-vec4::vec4(const bvec4& vec){
+vec4::vec4(const vec4b& vec){
     x = vec.x;
     y = vec.y;
     z = vec.z;
@@ -422,43 +422,43 @@ vec4 operator /(const vec4& a, const float& b) {
 /**
  * component-wise equality operator
  */
-bvec4 vec4::operator ==(const vec4& other) const {
-    return bvec4(x == other.x, y == other.y, z == other.z, w == other.w);
+vec4b vec4::operator ==(const vec4& other) const {
+    return vec4b(x == other.x, y == other.y, z == other.z, w == other.w);
 }
 
 /**
  * component-wise inequality operator
  */
-bvec4 vec4::operator !=(const vec4& other) const {
-    return bvec4(x != other.x, y != other.y, z != other.z, w != other.w);
+vec4b vec4::operator !=(const vec4& other) const {
+    return vec4b(x != other.x, y != other.y, z != other.z, w != other.w);
 }
 
 /**
  * component-wise less than operator
  */
-bvec4 vec4::operator <(const vec4& other) const {
-    return bvec4(x < other.x, y < other.y, z < other.z, w < other.w);
+vec4b vec4::operator <(const vec4& other) const {
+    return vec4b(x < other.x, y < other.y, z < other.z, w < other.w);
 }
 
 /**
  * component-wise greater than operator
  */
-bvec4 vec4::operator >(const vec4& other) const {
-    return bvec4(x > other.x, y > other.y, z > other.z, w > other.w);
+vec4b vec4::operator >(const vec4& other) const {
+    return vec4b(x > other.x, y > other.y, z > other.z, w > other.w);
 }
 
 /**
  * component-wise less than or equal to operator
  */
-bvec4 vec4::operator <=(const vec4& other) const {
-    return bvec4(x <= other.x, y <= other.y, z <= other.z, w <= other.w);
+vec4b vec4::operator <=(const vec4& other) const {
+    return vec4b(x <= other.x, y <= other.y, z <= other.z, w <= other.w);
 }
 
 /**
  * component-wise greater than or equal to operator
  */
-bvec4 vec4::operator >=(const vec4& other) const {
-    return bvec4(x >= other.x, y >= other.y, z >= other.z, w >= other.w);   
+vec4b vec4::operator >=(const vec4& other) const {
+    return vec4b(x >= other.x, y >= other.y, z >= other.z, w >= other.w);   
 }
 
 /**
@@ -786,7 +786,7 @@ explicit vec3::operator bool() const {
 /**
  * casts a boolean vector to a float vector
  */
-vec3::vec3(const bvec3& vec){
+vec3::vec3(const vec3b& vec){
     x = vec.x;
     y = vec.y;
     z = vec.z;
@@ -1022,43 +1022,43 @@ vec3 operator /(const vec3& a, const float& b) {
 /**
  * component-wise equality operator
  */
-bvec3 vec3::operator ==(const vec3& other) const {
-    return bvec3(x == other.x, y == other.y, z == other.z);
+vec3b vec3::operator ==(const vec3& other) const {
+    return vec3b(x == other.x, y == other.y, z == other.z);
 }
 
 /**
  * component-wise inequality operator
  */
-bvec3 vec3::operator !=(const vec3& other) const {
-    return bvec3(x != other.x, y != other.y, z != other.z);
+vec3b vec3::operator !=(const vec3& other) const {
+    return vec3b(x != other.x, y != other.y, z != other.z);
 }
 
 /**
  * component-wise less than operator
  */
-bvec3 vec3::operator <(const vec3& other) const {
-    return bvec3(x < other.x, y < other.y, z < other.z);
+vec3b vec3::operator <(const vec3& other) const {
+    return vec3b(x < other.x, y < other.y, z < other.z);
 }
 
 /**
  * component-wise greater than operator
  */
-bvec3 vec3::operator >(const vec3& other) const {
-    return bvec3(x > other.x, y > other.y, z > other.z);
+vec3b vec3::operator >(const vec3& other) const {
+    return vec3b(x > other.x, y > other.y, z > other.z);
 }
 
 /**
  * component-wise less than or equal to operator
  */
-bvec3 vec3::operator <=(const vec3& other) const {
-    return bvec3(x <= other.x, y <= other.y, z <= other.z);
+vec3b vec3::operator <=(const vec3& other) const {
+    return vec3b(x <= other.x, y <= other.y, z <= other.z);
 }
 
 /**
  * component-wise greater than or equal to operator
  */
-bvec3 vec3::operator >=(const vec3& other) const {
-    return bvec3(x >= other.x, y >= other.y, z >= other.z);
+vec3b vec3::operator >=(const vec3& other) const {
+    return vec3b(x >= other.x, y >= other.y, z >= other.z);
 }
 
 /**
@@ -1375,7 +1375,7 @@ explicit vec2::operator bool() const {
 /**
  * casts a boolean vector to a float vector
  */
-vec2::vec2(const bvec2& vec){
+vec2::vec2(const vec2b& vec){
     x = vec.x;
     y = vec.y;
 }
@@ -1609,43 +1609,43 @@ vec2 operator /(const vec2& a, const float& b) {
 /**
  * component-wise equality operator
  */
-bvec2 vec2::operator ==(const vec2& other) const {
-    return bvec2(x == other.x, y == other.y);
+vec2b vec2::operator ==(const vec2& other) const {
+    return vec2b(x == other.x, y == other.y);
 }
 
 /**
  * component-wise inequality operator
  */
-bvec2 vec2::operator !=(const vec2& other) const {
-    return bvec2(x != other.x, y != other.y);
+vec2b vec2::operator !=(const vec2& other) const {
+    return vec2b(x != other.x, y != other.y);
 }
 
 /**
  * component-wise less than operator
  */
-bvec2 vec2::operator <(const vec2& other) const {
-    return bvec2(x < other.x, y < other.y);
+vec2b vec2::operator <(const vec2& other) const {
+    return vec2b(x < other.x, y < other.y);
 }
 
 /**
  * component-wise greater than operator
  */
-bvec2 vec2::operator >(const vec2& other) const {
-    return bvec2(x > other.x, y > other.y);
+vec2b vec2::operator >(const vec2& other) const {
+    return vec2b(x > other.x, y > other.y);
 }
 
 /**
  * component-wise less than or equal to operator
  */
-bvec2 vec2::operator <=(const vec2& other) const {
-    return bvec2(x <= other.x, y <= other.y);
+vec2b vec2::operator <=(const vec2& other) const {
+    return vec2b(x <= other.x, y <= other.y);
 }
 
 /**
  * component-wise greater than or equal to operator
  */
-bvec2 vec2::operator >=(const vec2& other) const {
-    return bvec2(x >= other.x, y >= other.y);
+vec2b vec2::operator >=(const vec2& other) const {
+    return vec2b(x >= other.x, y >= other.y);
 }
 
 /**
@@ -1853,12 +1853,12 @@ vec2 vec2::tangent(const vec2& vec) {
 #pragma endregion vec2
 
 
-#pragma region bvec4
+#pragma region vec4b
 
 /**
  * converts a vector to a string
  */
-std::string std::to_string(const Engine::bvec4& vec) {
+std::string std::to_string(const Engine::vec4b& vec) {
     return "[" + std::to_string(vec.x) + ", " + std::to_string(vec.y) + ", " + std::to_string(vec.z) + ", " + std::to_string(vec.w) + "]";
 }
 
@@ -1869,11 +1869,11 @@ namespace Engine {
 /**
  * vector of all falses
  */
-const bvec4 bvec4::zero = bvec4(false);
+const vec4b vec4b::zero = vec4b(false);
 /**
  * vector of all trues
  */
-const bvec4 bvec4::one = bvec4(true);
+const vec4b vec4b::one = vec4b(true);
 
 #pragma endregion constants
 
@@ -1882,7 +1882,7 @@ const bvec4 bvec4::one = bvec4(true);
 /**
  * default constructor, fills the vector with false
  */
-bvec4::bvec4() {
+vec4b::vec4b() {
     x = false;
     y = false;
     z = false;
@@ -1892,7 +1892,7 @@ bvec4::bvec4() {
 /**
  * fill constructor, fills the vector with the provided scalar value
  */
-bvec4::bvec4(const bool& a){
+vec4b::vec4b(const bool& a){
     x = a;
     y = a;
     z = a;
@@ -1903,7 +1903,7 @@ bvec4::bvec4(const bool& a){
  * concatenation constructor
  * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
  */
-bvec4::bvec4(const bvec4& a){
+vec4b::vec4b(const vec4b& a){
     x = a.x;
     y = a.y;
     z = a.z;
@@ -1914,7 +1914,7 @@ bvec4::bvec4(const bvec4& a){
  * concatenation constructor
  * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
  */
-bvec4::bvec4(const bvec3& a, const bool& b){
+vec4b::vec4b(const vec3b& a, const bool& b){
     x = a.x;
     y = a.y;
     z = a.z;
@@ -1925,7 +1925,7 @@ bvec4::bvec4(const bvec3& a, const bool& b){
  * concatenation constructor
  * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
  */
-bvec4::bvec4(const bool& a, const bvec3& b){
+vec4b::vec4b(const bool& a, const vec3b& b){
     x = a;
     y = b.x;
     z = b.y;
@@ -1936,7 +1936,7 @@ bvec4::bvec4(const bool& a, const bvec3& b){
  * concatenation constructor
  * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
  */
-bvec4::bvec4(const bvec2& a, const bvec2& b){
+vec4b::vec4b(const vec2b& a, const vec2b& b){
     x = a.x;
     y = a.y;
     z = b.x;
@@ -1947,7 +1947,7 @@ bvec4::bvec4(const bvec2& a, const bvec2& b){
  * concatenation constructor
  * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
  */
-bvec4::bvec4(const bvec2& a, const bool& b, const bool& c){
+vec4b::vec4b(const vec2b& a, const bool& b, const bool& c){
     x = a.x;
     y = a.y;
     z = b;
@@ -1958,7 +1958,7 @@ bvec4::bvec4(const bvec2& a, const bool& b, const bool& c){
  * concatenation constructor
  * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
  */
-bvec4::bvec4(const bool& a, const bvec2& b, const bool& c){
+vec4b::vec4b(const bool& a, const vec2b& b, const bool& c){
     x = a;
     y = b.x;
     z = b.y;
@@ -1969,7 +1969,7 @@ bvec4::bvec4(const bool& a, const bvec2& b, const bool& c){
  * concatenation constructor
  * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
  */
-bvec4::bvec4(const bool& a, const bool& b, const bvec2& c){
+vec4b::vec4b(const bool& a, const bool& b, const vec2b& c){
     x = a;
     y = b;
     z = c.x;
@@ -1980,7 +1980,7 @@ bvec4::bvec4(const bool& a, const bool& b, const bvec2& c){
  * concatenation constructor
  * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
  */
-bvec4::bvec4(const bool& a, const bool& b, const bool& c, const bool& d){
+vec4b::vec4b(const bool& a, const bool& b, const bool& c, const bool& d){
     x = a;
     y = b;
     z = c;
@@ -1994,16 +1994,16 @@ bvec4::bvec4(const bool& a, const bool& b, const bool& c, const bool& d){
 /**
  * casts a vector to a bool
  * true if all components are non-zero
- * to check if any components are non-zero, compare with bvec4::zero rather than casting
+ * to check if any components are non-zero, compare with vec4b::zero rather than casting
  */
-explicit bvec4::operator bool() const {
+explicit vec4b::operator bool() const {
     return x && y && z && w;
 }
 
 /**
  * casts a float vector to a boolean vector
  */
-bvec4::bvec4(const vec4& vec){
+vec4b::vec4b(const vec4& vec){
     x = vec.x > 0.0f;
     y = vec.y > 0.0f;
     z = vec.z > 0.0f;
@@ -2018,7 +2018,7 @@ bvec4::bvec4(const vec4& vec){
  * Array accessor
  * Returns the component at index i, 0-indexed
  */
-bool& bvec4::operator [](unsigned int i){
+bool& vec4b::operator [](unsigned int i){
     return data[i];
 }
 
@@ -2026,7 +2026,7 @@ bool& bvec4::operator [](unsigned int i){
  * Array accessor
  * Returns the component at index i, 0-indexed
  */
-const bool& bvec4::operator [](unsigned int i) const {
+const bool& vec4b::operator [](unsigned int i) const {
     return data[i];
 }
 
@@ -2037,84 +2037,84 @@ const bool& bvec4::operator [](unsigned int i) const {
 /**
  * iterator to the first component
  */
-auto bvec4::begin() noexcept {
+auto vec4b::begin() noexcept {
     return data.begin();
 }
 
 /**
  * iterator to the end of the components
  */
-auto bvec4::end() noexcept {
+auto vec4b::end() noexcept {
     return data.end();
 }
 
 /**
  * iterator to the first component
  */
-auto bvec4::begin() const noexcept {
+auto vec4b::begin() const noexcept {
     return data.begin();
 }
 
 /**
  * iterator to the end of the components
  */
-auto bvec4::end() const noexcept {
+auto vec4b::end() const noexcept {
     return data.end();
 }
 
 /**
  * iterator to the first component
  */
-auto bvec4::cbegin() const noexcept {
+auto vec4b::cbegin() const noexcept {
     return data.cbegin();
 }
 
 /**
  * iterator to the end of the components
  */
-auto bvec4::cend() const noexcept { 
+auto vec4b::cend() const noexcept { 
     return data.cend();
 }
 
 /**
  * reverse iterator to the first component
  */
-auto bvec4::rbegin() noexcept {
+auto vec4b::rbegin() noexcept {
     return data.rbegin();
 }
 
 /**
  * reverse iterator to the end of the components
  */
-auto bvec4::rend() noexcept {
+auto vec4b::rend() noexcept {
     return data.rend();
 }
 
 /**
  * reverse iterator to the first component
  */
-auto bvec4::rbegin() const noexcept {
+auto vec4b::rbegin() const noexcept {
     return data.rbegin();
 }
 
 /**
  * reverse iterator to the end of the components
  */
-auto bvec4::rend() const noexcept {
+auto vec4b::rend() const noexcept {
     return data.rend();
 }
 
 /**
  * reverse iterator to the first component
  */
-auto bvec4::crbegin() const noexcept {
+auto vec4b::crbegin() const noexcept {
     return data.crbegin();
 }
 
 /**
  * reverse iterator to the end of the components
  */
-auto bvec4::crend() const noexcept { 
+auto vec4b::crend() const noexcept { 
     return data.crend();
 }
 
@@ -2125,7 +2125,7 @@ auto bvec4::crend() const noexcept {
 /**
  * stream insertion operator
  */
-std::ostream& operator <<(std::ostream& os, const bvec4& vec) {
+std::ostream& operator <<(std::ostream& os, const vec4b& vec) {
     os << "[" << vec.x << ", " << vec.y << ", " << vec.z << ", " << vec.w << "]";
     return os;
 }
@@ -2133,7 +2133,7 @@ std::ostream& operator <<(std::ostream& os, const bvec4& vec) {
 /**
  * Copy assignment operator
  */
-bvec4& bvec4::operator =(const bvec4& other) {
+vec4b& vec4b::operator =(const vec4b& other) {
     x = other.x;
     y = other.y;
     z = other.z;
@@ -2144,64 +2144,64 @@ bvec4& bvec4::operator =(const bvec4& other) {
 /**
  * component-wise and operator
  */
-bvec4 operator &&(const bvec4& a, const bvec4& b) {
-    return bvec4(a.x && b.x, a.y && b.y, a.z && b.z, a.w && b.w);
+vec4b operator &&(const vec4b& a, const vec4b& b) {
+    return vec4b(a.x && b.x, a.y && b.y, a.z && b.z, a.w && b.w);
 }
 
 /**
  * component-wise and operator
  */
-bvec4 operator &&(const bool& a, const bvec4& b) {
-    return bvec4(a && b.x, a && b.y, a && b.z, a && b.w);
+vec4b operator &&(const bool& a, const vec4b& b) {
+    return vec4b(a && b.x, a && b.y, a && b.z, a && b.w);
 }
 
 /**
  * component-wise and operator
  */
-bvec4 operator &&(const bvec4& a, const bool& b) {
-    return bvec4(a.x && b, a.y && b, a.z && b, a.w && b);
+vec4b operator &&(const vec4b& a, const bool& b) {
+    return vec4b(a.x && b, a.y && b, a.z && b, a.w && b);
 }
 
 /**
  * component-wise or operator
  */
-bvec4 operator ||(const bvec4& a, const bvec4& b) {
-    return bvec4(a.x || b.x, a.y || b.y, a.z || b.z, a.w || b.w);
+vec4b operator ||(const vec4b& a, const vec4b& b) {
+    return vec4b(a.x || b.x, a.y || b.y, a.z || b.z, a.w || b.w);
 }
 
 /**
  * component-wise or operator
  */
-bvec4 operator ||(const bool& a, const bvec4& b) {
-    return bvec4(a || b.x, a || b.y, a || b.z, a || b.w);
+vec4b operator ||(const bool& a, const vec4b& b) {
+    return vec4b(a || b.x, a || b.y, a || b.z, a || b.w);
 }
 
 /**
  * component-wise or operator
  */
-bvec4 operator ||(const bvec4& a, const bool& b) {
-    return bvec4(a.x || b, a.y || b, a.z || b, a.w || b);
+vec4b operator ||(const vec4b& a, const bool& b) {
+    return vec4b(a.x || b, a.y || b, a.z || b, a.w || b);
 }
 
 /**
  * component-wise not operator
  */
-bvec4 bvec4::operator !() const {
-    return bvec4(!x, !y, !z, !w);
+vec4b vec4b::operator !() const {
+    return vec4b(!x, !y, !z, !w);
 }
 
 /**
  * component-wise equality operator
  */
-bvec4 operator ==(const bvec4& a, const bvec4& b) {
-    return bvec4(a.x == b.x, a.y == b.y, a.z == b.z, a.w == b.w);
+vec4b operator ==(const vec4b& a, const vec4b& b) {
+    return vec4b(a.x == b.x, a.y == b.y, a.z == b.z, a.w == b.w);
 }
 
 /**
  * component-wise inequality operator
  */
-bvec4 operator !=(const bvec4& a, const bvec4& b) {
-    return bvec4(a.x != b.x, a.y != b.y, a.z != b.z, a.w != b.w);
+vec4b operator !=(const vec4b& a, const vec4b& b) {
+    return vec4b(a.x != b.x, a.y != b.y, a.z != b.z, a.w != b.w);
 }
 
 #pragma endregion overloads
@@ -2211,42 +2211,42 @@ bvec4 operator !=(const bvec4& a, const bvec4& b) {
 /**
  * returns if any component is true
  */
-bool bvec4::any() const {
+bool vec4b::any() const {
     return x || y || z || w;
 }
 
 /**
  * returns if any component is true
  */
-bool any(const bvec4& vec) {
+bool any(const vec4b& vec) {
     return vec.x || vec.y || vec.z || vec.w;
 }
 
 /**
  * returns if all components are true
  */
-bool bvec4::all() const {
+bool vec4b::all() const {
     return x && y && z && w;
 }
 
 /**
  * returns if all components are true
  */
-bool all(const bvec4& vec) {
+bool all(const vec4b& vec) {
     return vec.x && vec.y && vec.z && vec.w;
 }
 
 /**
  * returns the number of true components
 */
-unsigned int bvec4::count() const {
+unsigned int vec4b::count() const {
     return (unsigned int)x + (unsigned int)y + (unsigned int)z + (unsigned int)w;
 }
 
 /**
  * returns the number of true components
 */
-unsigned int count(const bvec4& vec) {
+unsigned int count(const vec4b& vec) {
     return (unsigned int)vec.x + (unsigned int)vec.y + (unsigned int)vec.z + (unsigned int)vec.w;
 }
 
@@ -2254,15 +2254,15 @@ unsigned int count(const bvec4& vec) {
 
 }
 
-#pragma endregion bvec4
+#pragma endregion vec4b
 
 
-#pragma region bvec3
+#pragma region vec3b
 
 /**
  * converts a vector to a string
  */
-std::string std::to_string(const Engine::bvec3& vec) {
+std::string std::to_string(const Engine::vec3b& vec) {
     return "[" + std::to_string(vec.x) + ", " + std::to_string(vec.y) + ", " + std::to_string(vec.z) + "]";
 }
 
@@ -2273,11 +2273,11 @@ namespace Engine {
 /**
  * vector of all falses
  */
-const bvec3 bvec3::zero = bvec3(false);
+const vec3b vec3b::zero = vec3b(false);
 /**
  * vector of all trues
  */
-const bvec3 bvec3::one = bvec3(true);
+const vec3b vec3b::one = vec3b(true);
 
 #pragma endregion constants
 
@@ -2286,7 +2286,7 @@ const bvec3 bvec3::one = bvec3(true);
 /**
  * default constructor, fills the vector with false
  */
-bvec3::bvec3() {
+vec3b::vec3b() {
     x = false;
     y = false;
     z = false;
@@ -2295,7 +2295,7 @@ bvec3::bvec3() {
 /**
  * fill constructor, fills the vector with the provided scalar value
  */
-bvec3::bvec3(const bool& a){
+vec3b::vec3b(const bool& a){
     x = a;
     y = a;
     z = a;
@@ -2305,7 +2305,7 @@ bvec3::bvec3(const bool& a){
  * concatenation constructor
  * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
  */
-bvec3::bvec3(const bvec3& a){
+vec3b::vec3b(const vec3b& a){
     x = a.x;
     y = a.y;
     z = a.z;
@@ -2315,7 +2315,7 @@ bvec3::bvec3(const bvec3& a){
  * concatenation constructor
  * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
  */
-bvec3::bvec3(const bool& a, const bvec2& b){
+vec3b::vec3b(const bool& a, const vec2b& b){
     x = a;
     y = b.x;
     z = b.y;
@@ -2325,7 +2325,7 @@ bvec3::bvec3(const bool& a, const bvec2& b){
  * concatenation constructor
  * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
  */
-bvec3::bvec3(const bvec2& a, const bool& b){
+vec3b::vec3b(const vec2b& a, const bool& b){
     x = a.x;
     y = a.y;
     z = b;
@@ -2335,7 +2335,7 @@ bvec3::bvec3(const bvec2& a, const bool& b){
  * concatenation constructor
  * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
  */
-bvec3::bvec3(const bool& a, const bool& b, const bool& c){
+vec3b::vec3b(const bool& a, const bool& b, const bool& c){
     x = a;
     y = b;
     z = c;
@@ -2348,16 +2348,16 @@ bvec3::bvec3(const bool& a, const bool& b, const bool& c){
 /**
  * casts a vector to a bool
  * true if all components are non-zero
- * to check if any components are non-zero, compare with bvec4::zero rather than casting
+ * to check if any components are non-zero, compare with vec4b::zero rather than casting
  */
-explicit bvec3::operator bool() const {
+explicit vec3b::operator bool() const {
     return x && y && z;
 }
 
 /**
  * casts a float vector to a boolean vector
  */
-bvec3::bvec3(const vec3& vec){
+vec3b::vec3b(const vec3& vec){
     x = vec.x > 0.0f;
     y = vec.y > 0.0f;
     z = vec.z > 0.0f;
@@ -2371,7 +2371,7 @@ bvec3::bvec3(const vec3& vec){
  * Array accessor
  * Returns the component at index i, 0-indexed
  */
-bool& bvec3::operator [](unsigned int i){
+bool& vec3b::operator [](unsigned int i){
     return data[i];
 }
 
@@ -2379,7 +2379,7 @@ bool& bvec3::operator [](unsigned int i){
  * Array accessor
  * Returns the component at index i, 0-indexed
  */
-const bool& bvec3::operator [](unsigned int i) const {
+const bool& vec3b::operator [](unsigned int i) const {
     return data[i];
 }
 
@@ -2390,84 +2390,84 @@ const bool& bvec3::operator [](unsigned int i) const {
 /**
  * iterator to the first component
  */
-auto bvec3::begin() noexcept {
+auto vec3b::begin() noexcept {
     return data.begin();
 }
 
 /**
  * iterator to the end of the components
  */
-auto bvec3::end() noexcept {
+auto vec3b::end() noexcept {
     return data.end();
 }
 
 /**
  * iterator to the first component
  */
-auto bvec3::begin() const noexcept {
+auto vec3b::begin() const noexcept {
     return data.begin();
 }
 
 /**
  * iterator to the end of the components
  */
-auto bvec3::end() const noexcept {
+auto vec3b::end() const noexcept {
     return data.end();
 }
 
 /**
  * iterator to the first component
  */
-auto bvec3::cbegin() const noexcept {
+auto vec3b::cbegin() const noexcept {
     return data.cbegin();
 }
 
 /**
  * iterator to the end of the components
  */
-auto bvec3::cend() const noexcept { 
+auto vec3b::cend() const noexcept { 
     return data.cend();
 }
 
 /**
  * reverse iterator to the first component
  */
-auto bvec3::rbegin() noexcept {
+auto vec3b::rbegin() noexcept {
     return data.rbegin();
 }
 
 /**
  * reverse iterator to the end of the components
  */
-auto bvec3::rend() noexcept {
+auto vec3b::rend() noexcept {
     return data.rend();
 }
 
 /**
  * reverse iterator to the first component
  */
-auto bvec3::rbegin() const noexcept {
+auto vec3b::rbegin() const noexcept {
     return data.rbegin();
 }
 
 /**
  * reverse iterator to the end of the components
  */
-auto bvec3::rend() const noexcept {
+auto vec3b::rend() const noexcept {
     return data.rend();
 }
 
 /**
  * reverse iterator to the first component
  */
-auto bvec3::crbegin() const noexcept {
+auto vec3b::crbegin() const noexcept {
     return data.crbegin();
 }
 
 /**
  * reverse iterator to the end of the components
  */
-auto bvec3::crend() const noexcept { 
+auto vec3b::crend() const noexcept { 
     return data.crend();
 }
 
@@ -2478,7 +2478,7 @@ auto bvec3::crend() const noexcept {
 /**
  * stream insertion operator
  */
-std::ostream& operator <<(std::ostream& os, const bvec3& vec) {
+std::ostream& operator <<(std::ostream& os, const vec3b& vec) {
     os << "[" << vec.x << ", " << vec.y << ", " << vec.z << "]";
     return os;
 }
@@ -2486,7 +2486,7 @@ std::ostream& operator <<(std::ostream& os, const bvec3& vec) {
 /**
  * Copy assignment operator
  */
-bvec3& bvec3::operator =(const bvec3& other) {
+vec3b& vec3b::operator =(const vec3b& other) {
     x = other.x;
     y = other.y;
     z = other.z;
@@ -2496,64 +2496,64 @@ bvec3& bvec3::operator =(const bvec3& other) {
 /**
  * component-wise and operator
  */
-bvec3 operator &&(const bvec3& a, const bvec3& b) {
-    return bvec3(a.x && b.x, a.y && b.y, a.z && b.z);
+vec3b operator &&(const vec3b& a, const vec3b& b) {
+    return vec3b(a.x && b.x, a.y && b.y, a.z && b.z);
 }
 
 /**
  * component-wise and operator
  */
-bvec3 operator &&(const bool& a, const bvec3& b) {
-    return bvec3(a && b.x, a && b.y, a && b.z);
+vec3b operator &&(const bool& a, const vec3b& b) {
+    return vec3b(a && b.x, a && b.y, a && b.z);
 }
 
 /**
  * component-wise and operator
  */
-bvec3 operator &&(const bvec3& a, const bool& b) {
-    return bvec3(a.x && b, a.y && b, a.z && b);
+vec3b operator &&(const vec3b& a, const bool& b) {
+    return vec3b(a.x && b, a.y && b, a.z && b);
 }
 
 /**
  * component-wise or operator
  */
-bvec3 operator ||(const bvec3& a, const bvec3& b) {
-    return bvec3(a.x || b.x, a.y || b.y, a.z || b.z);
+vec3b operator ||(const vec3b& a, const vec3b& b) {
+    return vec3b(a.x || b.x, a.y || b.y, a.z || b.z);
 }
 
 /**
  * component-wise or operator
  */
-bvec3 operator ||(const bool& a, const bvec3& b) {
-    return bvec3(a || b.x, a || b.y, a || b.z);
+vec3b operator ||(const bool& a, const vec3b& b) {
+    return vec3b(a || b.x, a || b.y, a || b.z);
 }
 
 /**
  * component-wise or operator
  */
-bvec3 operator ||(const bvec3& a, const bool& b) {
-    return bvec3(a.x || b, a.y || b, a.z || b);
+vec3b operator ||(const vec3b& a, const bool& b) {
+    return vec3b(a.x || b, a.y || b, a.z || b);
 }
 
 /**
  * component-wise not operator
  */
-bvec3 bvec3::operator !() const {
-    return bvec3(!x, !y, !z);
+vec3b vec3b::operator !() const {
+    return vec3b(!x, !y, !z);
 }
 
 /**
  * component-wise equality operator
  */
-bvec3 operator ==(const bvec3& a, const bvec3& b) {
-    return bvec3(a.x == b.x, a.y == b.y, a.z == b.z);
+vec3b operator ==(const vec3b& a, const vec3b& b) {
+    return vec3b(a.x == b.x, a.y == b.y, a.z == b.z);
 }
 
 /**
  * component-wise inequality operator
  */
-bvec3 operator !=(const bvec3& a, const bvec3& b) {
-    return bvec3(a.x != b.x, a.y != b.y, a.z != b.z);
+vec3b operator !=(const vec3b& a, const vec3b& b) {
+    return vec3b(a.x != b.x, a.y != b.y, a.z != b.z);
 }
 
 #pragma endregion overloads
@@ -2563,42 +2563,42 @@ bvec3 operator !=(const bvec3& a, const bvec3& b) {
 /**
  * returns if any component is true
  */
-bool bvec3::any() const {
+bool vec3b::any() const {
     return x || y || z;
 }
 
 /**
  * returns if any component is true
  */
-bool any(const bvec3& vec) {
+bool any(const vec3b& vec) {
     return vec.x || vec.y || vec.z;
 }
 
 /**
  * returns if all components are true
  */
-bool bvec3::all() const {
+bool vec3b::all() const {
     return x && y && z;
 }
 
 /**
  * returns if all components are true
  */
-bool all(const bvec3& vec) {
+bool all(const vec3b& vec) {
     return vec.x && vec.y && vec.z;
 }
 
 /**
  * returns the number of true components
 */
-unsigned int bvec3::count() const {
+unsigned int vec3b::count() const {
     return (unsigned int)x + (unsigned int)y + (unsigned int)z;
 }
 
 /**
  * returns the number of true components
 */
-unsigned int count(const bvec3& vec) {
+unsigned int count(const vec3b& vec) {
     return (unsigned int)vec.x + (unsigned int)vec.y + (unsigned int)vec.z;
 }
 
@@ -2606,15 +2606,15 @@ unsigned int count(const bvec3& vec) {
 
 }
 
-#pragma endregion bvec3
+#pragma endregion vec3b
 
 
-#pragma region bvec2
+#pragma region vec2b
 
 /**
  * converts a vector to a string
  */
-std::string std::to_string(const Engine::bvec2& vec) {
+std::string std::to_string(const Engine::vec2b& vec) {
     return "[" + std::to_string(vec.x) + ", " + std::to_string(vec.y) + "]";
 }
 
@@ -2625,11 +2625,11 @@ namespace Engine {
 /**
  * vector of all falses
  */
-const bvec2 bvec2::zero = bvec2(false);
+const vec2b vec2b::zero = vec2b(false);
 /**
  * vector of all trues
  */
-const bvec2 bvec2::one = bvec2(true);
+const vec2b vec2b::one = vec2b(true);
 
 #pragma endregion constants
 
@@ -2638,7 +2638,7 @@ const bvec2 bvec2::one = bvec2(true);
 /**
  * default constructor, fills the vector with false
  */
-bvec2::bvec2() {
+vec2b::vec2b() {
     x = false;
     y = false;
 }
@@ -2646,7 +2646,7 @@ bvec2::bvec2() {
 /**
  * fill constructor, fills the vector with the provided scalar value
  */
-bvec2::bvec2(const bool& a){
+vec2b::vec2b(const bool& a){
     x = a;
     y = a;
 }
@@ -2655,7 +2655,7 @@ bvec2::bvec2(const bool& a){
  * concatenation constructor
  * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
  */
-bvec2::bvec2(const bvec2& a){
+vec2b::vec2b(const vec2b& a){
     x = a.x;
     y = a.y;
 }
@@ -2664,7 +2664,7 @@ bvec2::bvec2(const bvec2& a){
  * concatenation constructor
  * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
  */
-bvec2::bvec2(const bool& a, const bool& b) {
+vec2b::vec2b(const bool& a, const bool& b) {
     x = a;
     y = b;
 }
@@ -2676,16 +2676,16 @@ bvec2::bvec2(const bool& a, const bool& b) {
 /**
  * casts a vector to a bool
  * true if all components are non-zero
- * to check if any components are non-zero, compare with bvec4::zero rather than casting
+ * to check if any components are non-zero, compare with vec4b::zero rather than casting
  */
-explicit bvec2::operator bool() const {
+explicit vec2b::operator bool() const {
     return x && y;
 }
 
 /**
  * casts a float vector to a boolean vector
  */
-bvec2::bvec2(const vec2& vec){
+vec2b::vec2b(const vec2& vec){
     x = vec.x > 0.0f;
     y = vec.y > 0.0f;
 }
@@ -2698,7 +2698,7 @@ bvec2::bvec2(const vec2& vec){
  * Array accessor
  * Returns the component at index i, 0-indexed
  */
-bool& bvec2::operator [](unsigned int i){
+bool& vec2b::operator [](unsigned int i){
     return data[i];
 }
 
@@ -2706,7 +2706,7 @@ bool& bvec2::operator [](unsigned int i){
  * Array accessor
  * Returns the component at index i, 0-indexed
  */
-const bool& bvec2::operator [](unsigned int i) const {
+const bool& vec2b::operator [](unsigned int i) const {
     return data[i];
 }
 
@@ -2717,84 +2717,84 @@ const bool& bvec2::operator [](unsigned int i) const {
 /**
  * iterator to the first component
  */
-auto bvec2::begin() noexcept {
+auto vec2b::begin() noexcept {
     return data.begin();
 }
 
 /**
  * iterator to the end of the components
  */
-auto bvec2::end() noexcept {
+auto vec2b::end() noexcept {
     return data.end();
 }
 
 /**
  * iterator to the first component
  */
-auto bvec2::begin() const noexcept {
+auto vec2b::begin() const noexcept {
     return data.begin();
 }
 
 /**
  * iterator to the end of the components
  */
-auto bvec2::end() const noexcept {
+auto vec2b::end() const noexcept {
     return data.end();
 }
 
 /**
  * iterator to the first component
  */
-auto bvec2::cbegin() const noexcept {
+auto vec2b::cbegin() const noexcept {
     return data.cbegin();
 }
 
 /**
  * iterator to the end of the components
  */
-auto bvec2::cend() const noexcept { 
+auto vec2b::cend() const noexcept { 
     return data.cend();
 }
 
 /**
  * reverse iterator to the first component
  */
-auto bvec2::rbegin() noexcept {
+auto vec2b::rbegin() noexcept {
     return data.rbegin();
 }
 
 /**
  * reverse iterator to the end of the components
  */
-auto bvec2::rend() noexcept {
+auto vec2b::rend() noexcept {
     return data.rend();
 }
 
 /**
  * reverse iterator to the first component
  */
-auto bvec2::rbegin() const noexcept {
+auto vec2b::rbegin() const noexcept {
     return data.rbegin();
 }
 
 /**
  * reverse iterator to the end of the components
  */
-auto bvec2::rend() const noexcept {
+auto vec2b::rend() const noexcept {
     return data.rend();
 }
 
 /**
  * reverse iterator to the first component
  */
-auto bvec2::crbegin() const noexcept {
+auto vec2b::crbegin() const noexcept {
     return data.crbegin();
 }
 
 /**
  * reverse iterator to the end of the components
  */
-auto bvec2::crend() const noexcept { 
+auto vec2b::crend() const noexcept { 
     return data.crend();
 }
 
@@ -2805,7 +2805,7 @@ auto bvec2::crend() const noexcept {
 /**
  * stream insertion operator
  */
-std::ostream& operator <<(std::ostream& os, const bvec2& vec) {
+std::ostream& operator <<(std::ostream& os, const vec2b& vec) {
     os << "[" << vec.x << ", " << vec.y << "]";
     return os;
 }
@@ -2813,7 +2813,7 @@ std::ostream& operator <<(std::ostream& os, const bvec2& vec) {
 /**
  * Copy assignment operator
  */
-bvec2& bvec2::operator =(const bvec2& other) {
+vec2b& vec2b::operator =(const vec2b& other) {
     x = other.x;
     y = other.y;
     return *this;
@@ -2822,64 +2822,64 @@ bvec2& bvec2::operator =(const bvec2& other) {
 /**
  * component-wise and operator
  */
-bvec2 operator &&(const bvec2& a, const bvec2& b) {
-    return bvec2(a.x && b.x, a.y && b.y);
+vec2b operator &&(const vec2b& a, const vec2b& b) {
+    return vec2b(a.x && b.x, a.y && b.y);
 }
 
 /**
  * component-wise and operator
  */
-bvec2 operator &&(const bool& a, const bvec2& b) {
-    return bvec2(a && b.x, a && b.y);
+vec2b operator &&(const bool& a, const vec2b& b) {
+    return vec2b(a && b.x, a && b.y);
 }
 
 /**
  * component-wise and operator
  */
-bvec2 operator &&(const bvec2& a, const bool& b) {
-    return bvec2(a.x && b, a.y && b);
+vec2b operator &&(const vec2b& a, const bool& b) {
+    return vec2b(a.x && b, a.y && b);
 }
 
 /**
  * component-wise or operator
  */
-bvec2 operator ||(const bvec2& a, const bvec2& b) {
-    return bvec2(a.x || b.x, a.y || b.y);
+vec2b operator ||(const vec2b& a, const vec2b& b) {
+    return vec2b(a.x || b.x, a.y || b.y);
 }
 
 /**
  * component-wise or operator
  */
-bvec2 operator ||(const bool& a, const bvec2& b) {
-    return bvec2(a || b.x, a || b.y);
+vec2b operator ||(const bool& a, const vec2b& b) {
+    return vec2b(a || b.x, a || b.y);
 }
 
 /**
  * component-wise or operator
  */
-bvec2 operator ||(const bvec2& a, const bool& b) {
-    return bvec2(a.x || b, a.y || b);
+vec2b operator ||(const vec2b& a, const bool& b) {
+    return vec2b(a.x || b, a.y || b);
 }
 
 /**
  * component-wise not operator
  */
-bvec2 bvec2::operator !() const {
-    return bvec2(!x, !y);
+vec2b vec2b::operator !() const {
+    return vec2b(!x, !y);
 }
 
 /**
  * component-wise equality operator
  */
-bvec2 operator ==(const bvec2& a, const bvec2& b) {
-    return bvec2(a.x == b.x, a.y == b.y);
+vec2b operator ==(const vec2b& a, const vec2b& b) {
+    return vec2b(a.x == b.x, a.y == b.y);
 }
 
 /**
  * component-wise inequality operator
  */
-bvec2 operator !=(const bvec2& a, const bvec2& b) {
-    return bvec2(a.x != b.x, a.y != b.y);
+vec2b operator !=(const vec2b& a, const vec2b& b) {
+    return vec2b(a.x != b.x, a.y != b.y);
 }
 
 #pragma endregion overloads
@@ -2889,42 +2889,42 @@ bvec2 operator !=(const bvec2& a, const bvec2& b) {
 /**
  * returns if any component is true
  */
-bool bvec2::any() const {
+bool vec2b::any() const {
     return x || y;
 }
 
 /**
  * returns if any component is true
  */
-bool any(const bvec2& vec) {
+bool any(const vec2b& vec) {
     return vec.x || vec.y;
 }
 
 /**
  * returns if all components are true
  */
-bool bvec2::all() const {
+bool vec2b::all() const {
     return x && y;
 }
 
 /**
  * returns if all components are true
  */
-bool all(const bvec2& vec) {
+bool all(const vec2b& vec) {
     return vec.x && vec.y;
 }
 
 /**
  * returns the number of true components
 */
-unsigned int bvec2::count() const {
+unsigned int vec2b::count() const {
     return (unsigned int)x + (unsigned int)y;
 }
 
 /**
  * returns the number of true components
 */
-unsigned int count(const bvec2& vec) {
+unsigned int count(const vec2b& vec) {
     return (unsigned int)vec.x + (unsigned int)vec.y;
 }
 
@@ -2932,4 +2932,4 @@ unsigned int count(const bvec2& vec) {
 
 }
 
-#pragma endregion bvec2
+#pragma endregion vec2b
