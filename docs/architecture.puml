@@ -128,7 +128,7 @@ namespace Engine {
     }
 
     class Sound extends Audio {
-      
+      + void Play(Vec3f position);
     }
 
     class Music extends Audio {
