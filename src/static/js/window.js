@@ -1,16 +1,20 @@
 /** @namespace Client */
 
 const game = {
+  // Graphics & UI
   gl: {},
   canvases: {},
   uiContainer: null,
   ready: false,
+
+  // Audio
 
   musicManager: null,
   playerReady: false,
   songQueue: [],
   sounds: {},
   musicNodes: {},
+  musicVolume: null,
 
   // Classes
 
@@ -48,6 +52,12 @@ game.Audio = class {
     this.type = null;
     this.loop = false;
 
+    // These are values to be assigned to the buffers when they are created
+    // They are assigned in the constructor for easy access, but they are only used in sounds
+    // the 1 is the base value of the gain 
+    // the 0 is the base value of the panning
+    this.buffers = [1, 0];
+
     this.element.addEventListener('ended', () => {
       if (!this.loop)
         game.songQueue.shift();
@@ -62,11 +72,22 @@ game.Audio = class {
    */
   makeSong() {
     this.type = 'song';
-    this.source.connect(game.musicManager.destination);
+    this.source.connect(game.musicVolume);
   }
 
   makeSound() {
     this.type = 'sound';
+  }
+
+  /**
+   * Sets the gain and panning of the sound for the next playthrough
+   *  
+   * @param {float} gain a value to multiply the sound by 
+   * @param {float} panning a value between -1 and 1 to pan the sound
+   * @warn This is only useful if this is being used as a sound
+   */
+  setBuffers(gain = 1, panning = 0) {
+    this.buffers = [gain, panning];
   }
 
   /**
@@ -77,7 +98,15 @@ game.Audio = class {
   play() {
     if (this.type == 'sound') {
       let soundClone = this.element.cloneNode(true);
-      game.musicManager.createMediaElementSource(soundClone).connect(game.musicManager.destination);
+      let tempGain = game.musicManager.createGain();
+      tempGain.gain.value = this.buffers[0];
+
+      let tempPanner = new StereoPannerNode(game.musicManager, {pan: this.buffers[1]});
+
+      game.musicManager.createMediaElementSource(soundClone)
+        .connect(tempGain)
+        .connect(tempPanner)
+        .connect(game.musicManager.destination);
       
       soundClone.play();
 
@@ -146,6 +175,9 @@ function windowLoop() {
 
 window.addEventListener('load', () => {
   game.musicManager = new AudioContext({autoplay: true});
+  game.musicVolume = game.musicManager.createGain();
+  game.musicVolume.gain.value = 1;
+  game.musicVolume.connect(game.musicManager.destination);
 
   import('../engine.js').then(module => {
     windowLoop();
