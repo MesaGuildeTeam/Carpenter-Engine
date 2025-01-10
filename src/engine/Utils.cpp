@@ -31,6 +31,10 @@ Engine::Vec3f Engine::Vec3f::operator*(const Vec3f& rhs) {
   return {x * rhs.x, y * rhs.y, z * rhs.z};
 }
 
+float Engine::Vec3f::lengthSquared() {
+  return sqrt(x * x + y * y + z * z);
+}
+
 // Vector Rotations
 
 Engine::Vec2f Engine::Rotate(Vec2f v, float angle) {
@@ -50,4 +54,9 @@ Engine::Vec3f Engine::Rotate(Vec3f v, Vec3f angle) {
     sinX * (cosY * v.z + sinY * (sinZ * v.y + cosZ * v.x)) + cosX * (cosZ * v.y - sinZ * v.x),
     cosX * (cosY * v.z + sinY * (sinZ * v.y + cosZ * v.x)) - sinX * (cosZ * v.y - sinZ * v.x)
   };
+}
+
+float Engine::InvSQRT(float x) {
+  // There is a better way to do this
+  return 1.0f / sqrt(x);
 }
