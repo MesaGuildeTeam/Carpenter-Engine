@@ -1,3 +1,9 @@
+/**
+ * @file SoundTest.cpp
+ * @brief Basic sound test scene for the game engine
+ * @author: Roberto Selles (Henderythmix)
+ */
+
 #include <Game.hpp>
 #include <UI/UIButton.hpp>
 #include <Audio/Music.hpp>
