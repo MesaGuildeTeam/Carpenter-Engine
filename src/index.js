@@ -14,13 +14,15 @@ program.name('table')
   .version(pkg.version, '-v, --version')
   .addHelpText('beforeAll', title);
 
-program.command('setup')
+// Environment Setup Command 
+program.command('unbox')
   .description('setup your environment by installing emscripten and creating the necessary folders')
   .action(() => {
     setup.installEmscripten();
   });
 
-program.command('build')
+// Build Command 
+program.command('construct')
   .description('build the project using the configuration in tableconf.json or the default configuration. If no step are defined, the complete build process will be used.')
   .option('-c, --compile', 'Compile the .cpp files into wasm .o files')
   .option('-l, --link', 'Link all the files together')
@@ -32,5 +34,10 @@ program.command('build')
     }
     build.buildGame({runBuild: options.compile, runLink: options.link, runPackage: options.package});
   });
+
+// Cleans the project
+program.command('flip')
+  .description('clean the files built by the build process \x1b[2m' + utils.Asciis.TableFlip + "\x1b[0m");
+  
 
 program.parse();
