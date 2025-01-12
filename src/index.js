@@ -5,6 +5,7 @@ const setup = require('./setup.js');
 const pkg = require('../package.json');
 const utils = require('./utils.js');
 const build = require('./build.js');
+const clean = require('./clean.js');
 
 const title = `  ${utils.Asciis.Table} Table Engine v${pkg.version} ${utils.Asciis.Table}
 -----------------${'-'.repeat(pkg.version.length)}---------`
@@ -37,7 +38,10 @@ program.command('construct')
 
 // Cleans the project
 program.command('flip')
-  .description('clean the files built by the build process \x1b[2m' + utils.Asciis.TableFlip + "\x1b[0m");
+  .description('clean the files built by the build process \x1b[2m' + utils.Asciis.TableFlip + "\x1b[0m")
+  .action(() => {
+    clean.clean();
+  });
   
 
 program.parse();
