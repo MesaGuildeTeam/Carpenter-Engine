@@ -14,6 +14,18 @@ class vec4b;
 class vec3b;
 class vec2b;
 
+// a concept to check if a type is a float vector
+template <typename T>
+concept isVecf = std::same_as<std::remove_cvref_t<T>, vec2> || std::same_as<std::remove_cvref_t<T>, vec3> || std::same_as<std::remove_cvref_t<T>, vec4>;
+
+// a concept to check if a type is a bool vector
+template <typename T>
+concept isVecb = std::same_as<std::remove_cvref_t<T>, vec2b> || std::same_as<std::remove_cvref_t<T>, vec3b> || std::same_as<std::remove_cvref_t<T>, vec4b>;
+
+// a concept to check if a type is a vector
+template <typename T>
+concept isVec = isVecf<T> || isVecb<T>;
+
 /**
  * 4d vector of float
  */
@@ -79,6 +91,11 @@ class vec4 {
      */
     static const vec4 kata;
 
+    /**
+     * dimension of vector
+     */
+    static constexpr unsigned int dimension = 4;
+
     #pragma endregion constants
 
     #pragma region constructors
@@ -91,55 +108,35 @@ class vec4 {
     /**
      * fill constructor, fills the vector with the provided scalar value
      */
-    vec4(const float& a);
+    template <typename T>
+    requires std::is_convertible_v<T, float>
+    vec4(T a){
+        data.fill(float(a));
+    }
 
     /**
      * concatenation constructor
      * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
      */
-    vec4(const vec4& a);
+    template <typename ... Vectors>
+    requires ((std::is_convertible_v<Vectors, float> || isVec<Vectors>) && ...)
+    vec4(Vectors... vecs) {
+        constexpr unsigned int sum = ((std::is_convertible_v<Vectors, float> ? 1 : isVec<Vectors> ? Vectors::dimension : dimension + 1) + ...);
+        static_assert(sum == dimension, "Total number of components must equal " + std::to_string(dimension));
 
-    /**
-     * concatenation constructor
-     * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
-     */
-    vec4(const vec3& a, const float& b);
-
-    /**
-     * concatenation constructor
-     * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
-     */
-    vec4(const float& a, const vec3& b);
-
-    /**
-     * concatenation constructor
-     * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
-     */
-    vec4(const vec2& a, const vec2& b);
-
-    /**
-     * concatenation constructor
-     * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
-     */
-    vec4(const vec2& a, const float& b, const float& c);
-
-    /**
-     * concatenation constructor
-     * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
-     */
-    vec4(const float& a, const vec2& b, const float& c);
-
-    /**
-     * concatenation constructor
-     * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
-     */
-    vec4(const float& a, const float& b, const vec2& c);
-
-    /**
-     * concatenation constructor
-     * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
-     */
-    vec4(const float& a, const float& b, const float& c, const float& d);
+        unsigned int i = 0;
+        ([&] {
+            if constexpr (isVec<Vectors>) {
+                for (unsigned int i = 0; i < Vectors::dimension; i++) {
+                    data[i] = float(vecs[i]);
+                    i++;
+                }
+            } else {
+                data[i] = float(vecs);
+                i++;
+            }
+        }(), ...);
+    }
 
     #pragma endregion constructors
 
@@ -561,6 +558,11 @@ class vec3 {
      */
     static const vec3 back;
 
+    /**
+     * dimension of vector
+     */
+    static constexpr int dimension = 3;
+
     #pragma endregion constants
 
     #pragma region constructors
@@ -573,31 +575,35 @@ class vec3 {
     /**
      * fill constructor, fills the vector with the provided scalar value
      */
-    vec3(const float& a);
+    template <typename T>
+    requires std::is_convertible_v<T, float>
+    vec3(T a){
+        data.fill(float(a));
+    }
 
     /**
      * concatenation constructor
      * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
      */
-    vec3(const vec3& a);
+    template <typename ... Vectors>
+    requires ((std::is_convertible_v<Vectors, float> || isVec<Vectors>) && ...)
+    vec3(Vectors... vecs) {
+        constexpr unsigned int sum = ((std::is_convertible_v<Vectors, float> ? 1 : isVec<Vectors> ? Vectors::dimension : dimension + 1) + ...);
+        static_assert(sum == dimension, "Total number of components must equal " + std::to_string(dimension));
 
-    /**
-     * concatenation constructor
-     * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
-     */
-    vec3(const vec2& a, const float& b);
-
-    /**
-     * concatenation constructor
-     * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
-     */
-    vec3(const float& a, const vec2& b);
-
-    /**
-     * concatenation constructor
-     * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
-     */
-    vec3(const float& a, const float& b, const float& c);
+        unsigned int i = 0;
+        ([&] {
+            if constexpr (isVec<Vectors>) {
+                for (unsigned int i = 0; i < Vectors::dimension; i++) {
+                    data[i] = float(vecs[i]);
+                    i++;
+                }
+            } else {
+                data[i] = float(vecs);
+                i++;
+            }
+        }(), ...);
+    }
 
     #pragma endregion constructors
 
@@ -1020,6 +1026,11 @@ class vec2 {
      */
     static const vec2 down;
 
+    /**
+     * dimension of vector
+     */
+    static constexpr int dimension = 2;
+
     #pragma endregion constants
 
     #pragma region constructors
@@ -1032,19 +1043,35 @@ class vec2 {
     /**
      * fill constructor, fills the vector with the provided scalar value
      */
-    vec2(const float& a);
+    template <typename T>
+    requires std::is_convertible_v<T, float>
+    vec2(T a){
+        data.fill(float(a));
+    }
 
     /**
      * concatenation constructor
      * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
      */
-    vec2(const vec2& a);
-    
-    /**
-     * concatenation constructor
-     * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
-     */
-    vec2(const float& a, const float& b);
+    template <typename ... Vectors>
+    requires ((std::is_convertible_v<Vectors, float> || isVec<Vectors>) && ...)
+    vec2(Vectors... vecs) {
+        constexpr unsigned int sum = ((std::is_convertible_v<Vectors, float> ? 1 : isVec<Vectors> ? Vectors::dimension : dimension + 1) + ...);
+        static_assert(sum == dimension, "Total number of components must equal " + std::to_string(dimension));
+
+        unsigned int i = 0;
+        ([&] {
+            if constexpr (isVec<Vectors>) {
+                for (unsigned int i = 0; i < Vectors::dimension; i++) {
+                    data[i] = float(vecs[i]);
+                    i++;
+                }
+            } else {
+                data[i] = float(vecs);
+                i++;
+            }
+        }(), ...);
+    }
 
     #pragma endregion constructors
 
@@ -1442,6 +1469,11 @@ class vec4b {
      */
     static const vec4b one;
 
+    /**
+     * dimension of vector
+     */
+    static constexpr int dimension = 4;
+
     #pragma endregion constants
 
     #pragma region constructors
@@ -1454,55 +1486,35 @@ class vec4b {
     /**
      * fill constructor, fills the vector with the provided scalar value
      */
-    vec4b(const bool& a);
+    template <typename T>
+    requires std::is_convertible_v<T, bool>
+    vec4b(T a){
+        data.fill(bool(a));
+    }
 
     /**
      * concatenation constructor
      * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
      */
-    vec4b(const vec4b& a);
+    template <typename ... Vectors>
+    requires ((std::is_convertible_v<Vectors, bool> || isVec<Vectors>) && ...)
+    vec4b(Vectors... vecs) {
+        constexpr unsigned int sum = ((std::is_convertible_v<Vectors, bool> ? 1 : isVec<Vectors> ? Vectors::dimension : dimension + 1) + ...);
+        static_assert(sum == dimension, "Total number of components must equal " + std::to_string(dimension));
 
-    /**
-     * concatenation constructor
-     * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
-     */
-    vec4b(const vec3b& a, const bool& b);
-
-    /**
-     * concatenation constructor
-     * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
-     */
-    vec4b(const bool& a, const vec3b& b);
-
-    /**
-     * concatenation constructor
-     * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
-     */
-    vec4b(const vec2b& a, const vec2b& b);
-
-    /**
-     * concatenation constructor
-     * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
-     */
-    vec4b(const vec2b& a, const bool& b, const bool& c);
-
-    /**
-     * concatenation constructor
-     * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
-     */
-    vec4b(const bool& a, const vec2b& b, const bool& c);
-
-    /**
-     * concatenation constructor
-     * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
-     */
-    vec4b(const bool& a, const bool& b, const vec2b& c);
-
-    /**
-     * concatenation constructor
-     * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
-     */
-    vec4b(const bool& a, const bool& b, const bool& c, const bool& d);
+        unsigned int i = 0;
+        ([&] {
+            if constexpr (isVec<Vectors>) {
+                for (unsigned int i = 0; i < Vectors::dimension; i++) {
+                    data[i] = bool(vecs[i]);
+                    i++;
+                }
+            } else {
+                data[i] = bool(vecs);
+                i++;
+            }
+        }(), ...);
+    }
 
     #pragma endregion constructors
 
@@ -1773,6 +1785,11 @@ class vec3b {
      */
     static const vec3b one;
 
+    /**
+     * dimension of vector
+     */
+    static constexpr int dimension = 3;
+
     #pragma endregion constants
 
     #pragma region constructors
@@ -1785,31 +1802,35 @@ class vec3b {
     /**
      * fill constructor, fills the vector with the provided scalar value
      */
-    vec3b(const bool& a);
+    template <typename T>
+    requires std::is_convertible_v<T, bool>
+    vec3b(T a){
+        data.fill(bool(a));
+    }
 
     /**
      * concatenation constructor
      * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
      */
-    vec3b(const vec3b& a);
+    template <typename ... Vectors>
+    requires ((std::is_convertible_v<Vectors, bool> || isVec<Vectors>) && ...)
+    vec3b(Vectors... vecs) {
+        constexpr unsigned int sum = ((std::is_convertible_v<Vectors, bool> ? 1 : isVec<Vectors> ? Vectors::dimension : dimension + 1) + ...);
+        static_assert(sum == dimension, "Total number of components must equal " + std::to_string(dimension));
 
-    /**
-     * concatenation constructor
-     * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
-     */
-    vec3b(const bool& a, const vec2b& b);
-
-    /**
-     * concatenation constructor
-     * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
-     */
-    vec3b(const vec2b& a, const bool& b);
-
-    /**
-     * concatenation constructor
-     * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
-     */
-    vec3b(const bool& a, const bool& b, const bool& c);
+        unsigned int i = 0;
+        ([&] {
+            if constexpr (isVec<Vectors>) {
+                for (unsigned int i = 0; i < Vectors::dimension; i++) {
+                    data[i] = bool(vecs[i]);
+                    i++;
+                }
+            } else {
+                data[i] = bool(vecs);
+                i++;
+            }
+        }(), ...);
+    }
 
     #pragma endregion constructors
 
@@ -2070,6 +2091,11 @@ class vec2b {
      */
     static const vec2b one;
 
+        /**
+     * dimension of vector
+     */
+    static constexpr int dimension = 2;
+
     #pragma endregion constants
 
     #pragma region constructors
@@ -2082,19 +2108,35 @@ class vec2b {
     /**
      * fill constructor, fills the vector with the provided scalar value
      */
-    vec2b(const bool& a);
+    template <typename T>
+    requires std::is_convertible_v<T, bool>
+    vec2b(T a){
+        data.fill(bool(a));
+    }
 
     /**
      * concatenation constructor
      * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
      */
-    vec2b(const vec2b& a);
+    template <typename ... Vectors>
+    requires ((std::is_convertible_v<Vectors, bool> || isVec<Vectors>) && ...)
+    vec2b(Vectors... vecs) {
+        constexpr unsigned int sum = ((std::is_convertible_v<Vectors, bool> ? 1 : isVec<Vectors> ? Vectors::dimension : dimension + 1) + ...);
+        static_assert(sum == dimension, "Total number of components must equal " + std::to_string(dimension));
 
-    /**
-     * concatenation constructor
-     * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
-     */
-    vec2b(const bool& a, const bool& b);
+        unsigned int i = 0;
+        ([&] {
+            if constexpr (isVec<Vectors>) {
+                for (unsigned int i = 0; i < Vectors::dimension; i++) {
+                    data[i] = bool(vecs[i]);
+                    i++;
+                }
+            } else {
+                data[i] = bool(vecs);
+                i++;
+            }
+        }(), ...);
+    }
 
     #pragma endregion constructors
 

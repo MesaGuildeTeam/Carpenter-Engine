@@ -70,104 +70,6 @@ vec4::vec4(){
     w = 0.0f;
 }
 
-/**
- * fill constructor, fills the vector with the provided scalar value
- */
-vec4::vec4(const float& a){
-    x = a;
-    y = a;
-    z = a;
-    w = a;
-}
-
-/**
- * concatenation constructor
- * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
- */
-vec4::vec4(const vec4& a) {
-    x = a.x;
-    y = a.y;
-    z = a.z;
-    w = a.w;
-}
-
-/**
- * concatenation constructor
- * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
- */
-vec4::vec4(const vec3& a, const float& b) {
-    x = a.x;
-    y = a.y;
-    z = a.z;
-    w = b;
-}
-
-/**
- * concatenation constructor
- * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
- */
-vec4::vec4(const float& a, const vec3& b) {
-    x = a;
-    y = b.x;
-    z = b.y;
-    w = b.z;
-}
-
-/**
- * concatenation constructor
- * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
- */
-vec4::vec4(const vec2& a, const vec2& b) {
-    x = a.x;
-    y = a.y;
-    z = b.x;
-    w = b.y;
-}
-
-/**
- * concatenation constructor
- * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
- */
-vec4::vec4(const vec2& a, const float& b, const float& c) {
-    x = a.x;
-    y = a.y;
-    z = b;
-    w = c;
-}
-
-/**
- * concatenation constructor
- * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
- */
-vec4::vec4(const float& a, const vec2& b, const float& c) {
-    x = a;
-    y = b.x;
-    z = b.y;
-    w = c;
-}
-
-/**
- * concatenation constructor
- * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
- */
-vec4::vec4(const float& a, const float& b, const vec2& c) {
-    x = a;
-    y = b;
-    z = c.x;
-    w = c.y;
-}
-
-/**
- * concatenation constructor
- * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
- */
-vec4::vec4(const float& a, const float& b, const float& c, const float& d) {
-    x = a;
-    y = b;
-    z = c;
-    w = d;
-}
-
 #pragma endregion constructors
 
 #pragma region conversions
@@ -719,55 +621,6 @@ vec3::vec3(){
     x = 0.0f;
     y = 0.0f;
     z = 0.0f;
-}
-
-/**
- * fill constructor, fills the vector with the provided scalar value
- */
-vec3::vec3(const float& a){
-    x = a;
-    y = a;
-    z = a;
-}
-
-/**
- * concatenation constructor
- * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
- */
-vec3::vec3(const vec3& a) {
-    x = a.x;
-    y = a.y;
-    z = a.z;
-}
-
-/**
- * concatenation constructor
- * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
- */
-vec3::vec3(const vec2& a, const float& b) {
-    x = a.x;
-    y = a.y;
-    z = b;
-}
-
-/**
- * concatenation constructor
- * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
- */
-vec3::vec3(const float& a, const vec2& b) {
-    x = a;
-    y = b.x;
-    z = b.y;
-}
-
-/**
- * concatenation constructor
- * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
- */
-vec3::vec3(const float& a, const float& b, const float& c) {
-    x = a;
-    y = b;
-    z = c;
 }
 
 #pragma endregion constructors
@@ -1333,32 +1186,6 @@ vec2::vec2(){
     y = 0.0f;
 }
 
-/**
- * fill constructor, fills the vector with the provided scalar value
- */
-vec2::vec2(const float& a){
-    x = a;
-    y = a;
-}
-
-/**
- * concatenation constructor
- * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
- */
-vec2::vec2(const vec2& a) {
-    x = a.x;
-    y = a.y;
-}
-
-/**
- * concatenation constructor
- * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
- */
-vec2::vec2(const float& a, const float& b) {
-    x = a;
-    y = b;
-}
-
 #pragma endregion constructors
 
 #pragma region conversions
@@ -1889,104 +1716,6 @@ vec4b::vec4b() {
     w = false;
 }
 
-/**
- * fill constructor, fills the vector with the provided scalar value
- */
-vec4b::vec4b(const bool& a){
-    x = a;
-    y = a;
-    z = a;
-    w = a;
-}
-
-/**
- * concatenation constructor
- * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
- */
-vec4b::vec4b(const vec4b& a){
-    x = a.x;
-    y = a.y;
-    z = a.z;
-    w = a.w;
-}
-
-/**
- * concatenation constructor
- * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
- */
-vec4b::vec4b(const vec3b& a, const bool& b){
-    x = a.x;
-    y = a.y;
-    z = a.z;
-    w = b;
-}
-
-/**
- * concatenation constructor
- * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
- */
-vec4b::vec4b(const bool& a, const vec3b& b){
-    x = a;
-    y = b.x;
-    z = b.y;
-    w = b.z;
-}
-
-/**
- * concatenation constructor
- * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
- */
-vec4b::vec4b(const vec2b& a, const vec2b& b){
-    x = a.x;
-    y = a.y;
-    z = b.x;
-    w = b.y;
-}
-
-/**
- * concatenation constructor
- * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
- */
-vec4b::vec4b(const vec2b& a, const bool& b, const bool& c){
-    x = a.x;
-    y = a.y;
-    z = b;
-    w = c;
-}
-
-/**
- * concatenation constructor
- * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
- */
-vec4b::vec4b(const bool& a, const vec2b& b, const bool& c){
-    x = a;
-    y = b.x;
-    z = b.y;
-    w = c;
-}
-
-/**
- * concatenation constructor
- * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
- */
-vec4b::vec4b(const bool& a, const bool& b, const vec2b& c){
-    x = a;
-    y = b;
-    z = c.x;
-    w = c.y;
-}
-
-/**
- * concatenation constructor
- * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
- */
-vec4b::vec4b(const bool& a, const bool& b, const bool& c, const bool& d){
-    x = a;
-    y = b;
-    z = c;
-    w = d;
-}
-
 #pragma endregion constructors
 
 #pragma region conversions
@@ -2292,55 +2021,6 @@ vec3b::vec3b() {
     z = false;
 }
 
-/**
- * fill constructor, fills the vector with the provided scalar value
- */
-vec3b::vec3b(const bool& a){
-    x = a;
-    y = a;
-    z = a;
-}
-
-/**
- * concatenation constructor
- * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
- */
-vec3b::vec3b(const vec3b& a){
-    x = a.x;
-    y = a.y;
-    z = a.z;
-}
-
-/**
- * concatenation constructor
- * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
- */
-vec3b::vec3b(const bool& a, const vec2b& b){
-    x = a;
-    y = b.x;
-    z = b.y;
-}
-
-/**
- * concatenation constructor
- * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
- */
-vec3b::vec3b(const vec2b& a, const bool& b){
-    x = a.x;
-    y = a.y;
-    z = b;
-}
-
-/**
- * concatenation constructor
- * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
- */
-vec3b::vec3b(const bool& a, const bool& b, const bool& c){
-    x = a;
-    y = b;
-    z = c;
-}
-
 #pragma endregion constructors
 
 #pragma region conversions
@@ -2641,32 +2321,6 @@ const vec2b vec2b::one = vec2b(true);
 vec2b::vec2b() {
     x = false;
     y = false;
-}
-
-/**
- * fill constructor, fills the vector with the provided scalar value
- */
-vec2b::vec2b(const bool& a){
-    x = a;
-    y = a;
-}
-
-/**
- * concatenation constructor
- * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
- */
-vec2b::vec2b(const vec2b& a){
-    x = a.x;
-    y = a.y;
-}
-
-/**
- * concatenation constructor
- * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
- */
-vec2b::vec2b(const bool& a, const bool& b) {
-    x = a;
-    y = b;
 }
 
 #pragma endregion constructors
