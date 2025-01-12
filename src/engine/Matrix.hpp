@@ -4,7 +4,6 @@
 #include <array>
 #include <string>
 #include <iostream>
-#include <functional>
 #include "Vector.hpp"
 
 namespace Engine {
