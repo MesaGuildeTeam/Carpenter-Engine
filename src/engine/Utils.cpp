@@ -3,34 +3,6 @@
 
 #define M_PI 3.14159265358979323846
 
-// 2D Vector Operations
-
-Engine::vec2f Engine::vec2f::operator+(const Engine::vec2f& rhs) {
-  return {x + rhs.x, y + rhs.y};
-}
-
-Engine::vec2f Engine::vec2f::operator*(const float& rhs) {
-  return {x * rhs, y * rhs};
-}
-
-Engine::vec2f Engine::vec2f::operator*(const vec2f& rhs) {
-  return {x * rhs.x, y * rhs.y};
-}
-
-// 3D Vector Operations
-
-Engine::vec3f Engine::vec3f::operator+(const Engine::vec3f& rhs) {
-  return {x + rhs.x, y + rhs.y, z + rhs.z};
-}
-
-Engine::vec3f Engine::vec3f::operator*(const float& rhs) {
-  return {x * rhs, y * rhs, z * rhs};
-}
-
-Engine::vec3f Engine::vec3f::operator*(const vec3f& rhs) {
-  return {x * rhs.x, y * rhs.y, z * rhs.z};
-}
-
 // Vector Rotations
 
 Engine::vec2f Engine::rotate(const vec2f& vec, const float& angle) {
