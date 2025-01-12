@@ -24,21 +24,6 @@ const includeDir = buildConfig.includeDir != null ? buildConfig.includeDir : 'no
 const staticDir = buildConfig.static != null ? buildConfig.static : 'node_modules/table-engine/src/static/';
 
 /**
- * Recursive function
- * 
- * Gets every file with the extension from a certain directory and its child folders and runs a callback on it
- */
-function processFiles(folder, extension, callback) {
-  fs.readdirSync(folder).forEach(file => {
-    if (fs.statSync(path.join(folder, file)).isDirectory()) {
-      processFiles(path.join(folder, file), ".cpp", callback);
-    } else if (file.endsWith(extension)) {
-      callback(file.split('.')[0], folder);
-    }
-  })
-}
-
-/**
  * Builds the c++ file specified into a .o file
  * @param {string} path The file name based on the buildconfig.json
  * 
@@ -65,18 +50,18 @@ function buildGame(config = defaultBuildSteps) {
   console.log(process.cwd())
   // Build process
   if (config.runBuild)
-    processFiles(srcLocation, ".cpp", (file, folder) => {
+    utils.processFiles(srcLocation, ".cpp", (file, folder) => {
       buildFile(file, folder);
     });
 
   // Link process
   if (config.runLink) {
     let filesList = "";
-    processFiles(outputLocation, ".o", (file, folder) => {
+    utils.processFiles(outputLocation, ".o", (file, folder) => {
       filesList = filesList + `"${folder}/${file}.o" `;
     });
     if (FrameworkLibrary != "")
-      processFiles(FrameworkLibrary, ".o", (file, folder) => {
+      utils.processFiles(FrameworkLibrary, ".o", (file, folder) => {
         filesList = filesList + `"${folder}/${file}.o" `;
       });
 
