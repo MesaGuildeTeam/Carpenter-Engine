@@ -27,6 +27,30 @@ template <typename T>
 concept isVec = isVecf<T> || isVecb<T>;
 
 /**
+ * templated vec type (float) for selecting the matrix size at compile time
+ */
+template <unsigned int N>
+struct vec {
+    static_assert(N == 2 || N == 3 || N == 4, "Supported vector dimensions are 2, 3 and 4");
+    using type = std::conditional_t<N == 2, vec2, std::conditional_t<N == 3, vec3, vec4>>;
+};
+
+/**
+ * templated vec type (bool) for selecting the vector type at compile time
+ */
+template <unsigned int N>
+struct vecb {
+    static_assert(N == 2 || N == 3 || N == 4, "Supported vector dimensions are 2, 3 and 4");
+    using type = std::conditional_t<N == 2, vec2b, std::conditional_t<N == 3, vec3b, vec4b>>;
+};
+
+/**
+ * templated vec type (float) for selecting the vector type at compile time
+ */
+template <unsigned int N>
+using vecf = vec<N>;
+
+/**
  * 4d vector of float
  */
 typedef vec4 vec4f;
