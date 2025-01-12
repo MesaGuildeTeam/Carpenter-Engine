@@ -46,14 +46,14 @@ namespace Engine::UI {
      * 
      * @param dimensions The dimensions where x is the width, and y is the height
      */
-    void SetDimensions(Vec2f dimensions);
+    void SetDimensions(vec2f dimensions);
 
     /**
      * Sets the offset of the UI element
      * 
      * @param dimensions The dimensions where x is the width, and y is the height
      */
-    void SetOffset(Vec2f offset);
+    void SetOffset(vec2f offset);
 
     void OnEnable() override;
 

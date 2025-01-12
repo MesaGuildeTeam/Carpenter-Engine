@@ -5,39 +5,39 @@
 
 // 2D Vector Operations
 
-Engine::Vec2f Engine::Vec2f::operator+(const Engine::Vec2f& rhs) {
+Engine::vec2f Engine::vec2f::operator+(const Engine::vec2f& rhs) {
   return {x + rhs.x, y + rhs.y};
 }
 
-Engine::Vec2f Engine::Vec2f::operator*(const float& rhs) {
+Engine::vec2f Engine::vec2f::operator*(const float& rhs) {
   return {x * rhs, y * rhs};
 }
 
-Engine::Vec2f Engine::Vec2f::operator*(const Vec2f& rhs) {
+Engine::vec2f Engine::vec2f::operator*(const vec2f& rhs) {
   return {x * rhs.x, y * rhs.y};
 }
 
 // 3D Vector Operations
 
-Engine::Vec3f Engine::Vec3f::operator+(const Engine::Vec3f& rhs) {
+Engine::vec3f Engine::vec3f::operator+(const Engine::vec3f& rhs) {
   return {x + rhs.x, y + rhs.y, z + rhs.z};
 }
 
-Engine::Vec3f Engine::Vec3f::operator*(const float& rhs) {
+Engine::vec3f Engine::vec3f::operator*(const float& rhs) {
   return {x * rhs, y * rhs, z * rhs};
 }
 
-Engine::Vec3f Engine::Vec3f::operator*(const Vec3f& rhs) {
+Engine::vec3f Engine::vec3f::operator*(const vec3f& rhs) {
   return {x * rhs.x, y * rhs.y, z * rhs.z};
 }
 
 // Vector Rotations
 
-Engine::Vec2f Engine::Rotate(Vec2f v, float angle) {
-  return {v.x * cos(angle) - v.y * sin(angle), v.x * sin(angle) + v.y * cos(angle)};
+Engine::vec2f Engine::rotate(const vec2f& vec, const float& angle) {
+  return {vec.x * cos(angle) - vec.y * sin(angle), vec.x * sin(angle) + vec.y * cos(angle)};
 }
 
-Engine::Vec3f Engine::Rotate(Vec3f v, Vec3f angle) {
+Engine::vec3f Engine::rotate(const vec3f& vec, const vec3f& angle) {
   float cosX = cosf(angle.x);
   float sinX = sinf(angle.x);
   float cosY = cosf(angle.y);
@@ -46,8 +46,8 @@ Engine::Vec3f Engine::Rotate(Vec3f v, Vec3f angle) {
   float sinZ = sinf(angle.z);
 
   return {
-    cosY * (sinZ * v.y + cosZ * v.x) - sinY * v.z,
-    sinX * (cosY * v.z + sinY * (sinZ * v.y + cosZ * v.x)) + cosX * (cosZ * v.y - sinZ * v.x),
-    cosX * (cosY * v.z + sinY * (sinZ * v.y + cosZ * v.x)) - sinX * (cosZ * v.y - sinZ * v.x)
+    cosY * (sinZ * vec.y + cosZ * vec.x) - sinY * vec.z,
+    sinX * (cosY * vec.z + sinY * (sinZ * vec.y + cosZ * vec.x)) + cosX * (cosZ * vec.y - sinZ * vec.x),
+    cosX * (cosY * vec.z + sinY * (sinZ * vec.y + cosZ * vec.x)) - sinX * (cosZ * vec.y - sinZ * vec.x)
   };
 }

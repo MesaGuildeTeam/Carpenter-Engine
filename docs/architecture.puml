@@ -65,8 +65,8 @@ namespace Engine {
 
       + {method} void AddTheme(themeName);
       + {method} void SetAnchor(anchor);
-      + {method} void SetDimensions(Vec2f dimensions);
-      + {method} void SetOffset(Vec2f offset);
+      + {method} void SetDimensions(vec2f dimensions);
+      + {method} void SetOffset(vec2f offset);
     }
 
     class UILabel extends UIElement {
