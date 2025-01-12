@@ -34,6 +34,10 @@ mat3::mat3() {
     data.fill(0);
 }
 
+/**
+ * more constructors in Matrix.hpp
+ */
+
 #pragma endregion constructors
 
 #pragma region accessors
