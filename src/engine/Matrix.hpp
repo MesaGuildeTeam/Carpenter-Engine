@@ -12,6 +12,49 @@ class mat4;
 class mat3;
 class mat2;
 
+// has a true value if a type is a float matrix
+template <typename T>
+struct is_matf : std::false_type {};
+// has a true value if a type is a float matrix
+template <typename T>
+requires (std::is_same_v<T, mat2> || std::is_same_v<T, mat3> || std::is_same_v<T, mat4>)
+struct is_matf<T> : std::true_type {};
+
+// has a true value if a type is a matrix
+template <typename T>
+struct is_mat : std::false_type {};
+// has a true value if a type is a matrix
+template <typename T>
+requires (is_matf<T>::value)
+struct is_mat<T> : std::true_type {};
+
+// true if a type is a float matrix
+template <typename T>
+constexpr bool is_matf_v = is_matf<T>::value;
+
+// true if a type is a matrix
+template <typename T>
+constexpr bool is_mat_v = is_mat<T>::value;
+
+/**
+ * returns the dimension of a vector, matrix, or scalar type
+ */
+template <typename T>
+requires (std::is_same_v<T, mat2>)
+struct dimension_of<T> : std::integral_constant<unsigned int, 2> {};
+/**
+ * returns the dimension of a vector, matrix, or scalar type
+ */
+template <typename T>
+requires (std::is_same_v<T, mat3>)
+struct dimension_of<T> : std::integral_constant<unsigned int, 3> {};
+/**
+ * returns the dimension of a vector, matrix, or scalar type
+ */
+template <typename T>
+requires (std::is_same_v<T, mat4>)
+struct dimension_of<T> : std::integral_constant<unsigned int, 4> {};
+
 /**
  * templated mat type (float) for selecting the matrix size at compile time
  */
@@ -107,14 +150,19 @@ class mat4 {
     mat4();
 
     /**
+     * Copy constructor
+     */
+    mat4(const mat4& mat);
+
+    /**
      * Fill constructor
      * Fills the matrix diagonal with the provided value
      * The remaining components are set to 0
      */
     template <typename T>
     requires (std::is_convertible_v<T, float>)
-    mat4(T value) {
-        data.fill(0);
+    explicit mat4(const T value) {
+        data.fill(vec4(0));
         for (unsigned int i = 0; i < N; i++) {
             data[i][i] = float(value);
         }
@@ -127,15 +175,12 @@ class mat4 {
      * @warning vectors and floats are inserted as columns. This means that `mat2(1,2,3,4)` creates the matrix with columns [1,2] and [3,4]
      */
     template <typename ... Vectors>
-    requires ((std::is_convertible_v<Vectors, float> || isVec<Vectors>) && ...)
+    requires ((is_vec_v<Vectors> || std::is_convertible_v<Vectors, float>) && ... ) && ((dimension_of_v<Vectors> + ...) == dimension*dimension)
     mat4(const Vectors... vecs) {
-        constexpr unsigned int sum = ((std::is_convertible_v<Vectors, float> ? 1 : isVec<Vectors> ? Vectors::dimension : N*N + 1) + ...);
-        static_assert(sum == N*N, "Total number of components must equal " + std::to_string(N*N));
-
         unsigned int i = 0;
         unsigned int j = 0;
         ([&] {
-            if constexpr (isVec<Vectors>) {
+            if constexpr (is_vec_v<Vectors>) {
                 for (unsigned int i = 0; i < Vectors::dimension; i++) {
                     data[j][i] = float(vecs[i]);
                     if (i == N - 1) {
@@ -264,7 +309,7 @@ class mat4 {
      * true if all components are non-zero
      * to check if any components are non-zero, compare with vec4::zero rather than casting
      */
-    explicit operator bool() const;
+    operator bool() const;
 
     #pragma endregion conversions
 
@@ -502,14 +547,19 @@ class mat3 {
     mat3();
 
     /**
+     * Copy constructor
+     */
+    mat3(const mat3& mat);
+
+    /**
      * Fill constructor
      * Fills the matrix diagonal with the provided value
      * The remaining components are set to 0
      */
     template <typename T>
     requires (std::is_convertible_v<T, float>)
-    mat3(T value) {
-        data.fill(0);
+    explicit mat3(const T value) {
+        data.fill(vec3(0));
         for (unsigned int i = 0; i < N; i++) {
             data[i][i] = float(value);
         }
@@ -522,15 +572,12 @@ class mat3 {
      * @warning vectors and floats are inserted as columns. This means that `mat2(1,2,3,4)` creates the matrix with columns [1,2] and [3,4]
      */
     template <typename ... Vectors>
-    requires ((std::is_convertible_v<Vectors, float> || isVec<Vectors>) && ...)
+    requires ((is_vec_v<Vectors> || std::is_convertible_v<Vectors, float>) && ... ) && ((dimension_of_v<Vectors> + ...) == dimension*dimension)
     mat3(const Vectors... vecs) {
-        constexpr unsigned int sum = ((std::is_convertible_v<Vectors, float> ? 1 : isVec<Vectors> ? Vectors::dimension : N*N + 1) + ...);
-        static_assert(sum == N*N, "Total number of components must equal " + std::to_string(N*N));
-
         unsigned int i = 0;
         unsigned int j = 0;
         ([&] {
-            if constexpr (isVec<Vectors>) {
+            if constexpr (is_vec_v<Vectors>) {
                 for (unsigned int i = 0; i < Vectors::dimension; i++) {
                     data[j][i] = float(vecs[i]);
                     if (i == N - 1) {
@@ -659,7 +706,7 @@ class mat3 {
      * true if all components are non-zero
      * to check if any components are non-zero, compare with vec4::zero rather than casting
      */
-    explicit operator bool() const;
+    operator bool() const;
 
     #pragma endregion conversions
 
@@ -933,14 +980,19 @@ class mat2 {
     mat2();
 
     /**
+     * Copy constructor
+     */
+    mat2(const mat2& mat);
+
+    /**
      * Fill constructor
      * Fills the matrix diagonal with the provided value
      * The remaining components are set to 0
      */
     template <typename T>
     requires (std::is_convertible_v<T, float>)
-    mat2(T value) {
-        data.fill(0);
+    explicit mat2(const T value) {
+        data.fill(vec2(0));
         for (unsigned int i = 0; i < N; i++) {
             data[i][i] = float(value);
         }
@@ -953,15 +1005,12 @@ class mat2 {
      * @warning vectors and floats are inserted as columns. This means that `mat2(1,2,3,4)` creates the matrix with columns [1,2] and [3,4]
      */
     template <typename ... Vectors>
-    requires ((std::is_convertible_v<Vectors, float> || isVec<Vectors>) && ...)
+    requires ((is_vec_v<Vectors> || std::is_convertible_v<Vectors, float>) && ... ) && ((dimension_of_v<Vectors> + ...) == dimension*dimension)
     mat2(const Vectors... vecs) {
-        constexpr unsigned int sum = ((std::is_convertible_v<Vectors, float> ? 1 : isVec<Vectors> ? Vectors::dimension : N*N + 1) + ...);
-        static_assert(sum == N*N, "Total number of components must equal " + std::to_string(N*N));
-
         unsigned int i = 0;
         unsigned int j = 0;
         ([&] {
-            if constexpr (isVec<Vectors>) {
+            if constexpr (is_vec_v<Vectors>) {
                 for (unsigned int i = 0; i < Vectors::dimension; i++) {
                     data[j][i] = float(vecs[i]);
                     if (i == N - 1) {
@@ -1090,7 +1139,7 @@ class mat2 {
      * true if all components are non-zero
      * to check if any components are non-zero, compare with vec4::zero rather than casting
      */
-    explicit operator bool() const;
+    operator bool() const;
 
     #pragma endregion conversions
 

@@ -3,7 +3,8 @@
 #include <emscripten/html5.h>
 #include <iostream>
 
-UIRenderCanvas::UIRenderCanvas(std::string id) : UIElement(id) {
+namespace Engine::UI {
+    UIRenderCanvas::UIRenderCanvas(std::string id) : UIElement(id) {
     m_uiTag = "canvas";
     m_uiClass = "ui-renderer";
 
@@ -20,4 +21,5 @@ UIRenderCanvas::UIRenderCanvas(std::string id) : UIElement(id) {
     }
     // use emscripten_webgl_make_context_current(ctx) to use opengl functions
    UIRenderCanvas::onGLLoad.trigger((struct onGlLoadEventData){ctx, this});
+}
 }

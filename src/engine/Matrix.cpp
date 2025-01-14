@@ -20,7 +20,7 @@ const mat4 mat4::zero = mat4(0);
  * matrix of all ones
  * for diagonal ones, use mat4::identity
  */
-const mat4 one = mat4(vec4(1), vec4(1), vec4(1), vec4(1));
+const mat4 mat4::one = mat4(vec4(1), vec4(1), vec4(1), vec4(1));
 
 #pragma endregion constants
 
@@ -31,7 +31,16 @@ const mat4 one = mat4(vec4(1), vec4(1), vec4(1), vec4(1));
  * Initializes all components to 0
  */
 mat4::mat4() {
-    data.fill(0);
+    data.fill(vec4(0));
+}
+
+/**
+ * Copy constructor
+ */
+mat4::mat4(const mat4& mat) {
+    for (unsigned int i = 0; i < N; i++) {
+        data[i] = mat[i];
+    }
 }
 
 /**
@@ -187,7 +196,7 @@ std::array<float,mat4::N*mat4::N> mat4::flatten_row() const {
  * true if all components are non-zero
  * to check if any components are non-zero, compare with vec4::zero rather than casting
  */
-explicit mat4::operator bool() const {
+mat4::operator bool() const {
     for (unsigned int i = 0; i < N; i++) {
         for (unsigned int j = 0; j < N; j++) {
             if (data[i][j] == 0) return false;
@@ -418,7 +427,7 @@ mat4& mat4::operator *=(const float& a) {
  * component-wise increment
  */
 mat4& mat4::operator ++() {
-    *this = *this + 1;
+    *this = *this + 1.0f;
     return *this;
 }
 
@@ -426,7 +435,7 @@ mat4& mat4::operator ++() {
  * component-wise decrement
  */
 mat4& mat4::operator --() {
-    *this = *this + 1;
+    *this = *this - 1.0f;
     return *this;
 }
 
@@ -486,9 +495,10 @@ mat4 mat4::skew(const vec4& skew) {
  */
 mat4 mat4::scale(const vec4& scale) {
     return mat4(
-        scale.x, 0, 0,
-        0, scale.y, 0,
-        0, 0, scale.z
+        scale.x, 0, 0, 0,
+        0, scale.y, 0, 0,
+        0, 0, scale.z, 0,
+        0, 0, 0, scale.w
     );
 }
 
@@ -497,7 +507,7 @@ mat4 mat4::scale(const vec4& scale) {
  * equaivalent to just constructing from 4 vectors
  */
 mat4 mat4::basis(const vec4& x, const vec4& y, const vec4& z, const vec4& w) {
-    return mat4(x, y, z);
+    return mat4(x, y, z, w);
 }
 
 #pragma endregion matrix operations
@@ -541,7 +551,7 @@ const mat3 mat3::zero = mat3(0);
  * matrix of all ones
  * for diagonal ones, use mat3::identity
  */
-const mat3 one = mat3(vec3(1), vec3(1), vec3(1));
+const mat3 mat3::one = mat3(vec3(1), vec3(1), vec3(1));
 
 #pragma endregion constants
 
@@ -552,7 +562,16 @@ const mat3 one = mat3(vec3(1), vec3(1), vec3(1));
  * Initializes all components to 0
  */
 mat3::mat3() {
-    data.fill(0);
+    data.fill(vec3(0));
+}
+
+/**
+ * Copy constructor
+ */
+mat3::mat3(const mat3& mat) {
+    for (unsigned int i = 0; i < N; i++) {
+        data[i] = mat[i];
+    }
 }
 
 /**
@@ -708,7 +727,7 @@ std::array<float,mat3::N*mat3::N> mat3::flatten_row() const {
  * true if all components are non-zero
  * to check if any components are non-zero, compare with vec4::zero rather than casting
  */
-explicit mat3::operator bool() const {
+mat3::operator bool() const {
     for (unsigned int i = 0; i < N; i++) {
         for (unsigned int j = 0; j < N; j++) {
             if (data[i][j] == 0) return false;
@@ -939,7 +958,7 @@ mat3& mat3::operator *=(const float& a) {
  * component-wise increment
  */
 mat3& mat3::operator ++() {
-    *this = *this + 1;
+    *this = *this + 1.0f;
     return *this;
 }
 
@@ -947,7 +966,7 @@ mat3& mat3::operator ++() {
  * component-wise decrement
  */
 mat3& mat3::operator --() {
-    *this = *this + 1;
+    *this = *this - 1.0f;
     return *this;
 }
 
@@ -1196,7 +1215,7 @@ const mat2 mat2::zero = mat2(0);
  * matrix of all ones
  * for diagonal ones, use mat2::identity
  */
-const mat2 one = mat2(vec2(1), vec2(1));
+const mat2 mat2::one = mat2(vec2(1), vec2(1));
 
 #pragma endregion constants
 
@@ -1207,7 +1226,16 @@ const mat2 one = mat2(vec2(1), vec2(1));
  * Initializes all components to 0
  */
 mat2::mat2() {
-    data.fill(0);
+    data.fill(vec2(0));
+}
+
+/**
+ * Copy constructor
+ */
+mat2::mat2(const mat2& mat) {
+    for (unsigned int i = 0; i < N; i++) {
+        data[i] = mat[i];
+    }
 }
 
 /**
@@ -1363,7 +1391,7 @@ std::array<float,mat2::N*mat2::N> mat2::flatten_row() const {
  * true if all components are non-zero
  * to check if any components are non-zero, compare with vec4::zero rather than casting
  */
-explicit mat2::operator bool() const {
+mat2::operator bool() const {
     for (unsigned int i = 0; i < N; i++) {
         for (unsigned int j = 0; j < N; j++) {
             if (data[i][j] == 0) return false;
@@ -1594,7 +1622,7 @@ mat2& mat2::operator *=(const float& a) {
  * component-wise increment
  */
 mat2& mat2::operator ++() {
-    *this = *this + 1;
+    *this = *this + 1.0f;
     return *this;
 }
 
@@ -1602,7 +1630,7 @@ mat2& mat2::operator ++() {
  * component-wise decrement
  */
 mat2& mat2::operator --() {
-    *this = *this + 1;
+    *this = *this - 1.0f;
     return *this;
 }
 

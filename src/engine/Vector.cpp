@@ -79,7 +79,7 @@ vec4::vec4(){
  * true if all components are non-zero
  * to check if any components are non-zero, compare with vec4::zero rather than casting
  */
-explicit vec4::operator bool() const {
+vec4::operator bool() const {
     return x && y && z && w;
 }
 
@@ -496,7 +496,7 @@ double vec4::angleBetween(const vec4& a, const vec4& b) {
  * see https://registry.khronos.org/OpenGL-Refpages/gl4/html/reflect.xhtml
  */
 vec4 vec4::reflect(const vec4& I, const vec4& N) {
-    return I - 2.0*dot(N, I)*N;
+    return I - 2*dot(N, I)*N;
 }
 
 /**
@@ -632,7 +632,7 @@ vec3::vec3(){
  * true if all components are non-zero
  * to check if any components are non-zero, compare with vec3::zero rather than casting
  */
-explicit vec3::operator bool() const {
+vec3::operator bool() const {
     return x && y && z;
 }
 
@@ -1044,7 +1044,7 @@ double vec3::angleBetween(const vec3& a, const vec3& b) {
  * see https://registry.khronos.org/OpenGL-Refpages/gl4/html/reflect.xhtml
  */
 vec3 vec3::reflect(const vec3& I, const vec3& N) {
-    return I - 2.0*dot(N, I)*N;
+    return I - 2*dot(N, I)*N;
 }
 
 /**
@@ -1195,7 +1195,7 @@ vec2::vec2(){
  * true if all components are non-zero
  * to check if any components are non-zero, compare with vec2::zero rather than casting
  */
-explicit vec2::operator bool() const {
+vec2::operator bool() const {
     return x && y;
 }
 
@@ -1596,7 +1596,7 @@ double vec2::angleBetween(const vec2& a, const vec2& b) {
  * see https://registry.khronos.org/OpenGL-Refpages/gl4/html/reflect.xhtml
  */
 vec2 vec2::reflect(const vec2& I, const vec2& N) {
-    return I - 2.0*dot(N, I)*N;
+    return I - 2*dot(N, I)*N;
 }
 
 /**
@@ -1725,7 +1725,7 @@ vec4b::vec4b() {
  * true if all components are non-zero
  * to check if any components are non-zero, compare with vec4b::zero rather than casting
  */
-explicit vec4b::operator bool() const {
+vec4b::operator bool() const {
     return x && y && z && w;
 }
 
@@ -2030,7 +2030,7 @@ vec3b::vec3b() {
  * true if all components are non-zero
  * to check if any components are non-zero, compare with vec4b::zero rather than casting
  */
-explicit vec3b::operator bool() const {
+vec3b::operator bool() const {
     return x && y && z;
 }
 
@@ -2332,7 +2332,7 @@ vec2b::vec2b() {
  * true if all components are non-zero
  * to check if any components are non-zero, compare with vec4b::zero rather than casting
  */
-explicit vec2b::operator bool() const {
+vec2b::operator bool() const {
     return x && y;
 }
 

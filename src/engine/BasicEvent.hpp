@@ -9,10 +9,10 @@
 template <typename T>
 class BasicEvent {
     private:
-    std::vector<std::function<void,T>> listeners;
+    std::vector<std::function<void(T)>> listeners;
 
     public:
-    void subscribe(std::function<void,T> listener) {
+    void subscribe(std::function<void(T)> listener) {
         listeners.push_back(listener);
     }
 

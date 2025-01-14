@@ -7,6 +7,8 @@
 
 namespace Engine {
 
+#pragma region aliases
+
 class vec4;
 class vec3;
 class vec2;
@@ -14,17 +16,71 @@ class vec4b;
 class vec3b;
 class vec2b;
 
-// a concept to check if a type is a float vector
+// has a true value if a type is a float vector
 template <typename T>
-concept isVecf = std::same_as<std::remove_cvref_t<T>, vec2> || std::same_as<std::remove_cvref_t<T>, vec3> || std::same_as<std::remove_cvref_t<T>, vec4>;
+struct is_vecf : std::false_type {};
+// has a true value if a type is a float vector
+template <typename T>
+requires (std::is_same_v<T, vec2> || std::is_same_v<T, vec3> || std::is_same_v<T, vec4>)
+struct is_vecf<T> : std::true_type {};
 
-// a concept to check if a type is a bool vector
+// has a true value if a type is a bool vector
 template <typename T>
-concept isVecb = std::same_as<std::remove_cvref_t<T>, vec2b> || std::same_as<std::remove_cvref_t<T>, vec3b> || std::same_as<std::remove_cvref_t<T>, vec4b>;
+struct is_vecb : std::false_type {};
+// has a true value if a type is a bool vector
+template <typename T>
+requires (std::is_same_v<T, vec2b> || std::is_same_v<T, vec3b> || std::is_same_v<T, vec4b>)
+struct is_vecf<T> : std::true_type {};
 
-// a concept to check if a type is a vector
+// has a true value if a type is a vector
 template <typename T>
-concept isVec = isVecf<T> || isVecb<T>;
+struct is_vec : std::false_type {};
+// has a true value if a type is a vector
+template <typename T>
+requires (is_vecb<T>::value || is_vecf<T>::value)
+struct is_vec<T> : std::true_type {};
+
+// true if a type is a float vector
+template <typename T>
+constexpr bool is_vecf_v = is_vecf<T>::value;
+
+// true if a type is a bool vector
+template <typename T>
+constexpr bool is_vecb_v = is_vecb<T>::value;
+
+// true if a type is a vector
+template <typename T>
+constexpr bool is_vec_v = is_vec<T>::value;
+
+/**
+ * returns the dimension of a vector, matrix, or scalar type
+ */
+template <typename T>
+struct dimension_of : std::integral_constant<unsigned int, 1> {};
+/**
+ * returns the dimension of a vector, matrix, or scalar type
+ */
+template <typename T>
+requires (std::is_same_v<T, vec2> || std::is_same_v<T, vec2b>)
+struct dimension_of<T> : std::integral_constant<unsigned int, 2> {};
+/**
+ * returns the dimension of a vector, matrix, or scalar type
+ */
+template <typename T>
+requires (std::is_same_v<T, vec3> || std::is_same_v<T, vec3b>)
+struct dimension_of<T> : std::integral_constant<unsigned int, 3> {};
+/**
+ * returns the dimension of a vector, matrix, or scalar type
+ */
+template <typename T>
+requires (std::is_same_v<T, vec4> || std::is_same_v<T, vec4b>)
+struct dimension_of<T> : std::integral_constant<unsigned int, 4> {};
+
+/**
+ * the dimension of a vector, matrix, or scalar type
+ */
+template <typename T>
+constexpr unsigned int dimension_of_v = dimension_of<T>::value;
 
 /**
  * templated vec type (float) for selecting the matrix size at compile time
@@ -62,6 +118,10 @@ typedef vec3 vec3f;
  * 2d vector of float
  */
 typedef vec2 vec2f;
+
+static_assert(std::is_same_v<vec2f, vec2>);
+
+#pragma endregion aliases
 
 /**
  * 4d vector of float
@@ -134,7 +194,7 @@ class vec4 {
      */
     template <typename T>
     requires std::is_convertible_v<T, float>
-    vec4(T a){
+    explicit vec4(const T a){
         data.fill(float(a));
     }
 
@@ -143,14 +203,11 @@ class vec4 {
      * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
      */
     template <typename ... Vectors>
-    requires ((std::is_convertible_v<Vectors, float> || isVec<Vectors>) && ...)
+    requires ((is_vec_v<Vectors> || std::is_convertible_v<Vectors, float>) && ... ) && ((dimension_of_v<Vectors> + ...) == dimension)
     vec4(Vectors... vecs) {
-        constexpr unsigned int sum = ((std::is_convertible_v<Vectors, float> ? 1 : isVec<Vectors> ? Vectors::dimension : dimension + 1) + ...);
-        static_assert(sum == dimension, "Total number of components must equal " + std::to_string(dimension));
-
         unsigned int i = 0;
         ([&] {
-            if constexpr (isVec<Vectors>) {
+            if constexpr (is_vec_v<Vectors>) {
                 for (unsigned int i = 0; i < Vectors::dimension; i++) {
                     data[i] = float(vecs[i]);
                     i++;
@@ -171,7 +228,7 @@ class vec4 {
      * true if all components are non-zero
      * to check if any components are non-zero, compare with vec4::zero rather than casting
      */
-    explicit operator bool() const;
+    operator bool() const;
 
     /**
      * casts a boolean vector to a float vector
@@ -585,7 +642,7 @@ class vec3 {
     /**
      * dimension of vector
      */
-    static constexpr int dimension = 3;
+    static constexpr unsigned int dimension = 3;
 
     #pragma endregion constants
 
@@ -601,7 +658,7 @@ class vec3 {
      */
     template <typename T>
     requires std::is_convertible_v<T, float>
-    vec3(T a){
+    explicit vec3(const T a){
         data.fill(float(a));
     }
 
@@ -610,14 +667,11 @@ class vec3 {
      * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
      */
     template <typename ... Vectors>
-    requires ((std::is_convertible_v<Vectors, float> || isVec<Vectors>) && ...)
-    vec3(Vectors... vecs) {
-        constexpr unsigned int sum = ((std::is_convertible_v<Vectors, float> ? 1 : isVec<Vectors> ? Vectors::dimension : dimension + 1) + ...);
-        static_assert(sum == dimension, "Total number of components must equal " + std::to_string(dimension));
-
+    requires ((is_vec_v<Vectors> || std::is_convertible_v<Vectors, float>) && ... ) && ((dimension_of_v<Vectors> + ...) == dimension)
+    vec3(const Vectors... vecs) {
         unsigned int i = 0;
         ([&] {
-            if constexpr (isVec<Vectors>) {
+            if constexpr (is_vec_v<Vectors>) {
                 for (unsigned int i = 0; i < Vectors::dimension; i++) {
                     data[i] = float(vecs[i]);
                     i++;
@@ -629,6 +683,7 @@ class vec3 {
         }(), ...);
     }
 
+
     #pragma endregion constructors
 
     #pragma region conversions
@@ -638,7 +693,7 @@ class vec3 {
      * true if all components are non-zero
      * to check if any components are non-zero, compare with vec3::zero rather than casting
      */
-    explicit operator bool() const;
+    operator bool() const;
 
     /**
      * casts a boolean vector to a float vector
@@ -1053,7 +1108,7 @@ class vec2 {
     /**
      * dimension of vector
      */
-    static constexpr int dimension = 2;
+    static constexpr unsigned int dimension = 2;
 
     #pragma endregion constants
 
@@ -1069,7 +1124,7 @@ class vec2 {
      */
     template <typename T>
     requires std::is_convertible_v<T, float>
-    vec2(T a){
+    explicit vec2(const T a){
         data.fill(float(a));
     }
 
@@ -1078,14 +1133,11 @@ class vec2 {
      * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
      */
     template <typename ... Vectors>
-    requires ((std::is_convertible_v<Vectors, float> || isVec<Vectors>) && ...)
+    requires ((is_vec_v<Vectors> || std::is_convertible_v<Vectors, float>) && ... ) && ((dimension_of_v<Vectors> + ...) == dimension)
     vec2(Vectors... vecs) {
-        constexpr unsigned int sum = ((std::is_convertible_v<Vectors, float> ? 1 : isVec<Vectors> ? Vectors::dimension : dimension + 1) + ...);
-        static_assert(sum == dimension, "Total number of components must equal " + std::to_string(dimension));
-
         unsigned int i = 0;
         ([&] {
-            if constexpr (isVec<Vectors>) {
+            if constexpr (is_vec_v<Vectors>) {
                 for (unsigned int i = 0; i < Vectors::dimension; i++) {
                     data[i] = float(vecs[i]);
                     i++;
@@ -1106,7 +1158,7 @@ class vec2 {
      * true if all components are non-zero
      * to check if any components are non-zero, compare with vec2::zero rather than casting
      */
-    explicit operator bool() const;
+    operator bool() const;
 
     /**
      * casts a boolean vector to a float vector
@@ -1496,7 +1548,7 @@ class vec4b {
     /**
      * dimension of vector
      */
-    static constexpr int dimension = 4;
+    static constexpr unsigned int dimension = 4;
 
     #pragma endregion constants
 
@@ -1521,14 +1573,11 @@ class vec4b {
      * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
      */
     template <typename ... Vectors>
-    requires ((std::is_convertible_v<Vectors, bool> || isVec<Vectors>) && ...)
+    requires ((is_vec_v<Vectors> || std::is_convertible_v<Vectors, bool>) && ... ) && ((dimension_of_v<Vectors> + ...) == dimension)
     vec4b(Vectors... vecs) {
-        constexpr unsigned int sum = ((std::is_convertible_v<Vectors, bool> ? 1 : isVec<Vectors> ? Vectors::dimension : dimension + 1) + ...);
-        static_assert(sum == dimension, "Total number of components must equal " + std::to_string(dimension));
-
         unsigned int i = 0;
         ([&] {
-            if constexpr (isVec<Vectors>) {
+            if constexpr (is_vec_v<Vectors>) {
                 for (unsigned int i = 0; i < Vectors::dimension; i++) {
                     data[i] = bool(vecs[i]);
                     i++;
@@ -1549,7 +1598,7 @@ class vec4b {
      * true if all components are non-zero
      * to check if any components are non-zero, compare with vec4b::zero rather than casting
      */
-    explicit operator bool() const;
+    operator bool() const;
 
     /**
      * casts a float vector to a boolean vector
@@ -1812,7 +1861,7 @@ class vec3b {
     /**
      * dimension of vector
      */
-    static constexpr int dimension = 3;
+    static constexpr unsigned int dimension = 3;
 
     #pragma endregion constants
 
@@ -1837,14 +1886,11 @@ class vec3b {
      * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
      */
     template <typename ... Vectors>
-    requires ((std::is_convertible_v<Vectors, bool> || isVec<Vectors>) && ...)
+    requires ((is_vec_v<Vectors> || std::is_convertible_v<Vectors, bool>) && ... ) && ((dimension_of_v<Vectors> + ...) == dimension)
     vec3b(Vectors... vecs) {
-        constexpr unsigned int sum = ((std::is_convertible_v<Vectors, bool> ? 1 : isVec<Vectors> ? Vectors::dimension : dimension + 1) + ...);
-        static_assert(sum == dimension, "Total number of components must equal " + std::to_string(dimension));
-
         unsigned int i = 0;
         ([&] {
-            if constexpr (isVec<Vectors>) {
+            if constexpr (is_vec_v<Vectors>) {
                 for (unsigned int i = 0; i < Vectors::dimension; i++) {
                     data[i] = bool(vecs[i]);
                     i++;
@@ -1865,7 +1911,7 @@ class vec3b {
      * true if all components are non-zero
      * to check if any components are non-zero, compare with vec4b::zero rather than casting
      */
-    explicit operator bool() const;
+    operator bool() const;
 
     /**
      * casts a float vector to a boolean vector
@@ -2118,7 +2164,7 @@ class vec2b {
         /**
      * dimension of vector
      */
-    static constexpr int dimension = 2;
+    static constexpr unsigned int dimension = 2;
 
     #pragma endregion constants
 
@@ -2143,14 +2189,11 @@ class vec2b {
      * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
      */
     template <typename ... Vectors>
-    requires ((std::is_convertible_v<Vectors, bool> || isVec<Vectors>) && ...)
+    requires ((is_vec_v<Vectors> || std::is_convertible_v<Vectors, bool>) && ... ) && ((dimension_of_v<Vectors> + ...) == dimension)
     vec2b(Vectors... vecs) {
-        constexpr unsigned int sum = ((std::is_convertible_v<Vectors, bool> ? 1 : isVec<Vectors> ? Vectors::dimension : dimension + 1) + ...);
-        static_assert(sum == dimension, "Total number of components must equal " + std::to_string(dimension));
-
         unsigned int i = 0;
         ([&] {
-            if constexpr (isVec<Vectors>) {
+            if constexpr (is_vec_v<Vectors>) {
                 for (unsigned int i = 0; i < Vectors::dimension; i++) {
                     data[i] = bool(vecs[i]);
                     i++;
@@ -2171,7 +2214,7 @@ class vec2b {
      * true if all components are non-zero
      * to check if any components are non-zero, compare with vec4b::zero rather than casting
      */
-    explicit operator bool() const;
+    operator bool() const;
 
     /**
      * casts a float vector to a boolean vector

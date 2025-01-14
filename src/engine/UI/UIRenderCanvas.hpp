@@ -10,7 +10,7 @@ namespace Engine::UI {
   class UIRenderCanvas : public UIElement {
     private:
 
-    EMSCRIPTEN_WEBGL_CONTEXT_HANDLE gl;
+    EMSCRIPTEN_WEBGL_CONTEXT_HANDLE ctx;
 
     public:
 
