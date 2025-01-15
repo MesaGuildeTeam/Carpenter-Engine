@@ -1,3 +1,4 @@
+#if false
 #include "UIRenderCanvas.hpp"
 
 #include <emscripten/html5.h>
@@ -23,3 +24,4 @@ namespace Engine::UI {
    UIRenderCanvas::onGLLoad.trigger((struct onGlLoadEventData){ctx, this});
 }
 }
+#endif

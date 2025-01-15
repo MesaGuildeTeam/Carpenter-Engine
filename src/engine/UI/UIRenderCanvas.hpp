@@ -1,3 +1,4 @@
+#if false
 #ifndef ENGINE_UIRenderCanvas
 #define ENGINE_UIRenderCanvas
 
@@ -23,4 +24,5 @@ namespace Engine::UI {
 
 }
 
+#endif
 #endif
