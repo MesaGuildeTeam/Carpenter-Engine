@@ -20,6 +20,10 @@ void Engine::Audio::Sound::m_playThreadMethod(Vec3f position) {
   }, m_filename, gain, panning);
 }
 
+void Engine::Audio::Sound::Play() {
+  Engine::Audio::Audio::Play();
+}
+
 void Engine::Audio::Sound::Play(Vec3f position) {
   // Threads are funny in Emscripten. Add the parameter in the build system when we are ready to use it
   #ifdef ENGNINE_THREADING

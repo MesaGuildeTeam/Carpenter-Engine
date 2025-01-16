@@ -21,6 +21,8 @@ namespace Engine::Audio {
 
     Sound(const char* filename);
 
+    void Play();
+
     /**
      * Plays the sound relative to where the camera position is
      */
