@@ -36,6 +36,12 @@ program.command('construct')
     build.buildGame({runBuild: options.compile, runLink: options.link, runPackage: options.package});
   });
 
+program.command('dev')
+  .description("Run the development and testing environment for the game engine")
+  .action(() => {
+    require('./environment/server');
+  })
+
 // Cleans the project
 program.command('flip')
   .description('clean the files built by the build process \x1b[2m' + utils.Asciis.TableFlip + "\x1b[0m")
