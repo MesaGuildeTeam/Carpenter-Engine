@@ -16,18 +16,18 @@ program.name('table')
   .addHelpText('beforeAll', title);
 
 // Environment Setup Command 
-program.command('unbox')
+program.command('setup')
   .description('setup your environment by installing emscripten and creating the necessary folders')
   .action(() => {
     setup.installEmscripten();
   });
 
 // Build Command 
-program.command('construct')
+program.command('build')
   .description('build the project using the configuration in tableconf.json or the default configuration. If no step are defined, the complete build process will be used.')
   .option('-c, --compile', 'Compile the .cpp files into wasm .o files')
   .option('-l, --link', 'Link all the files together')
-  .option('-p, --package', 'Package the static webpage into the project')
+  .option('-p, --package', 'Package the static webpage into the build ready for distribution')
   .action((options) => {
     if (options.length > 0) {
       build.buildGame();
@@ -43,7 +43,7 @@ program.command('dev')
   })
 
 // Cleans the project
-program.command('flip')
+program.command('clean')
   .description('clean the files built by the build process \x1b[2m' + utils.Asciis.TableFlip + "\x1b[0m")
   .action(() => {
     clean.clean();
