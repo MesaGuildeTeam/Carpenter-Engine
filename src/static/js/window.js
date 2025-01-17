@@ -9,7 +9,7 @@ function windowLoop() {
   if (!game.ready)
     return;
   
-  _CallUpdate();
+  _CallUpdate(0.1);
   _CallDraw();
 }
 

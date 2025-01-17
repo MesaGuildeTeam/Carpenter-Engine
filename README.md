@@ -10,19 +10,50 @@ The game engine comes with both the framework to develop games in the game engin
 
 ## Tech Stack
 
-Building the game engine requires the following packages before proceeding:
-- node.js
+Building the game engine requires the following tools before proceeding
+- node.js (Required)
 - Python (may be needed if the emsdk installer can not use its own python)
 
 ## Usage
 To use the the engine in your own project:
 ```sh
 npm install --save-dev table-engine
-npx table setup # install emscripten into your project, and generates necessary folders
+npx table setup # install emscripten for the toolkit, and generates necessary folders
+```
+
+you should then create a `src` folder and add a .cpp file for your main. Here is an example script to try:
+```cpp
+#include <Game.hpp>
+#include <UI/UILabel.hpp>
+
+using namespace Engine;
+
+class ExampleScene : public Scene {
+public:
+  ExampleScene() : Scene("ExampleScene") {
+    UI::UILabel* label = new UI::UILabel("Label", "Hello World from Table Engine");
+    AddChild(label);
+  }
+};
+
+Game game{Game::getInstance(new ExampleScene())};
+
+extern "C" {
+  void CallDraw() { game.DrawScene(); }
+  void CallUpdate(float dt) { game.UpdateScene(dt); }
+}
+```
+> This is `examples/HelloWorld.cpp`.
+> 
+> If you wish to try more examples, see the `examples` folder.
+
+When you are ready to build, you can use the following command to build the project
+
+```sh
 npx table build # takes the existing game code from src, compiles, links, and packages it with a static HTML5 and CSS page
 ```
 
-This process will generate the following standardized folders: `objs` and `build`. From here you can distribute the static webpage as needed.
+This process will generate the following standardized folders: `objs` and `build`. From here you can distribute the built SPA as needed
 
 ## Build it Yourself
 to build the game engine yourself (assuming you have not cloned the repo yet), you will need to use the following process.
