@@ -23,6 +23,8 @@ server.get("/runtime/engine.js", (req, res) => {
   res.sendFile(process.cwd() + "/build/engine.js");
 });
 
+server.use("/Assets", express.static("./Assets"));
+
 server.listen(3000, () => {
   console.log("\nDevelopment environment is now running!", utils.Asciis.Success);
   console.log("Test your game at: http://localhost:3000/runtime");
