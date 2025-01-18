@@ -1,57 +1,70 @@
 /** @namespace Build */
 
-const child_process = require('child_process');
-const fs = require('node:fs');
-const path = require('path');
-const os = require('os');
+const child_process = require("child_process");
+const fs = require("node:fs");
+const path = require("path");
+const os = require("os");
 
-const utils = require('./utils');
+const utils = require("./utils");
+const CPPObject = require("./classes/CPPObject");
 
 var buildConfig;
 
 try {
-  buildConfig = require(process.cwd() + '/tableconf.json') 
+  buildConfig = require(process.cwd() + "/tableconf.json");
 } catch (exception) {
   buildConfig = {};
-};
+}
 
-const EMCC = (process.platform == 'win32' ? os.homedir() + "\\.table-engine\\emsdk\\upstream\\emscripten\\em++.bat" : "~/.table-engine/emsdk/upstream/emscripten/em++");
+const EMCC =
+  process.platform == "win32"
+    ? os.homedir() + "\\.table-engine\\emsdk\\upstream\\emscripten\\em++.bat"
+    : "~/.table-engine/emsdk/upstream/emscripten/em++";
 
-const srcLocation = buildConfig.inputPath || process.cwd() + '/src';
-const outputLocation = buildConfig.outputPath || process.cwd() + '/objs';
-const FrameworkLibrary = buildConfig.frameworkPath != null ? buildConfig.frameworkPath : process.cwd() + '/node_modules/table-engine/objs';
-const includeDir = buildConfig.includeDir != null ? buildConfig.includeDir : 'node_modules/table-engine/src/engine/';
-const staticDir = buildConfig.static != null ? buildConfig.static : 'node_modules/table-engine/src/static/';
+const srcLocation = buildConfig.inputPath || process.cwd() + "/src";
+const outputLocation = buildConfig.outputPath || process.cwd() + "/objs";
+const FrameworkLibrary =
+  buildConfig.frameworkPath != null
+    ? buildConfig.frameworkPath
+    : process.cwd() + "/node_modules/table-engine/objs";
+const includeDir =
+  buildConfig.includeDir != null
+    ? buildConfig.includeDir
+    : "node_modules/table-engine/src/engine/";
+const staticDir =
+  buildConfig.static != null
+    ? buildConfig.static
+    : "node_modules/table-engine/src/static/";
 
 /**
  * Builds the c++ file specified into a .o file
  * @param {string} path The file name based on the buildconfig.json
- * 
+ *
  * @memberof Build
  */
 function buildFile(path, folder) {
-  let execCmd = `${EMCC} -c "${folder}/${path}.cpp" -o "${outputLocation}/${path}.o" -std=c++20 -I${includeDir}`
+  let execCmd = `${EMCC} -c "${folder}/${path}.cpp" -o "${outputLocation}/${path}.o" -std=c++20 -I${includeDir}`;
   console.log(execCmd);
-  child_process.execSync(execCmd, {"cwd": process.cwd()});
+  child_process.execSync(execCmd, { cwd: process.cwd() });
 }
-
 
 const defaultBuildSteps = {
   runBuild: true,
   runLink: true,
-  runPackage: true 
-}
+  runPackage: true,
+};
 
 /**
  * Goes through the whole build process of the game and its engine
  * @memberof Build
  */
 function buildGame(config = defaultBuildSteps) {
-  console.log(process.cwd())
+  console.log(process.cwd());
   // Build process
   if (config.runBuild)
     utils.processFiles(srcLocation, ".cpp", (file, folder) => {
-      buildFile(file, folder);
+      new CPPObject(`${folder}/${file}.cpp}`).build();
+      //buildFile(file, folder);
     });
 
   // Link process
@@ -79,4 +92,4 @@ function buildGame(config = defaultBuildSteps) {
 
 module.exports = {
   buildGame: buildGame,
-}
+};
