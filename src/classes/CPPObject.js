@@ -2,6 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const utils = require("../utils");
 const child_process = require("child_process");
+const os = require("os");
 
 var buildConfig;
 
