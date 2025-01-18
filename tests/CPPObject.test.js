@@ -1,6 +1,7 @@
 const { assert } = require("console");
 const CPPObject = require("../src/classes/CPPObject");
 const fs = require("fs");
+const path = require("path");
 
 describe("Testing the CPPObject with src/engine/Game.cpp", () => {
   let obj;
@@ -22,9 +23,9 @@ describe("Testing the CPPObject with src/engine/Game.cpp", () => {
     let deps = obj.dependencies;
 
     expect(deps).toStrictEqual([
-      "src/engine/Node.cpp",
-      "src/engine/Renderer.cpp",
-      "src/engine/Utils.cpp",
+      path.normalize("src/engine/Node.cpp"),
+      path.normalize("src/engine/Renderer.cpp"),
+      path.normalize("src/engine/Utils.cpp"),
     ]);
   });
 });
@@ -36,10 +37,10 @@ describe("Testing the CPPObject with src/engine/UI/UIButton.cpp", () => {
     let deps = obj.dependencies;
 
     expect(deps).toStrictEqual([
-      "src/engine/UI/UILabel.cpp",
-      "src/engine/UI/UIElement.cpp",
-      "src/engine/Node.cpp",
-      "src/engine/Utils.cpp",
+      path.normalize("src/engine/UI/UILabel.cpp"),
+      path.normalize("src/engine/UI/UIElement.cpp"),
+      path.normalize("src/engine/Node.cpp"),
+      path.normalize("src/engine/Utils.cpp"),
     ]);
   });
 });
