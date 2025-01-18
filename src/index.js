@@ -61,7 +61,7 @@ program
 
 // Cleans the project
 program
-  .command("clean")
+  .command("flip")
   .description(
     "clean the files built by the build process \x1b[2m" +
       utils.Asciis.TableFlip +
