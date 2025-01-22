@@ -6,6 +6,7 @@ const pkg = require("../package.json");
 const utils = require("./utils.js");
 const build = require("./build.js");
 const clean = require("./clean.js");
+const testing = require("./testing.js");
 
 const title = `  ${utils.Asciis.Table} Table Engine v${pkg.version} ${utils.Asciis.Table}
 -----------------${"-".repeat(pkg.version.length)}---------`;
@@ -57,6 +58,13 @@ program
   )
   .action(() => {
     require("./environment/server");
+  });
+
+program
+  .command("test")
+  .description("Run the tests for the game engine")
+  .action(() => {
+    testing.RunTests();
   });
 
 // Cleans the project

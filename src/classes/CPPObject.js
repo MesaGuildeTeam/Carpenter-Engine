@@ -79,6 +79,7 @@ class CPPObject {
    * @returns {String[]} Array of cpp files that this one depends on
    */
   get dependencies() {
+    if (!fs.existsSync(`${this.path}/${this.name}.hpp`)) return [];
     let fileData = fs.readFileSync(`${this.path}/${this.name}.hpp`, "utf8");
     let dependencies = [];
 
