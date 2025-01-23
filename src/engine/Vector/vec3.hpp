@@ -88,8 +88,8 @@ class vec3 {
         unsigned int i = 0;
         ([&] {
             if constexpr (is_vec_v<Vectors>) {
-                for (unsigned int i = 0; i < Vectors::dimension; i++) {
-                    data[i] = float(vecs[i]);
+                for (unsigned int j = 0; j < Vectors::dimension; j++) {
+                    data[i] = float(vecs[j]);
                     i++;
                 }
             } else {

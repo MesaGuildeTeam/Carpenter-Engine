@@ -147,7 +147,7 @@ int main() {
     });
     
     runner.addTest("vec2 anglebetween", "tests that anglebetween(vec2, vec2) works", []() {
-        return approxequals(vec2::dot(vec2(1, 2), vec2(2, 3))/sqrt(vec2(1, 2).lengthSquared()*vec2(2, 3).lengthSquared()), cos(vec2::angleBetween(vec2(1, 2), vec2(2, 3))), 0.01f);
+        return approxequals(vec2::dot(vec2(1, 2), vec2(2, 3))/sqrt(vec2(1, 2).lengthSquared()*vec2(2, 3).lengthSquared()), cos(vec2::angleBetween(vec2(1, 2), vec2(2, 3))), 0.0001f);
     });
 
     runner.addTest("vec2 reflect", "tests that reflect(vec2, vec2) works", []() {
@@ -180,8 +180,8 @@ int main() {
 
     runner.addTest("vec2 cross", "tests that cross(vec2, vec2) works", []() {
         float a = vec2::cross(vec2(1, 2), vec2(2, 3));
-        //float b = vec3::cross(vec3(1, 2, 0), vec3(2, 3, 0)).z;
-        float b = mat2(vec2(1, 2), vec2(2, 3)).determinant();
+        float b = vec3::cross(vec3(1, 2, 0), vec3(2, 3, 0)).z;
+        //float b = mat2(vec2(1, 2), vec2(2, 3)).determinant();
         return bool(a == b);
     });
 

@@ -89,8 +89,8 @@ class mat4 {
         unsigned int j = 0;
         ([&] {
             if constexpr (is_vec_v<Vectors>) {
-                for (unsigned int i = 0; i < Vectors::dimension; i++) {
-                    data[j][i] = float(vecs[i]);
+                for (unsigned int k = 0; k < Vectors::dimension; k++) {
+                    data[j][i] = float(vecs[k]);
                     if (i == N - 1) {
                         j++;
                         i = 0;
