@@ -1,8 +1,8 @@
 #ifndef ENGINE_TESTRUNNER
 #define ENGINE_TESTRUNNER
 
-#define STRINGIFY(A) #A
-#define EXPAND(A) STRINGIFY(A)
+#define EXPAND(A) #A
+#define STRINGIFY(A) EXPAND(A)
 
 #include <vector>
 #include <string>
@@ -18,18 +18,26 @@ namespace Testing {
           std::function<bool()> test;
       };
 
-      unsigned int m_passedTests = 0;
-  
       std::vector<Test> m_tests;
+      unsigned int m_passedTests = 0; 
   
       public:
-  
+
+      /**
+       * Adds a test to the test runner
+       * 
+       * @param name The name of the test
+       * @param test The test function
+       */ 
       void addTest(std::string name, std::function<bool()> test) {
           m_tests.push_back(Test{name, test});
       }
-  
+
+      /**
+       *  Runs all the tests, processes, and outputs the results
+       */ 
       void runTests() {
-          std::cout << EXPAND(TESTNAME) << "\n";
+          std::cout << STRINGIFY(TESTNAME) << "\n";
           
           for (Test& test : m_tests) {
             std::cout << test.name;
@@ -49,6 +57,14 @@ namespace Testing {
 
             std::cout << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count() << "ms" << std::endl;
           }
+      }
+
+      unsigned int getTestCount() {
+        return m_tests.size();
+      }
+
+      unsigned int getPassedTestCount() {
+        return m_passedTests;
       }
   };
 };

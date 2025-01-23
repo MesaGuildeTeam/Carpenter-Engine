@@ -42,8 +42,7 @@ class CPPTest extends CPPObject {
 
     let execCmd = `${EMCC} "${this.path}/${this.name}.cpp" ${files} -o "./tests/WASM/${this.name}.js" -std=c++20 -I${includeDir} -DTESTNAME="${this.path}/${this.name}.cpp"`;
 
-    console.log(`Building test ${this.name}.cpp with em++`);
-    console.log(execCmd);
+    console.log(`Building test: ${this.name}.cpp`);
 
     child_process.execSync(execCmd, { cwd: process.cwd() });
   }
