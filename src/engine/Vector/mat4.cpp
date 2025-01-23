@@ -5,54 +5,36 @@ namespace Engine {
 
 #pragma region constants
 
-/**
- * identity matrix
- * equivalent to `mat4(1)`
- */
+
 const mat4 mat4::identity = mat4(1);
-/**
- * matrix of all zeros
- * equivalent to `mat4(0)`
- */
+
 const mat4 mat4::zero = mat4(0);
-/**
- * matrix of all ones
- * for diagonal ones, use mat4::identity
- */
+
 const mat4 mat4::one = mat4(vec4(1), vec4(1), vec4(1), vec4(1));
 
 #pragma endregion constants
 
 #pragma region constructors
 
-/**
- * Default constructor
- * Initializes all components to 0
- */
+
 mat4::mat4() {
     data.fill(vec4(0));
 }
 
-/**
- * Copy constructor
- */
+
 mat4::mat4(const mat4& mat) {
     for (unsigned int i = 0; i < N; i++) {
         data[i] = mat[i];
     }
 }
 
-/**
- * more constructors in Matrix.hpp
- */
+
 
 #pragma endregion constructors
 
 #pragma region accessors
 
-/**
- * Column accessor
- */
+
 vec4& mat4::operator [](unsigned int i) {
     if (i >= N) {
         throw std::out_of_range("Index out of range");
@@ -60,9 +42,7 @@ vec4& mat4::operator [](unsigned int i) {
     return data[i];
 }
 
-/**
- * Column accessor 
- */
+
 const vec4& mat4::operator [](unsigned int i) const {
     if (i >= N) {
         throw std::out_of_range("Index out of range");
@@ -74,86 +54,62 @@ const vec4& mat4::operator [](unsigned int i) const {
 
 #pragma region iteration
 
-/**
- * Iterator to the first component
- */
+
 auto mat4::begin() noexcept {
     return data.begin();
 }
 
-/**
- * Iterator to the end of the components
- */
+
 auto mat4::end() noexcept {
     return data.end();
 }
 
-/**
- * Iterator to the first component
- */
+
 auto mat4::begin() const noexcept {
     return data.begin();
 }
 
-/**
- * Iterator to the end of the components
- */
+
 auto mat4::end() const noexcept {
     return data.end();
 }
 
-/**
- * Iterator to the first component
- */
+
 auto mat4::cbegin() const noexcept {
     return data.cbegin();
 }
 
-/**
- * Iterator to the end of the components
- */
+
 auto mat4::cend() const noexcept {
     return data.cend();
 }
 
-/**
- * Reverse iterator to the first component
- */
+
 auto mat4::rbegin() noexcept {
     return data.rbegin();
 }
 
-/**
- * Reverse iterator to the end of the components
- */
+
 auto mat4::rend() noexcept {
     return data.rend();
 }
 
-/**
- * Reverse iterator to the first component
- */
+
 auto mat4::rbegin() const noexcept {
     return data.rbegin();
 }
 
-/**
- * Reverse iterator to the end of the components
- */
+
 auto mat4::rend() const noexcept {
     return data.rend();
 }
 
-/**
- * Reverse iterator to the first component
- */
+
 auto mat4::crbegin() const noexcept {
     return data.crbegin();
 }
 
-/**
- * Reverse iterator to the end of the components
- */
+
 auto mat4::crend() const noexcept {
     return data.crend();
 }
@@ -162,39 +118,27 @@ auto mat4::crend() const noexcept {
 
 #pragma region conversions
 
-/**
- * unrolls the matrix in column major order (elements in the same column are adjacent in memory)
- */
+
 std::array<float,mat4::N*mat4::N> mat4::flatten(const mat4& mat) {
     return {mat.data[0][0], mat.data[0][1], mat.data[0][2], mat.data[0][3], mat.data[1][0], mat.data[1][1], mat.data[1][2], mat.data[1][3], mat.data[2][0], mat.data[2][1], mat.data[2][2], mat.data[2][3], mat.data[3][0], mat.data[3][1], mat.data[3][2], mat.data[3][3]};
 }
 
-/**
- * unrolls the matrix in column major order (elements in the same column are adjacent in memory)
- */
+
 std::array<float,mat4::N*mat4::N> mat4::flatten() const {
     return flatten(*this);
 }
 
-/**
- * unrolls the matrix in row major order (elements in the same row are adjacent in memory)
- */
+
 std::array<float,mat4::N*mat4::N> mat4::flatten_row(const mat4& mat) {
     return {mat.data[0][0], mat.data[1][0], mat.data[2][0], mat.data[3][0], mat.data[0][1], mat.data[1][1], mat.data[2][1], mat.data[3][1], mat.data[0][2], mat.data[1][2], mat.data[2][2], mat.data[3][2], mat.data[0][3], mat.data[1][3], mat.data[2][3], mat.data[3][3]};
 }
 
-/**
- * unrolls the matrix in row major order (elements in the same row are adjacent in memory)
- */
+
 std::array<float,mat4::N*mat4::N> mat4::flatten_row() const {
     return flatten_row(*this);
 }
 
-/**
- * casts a matrix to a bool
- * true if all components are non-zero
- * to check if any components are non-zero, compare with vec4::zero rather than casting
- */
+
 mat4::operator bool() const {
     for (unsigned int i = 0; i < N; i++) {
         for (unsigned int j = 0; j < N; j++) {
@@ -208,18 +152,13 @@ mat4::operator bool() const {
 
 #pragma region overloads
 
-/**
- * stream insertion operator
- * note: matrix is printed in column-major order
- */
+
 std::ostream& operator <<(std::ostream& os, const mat4& mat){
     os << std::to_string(mat);
     return os;
 }
 
-/**
- * Copy assignment operator
- */
+
 mat4& mat4::operator =(const mat4& other){
     for (unsigned int i = 0; i < N; i++) {
         data[i] = other.data[i];
@@ -227,9 +166,7 @@ mat4& mat4::operator =(const mat4& other){
     return *this;
 }
 
-/**
- * Component-wise addition
- */
+
 mat4 operator +(const mat4& a, const mat4& b){
     mat4 result;
     for (unsigned int i = 0; i < mat4::N; i++) {
@@ -238,9 +175,7 @@ mat4 operator +(const mat4& a, const mat4& b){
     return result;
 }
 
-/**
- * Component-wise addition
- */
+
 mat4 operator +(const float& a, const mat4& b){
     mat4 result;
     for (unsigned int i = 0; i < mat4::N; i++) {
@@ -249,9 +184,7 @@ mat4 operator +(const float& a, const mat4& b){
     return result;
 }
 
-/**
- * Component-wise addition
- */
+
 mat4 operator +(const mat4& a, const float& b){
     mat4 result;
     for (unsigned int i = 0; i < mat4::N; i++) {
@@ -260,9 +193,7 @@ mat4 operator +(const mat4& a, const float& b){
     return result;
 }
 
-/**
- * Component-wise subtraction
- */
+
 mat4 operator -(const mat4& a, const mat4& b){
     mat4 result;
     for (unsigned int i = 0; i < mat4::N; i++) {
@@ -271,9 +202,7 @@ mat4 operator -(const mat4& a, const mat4& b){
     return result;
 }
 
-/**
- * Component-wise subtraction
- */
+
 mat4 operator -(const float& a, const mat4& b){
     mat4 result;
     for (unsigned int i = 0; i < mat4::N; i++) {
@@ -282,9 +211,7 @@ mat4 operator -(const float& a, const mat4& b){
     return result;
 }
 
-/**
- * Component-wise subtraction
- */
+
 mat4 operator -(const mat4& a, const float& b){
     mat4 result;
     for (unsigned int i = 0; i < mat4::N; i++) {
@@ -293,9 +220,7 @@ mat4 operator -(const mat4& a, const float& b){
     return result;
 }
 
-/**
- * Component-wise negation
- */
+
 mat4 mat4::operator -() const {
     mat4 result;
     for (unsigned int i = 0; i < N; i++) {
@@ -304,9 +229,7 @@ mat4 mat4::operator -() const {
     return result;
 }
 
-/**
- * Column major matrix multiplication
- */
+
 mat4 operator *(const mat4& a, const mat4& b){
     mat4 result;
     for (unsigned int i = 0; i < mat4::N; i++) {
@@ -319,9 +242,7 @@ mat4 operator *(const mat4& a, const mat4& b){
     return result;
 }
 
-/**
- * Column major matrix multiplication
- */
+
 vec4 operator *(const mat4& a, const vec4& b){
     vec4 result;
     for (unsigned int i = 0; i < mat4::N; i++) {
@@ -330,9 +251,7 @@ vec4 operator *(const mat4& a, const vec4& b){
     return result;
 }
 
-/**
- * Scalar multiplication (component-wise)
- */
+
 mat4 operator *(const float& a, const mat4& b){
     mat4 result;
     for (unsigned int i = 0; i < mat4::N; i++) {
@@ -341,9 +260,7 @@ mat4 operator *(const float& a, const mat4& b){
     return result;
 }
 
-/**
- * Scalar multiplication (component-wise)
- */
+
 mat4 operator *(const mat4& a, const float& b){
     mat4 result;
     for (unsigned int i = 0; i < mat4::N; i++) {
@@ -352,10 +269,7 @@ mat4 operator *(const mat4& a, const float& b){
     return result;
 }
 
-/**
- * Component-wise equality
- * true is all components are equal
- */
+
 bool operator ==(const mat4& a, const mat4& b){
     for (unsigned int i = 0; i < mat4::N; i++) {
         if (a[i] != b[i]) return false;
@@ -363,10 +277,7 @@ bool operator ==(const mat4& a, const mat4& b){
     return true;
 }
 
-/**
- * Component-wise inequality
- * true is any component is not equal
- */
+
 bool operator !=(const mat4& a, const mat4& b){
     for (unsigned int i = 0; i < mat4::N; i++) {
         if (a[i] != b[i]) return true;
@@ -374,65 +285,49 @@ bool operator !=(const mat4& a, const mat4& b){
     return false;
 }
 
-/**
- * Component-wise addition assignment operator
- */
+
 mat4& mat4::operator +=(const mat4& mat) {
     *this = *this + mat;
     return *this;
 }
 
-/**
- * Component-wise addition assignment operator
- */
+
 mat4& mat4::operator +=(const float& a) {
     *this = *this + a;
     return *this;
 }
 
-/**
- * Component-wise subtraction assignment operator
- */
+
 mat4& mat4::operator -=(const mat4& mat) {
     *this = *this - mat;
     return *this;
 }
 
-/**
- * Component-wise subtraction assignment operator
- */
+
 mat4& mat4::operator -=(const float& a) {
     *this = *this - a;
     return *this;
 }
 
-/**
- * Column major matrix multiplication assignment operator
- */
+
 mat4& mat4::operator *=(const mat4& mat) {
     *this = *this * mat;
     return *this;
 }
 
-/**
- * Scalar multiplication assignment operator (component-wise)
- */
+
 mat4& mat4::operator *=(const float& a) {
     *this = *this * a;
     return *this;
 }
 
-/**
- * Component-wise increment
- */
+
 mat4& mat4::operator ++() {
     *this = *this + 1.0f;
     return *this;
 }
 
-/**
- * Component-wise decrement
- */
+
 mat4& mat4::operator --() {
     *this = *this - 1.0f;
     return *this;
@@ -442,9 +337,7 @@ mat4& mat4::operator --() {
 
 #pragma region matrix operations
 
-/**
- * returns the transpose of this matrix
- */
+
 mat4 mat4::transpose() const {
     mat4 result;
     for (unsigned int i = 0; i < N; i++) {
@@ -455,30 +348,22 @@ mat4 mat4::transpose() const {
     return result;
 }
 
-/**
- * returns the transpose of a matrix
- */
+
 mat4 mat4::transpose(const mat4& mat) {
     return mat.transpose();
 }
 
-/**
- * returns the trace of this matrix (sum of diagonal elements)
- */
+
 float mat4::trace() const {
     return data[0][0] + data[1][1] + data[2][2] + data[3][3];
 }
 
-/**
- * returns the trace of a matrix (sum of diagonal elements)
- */
+
 float mat4::trace(const mat4& mat) {
     return mat.trace();
 }
 
-/**
- * returns a skew matrix
- */
+
 mat4 mat4::skew(const vec4& skew) {
     return mat4(
         1, skew.x, skew.x, skew.x,
@@ -488,10 +373,7 @@ mat4 mat4::skew(const vec4& skew) {
     );
 }
 
-/**
- * returns a scale matrix
- * equaivalent to component-wise vector multiplication
- */
+
 mat4 mat4::scale(const vec4& scale) {
     return mat4(
         scale.x, 0, 0, 0,
@@ -501,10 +383,7 @@ mat4 mat4::scale(const vec4& scale) {
     );
 }
 
-/**
- * returns a basis matrix from 4 vectors
- * equaivalent to just constructing from 4 vectors
- */
+
 mat4 mat4::basis(const vec4& x, const vec4& y, const vec4& z, const vec4& w) {
     return mat4(x, y, z, w);
 }
@@ -515,10 +394,7 @@ mat4 mat4::basis(const vec4& x, const vec4& y, const vec4& z, const vec4& w) {
 
 namespace std {
     
-/**
- * converts a matrix to a string
- * note: matrix is printed in column-major order
- */
+
 std::string to_string(const Engine::mat4& mat) {
     return "[ " + std::to_string(mat[0][0]) + " " + std::to_string(mat[0][1]) + " " + std::to_string(mat[0][2]) + " " + std::to_string(mat[0][3]) + 
     " ]\n[ " + std::to_string(mat[1][0]) + " " + std::to_string(mat[1][1]) + " " + std::to_string(mat[1][2]) + " " + std::to_string(mat[1][3]) + 
