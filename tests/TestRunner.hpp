@@ -7,8 +7,16 @@
 #include <chrono>
 #include <iostream>
 
+/**
+ * A unit tester
+ */
 class TestRunner {
     private:
+
+    std::string name;
+    std::string description;
+    std::string path;
+
     struct Test {
         std::string name;
         std::string description;
@@ -19,10 +27,31 @@ class TestRunner {
 
     public:
 
+    /**
+     * creates a test runner
+     * @param name the name of the test runner
+     * @param description a description of the test runner
+     * @param outputpath the file to write the output to
+     */
+    TestRunner(std::string name, std::string description, std::string outputpath){
+        this -> name = name;
+        this -> description = description;
+        this -> path = outputpath;
+    }
+
+    /**
+     * adds a test to the runner
+     * @param name name of the test
+     * @param description desription of the test
+     * @param test function to run as the test, returns bool
+     */
     void addTest(std::string name, std::string description, std::function<bool()> test) {
         tests.push_back(Test{name, description, test});
     }
 
+    /**
+     * runs all tests
+     */
     bool runTests() {
         std::cout << "Running tests..." << std::endl;
         unsigned int testsPassed = 0;
@@ -30,11 +59,11 @@ class TestRunner {
         for (unsigned int i = 0; i < tests.size(); i++) {
             std::cout << "Running test \"" << tests[i].name << "\" (" << i << "/" << tests.size() << ") ..." << std::endl;
             
-            std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
+            auto begin = std::chrono::high_resolution_clock::now();
             
             bool res = tests[i].test();
             
-            std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+            auto end = std::chrono::high_resolution_clock::now();
 
             auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds> (end - begin).count();
             if (res) {
@@ -45,10 +74,12 @@ class TestRunner {
                 failed.push_back(tests[i]);
             }
         }
-        std::cout << testsPassed << "/" << tests.size() << "Tests passed." << std::endl;
-        std::cout << "Failed tests:" << std::endl;
-        for (unsigned int i = 0; i < failed.size(); i++) {
-            std::cout << "  " << failed[i].name << ": " << failed[i].description << std::endl;
+        std::cout << testsPassed << "/" << tests.size() << " Tests passed." << std::endl;
+        if (failed.size() != 0){
+            std::cout << "Failed tests:" << std::endl;
+            for (unsigned int i = 0; i < failed.size(); i++) {
+                std::cout << "  " << failed[i].name << ": " << failed[i].description << std::endl;
+            }
         }
         return testsPassed;
     }

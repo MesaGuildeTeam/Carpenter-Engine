@@ -15,7 +15,11 @@ build_example:
 	$(CC) $(OBJS) examples/$(EXAMPLE).cpp -o build/engine.js -sEXPORTED_FUNCTIONS=$(EXPFUNCS) -Isrc/engine/ $(LINKER) $(COMPILE)
 
 build_test: 
-	$(CC) $(OBJS) tests/$(TEST).cpp -o build/engine.js -sEXPORTED_FUNCTIONS=$(EXPFUNCS) -Isrc/engine/ $(LINKER) $(COMPILE)
+	$(CC) $(OBJS) tests/$(TEST).cpp -o build/engine.js -Isrc/engine/ $(LINKER) $(COMPILE)
+
+run_test:
+	npx table build -p
+	npx http-server -o /build
 
 clean:
 	rm -rf build $(OBJS)

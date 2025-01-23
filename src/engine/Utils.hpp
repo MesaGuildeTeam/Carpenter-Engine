@@ -7,8 +7,15 @@
 #ifndef ENGINE_UTILS
 #define ENGINE_UTILS
 
-#include "Vector.hpp"
-#include "Matrix.hpp"
+#include "Vector/vec2.hpp"
+#include "Vector/vec3.hpp"
+#include "Vector/vec4.hpp"
+#include "Vector/vec2b.hpp"
+#include "Vector/vec3b.hpp"
+#include "Vector/vec4b.hpp"
+#include "Vector/mat2.hpp"
+#include "Vector/mat3.hpp"
+#include "Vector/mat4.hpp"
 
 namespace Engine {
   /**
