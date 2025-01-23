@@ -124,6 +124,7 @@ namespace Engine {
     requires (std::is_same_v<T, mat4>)
     struct dimension_of<T> : std::integral_constant<unsigned int, 4> {};
 
+    #if false
     /**
      * templated mat type (float) for selecting the matrix size at compile time
      */
@@ -156,6 +157,7 @@ namespace Engine {
      */
     template <unsigned int N>
     using vecf = vec<N>;
+    #endif
 
     /**
      * 4d vector of float
@@ -175,40 +177,49 @@ namespace Engine {
 
     /**
      * A 4x4 column-major matrix of float
+     * Aka `mat4`, `mat4f`, `mat4x4f`
      */
     typedef mat4 mat4x4;
     /**
      * A 4x4 column-major matrix of float
+     * Aka `mat4`, `mat4x4`, `mat4x4f`
      */
     typedef mat4 mat4f;
     /**
      * A 4x4 column-major matrix of float
+     * Aka `mat4`, `mat4f`, `mat4x4`
      */
     typedef mat4 mat4x4f;
 
     /**
      * A 3x3 column-major matrix of float
+     * Aka `mat3`, `mat3f`, `mat3x3f`
      */
     typedef mat3 mat3x3;
     /**
      * A 3x3 column-major matrix of float
+     * Aka `mat3`, `mat3x3`, `mat3x3f`
      */
     typedef mat3 mat3f;
     /**
      * A 3x3 column-major matrix of float
+     * Aka `mat3`, `mat3f`, `mat3x3`
      */
     typedef mat3 mat3x3f;
 
     /**
      * A 2x2 column-major matrix of float
+     * Aka `mat2`, `mat2f`, `mat2x2f`
      */
     typedef mat2 mat2x2;
     /**
      * A 2x2 column-major matrix of float
+     * Aka `mat2`, `mat2x2`, `mat2x2f`
      */
     typedef mat2 mat2f;
     /**
      * A 2x2 column-major matrix of float
+     * Aka `mat2`, `mat2f`, `mat2x2`
      */
     typedef mat2 mat2x2f;
 }

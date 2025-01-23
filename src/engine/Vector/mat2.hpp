@@ -10,6 +10,7 @@ namespace Engine {
 
 /**
  * A 2x2 column-major matrix of float
+ * Aka `mat2x2`, `mat2f`, `mat2x2f`
  */
 class mat2 {
 
@@ -25,22 +26,22 @@ class mat2 {
     #pragma region constants
 
     /**
-     * identity matrix
-     * equivalent to `mat2(1)`
+     * Identity matrix
+     * Equivalent to `mat2(1)`
      */
     static const mat2 identity;
     /**
-     * matrix of all zeros
-     * equivalent to `mat2(0)`
+     * Matrix of all zeros
+     * Equivalent to `mat2(0)`
      */
     static const mat2 zero;
     /**
-     * matrix of all ones
+     * Matrix of all ones
      */
     static const mat2 one;
 
     /**
-     * dimension of the matrix
+     * Dimension of the matrix
      */
     static constexpr unsigned int dimension = N;
 
@@ -56,6 +57,7 @@ class mat2 {
 
     /**
      * Copy constructor
+     * @param mat matrix to copy
      */
     mat2(const mat2& mat);
 
@@ -63,6 +65,7 @@ class mat2 {
      * Fill constructor
      * Fills the matrix diagonal with the provided value
      * The remaining components are set to 0
+     * @param value value to fill the diagonal with
      */
     template <typename T>
     requires (std::is_convertible_v<T, float>)
@@ -77,6 +80,7 @@ class mat2 {
      * Concatenation constructor
      * Creates a matrix from a list of convertable vector and scalar types
      * Total dimension of input vectors must be 9
+     * @param vecs list of vectors and scalars
      * @warning vectors and floats are inserted as columns. This means that `mat2(1,2,3,4)` creates the matrix with columns [1,2] and [3,4]
      */
     template <typename ... Vectors>
@@ -112,12 +116,12 @@ class mat2 {
     #pragma region accessors
 
     /**
-     * Column accessor
+     * Column accessor, 0-indexed
      */
     vec2& operator [](unsigned int i);
 
     /**
-     * Column accessor 
+     * Column accessor, 0-indexed
      */
     const vec2& operator [](unsigned int i) const;
 
@@ -202,29 +206,35 @@ class mat2 {
     #pragma region conversions
 
     /**
-     * unrolls the matrix in column major order (elements in the same column are adjacent in memory)
+     * Unrolls the matrix in column major order (elements in the same column are adjacent in memory)
+     * @param mat matrix to flatten
+     * @return array with values from matrix flattened
      */
     static std::array<float,N*N> flatten(const mat2& mat);
 
     /**
-     * unrolls the matrix in column major order (elements in the same column are adjacent in memory)
+     * Unrolls the matrix in column major order (elements in the same column are adjacent in memory)
+     * @return array with values from matrix flattened
      */
     std::array<float,N*N> flatten() const;
 
     /**
-     * unrolls the matrix in row major order (elements in the same row are adjacent in memory)
+     * Unrolls the matrix in row major order (elements in the same row are adjacent in memory)
+     * @param mat matrix to flatten
+     * @return array with values from matrix flattened
      */
     static std::array<float,N*N> flatten_row(const mat2& mat);
 
     /**
-     * unrolls the matrix in row major order (elements in the same row are adjacent in memory)
+     * Unrolls the matrix in row major order (elements in the same row are adjacent in memory)
+     * @return array with values from matrix flattened
      */
     std::array<float,N*N> flatten_row() const;
 
     /**
-     * casts a matrix to a bool
-     * true if all components are non-zero
-     * to check if any components are non-zero, compare with vec4::zero rather than casting
+     * Casts a matrix to a bool
+     * True if **all** components are non-zero
+     * @note To check if **any** components are non-zero, use `mat != mat2::zero`
      */
     operator bool() const;
 
@@ -233,8 +243,8 @@ class mat2 {
     #pragma region overloads
 
     /**
-     * stream insertion operator
-     * note: matrix is printed in column-major order
+     * Stream insertion operator
+     * @note Matrix is printed in column-major order
      */
     friend std::ostream& operator <<(std::ostream& os, const mat2& mat);
 
@@ -355,69 +365,91 @@ class mat2 {
     #pragma region matrix operations
 
     /**
-     * returns the determinant of this matrix
+     * Returns the determinant of this matrix
+     * @return determinant of this matrix
      */
     float determinant() const;
 
     /**
-     * returns the determinant of a matrix
+     * Returns the determinant of a matrix
+     * @param mat the matrix to take the determinant of
+     * @return determinant of `mat`
      */
     static float determinant(const mat2& mat);
 
     /**
-     * returns the transpose of this matrix
+     * Returns the transpose of this matrix
+     * @return transpose of this matrix
      */
     mat2 transpose() const;
 
     /**
-     * returns the transpose of a matrix
+     * Returns the transpose of a matrix
+     * @param mat the matrix to transpose
+     * @returns transpose of `mat`
      */
     static mat2 transpose(const mat2& mat);
 
     /**
-     * returns the inverse of this matrix
+     * Returns the inverse of this matrix
+     * @return inverse of this matrix
      */
     mat2 inverse() const;
 
     /**
-     * returns the inverse of a matrix
+     * Returns the inverse of a matrix
+     * @param mat the matrix to invert
      */
     static mat2 inverse(const mat2& mat);
 
     /**
-     * returns the trace of this matrix (sum of diagonal elements)
+     * Returns the trace of this matrix (sum of diagonal elements)
+     * @return trace of this matrix
      */
     float trace() const;
 
     /**
-     * returns the trace of a matrix (sum of diagonal elements)
+     * Returns the trace of a matrix (sum of diagonal elements)
+     * @param mat the matrix to trace
+     * @returns trace of `mat`
      */
     static float trace(const mat2& mat);
 
     /**
-     * returns a 2d rotation matrix of some angle
+     * Returns a 2d rotation matrix of some angle
+     * @param angle the angle of the rotation in radians
+     * @return A 2d rotation matrix of `angle` radians
      */
     static mat2 rotation(const float& angle);
 
     /**
-     * returns a skew matrix
+     * Returns a skew matrix
+     * @param skew the skew vector
+     * @returns A 2d skew matrix
      */
     static mat2 skew(const vec2& skew);
 
     /**
-     * returns a scale matrix
-     * equaivalent to component-wise vector multiplication
+     * Returns a scale matrix
+     * @param scale the scale vector
+     * @return A 2d scale matrix
+     * @note Equaivalent to component-wise vector multiplication
      */
     static mat2 scale(const vec2& scale);
 
     /**
-     * returns a basis matrix from 2 vectors
-     * equaivalent to just constructing from 2 vectors
+     * Returns a basis matrix from 2 vectors
+     * @param x the x axis
+     * @param y the y axis
+     * @return A 2d basis matrix
+     * Equaivalent to just constructing from 2 vectors
      */
     static mat2 basis(const vec2& x, const vec2& y);
 
     /**
-     * returns a basis matrix from one vector (assumed to be the x axis)
+     * Returns a basis matrix from one vector (assumed to be the x axis)
+     * @param x the x axis
+     * @return A 2d basis matrix
      */
     static mat2 basis(const vec2& x);
 
@@ -429,8 +461,8 @@ class mat2 {
 namespace std {
 
 /**
- * converts a matrix to a string
- * note: matrix is printed in column-major order
+ * Converts a matrix to a string
+ * @note The matrix is printed in column-major order
  */
 std::string to_string(const Engine::mat2& mat);
 

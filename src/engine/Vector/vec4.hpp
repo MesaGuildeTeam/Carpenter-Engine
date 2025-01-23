@@ -20,48 +20,48 @@ class vec4 {
 
     #pragma region constants
     /**
-     * vector of all zeros
+     * Vector of all zeros
      */
     static const vec4 zero;
     /**
-     * vector of all ones
+     * Vector of all ones
      */
     static const vec4 one;
     /**
-     * positive x unit vector
+     * Positive x unit vector
      */
     static const vec4 up;
     /**
-     * negative x unit vector
+     * Negative x unit vector
      */
     static const vec4 down;
     /**
-     * positive y unit vector
+     * Positive y unit vector
      */
     static const vec4 left;
     /**
-     * negative y unit vector
+     * Negative y unit vector
      */
     static const vec4 right;
     /**
-     * positive z unit vector
+     * Positive z unit vector
      */
     static const vec4 forward;
     /**
-     * negative z unit vector
+     * Negative z unit vector
      */
     static const vec4 back;
     /**
-     * positive w unit vector
+     * Positive w unit vector
      */
     static const vec4 ana;
     /**
-     * negative w unit vector
+     * Negative w unit vector
      */
     static const vec4 kata;
 
     /**
-     * dimension of vector
+     * Dimension of vector
      */
     static constexpr unsigned int dimension = 4;
 
@@ -70,12 +70,13 @@ class vec4 {
     #pragma region constructors
 
     /**
-     * default constructor, fills the vector with 0
+     * Default constructor, fills the vector with 0
      */
     vec4();
 
     /**
-     * fill constructor, fills the vector with the provided scalar value
+     * Fill constructor, fills the vector with the provided scalar value
+     * @param a scalar to fill with
      */
     template <typename T>
     requires std::is_convertible_v<T, float>
@@ -84,8 +85,10 @@ class vec4 {
     }
 
     /**
-     * concatenation constructor
-     * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
+     * Concatenation constructor
+     * Creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
+     * @param vecs list of vectors or scalars
+     * @note `vec4(vec2(1,2), 3, 4) == vec4(1, 2, 3, 4)`
      */
     template <typename ... Vectors>
     requires ((is_vec_v<Vectors> || std::is_convertible_v<Vectors, float>) && ... ) && ((dimension_of_v<Vectors> + ...) == dimension)
@@ -110,13 +113,14 @@ class vec4 {
 
     /**
      * casts a vector to a bool
-     * true if all components are non-zero
-     * to check if any components are non-zero, compare with vec4::zero rather than casting
+     * True if **all** components are non-zero
+     * @note To check if **any** components are non-zero, use `vec != vec2::zero`
      */
     operator bool() const;
 
     /**
-     * casts a boolean vector to a float vector
+     * Casts a boolean vector to a float vector
+     * @param vec boolean vector
      */
     vec4(const vec4b& vec);
 
@@ -273,7 +277,7 @@ class vec4 {
     #pragma region overloads
     
     /**
-     * stream insertion operator
+     * Stream insertion operator
      */
     friend std::ostream& operator <<(std::ostream& os, const vec4& vec);
 
@@ -432,59 +436,83 @@ class vec4 {
     #pragma region vector operations
     
     /**
-     * dot product of two vectors
+     * Dot product of two vectors
+     * @param a first vector
+     * @param b second vector
+     * @return Dot product of the two vectors
      */
     static float dot(const vec4& a, const vec4& b);
 
     /**
-     * angle between two vectors
+     * Angle between two vectors
+     * @param a first vector
+     * @param b second vector
+     * @return Angle between the two vectors in radians
      */
     static double angleBetween(const vec4& a, const vec4& b);
 
     /**
-     * reflects incident vector, I, over surface with normal, N
+     * Reflects incident vector, `I`, over surface with normal, `N`
+     * @param I incident vector
+     * @param N surface normal
+     * @return Reflected vector
+     * @note Input does not need to be normalized
      */
     static vec4 reflect(const vec4& I, const vec4& N);
 
     /**
-     * returns a vector in the same direction as the input vector, but with a length of 1
+     * Returns a vector in the same direction as the input vector, but with a length of 1
+     * @param vec vector to normalize
+     * @return Normalized vector
      */
     static vec4 normalize(const vec4& vec);
 
     /**
-     * returns a vector in the same direction as this vector, but with a length of 1
+     * Returns a vector in the same direction as this vector, but with a length of 1
+     * @return Normalized vector
      */
     vec4 normalized() const;
 
     /**
-     * returns the squared distance between two vectors
+     * Returns the squared distance between two vectors
+     * @param a first vector
+     * @param b second vector
+     * @return Squared distance from `a` to `b`
+     * @note This is faster than `vec2::distance(a, b)` by one square root operation
      */
     static float distanceSquared(const vec4& a, const vec4& b);
 
     /**
-     * returns the distance between two vectors
+     * Returns the distance between two vectors
+     * @param a first vector
+     * @param b second vector
+     * @return Distance from `a` to `b`
      */
     static float distance(const vec4& a, const vec4& b);
 
     /**
      * Returns the length squared of the vector
-     * equivalent to dot product with itself
+     * @note This is faster than `a.length()` by one square root operation
      */
     float lengthSquared() const;
 
     /**
      * Returns the length squared of the vector
-     * equivalent to dot product with itself
+     * @note This is faster than `a.length()` by one square root operation
      */
     static float lengthSquared(const vec4& a);
 
     /**
      * Returns the length of the vector
+     * @param a vector to get the length of
+     * @return Length of the vector
      */
     float length() const;
 
     /**
      * Returns the length of the vector
+     * @param a vector to get the length of
+     * @return Length of the vector
      */
     static float length(const vec4& a);
 
@@ -496,7 +524,8 @@ class vec4 {
 namespace std {
 
 /**
- * converts a vector to a string
+ * Converts a vector to a string
+ * @note Format is `[x, y, ...]`
  */
 std::string to_string(const Engine::vec4& vec);
 

@@ -19,16 +19,16 @@ class vec2b {
     #pragma region constants
 
     /**
-     * vector of all falses
+     * Vector of all falses
      */
     static const vec2b zero;
     /**
-     * vector of all trues
+     * Vector of all trues
      */
     static const vec2b one;
 
         /**
-     * dimension of vector
+     * Dimension of vector
      */
     static constexpr unsigned int dimension = 2;
 
@@ -37,12 +37,13 @@ class vec2b {
     #pragma region constructors
 
     /**
-     * default constructor, fills the vector with false
+     * Default constructor, fills the vector with false
      */
     vec2b();
 
     /**
-     * fill constructor, fills the vector with the provided scalar value
+     * Fill constructor, fills the vector with the provided scalar value
+     * @param a scalar to fill with
      */
     template <typename T>
     requires std::is_convertible_v<T, bool>
@@ -51,8 +52,10 @@ class vec2b {
     }
 
     /**
-     * concatenation constructor
-     * creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
+     * Concatenation constructor
+     * Creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
+     * @param vecs list of vectors or scalars
+     * @note `vec4(vec2(1,2), 3, 4) == vec4(1, 2, 3, 4)`
      */
     template <typename ... Vectors>
     requires ((is_vec_v<Vectors> || std::is_convertible_v<Vectors, bool>) && ... ) && ((dimension_of_v<Vectors> + ...) == dimension)
@@ -76,9 +79,9 @@ class vec2b {
     #pragma region conversions
 
     /**
-     * casts a vector to a bool
-     * true if all components are non-zero
-     * to check if any components are non-zero, compare with vec4b::zero rather than casting
+     * Casts a vector to a bool
+     * True if all components are non-zero
+     * To check if any components are non-zero, compare with `vec2b::zero` rather than casting
      */
     operator bool() const;
 
@@ -220,7 +223,7 @@ class vec2b {
     #pragma region overloads
 
     /**
-     * stream insertion operator
+     * Stream insertion operator
      */
     friend std::ostream& operator <<(std::ostream& os, const vec2b& vec);
 
@@ -279,34 +282,43 @@ class vec2b {
     #pragma region vector operations
 
     /**
-     * returns if any component is true
+     * Returns if any component is true
+     * @return `true` if any component is true, `false` otherwise
      */
     bool any() const;
 
     /**
-     * returns if any component is true
+     * Returns if any component is true
+     * @param vec vector to check
+     * @return `true` if any component is true, `false` otherwise
      */
     friend bool any(const vec2b& vec);
 
     /**
-     * returns if all components are true
+     * Returns if all components are true
+     * @return `true` if all components are true, `false` otherwise
      */
     bool all() const;
 
     /**
-     * returns if all components are true
+     * Returns if all components are true
+     * @param vec vector to check
+     * @return `true` if all components are true, `false` otherwise
      */
     friend bool all(const vec2b& vec);
 
     /**
-     * returns the number of true components
+     * Returns the number of true components
+     * @return the number of true components
     */
     unsigned int count() const;
 
     /**
-     * returns the number of true components
+     * Returns the number of true components
+     * @param vec vector to check
+     * @return the number of true components
     */
-   friend unsigned int count(const vec2b& vec);
+    friend unsigned int count(const vec2b& vec);
 
     #pragma endregion vector operations
 };
@@ -316,7 +328,8 @@ class vec2b {
 namespace std {
 
 /**
- * converts a vector to a string
+ * Converts a vector to a string
+ * @note Format is `[x, y, ...]`
  */
 std::string to_string(const Engine::vec2b& vec);
 

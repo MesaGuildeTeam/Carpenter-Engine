@@ -99,7 +99,7 @@ class vec2 {
     /**
      * Casts a vector to a bool
      * True if **all** components are non-zero
-     * @note To check if **any** components are non-zero, use `vec2(a,b) != vec2::zero`
+     * @note To check if **any** components are non-zero, use `vec != vec2::zero`
      */
     operator bool() const;
 
@@ -479,6 +479,8 @@ class vec2 {
 
     /**
      * Returns the length of the vector
+     * @param a vector to get the length of
+     * @return Length of the vector
      */
     float length() const;
 

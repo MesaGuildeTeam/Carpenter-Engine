@@ -9,6 +9,7 @@ namespace Engine {
 
 /**
  * A 4x4 column-major matrix of float
+ * Aka `mat4x4`, `mat4f`, `mat4x4f`
  */
 class mat4 {
 
@@ -24,22 +25,22 @@ class mat4 {
     #pragma region constants
 
     /**
-     * identity matrix
-     * equivalent to `mat4(1)`
+     * Identity matrix
+     * Equivalent to `mat4(1)`
      */
     static const mat4 identity;
     /**
-     * matrix of all zeros
-     * equivalent to `mat4(0)`
+     * Matrix of all zeros
+     * Equivalent to `mat4(0)`
      */
     static const mat4 zero;
     /**
-     * matrix of all ones
+     * Matrix of all ones
      */
     static const mat4 one;
 
     /**
-     * dimension of the matrix
+     * Dimension of the matrix
      */
     static constexpr unsigned int dimension = N;
 
@@ -55,6 +56,7 @@ class mat4 {
 
     /**
      * Copy constructor
+     * @param mat Matrix to copy
      */
     mat4(const mat4& mat);
 
@@ -62,6 +64,7 @@ class mat4 {
      * Fill constructor
      * Fills the matrix diagonal with the provided value
      * The remaining components are set to 0
+     * @param value value to fill the diagonal with
      */
     template <typename T>
     requires (std::is_convertible_v<T, float>)
@@ -76,6 +79,7 @@ class mat4 {
      * Concatenation constructor
      * Creates a matrix from a list of convertable vector and scalar types
      * Total dimension of input vectors must be 9
+     * @param vecs list of vectors and scalars
      * @warning vectors and floats are inserted as columns. This means that `mat2(1,2,3,4)` creates the matrix with columns [1,2] and [3,4]
      */
     template <typename ... Vectors>
@@ -111,12 +115,12 @@ class mat4 {
     #pragma region accessors
 
     /**
-     * Column accessor
+     * Column accessor, 0-indexed
      */
     vec4& operator [](unsigned int i);
 
     /**
-     * Column accessor 
+     * Column accessor, 0-indexed 
      */
     const vec4& operator [](unsigned int i) const;
 
@@ -201,29 +205,35 @@ class mat4 {
     #pragma region conversions
 
     /**
-     * unrolls the matrix in column major order (elements in the same column are adjacent in memory)
+     * Unrolls the matrix in column major order (elements in the same column are adjacent in memory)
+     * @param mat matrix to flatten
+     * @return array with values from matrix flattened
      */
     static std::array<float,N*N> flatten(const mat4& mat);
 
     /**
-     * unrolls the matrix in column major order (elements in the same column are adjacent in memory)
+     * Unrolls the matrix in column major order (elements in the same column are adjacent in memory)
+     * @return array with values from matrix flattened
      */
     std::array<float,N*N> flatten() const;
 
     /**
-     * unrolls the matrix in row major order (elements in the same row are adjacent in memory)
+     * Unrolls the matrix in row major order (elements in the same row are adjacent in memory)
+     * @param mat matrix to flatten
+     * @return array with values from matrix flattened
      */
     static std::array<float,N*N> flatten_row(const mat4& mat);
 
     /**
-     * unrolls the matrix in row major order (elements in the same row are adjacent in memory)
+     * Unrolls the matrix in row major order (elements in the same row are adjacent in memory)
+     * @return array with values from matrix flattened
      */
     std::array<float,N*N> flatten_row() const;
 
     /**
-     * casts a matrix to a bool
-     * true if all components are non-zero
-     * to check if any components are non-zero, compare with vec4::zero rather than casting
+     * Casts a matrix to a bool
+     * True if **all** components are non-zero
+     * @note To check if **any** components are non-zero, use `mat != mat4::zero`
      */
     operator bool() const;
 
@@ -232,8 +242,8 @@ class mat4 {
     #pragma region overloads
 
     /**
-     * stream insertion operator
-     * note: matrix is printed in column-major order
+     * Stream insertion operator
+     * Note: matrix is printed in column-major order
      */
     friend std::ostream& operator <<(std::ostream& os, const mat4& mat);
 
@@ -355,61 +365,80 @@ class mat4 {
 
     
     /**
-     * returns the determinant of this matrix
+     * Returns the determinant of this matrix
+     * @return Determinant of this matrix
      */
     //float determinant() const;
 
     /**
-     * returns the determinant of a matrix
+     * Returns the determinant of a matrix
+     * @param mat the matrix to take the determinant of
+     * @return Determinant of the matrix
      */
     //static float determinant(const mat4& mat);
 
     /**
-     * returns the transpose of this matrix
+     * Returns the transpose of this matrix
+     * @return Transpose of this matrix
      */
     mat4 transpose() const;
 
     /**
-     * returns the transpose of a matrix
+     * Returns the transpose of a matrix
+     * @param mat the matrix to transpose
+     * @return Transpose of the matrix
      */
     static mat4 transpose(const mat4& mat);
 
     /**
-     * returns the inverse of this matrix
-     * code modified from https://stackoverflow.com/a/18504573
+     * Returns the inverse of this matrix
+     * @return Inverse of this matrix
      */
     //mat4 inverse() const;
 
     /**
-     * returns the inverse of a matrix
-     * code modified from https://stackoverflow.com/a/18504573
+     * Returns the inverse of a matrix
+     * @param mat the matrix to invert
+     * @return Inverse of the matrix
      */
     //static mat4 inverse(const mat4& mat);
 
     /**
-     * returns the trace of this matrix (sum of diagonal elements)
+     * Returns the trace of this matrix (sum of diagonal elements)
+     * @return Trace of this matrix
      */
     float trace() const;
 
     /**
-     * returns the trace of a matrix (sum of diagonal elements)
+     * Returns the trace of a matrix (sum of diagonal elements)
+     * @param mat the matrix to take the trace of
+     * @return Trace of the matrix
      */
     static float trace(const mat4& mat);
 
     /**
-     * returns a skew matrix
+     * Returns a skew matrix
+     * @param skew the skew vector
+     * @return A 3d skew matrix
      */
     static mat4 skew(const vec4& skew);
 
     /**
-     * returns a scale matrix
-     * equaivalent to component-wise vector multiplication
+     * Returns a scale matrix
+     * Equaivalent to component-wise vector multiplication
+     * @param scale the scale vector
+     * @return A 4d scale matrix
      */
     static mat4 scale(const vec4& scale);
 
     /**
-     * returns a basis matrix from 4 vectors
-     * equaivalent to just constructing from 4 vectors
+     * Returns a basis matrix from 4 vectors
+     * @param x the x basis vector
+     * @param y the y basis vector
+     * @param z the z basis vector
+     * @param w the w basis vector
+     * @return A 4d basis matrix
+     * Equaivalent to just constructing from 4 vectors
      */
     static mat4 basis(const vec4& x, const vec4& y, const vec4& z, const vec4& w);
 
@@ -421,8 +450,8 @@ class mat4 {
 namespace std {
     
 /**
- * converts a matrix to a string
- * note: matrix is printed in column-major order
+ * Converts a matrix to a string
+ * @note The matrix is printed in column-major order
  */
 std::string to_string(const Engine::mat4& mat);
 
