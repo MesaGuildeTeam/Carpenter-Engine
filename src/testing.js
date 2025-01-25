@@ -16,7 +16,6 @@ async function RunTests() {
     test.build();
     suiteCount++;
     await test.run().then((result) => {
-      console.log(result);
       passedSuites += result;
     });
   });
