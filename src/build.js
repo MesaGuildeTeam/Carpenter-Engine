@@ -52,6 +52,7 @@ const defaultBuildSteps = {
   runBuild: true,
   runLink: true,
   runPackage: true,
+  mainFile: "",
 };
 
 /**
@@ -78,7 +79,7 @@ function buildGame(config = defaultBuildSteps) {
         filesList = filesList + `"${folder}/${file}.o" `;
       });
 
-    let exec = `${EMCC} ${filesList} -o ./build/engine.js -sEXPORTED_FUNCTIONS=_CallUpdate,_CallDraw -sEXPORTED_RUNTIME_METHODS=ccall,cwrap --bind -sALLOW_MEMORY_GROWTH`;
+    let exec = `${EMCC} ${filesList} ${(config.mainFile != "" && config.mainFile != null) ? config.mainFile + " -I" + includeDir : ""} -o ./build/engine.js -sEXPORTED_FUNCTIONS=_CallUpdate,_CallDraw -sEXPORTED_RUNTIME_METHODS=ccall,cwrap --bind -sALLOW_MEMORY_GROWTH`;
     console.log(exec);
     child_process.execSync(exec);
   }

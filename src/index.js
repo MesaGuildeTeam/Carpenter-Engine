@@ -39,6 +39,7 @@ program
     "-p, --package",
     "Package the static webpage into the build ready for distribution",
   )
+  .option("-m, --main <option>", "Link the main .cpp file", "")
   .action((options) => {
     if (Object.keys(options).length == 0) {
       build.buildGame();
@@ -48,6 +49,7 @@ program
       runBuild: options.compile,
       runLink: options.link,
       runPackage: options.package,
+      mainFile: options.main,
     });
   });
 
