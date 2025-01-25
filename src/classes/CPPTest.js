@@ -1,8 +1,10 @@
-const CPPObject = require("./CPPObject");
 const os = require("os");
 const fs = require("fs");
 const child_process = require("child_process");
 const path = require("path");
+
+const utils = require("../utils");
+const CPPObject = require("./CPPObject");
 
 let buildConfig;
 
@@ -28,6 +30,16 @@ const includeDir =
  */
 class CPPTest extends CPPObject {
 
+  constructor(name) {
+    super(name);
+
+    try {
+      this.lastBuild = fs.statSync(`./tests/WASM/${this.name}.js`).atimeMs;
+    } catch (e) {
+      this.lastBuild = null;
+    }
+  }
+
   build() {
     if (!this.needsBuild()) return;
 
@@ -40,19 +52,27 @@ class CPPTest extends CPPObject {
     
     fs.mkdirSync("./tests/WASM", { recursive: true });
 
-    let execCmd = `${EMCC} "${this.path}/${this.name}.cpp" ${files} -o "./tests/WASM/${this.name}.js" -std=c++20 -I${includeDir} -DTESTNAME="${this.path}/${this.name}.cpp"`;
+    let execCmd = `${EMCC} "${this.path}/${this.name}.cpp" ${files} -o "./tests/WASM/${this.name}.js" -std=c++20 -I${includeDir} -DTESTNAME="${this.path}/${this.name}.cpp" -sEXPORTED_FUNCTIONS=_getTestCount,_getPassedTestCount,_main -sMODULARIZE`;
 
     console.log(`Building test: ${this.name}.cpp`);
 
     child_process.execSync(execCmd, { cwd: process.cwd() });
   }
 
-  run(callback) {
-    let folder = "../../tests/WASM/" + this.name + ".js";
-    
-    import(folder).then((test) => {
-      if (callback != null) callback();
+  async run() {
+    let test = require("../../tests/WASM/" + this.name + ".js");
+
+    const runtime = await test().then((instance) => {
+      let testCount = instance._getTestCount();
+      let passed = instance._getPassedTestCount();
+      let failed = testCount - passed;
+
+      console.log(`${this.name}: ${passed} passed, ${failed} failed, ${testCount} total ${passed == 0 ? utils.Asciis.TableFlip : ""}`);
+
+      return passed == testCount;
     });
+
+    return runtime;
   }
 }
 

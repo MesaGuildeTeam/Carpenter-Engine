@@ -48,7 +48,7 @@ class CPPObject {
 
     // Ok this one can create an error
     try {
-      this.lastBuild = fs.statSync(`${outputLocation}/${this.name}.o`);
+      this.lastBuild = fs.statSync(`${outputLocation}/${this.name}.o`).atimeMs;
     } catch (e) {
       this.lastBuild = null;
     }

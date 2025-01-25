@@ -3,12 +3,26 @@ const path = require("path");
 
 const utils = require("./utils");
 const CPPTest = require("./classes/CPPTest");
+const { fail } = require("assert");
 
-function RunTests() {
-  utils.processFiles("./tests/CPP", ".cpp", (file, folder) => {
-    let test = new CPPTest("./tests/CPP/" + file + ".cpp");
+async function RunTests() {
+  let passedSuites = 0;
+  let suiteCount = 0;
+  
+  let files = fs.readdirSync("./tests/CPP")
+
+  const filePromise = files.map(async (file) => {
+    let test = new CPPTest("./tests/CPP/" + file);
     test.build();
-    test.run();
+    suiteCount++;
+    await test.run().then((result) => {
+      console.log(result);
+      passedSuites += result;
+    });
+  });
+
+  await Promise.all(filePromise).then(() => {
+    console.log(`Suites: ${passedSuites} passed, ${suiteCount - passedSuites} failed, ${suiteCount} total ${passedSuites == 0 ? utils.Asciis.TableFlip : ""}`); 
   });
 }
 

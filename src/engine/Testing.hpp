@@ -1,3 +1,5 @@
+/** */
+
 #ifndef ENGINE_TESTRUNNER
 #define ENGINE_TESTRUNNER
 
@@ -55,7 +57,7 @@ namespace Testing {
               std::cout << " FAILED ";
             }
 
-            std::cout << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count() << "ms" << std::endl;
+            std::cout << "\x1B[2m" << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count() << "ms\x1B[0m" << std::endl;
           }
       }
 
@@ -68,5 +70,15 @@ namespace Testing {
       }
   };
 };
+
+#define PREPARETESTEXTERNALS(TEST) \
+extern "C" { \
+  unsigned getTestCount() { \
+    return TEST.getTestCount(); \
+  } \
+  unsigned getPassedTestCount() { \
+    return TEST.getPassedTestCount(); \
+  } \
+}
 
 #endif
