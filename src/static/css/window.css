@@ -27,6 +27,10 @@ body {
   position: relative;
 }
 
+.ui-element > .ui-element {
+  position: absolute;
+}
+
 .ui-generic {
   --offset-x: 0px;
   --offset-y: 0px;

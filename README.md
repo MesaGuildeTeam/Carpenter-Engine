@@ -67,3 +67,8 @@ npm run build
 This will install emsdk similar to using a release of the project, and build the game engine into .o files.
 
 If you want to read more about the technical details of the game engine, I recommend to start with docs/overview.md
+
+# Credits
+
+Music for Demonstration for Examples/SoundTest.cpp: Roberto Selles
+Drop Sound Effect: [Pixabay](https://pixabay.com/sound-effects/drop-sound-effect-240899/)
