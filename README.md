@@ -61,6 +61,7 @@ to build the game engine yourself (assuming you have not cloned the repo yet), y
 ```sh
 git clone https://github.com/MesaGuildeTeam/Table-Engine
 cd Table-Engine
+npm start
 npm run build
 ```
 

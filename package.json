@@ -8,9 +8,10 @@
     "example": "examples"
   },
   "scripts": {
-    "test": "jest --coverage",
+    "start": "table setup",
+    "test": "jest & table test",
     "build_docs": "jsdoc ./ -c jsdoc.json -r -d docs/jsdoc/ -R ./docs/overview.md",
-    "build": "npx table setup && npx table build -b"
+    "build": "table build -c"
   },
   "repository": {
     "type": "git",
