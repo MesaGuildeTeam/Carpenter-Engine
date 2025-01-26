@@ -21,7 +21,7 @@ npm install --save-dev table-engine
 npx table setup # install emscripten for the toolkit, and generates necessary folders
 ```
 
-you should then create a `src` folder and add a .cpp file for your main. Here is an example script to try:
+you should then create a `src` folder and add a main.cpp file for your main. Here is an example script to try:
 ```cpp
 #include <Game.hpp>
 #include <UI/UILabel.hpp>

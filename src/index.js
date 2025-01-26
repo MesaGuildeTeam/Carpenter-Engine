@@ -39,7 +39,7 @@ program
     "-p, --package",
     "Package the static webpage into the build ready for distribution",
   )
-  .option("-m, --main <option>", "Link the main .cpp file", "")
+  .option("-m, --main <option>", "Link a main .cpp file outside the project source code when using -l")
   .action((options) => {
     if (Object.keys(options).length == 0) {
       build.buildGame();
