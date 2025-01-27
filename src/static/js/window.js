@@ -154,18 +154,6 @@ game.Audio = class {
   }
 }
 
-// Window Management
-  ready: false
-};
-
-function windowLoop() {
-  if (!game.ready)
-    return;
-  
-  _CallUpdate(0.1);
-  _CallDraw();
-}
-
 window.addEventListener('resize', () => {
   if (!game.ready)
     return;
