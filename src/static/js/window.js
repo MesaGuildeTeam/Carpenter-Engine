@@ -27,6 +27,8 @@ const game = {
  * A callback used to run the music queue when the window has been clicked anywhere once.
  * 
  * Due to autoplay by default being disabled on browsers, the autoplay must occur when the screen has been clicked once. This method is called to do that when the screen is clicked.
+ * 
+ * @namespace Client
  */
 function PrepareAudioModule() {
   if (game.playerReady) {
@@ -41,8 +43,6 @@ function PrepareAudioModule() {
  * 
  * This class is the JavaScript representation of the engine's Sound class.
  * These are created via `Engine::Audio::Audio` (and its subclasses) to be manipulated easier.
- * 
- * @namespace Client
  */
 game.Audio = class {
   constructor(filename) {

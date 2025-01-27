@@ -1,3 +1,5 @@
+/** @namespace Testing */
+
 const fs = require("fs");
 const path = require("path");
 
@@ -5,6 +7,10 @@ const utils = require("./utils");
 const CPPTest = require("./classes/CPPTest");
 const { fail } = require("assert");
 
+/**
+ * Runs all tests and outputs the results
+ * @namespace Testing
+ */
 async function RunTests() {
   let passedSuites = 0;
   let suiteCount = 0;

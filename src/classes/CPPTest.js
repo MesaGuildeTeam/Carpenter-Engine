@@ -30,6 +30,10 @@ const includeDir =
  */
 class CPPTest extends CPPObject {
 
+  /**
+   * default constructor of the test file
+   * @param {string} name the name of the test 
+   */
   constructor(name) {
     super(name);
 
@@ -40,6 +44,9 @@ class CPPTest extends CPPObject {
     }
   }
 
+  /**
+   * Builds the test file to be tested
+   */
   build() {
     if (!this.needsBuild()) return;
 
@@ -59,6 +66,10 @@ class CPPTest extends CPPObject {
     child_process.execSync(execCmd, { cwd: process.cwd() });
   }
 
+  /**
+   * asynchronously runs the test file 
+   * @returns {boolean} a promise that returns true if the test passed 
+   */
   async run() {
     let test = require("../../tests/WASM/" + this.name + ".js");
 
