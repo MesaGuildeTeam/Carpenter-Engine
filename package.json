@@ -39,7 +39,7 @@
     "jsdoc": "^4.0.4"
   },
   "dependencies": {
-    "commander": "^13.0.0",
+    "commander": "^13.1.0",
     "express": "5.0.1"
   }
 }
