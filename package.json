@@ -8,10 +8,10 @@
     "example": "examples"
   },
   "scripts": {
-    "start": "table setup",
-    "test": "jest & table test",
+    "start": "npx table setup",
+    "test": "npx jest & npx table test",
     "build_docs": "jsdoc ./ -c jsdoc.json -r -d docs/jsdoc/ -R ./docs/overview.md",
-    "build": "table build -c"
+    "build": "npx table build -c"
   },
   "repository": {
     "type": "git",
