@@ -8,8 +8,7 @@
 namespace Engine {
 
 /**
- * 3d vector of float
- * Aka `vec3f`
+* 3d vector of float
  */
 class vec3 {
     private:
@@ -260,11 +259,6 @@ class vec3 {
     #pragma region overloads
 
     /**
-     * Stream insertion operator
-     */
-    friend std::ostream& operator <<(std::ostream& os, const vec3& vec);
-
-    /**
      * Copy assignment operator
      */
     vec3& operator =(const vec3& other);
@@ -419,79 +413,16 @@ class vec3 {
     #pragma region vector operations
 
     /**
-     * Dot product of two vectors
-     * @param a first vector
-     * @param b second vector
-     * @return Dot product of the two vectors
-     */
-    static float dot(const vec3& a, const vec3& b);
-
-    /**
-     * Cross product of two vectors
-     * @param a first vector
-     * @param b second vector
-     * @return The cross product of the two vectors (a vector orthogonal to both vectors)
-     */
-    static vec3 cross(const vec3& a, const vec3& b);
-
-    /**
-     * Angle between two vectors
-     * @param a first vector
-     * @param b second vector
-     * @return Angle between the two vectors in radians
-     */
-    static double angleBetween(const vec3& a, const vec3& b);
-
-    /**
-     * Reflects incident vector, `I`, over surface with normal, `N`
-     * @param I incident vector
-     * @param N surface normal
-     * @return Reflected vector
-     * @note Input does not need to be normalized
-     */
-    static vec3 reflect(const vec3& I, const vec3& N);
-
-    /**
-     * Returns a vector in the same direction as the input vector, but with a length of 1
-     * @param vec vector to normalize
-     * @return Normalized vector
-     */
-    static vec3 normalize(const vec3& vec);
-
-    /**
      * Returns a vector in the same direction as this vector, but with a length of 1
      * @return Normalized vector
      */
     vec3 normalized() const;
 
     /**
-     * Returns the squared distance between two vectors
-     * @param a first vector
-     * @param b second vector
-     * @return Squared distance from `a` to `b`
-     * @note This is faster than `vec2::distance(a, b)` by one square root operation
-     */
-    static float distanceSquared(const vec3& a, const vec3& b);
-
-    /**
-     * Returns the distance between two vectors
-     * @param a first vector
-     * @param b second vector
-     * @return Distance from `a` to `b`
-     */
-    static float distance(const vec3& a, const vec3& b);
-
-    /**
      * Returns the length squared of the vector
      * @note This is faster than `a.length()` by one square root operation
      */
     float lengthSquared() const;
-
-    /**
-     * Returns the length squared of the vector
-     * @note This is faster than `a.length()` by one square root operation
-     */
-    static float lengthSquared(const vec3& a);
 
     /**
      * Returns the length of the vector
@@ -501,36 +432,70 @@ class vec3 {
     float length() const;
 
     /**
-     * Returns the length of the vector
-     * @param a vector to get the length of
-     * @return Length of the vector
-     */
-    static float length(const vec3& a);
-
-    /**
      * Returns a tangent vector of the same length to the current vector
      * the eexpression used is (-y,x,0) if |x| <= |z|, else (0,-z,y)
      */
     vec3 tangent() const;
 
-    /**
-     * Returns a tangent vector of the same length to the current vector
-     * the eexpression used is (-y,x,0) if |x| <= |z|, else (0,-z,y)
-     */
-    static vec3 tangent(const vec3& vec);
-
     #pragma endregion vector operations
 };
 
-}
+/**
+ * Dot product of two vectors
+ * @param a first vector
+ * @param b second vector
+ * @return Dot product of the two vectors
+ */
+float dot(const vec3& a, const vec3& b);
 
-namespace std {
+/**
+ * Cross product of two vectors
+ * @param a first vector
+ * @param b second vector
+ * @return The cross product of the two vectors (a vector orthogonal to both vectors)
+ */
+vec3 cross(const vec3& a, const vec3& b);
+
+/**
+ * Angle between two vectors
+ * @param a first vector
+ * @param b second vector
+ * @return Angle between the two vectors in radians
+ */
+double angleBetween(const vec3& a, const vec3& b);
+
+/**
+ * Reflects incident vector, `I`, over surface with normal, `N`
+ * @param I incident vector
+ * @param N surface normal
+ * @return Reflected vector
+ * @note Input does not need to be normalized
+ */
+vec3 reflect(const vec3& I, const vec3& N);
+
+
+/**
+ * Returns the squared distance between two vectors
+ * @param a first vector
+ * @param b second vector
+ * @return Squared distance from `a` to `b`
+ * @note This is faster than `vec2::distance(a, b)` by one square root operation
+ */
+float distanceSquared(const vec3& a, const vec3& b);
+
+/**
+ * Returns the distance between two vectors
+ * @param a first vector
+ * @param b second vector
+ * @return Distance from `a` to `b`
+ */
+float distance(const vec3& a, const vec3& b);
 
 /**
  * Converts a vector to a string
  * @note Format is `[x, y, ...]`
  */
-std::string to_string(const Engine::vec3& vec);
+std::string to_string(const vec3& vec);
 
 }
 

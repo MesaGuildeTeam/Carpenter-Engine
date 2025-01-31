@@ -234,11 +234,6 @@ class vec3b {
     #pragma region overloads
 
     /**
-     * Stream insertion operator
-     */
-    friend std::ostream& operator <<(std::ostream& os, const vec3b& vec);
-
-    /**
      * Copy assignment operator
      */
     vec3b& operator =(const vec3b& other);
@@ -299,24 +294,10 @@ class vec3b {
     bool any() const;
 
     /**
-     * Returns if any component is true
-     * @param vec vector to check
-     * @return `true` if any component is true, `false` otherwise
-     */
-    friend bool any(const vec3b& vec);
-
-    /**
      * Returns if all components are true
      * @return `true` if all components are true, `false` otherwise
      */
     bool all() const;
-
-    /**
-     * Returns if all components are true
-     * @param vec vector to check
-     * @return `true` if all components are true, `false` otherwise
-     */
-    friend bool all(const vec3b& vec);
 
     /**
      * Returns the number of true components
@@ -324,25 +305,14 @@ class vec3b {
     */
     unsigned int count() const;
 
-    /**
-     * Returns the number of true components
-     * @param vec vector to check
-     * @return the number of true components
-    */
-    friend unsigned int count(const vec3b& vec);
-
     #pragma endregion vector operations
 };
-
-}
-
-namespace std {
 
 /**
  * Converts a vector to a string
  * @note Format is `[x, y, ...]`
  */
-std::string to_string(const Engine::vec3b& vec);
+std::string to_string(const vec3b& vec);
 
 }
 

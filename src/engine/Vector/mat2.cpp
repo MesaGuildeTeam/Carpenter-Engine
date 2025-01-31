@@ -153,12 +153,6 @@ mat2::operator bool() const {
 #pragma region overloads
 
 
-std::ostream& operator <<(std::ostream& os, const mat2& mat){
-    os << std::to_string(mat);
-    return os;
-}
-
-
 mat2& mat2::operator =(const mat2& other){
     for (unsigned int i = 0; i < N; i++) {
         data[i] = other.data[i];
@@ -343,11 +337,6 @@ float mat2::determinant() const {
 }
 
 
-float mat2::determinant(const mat2& mat) {
-    return mat.determinant();
-}
-
-
 mat2 mat2::transpose() const {
     mat2 result;
     for (unsigned int i = 0; i < N; i++) {
@@ -359,17 +348,8 @@ mat2 mat2::transpose() const {
 }
 
 
-mat2 mat2::transpose(const mat2& mat) {
-    return mat.transpose();
-}
-
-
 mat2 mat2::inverse() const {
-    return inverse(*this);
-}
-
-
-mat2 mat2::inverse(const mat2& mat) {
+    const mat2& mat = *this;
     float det = mat[0][0]*mat[1][1] - mat[0][1]*mat[1][0];
 
     // non - invertible
@@ -392,14 +372,7 @@ float mat2::trace() const {
 }
 
 
-float mat2::trace(const mat2& mat) {
-    return mat.trace();
-}
-
-    /**
-     * returns a 2d rotation matrix of some angle
-     */
-mat2 mat2::rotation(const float& angle) {
+mat2 rotation(const float& angle) {
     float s = sinf(angle);
     float c = cosf(angle);
     return mat2(
@@ -409,7 +382,7 @@ mat2 mat2::rotation(const float& angle) {
 }
 
 
-mat2 mat2::skew(const vec2& skew) {
+mat2 skew(const vec2& skew) {
     return mat2(
         1, skew.x,
         skew.y, 1
@@ -417,7 +390,7 @@ mat2 mat2::skew(const vec2& skew) {
 }
 
 
-mat2 mat2::scale(const vec2& scale) {
+mat2 scale(const vec2& scale) {
     return mat2(
         scale.x, 0,
         0, scale.y
@@ -425,26 +398,20 @@ mat2 mat2::scale(const vec2& scale) {
 }
 
 
-mat2 mat2::basis(const vec2& x, const vec2& y) {
+mat2 basis(const vec2& x, const vec2& y) {
     return mat2(x, y);
 }
 
 
-mat2 mat2::basis(const vec2& x) {
+mat2 basis(const vec2& x) {
     return mat2(x, x.tangent());
 }
 
-#pragma endregion matrix operations
 
+std::string to_string(const mat2& mat) {
+    return "[ " + std::to_string(mat[0][0]) + " " + std::to_string(mat[0][1]) + " ]\n[ " + std::to_string(mat[1][0]) + " " + std::to_string(mat[1][1]) + " ]";
 }
 
-namespace std {
-    /**
-     * converts a matrix to a string
-     * note: matrix is printed in column-major order
-     */
-    std::string to_string(const Engine::mat2& mat) {
-        return "[ " + std::to_string(mat[0][0]) + " " + std::to_string(mat[0][1]) + " ]\n[ " + std::to_string(mat[1][0]) + " " + std::to_string(mat[1][1]) + " ]";
-    }
+#pragma endregion matrix operations
 
 }

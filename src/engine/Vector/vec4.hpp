@@ -9,7 +9,6 @@ namespace Engine {
 
 /**
  * 4d vector of float
- * Aka `vec4f`
  */
 class vec4 {
     private:
@@ -275,11 +274,6 @@ class vec4 {
     #pragma endregion iteration
     
     #pragma region overloads
-    
-    /**
-     * Stream insertion operator
-     */
-    friend std::ostream& operator <<(std::ostream& os, const vec4& vec);
 
     /**
      * Copy assignment operator
@@ -434,38 +428,6 @@ class vec4 {
     #pragma endregion overloads
 
     #pragma region vector operations
-    
-    /**
-     * Dot product of two vectors
-     * @param a first vector
-     * @param b second vector
-     * @return Dot product of the two vectors
-     */
-    static float dot(const vec4& a, const vec4& b);
-
-    /**
-     * Angle between two vectors
-     * @param a first vector
-     * @param b second vector
-     * @return Angle between the two vectors in radians
-     */
-    static double angleBetween(const vec4& a, const vec4& b);
-
-    /**
-     * Reflects incident vector, `I`, over surface with normal, `N`
-     * @param I incident vector
-     * @param N surface normal
-     * @return Reflected vector
-     * @note Input does not need to be normalized
-     */
-    static vec4 reflect(const vec4& I, const vec4& N);
-
-    /**
-     * Returns a vector in the same direction as the input vector, but with a length of 1
-     * @param vec vector to normalize
-     * @return Normalized vector
-     */
-    static vec4 normalize(const vec4& vec);
 
     /**
      * Returns a vector in the same direction as this vector, but with a length of 1
@@ -474,33 +436,10 @@ class vec4 {
     vec4 normalized() const;
 
     /**
-     * Returns the squared distance between two vectors
-     * @param a first vector
-     * @param b second vector
-     * @return Squared distance from `a` to `b`
-     * @note This is faster than `vec2::distance(a, b)` by one square root operation
-     */
-    static float distanceSquared(const vec4& a, const vec4& b);
-
-    /**
-     * Returns the distance between two vectors
-     * @param a first vector
-     * @param b second vector
-     * @return Distance from `a` to `b`
-     */
-    static float distance(const vec4& a, const vec4& b);
-
-    /**
      * Returns the length squared of the vector
      * @note This is faster than `a.length()` by one square root operation
      */
     float lengthSquared() const;
-
-    /**
-     * Returns the length squared of the vector
-     * @note This is faster than `a.length()` by one square root operation
-     */
-    static float lengthSquared(const vec4& a);
 
     /**
      * Returns the length of the vector
@@ -509,25 +448,56 @@ class vec4 {
      */
     float length() const;
 
-    /**
-     * Returns the length of the vector
-     * @param a vector to get the length of
-     * @return Length of the vector
-     */
-    static float length(const vec4& a);
-
     #pragma endregion vector operations
 };
 
-}
+/**
+ * Dot product of two vectors
+ * @param a first vector
+ * @param b second vector
+ * @return Dot product of the two vectors
+ */
+float dot(const vec4& a, const vec4& b);
 
-namespace std {
+/**
+ * Angle between two vectors
+ * @param a first vector
+ * @param b second vector
+ * @return Angle between the two vectors in radians
+ */
+double angleBetween(const vec4& a, const vec4& b);
+
+/**
+ * Reflects incident vector, `I`, over surface with normal, `N`
+ * @param I incident vector
+ * @param N surface normal
+ * @return Reflected vector
+ * @note Input does not need to be normalized
+ */
+vec4 reflect(const vec4& I, const vec4& N);
+
+/**
+ * Returns the squared distance between two vectors
+ * @param a first vector
+ * @param b second vector
+ * @return Squared distance from `a` to `b`
+ * @note This is faster than `vec2::distance(a, b)` by one square root operation
+ */
+float distanceSquared(const vec4& a, const vec4& b);
+
+/**
+ * Returns the distance between two vectors
+ * @param a first vector
+ * @param b second vector
+ * @return Distance from `a` to `b`
+ */
+float distance(const vec4& a, const vec4& b);
 
 /**
  * Converts a vector to a string
  * @note Format is `[x, y, ...]`
  */
-std::string to_string(const Engine::vec4& vec);
+std::string to_string(const vec4& vec);
 
 }
 

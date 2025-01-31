@@ -2,11 +2,6 @@
 #include <cmath>
 #include <stdexcept>
 
-
-std::string std::to_string(const Engine::vec3& vec) {
-    return "[" + std::to_string(vec.x) + ", " + std::to_string(vec.y) + ", " + std::to_string(vec.z) + "]";
-}
-
 namespace Engine {
 
 #pragma region constants
@@ -142,12 +137,6 @@ auto vec3::crend() const noexcept {
 #pragma endregion iteration
 
 #pragma region overloads
-
-
-std::ostream& operator <<(std::ostream& os, const vec3& vec) {
-    os << std::to_string(vec);
-    return os;
-}
 
 
 vec3& vec3::operator =(const vec3& other) {
@@ -337,43 +326,8 @@ vec3 vec3::operator --() {
 #pragma region vector operations
 
 
-float vec3::dot(const vec3& a, const vec3& b) {
-    return a.x*b.x + a.y*b.y + a.z*b.z;
-}
-
-
-vec3 vec3::cross(const vec3& a, const vec3& b) {
-    return vec3(a.y*b.z - a.z*b.y, a.z*b.x - a.x*b.z, a.x*b.y - a.y*b.x);
-}
-
-
-double vec3::angleBetween(const vec3& a, const vec3& b) {
-    return acos( dot(a,b) / sqrt(a.lengthSquared()*b.lengthSquared()) );
-}
-
-
-vec3 vec3::reflect(const vec3& I, const vec3& N) {
-    return I - 2.0f*N*dot(N, I)/dot(N,N);
-}
-
-
-vec3 vec3::normalize(const vec3& vec) {
-    return vec/vec.length();
-}
-
-
 vec3 vec3::normalized() const {
     return *this/length();
-}
-
-
-float vec3::distanceSquared(const vec3& a, const vec3& b) {
-    return (b - a).lengthSquared();
-}
-
-
-float vec3::distance(const vec3& a, const vec3& b) {
-    return (b - a).length();
 }
 
 
@@ -382,18 +336,8 @@ float vec3::lengthSquared() const {
 }
 
 
-float vec3::lengthSquared(const vec3& a) {
-    return dot(a, a);
-}
-
-
 float vec3::length() const {
     return sqrtf(lengthSquared());
-}
-
-
-float vec3::length(const vec3& a) {
-    return sqrtf(a.lengthSquared());
 }
 
 
@@ -406,12 +350,37 @@ vec3 vec3::tangent() const {
 }
 
 
-vec3 vec3::tangent(const vec3& vec) {
-    if (fabs(vec.x) <= fabs(vec.z)) {
-        return vec3(-vec.y, vec.x, 0);
-    } else {
-        return vec3(0, -vec.z, vec.y);
-    }
+float distanceSquared(const vec3& a, const vec3& b) {
+    return (b - a).lengthSquared();
+}
+
+
+float distance(const vec3& a, const vec3& b) {
+    return (b - a).length();
+}
+
+
+float dot(const vec3& a, const vec3& b) {
+    return a.x*b.x + a.y*b.y + a.z*b.z;
+}
+
+
+vec3 cross(const vec3& a, const vec3& b) {
+    return vec3(a.y*b.z - a.z*b.y, a.z*b.x - a.x*b.z, a.x*b.y - a.y*b.x);
+}
+
+
+double angleBetween(const vec3& a, const vec3& b) {
+    return acos( dot(a,b) / sqrt(a.lengthSquared()*b.lengthSquared()) );
+}
+
+
+vec3 reflect(const vec3& I, const vec3& N) {
+    return I - 2.0f*N*dot(N, I)/dot(N,N);
+}
+
+std::string to_string(const vec3& vec) {
+    return "[" + std::to_string(vec.x) + ", " + std::to_string(vec.y) + ", " + std::to_string(vec.z) + "]";
 }
 
 #pragma endregion vector operations

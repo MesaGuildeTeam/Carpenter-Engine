@@ -3,10 +3,6 @@
 #include <stdexcept>
 
 
-std::string std::to_string(const Engine::vec3b& vec) {
-    return "[" + std::to_string(vec.x) + ", " + std::to_string(vec.y) + ", " + std::to_string(vec.z) + "]";
-}
-
 namespace Engine {
 
 #pragma region constants
@@ -126,12 +122,6 @@ auto vec3b::crend() const noexcept {
 #pragma region overloads
 
 
-std::ostream& operator <<(std::ostream& os, const vec3b& vec) {
-    os << "[" << vec.x << ", " << vec.y << ", " << vec.z << "]";
-    return os;
-}
-
-
 vec3b& vec3b::operator =(const vec3b& other) {
     x = other.x;
     y = other.y;
@@ -194,32 +184,18 @@ bool vec3b::any() const {
 }
 
 
-bool any(const vec3b& vec) {
-    return vec.x || vec.y || vec.z;
-}
-
-
 bool vec3b::all() const {
     return x && y && z;
 }
 
 
-bool all(const vec3b& vec) {
-    return vec.x && vec.y && vec.z;
-}
-
-/**
- * returns the number of true components
-*/
 unsigned int vec3b::count() const {
     return (unsigned int)x + (unsigned int)y + (unsigned int)z;
 }
 
-/**
- * returns the number of true components
-*/
-unsigned int count(const vec3b& vec) {
-    return (unsigned int)vec.x + (unsigned int)vec.y + (unsigned int)vec.z;
+
+std::string to_string(const vec3b& vec) {
+    return "[" + std::to_string(vec.x) + ", " + std::to_string(vec.y) + ", " + std::to_string(vec.z) + "]";
 }
 
 #pragma endregion vector operations

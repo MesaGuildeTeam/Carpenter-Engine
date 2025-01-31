@@ -3,10 +3,6 @@
 #include <stdexcept>
 
 
-std::string std::to_string(const Engine::vec2& vec) {
-    return "[" + std::to_string(vec.x) + ", " + std::to_string(vec.y) + "]";
-}
-
 namespace Engine {
 
 #pragma region constants
@@ -136,13 +132,6 @@ auto vec2::crend() const noexcept {
 #pragma endregion iteration
 
 #pragma region overloads
-
-
-std::ostream& operator <<(std::ostream& os, const vec2& vec) {
-    os << std::to_string(vec);
-    return os;
-}
-
 
 vec2& vec2::operator =(const vec2& other) {
     x = other.x;
@@ -320,43 +309,8 @@ vec2 vec2::operator --() {
 #pragma region vector operations
 
 
-float vec2::dot(const vec2& a, const vec2& b) {
-    return a.x*b.x + a.y*b.y;
-}
-
-
-float vec2::cross(const vec2& a, const vec2& b){
-    return a.x*b.y - a.y*b.x;
-}
-
-
-double vec2::angleBetween(const vec2& a, const vec2& b) {
-    return acos( dot(a,b) / sqrt(a.lengthSquared()*b.lengthSquared()) );
-}
-
-
-vec2 vec2::reflect(const vec2& I, const vec2& N) {
-    return I - 2.0f*N*dot(N, I)/dot(N,N);
-}
-
-
-vec2 vec2::normalize(const vec2& vec) {
-    return vec/vec.length();
-}
-
-
 vec2 vec2::normalized() const {
     return *this/length();
-}
-
-
-float vec2::distanceSquared(const vec2& a, const vec2& b) {
-    return (b - a).lengthSquared();
-}
-
-
-float vec2::distance(const vec2& a, const vec2& b) {
-    return (b - a).length();
 }
 
 
@@ -365,18 +319,8 @@ float vec2::lengthSquared() const {
 }
 
 
-float vec2::lengthSquared(const vec2& a) {
-    return dot(a, a);
-}
-
-
 float vec2::length() const {
     return sqrtf(lengthSquared());
-}
-
-
-float vec2::length(const vec2& a) {
-    return sqrtf(a.lengthSquared());
 }
 
 
@@ -385,8 +329,32 @@ vec2 vec2::tangent() const {
 }
 
 
-vec2 vec2::tangent(const vec2& vec) {
-    return vec2(-vec.y, vec.x);
+float dot(const vec2& a, const vec2& b) {
+    return a.x*b.x + a.y*b.y;
+}
+
+
+double angleBetween(const vec2& a, const vec2& b) {
+    return acos( dot(a,b) / sqrt(a.lengthSquared()*b.lengthSquared()) );
+}
+
+
+vec2 reflect(const vec2& I, const vec2& N) {
+    return I - 2.0f*N*dot(N, I)/dot(N,N);
+}
+
+
+float distanceSquared(const vec2& a, const vec2& b) {
+    return (b - a).lengthSquared();
+}
+
+
+float distance(const vec2& a, const vec2& b) {
+    return (b - a).length();
+}
+
+std::string to_string(const vec2& vec) {
+    return "[" + std::to_string(vec.x) + ", " + std::to_string(vec.y) + "]";
 }
 
 #pragma endregion vector operations

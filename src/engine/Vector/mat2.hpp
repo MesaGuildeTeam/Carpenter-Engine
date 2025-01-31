@@ -9,8 +9,7 @@
 namespace Engine {
 
 /**
- * A 2x2 column-major matrix of float
- * Aka `mat2x2`, `mat2f`, `mat2x2f`
+* A 2x2 column-major matrix of float
  */
 class mat2 {
 
@@ -243,12 +242,6 @@ class mat2 {
     #pragma region overloads
 
     /**
-     * Stream insertion operator
-     * @note Matrix is printed in column-major order
-     */
-    friend std::ostream& operator <<(std::ostream& os, const mat2& mat);
-
-    /**
      * Copy assignment operator
      */
     mat2& operator =(const mat2& other);
@@ -371,24 +364,10 @@ class mat2 {
     float determinant() const;
 
     /**
-     * Returns the determinant of a matrix
-     * @param mat the matrix to take the determinant of
-     * @return determinant of `mat`
-     */
-    static float determinant(const mat2& mat);
-
-    /**
      * Returns the transpose of this matrix
      * @return transpose of this matrix
      */
     mat2 transpose() const;
-
-    /**
-     * Returns the transpose of a matrix
-     * @param mat the matrix to transpose
-     * @returns transpose of `mat`
-     */
-    static mat2 transpose(const mat2& mat);
 
     /**
      * Returns the inverse of this matrix
@@ -397,74 +376,57 @@ class mat2 {
     mat2 inverse() const;
 
     /**
-     * Returns the inverse of a matrix
-     * @param mat the matrix to invert
-     */
-    static mat2 inverse(const mat2& mat);
-
-    /**
      * Returns the trace of this matrix (sum of diagonal elements)
      * @return trace of this matrix
      */
     float trace() const;
 
-    /**
-     * Returns the trace of a matrix (sum of diagonal elements)
-     * @param mat the matrix to trace
-     * @returns trace of `mat`
-     */
-    static float trace(const mat2& mat);
-
-    /**
-     * Returns a 2d rotation matrix of some angle
-     * @param angle the angle of the rotation in radians
-     * @return A 2d rotation matrix of `angle` radians
-     */
-    static mat2 rotation(const float& angle);
-
-    /**
-     * Returns a skew matrix
-     * @param skew the skew vector
-     * @returns A 2d skew matrix
-     */
-    static mat2 skew(const vec2& skew);
-
-    /**
-     * Returns a scale matrix
-     * @param scale the scale vector
-     * @return A 2d scale matrix
-     * @note Equaivalent to component-wise vector multiplication
-     */
-    static mat2 scale(const vec2& scale);
-
-    /**
-     * Returns a basis matrix from 2 vectors
-     * @param x the x axis
-     * @param y the y axis
-     * @return A 2d basis matrix
-     * Equaivalent to just constructing from 2 vectors
-     */
-    static mat2 basis(const vec2& x, const vec2& y);
-
-    /**
-     * Returns a basis matrix from one vector (assumed to be the x axis)
-     * @param x the x axis
-     * @return A 2d basis matrix
-     */
-    static mat2 basis(const vec2& x);
-
     #pragma endregion matrix operations
 };
 
-}
+/**
+ * Returns a 2d rotation matrix of some angle
+ * @param angle the angle of the rotation in radians
+ * @return A 2d rotation matrix of `angle` radians
+ */
+mat2 rotation(const float& angle);
 
-namespace std {
+/**
+ * Returns a skew matrix
+ * @param skew the skew vector
+ * @returns A 2d skew matrix
+ */
+mat2 skew(const vec2& skew);
+
+/**
+ * Returns a scale matrix
+ * @param scale the scale vector
+ * @return A 2d scale matrix
+ * @note Equaivalent to component-wise vector multiplication
+ */
+mat2 scale(const vec2& scale);
+
+/**
+ * Returns a basis matrix from 2 vectors
+ * @param x the x axis
+ * @param y the y axis
+ * @return A 2d basis matrix
+ * Equaivalent to just constructing from 2 vectors
+ */
+mat2 basis(const vec2& x, const vec2& y);
+
+/**
+ * Returns a basis matrix from one vector (assumed to be the x axis)
+ * @param x the x axis
+ * @return A 2d basis matrix
+ */
+mat2 basis(const vec2& x);
 
 /**
  * Converts a matrix to a string
  * @note The matrix is printed in column-major order
  */
-std::string to_string(const Engine::mat2& mat);
+std::string to_string(const mat2& mat);
 
 }
 

@@ -14,13 +14,15 @@ docs:
 build_example: 
 	$(CC) $(OBJS) examples/$(EXAMPLE).cpp -o build/engine.js -sEXPORTED_FUNCTIONS=$(EXPFUNCS) -Isrc/engine/ $(LINKER) $(COMPILE)
 
-build_test: 
+build_test:
+	npx table build -p
 	$(CC) $(OBJS) tests/$(TEST).cpp -o build/engine.js -Isrc/engine/ $(LINKER) $(COMPILE)
 
 run_test:
-	npx table build -p
 	npx http-server -o /build
 
 clean:
 	rm -rf build $(OBJS)
 	rm -f src/**/*.tmp
+	mkdir -p build
+	

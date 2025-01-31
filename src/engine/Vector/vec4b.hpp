@@ -244,11 +244,6 @@ class vec4b {
     #pragma region overloads
 
     /**
-     * Stream insertion operator
-     */
-    friend std::ostream& operator <<(std::ostream& os, const vec4b& vec);
-
-    /**
      * Copy assignment operator
      */
     vec4b& operator =(const vec4b& other);
@@ -309,24 +304,10 @@ class vec4b {
     bool any() const;
 
     /**
-     * Returns if any component is true
-     * @param vec vector to check
-     * @return `true` if any component is true, `false` otherwise
-     */
-    friend bool any(const vec4b& vec);
-
-    /**
      * Returns if all components are true
      * @return `true` if all components are true, `false` otherwise
      */
     bool all() const;
-
-    /**
-     * Returns if all components are true
-     * @param vec vector to check
-     * @return `true` if all components are true, `false` otherwise
-     */
-    friend bool all(const vec4b& vec);
 
     /**
      * Returns the number of true components
@@ -334,25 +315,14 @@ class vec4b {
     */
     unsigned int count() const;
 
-    /**
-     * Returns the number of true components
-     * @param vec vector to check
-     * @return the number of true components
-    */
-    friend unsigned int count(const vec4b& vec);
-
     #pragma endregion vector operations
 };
-
-}
-
-namespace std {
 
 /**
  * Converts a vector to a string
  * @note Format is `[x, y, ...]`
  */
-std::string to_string(const Engine::vec4b& vec);
+std::string to_string(const vec4b& vec);
 
 }
 

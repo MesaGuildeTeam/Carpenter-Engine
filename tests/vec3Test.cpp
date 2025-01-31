@@ -149,18 +149,18 @@ int main() {
     });
 
     runner.addTest("vec3 dot", "tests that dot(vec3, vec3) works", []() {
-        return bool(vec3::dot(vec3(1, 2, 3), vec3(2, 3, 4)) == 20);
+        return bool(dot(vec3(1, 2, 3), vec3(2, 3, 4)) == 20);
     });
     
     runner.addTest("vec3 anglebetween", "tests that anglebetween(vec3, vec3) works", []() {
-        return approxequals(vec3::dot(vec3(1, 2, 3), vec3(2, 3, 4))/sqrt(vec3(1, 2, 3).lengthSquared()*vec3(2, 3, 4).lengthSquared()), cos(vec3::angleBetween(vec3(1, 2, 3), vec3(2, 3, 4))), 0.0001f);
+        return approxequals(dot(vec3(1, 2, 3), vec3(2, 3, 4))/sqrt(vec3(1, 2, 3).lengthSquared()*vec3(2, 3, 4).lengthSquared()), cos(angleBetween(vec3(1, 2, 3), vec3(2, 3, 4))), 0.0001f);
     });
 
     runner.addTest("vec3 reflect", "tests that reflect(vec3, vec3) works", []() {
         vec3 n = vec3(2, 3, 4).normalized();
         vec3 i = vec3(1, 2, 3).normalized();
-        vec3 r = vec3::reflect(i, n);
-        return approxequals(vec3::dot(r, n), -vec3::dot(i, n), 0.01f);
+        vec3 r = reflect(i, n);
+        return approxequals(dot(r, n), -dot(i, n), 0.01f);
     });
 
     runner.addTest("vec3 length", "tests that vec3.length() works", []() {
@@ -181,15 +181,15 @@ int main() {
         vec3 a = vec3(2, 3, 4);
         vec3 b = vec3(4, 6, 8);
         vec3 c = vec3(6, 9, 12);
-        return bool(vec3::distanceSquared(a, b) == a.lengthSquared());
+        return bool(distanceSquared(a, b) == a.lengthSquared());
     });
 
     runner.addTest("vec3 cross", "tests that cross(vec3, vec3) works", []() {
-        return bool(vec3::cross(vec3(1, 0, 0), vec3(0, 0, 1)) == vec3(0,-1,0));
+        return bool(cross(vec3(1, 0, 0), vec3(0, 0, 1)) == vec3(0,-1,0));
     });
 
     runner.addTest("vec3 tangent", "tests that vec3::tangent is tangent to the source vector", []() {
-        return bool(vec3::dot(vec3(1, 2, 3), vec3(1, 2, 3).tangent()) == 0);
+        return bool(dot(vec3(1, 2, 3), vec3(1, 2, 3).tangent()) == 0);
     });
 
     runner.runTests();

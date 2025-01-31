@@ -3,10 +3,6 @@
 #include <stdexcept>
 
 
-std::string std::to_string(const Engine::vec2b& vec) {
-    return "[" + std::to_string(vec.x) + ", " + std::to_string(vec.y) + "]";
-}
-
 namespace Engine {
 
 #pragma region constants
@@ -124,12 +120,6 @@ auto vec2b::crend() const noexcept {
 #pragma region overloads
 
 
-std::ostream& operator <<(std::ostream& os, const vec2b& vec) {
-    os << "[" << vec.x << ", " << vec.y << "]";
-    return os;
-}
-
-
 vec2b& vec2b::operator =(const vec2b& other) {
     x = other.x;
     y = other.y;
@@ -191,32 +181,18 @@ bool vec2b::any() const {
 }
 
 
-bool any(const vec2b& vec) {
-    return vec.x || vec.y;
-}
-
-
 bool vec2b::all() const {
     return x && y;
 }
 
 
-bool all(const vec2b& vec) {
-    return vec.x && vec.y;
-}
-
-/**
- * returns the number of true components
-*/
 unsigned int vec2b::count() const {
     return (unsigned int)x + (unsigned int)y;
 }
 
-/**
- * returns the number of true components
-*/
-unsigned int count(const vec2b& vec) {
-    return (unsigned int)vec.x + (unsigned int)vec.y;
+
+std::string to_string(const vec2b& vec) {
+    return "[" + std::to_string(vec.x) + ", " + std::to_string(vec.y) + "]";
 }
 
 #pragma endregion vector operations

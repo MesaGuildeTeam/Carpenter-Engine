@@ -3,10 +3,6 @@
 #include <stdexcept>
 
 
-std::string std::to_string(const Engine::vec4b& vec) {
-    return "[" + std::to_string(vec.x) + ", " + std::to_string(vec.y) + ", " + std::to_string(vec.z) + ", " + std::to_string(vec.w) + "]";
-}
-
 namespace Engine {
 
 #pragma region constants
@@ -128,12 +124,6 @@ auto vec4b::crend() const noexcept {
 #pragma region overloads
 
 
-std::ostream& operator <<(std::ostream& os, const vec4b& vec) {
-    os << "[" << vec.x << ", " << vec.y << ", " << vec.z << ", " << vec.w << "]";
-    return os;
-}
-
-
 vec4b& vec4b::operator =(const vec4b& other) {
     x = other.x;
     y = other.y;
@@ -197,18 +187,8 @@ bool vec4b::any() const {
 }
 
 
-bool any(const vec4b& vec) {
-    return vec.x || vec.y || vec.z || vec.w;
-}
-
-
 bool vec4b::all() const {
     return x && y && z && w;
-}
-
-
-bool all(const vec4b& vec) {
-    return vec.x && vec.y && vec.z && vec.w;
 }
 
 /**
@@ -218,11 +198,9 @@ unsigned int vec4b::count() const {
     return (unsigned int)x + (unsigned int)y + (unsigned int)z + (unsigned int)w;
 }
 
-/**
- * returns the number of true components
-*/
-unsigned int count(const vec4b& vec) {
-    return (unsigned int)vec.x + (unsigned int)vec.y + (unsigned int)vec.z + (unsigned int)vec.w;
+
+std::string to_string(const vec4b& vec) {
+    return "[" + std::to_string(vec.x) + ", " + std::to_string(vec.y) + ", " + std::to_string(vec.z) + ", " + std::to_string(vec.w) + "]";
 }
 
 #pragma endregion vector operations

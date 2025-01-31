@@ -43,7 +43,7 @@ namespace Engine {
    * @param angle The angle to rotate by
    * @return The rotated vector
    */
-  vec2f rotate(const vec2f& vec, const float& angle);
+  vec2 rotate(const vec2& vec, const float& angle);
 
   /**
    * Rotates a vector by an angle
@@ -52,7 +52,7 @@ namespace Engine {
    * @param angle The angle to rotate by
    * @return The rotated vector
    */
-  vec3f rotate(const vec3f& vec, const vec3f& angle);
+  vec3 rotate(const vec3& vec, const vec3& angle);
 }
 
 #endif

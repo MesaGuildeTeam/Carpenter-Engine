@@ -5,11 +5,11 @@
 
 // Vector Rotations
 
-Engine::vec2f Engine::rotate(const vec2f& vec, const float& angle) {
+Engine::vec2 Engine::rotate(const vec2& vec, const float& angle) {
   return {vec.x * cos(angle) - vec.y * sin(angle), vec.x * sin(angle) + vec.y * cos(angle)};
 }
 
-Engine::vec3f Engine::rotate(const vec3f& vec, const vec3f& angle) {
+Engine::vec3 Engine::rotate(const vec3& vec, const vec3& angle) {
   float cosX = cosf(angle.x);
   float sinX = sinf(angle.x);
   float cosY = cosf(angle.y);

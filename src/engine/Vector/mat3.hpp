@@ -9,8 +9,7 @@
 namespace Engine {
 
 /**
- * A 3x3 column-major matrix of float
- * Aka `mat3x3`, `mat3f`, `mat3x3f`
+* A 3x3 column-major matrix of float
  */
 class mat3 {
 
@@ -243,12 +242,6 @@ class mat3 {
     #pragma region overloads
 
     /**
-     * Stream insertion operator
-     * note: matrix is printed in column-major order
-     */
-    friend std::ostream& operator <<(std::ostream& os, const mat3& mat);
-
-    /**
      * Copy assignment operator
      */
     mat3& operator =(const mat3& other);
@@ -371,24 +364,10 @@ class mat3 {
     float determinant() const;
 
     /**
-     * Returns the determinant of a matrix
-     * @param mat the matrix to take the determinant of
-     * @return Determinant of the matrix
-     */
-    static float determinant(const mat3& mat);
-
-    /**
      * Returns the transpose of this matrix
      * @return Transpose of this matrix
      */
     mat3 transpose() const;
-
-    /**
-     * Returns the transpose of a matrix
-     * @param mat the matrix to transpose
-     * @return Transpose of the matrix
-     */
-    static mat3 transpose(const mat3& mat);
 
     /**
      * Returns the inverse of this matrix
@@ -398,112 +377,93 @@ class mat3 {
     mat3 inverse() const;
 
     /**
-     * Returns the inverse of a matrix
-     * Code modified from https://stackoverflow.com/a/18504573
-     * @param mat the matrix to invert
-     * @return Inverse of the matrix
-     */
-    static mat3 inverse(const mat3& mat);
-
-    /**
      * Returns the trace of this matrix (sum of diagonal elements)
      * @return Trace of this matrix
      */
     float trace() const;
 
-    /**
-     * Returns the trace of a matrix (sum of diagonal elements)
-     * @param mat the matrix to take the trace of
-     * @return Trace of the matrix
-     */
-    static float trace(const mat3& mat);
-
-    /**
-     * Returns a 3d rotation matrix of some angle about an axis
-     * @param axis the axis of rotation
-     * @param angle the angle of the rotation in radians
-     * @return A 3d rotation matrix of `angle` radians about `axis`
-     */
-    static mat3 rotation(const vec3& axis, const float& angle);
-
-    /**
-     * Returns a 3d rotation matrix about z then y then x
-     * @param euler the euler angles of the rotation in radians
-     * @return A 3d rotation matrix of `euler.x` radians about the x axis, `euler.y` radians about the y axis, and `euler.z` radians about the z axis
-     */
-    static mat3 rotation(const vec3& euler);
-
-    /**
-     * Returns a 3d rotation matrix about the x axis
-     * @param angle the angle of the rotation in radians
-     * @return A 3d rotation matrix of `angle` radians about the x axis
-     */
-    static mat3 rotationX(const float& angle);
-
-    /**
-     * Returns a 3d rotation matrix about the y axis
-     * @param angle the angle of the rotation in radians
-     * @return A 3d rotation matrix of `angle` radians about the y axis
-     */
-    static mat3 rotationY(const float& angle);
-
-    /**
-     * Returns a 3d rotation matrix about the z axis
-     * @param angle the angle of the rotation in radians
-     * @return A 3d rotation matrix of `angle` radians about the z axis
-     */
-    static mat3 rotationZ(const float& angle);
-
-    /**
-     * Returns a skew matrix
-     * @param skew the skew vector
-     * @return A 3d skew matrix
-     */
-    static mat3 skew(const vec3& skew);
-
-    /**
-     * Returns a scale matrix
-     * Equaivalent to component-wise vector multiplication
-     * @param scale the scale vector
-     * @return A 3d scale matrix
-     */
-    static mat3 scale(const vec3& scale);
-
-    /**
-     * Returns a basis matrix from 3 vectors
-     * @param x the x axis
-     * @param y the y axis
-     * @param z the z axis
-     * @return A 3d basis matrix
-     * Equaivalent to just constructing from 3 vectors
-     */
-    static mat3 basis(const vec3& x, const vec3& y, const vec3& z);
-
-    /**
-     * Returns a basis matrix from 2 vectors (assumed to be the `x` and `y` axies respectively)
-     * The third vector is determined by the cross product of `x` and `y`
-     * @return A 3d basis matrix
-     */
-    static mat3 basis(const vec3& x, const vec3& y);
-
-    /**
-     * Returns a basis matrix from one vector (assumed to be the `z` axis)
-     * The x axis is found using `vec3::tangent` and the y axis is the cross product of the x axis and `z`
-     */
-    static mat3 basis(const vec3& z);
-
     #pragma endregion matrix operations
 };
 
-}
+/**
+ * Returns a 3d rotation matrix of some angle about an axis
+ * @param axis the axis of rotation
+ * @param angle the angle of the rotation in radians
+ * @return A 3d rotation matrix of `angle` radians about `axis`
+ */
+mat3 rotation(const vec3& axis, const float& angle);
 
-namespace std {
+/**
+ * Returns a 3d rotation matrix about z then y then x
+ * @param euler the euler angles of the rotation in radians
+ * @return A 3d rotation matrix of `euler.x` radians about the x axis, `euler.y` radians about the y axis, and `euler.z` radians about the z axis
+ */
+mat3 rotation(const vec3& euler);
+
+/**
+ * Returns a 3d rotation matrix about the x axis
+ * @param angle the angle of the rotation in radians
+ * @return A 3d rotation matrix of `angle` radians about the x axis
+ */
+mat3 rotationX(const float& angle);
+
+/**
+ * Returns a 3d rotation matrix about the y axis
+ * @param angle the angle of the rotation in radians
+ * @return A 3d rotation matrix of `angle` radians about the y axis
+ */
+mat3 rotationY(const float& angle);
+
+/**
+ * Returns a 3d rotation matrix about the z axis
+ * @param angle the angle of the rotation in radians
+ * @return A 3d rotation matrix of `angle` radians about the z axis
+ */
+mat3 rotationZ(const float& angle);
+
+/**
+ * Returns a skew matrix
+ * @param skew the skew vector
+ * @return A 3d skew matrix
+ */
+mat3 skew(const vec3& skew);
+
+/**
+ * Returns a scale matrix
+ * Equaivalent to component-wise vector multiplication
+ * @param scale the scale vector
+ * @return A 3d scale matrix
+ */
+mat3 scale(const vec3& scale);
+
+/**
+ * Returns a basis matrix from 3 vectors
+ * @param x the x axis
+ * @param y the y axis
+ * @param z the z axis
+ * @return A 3d basis matrix
+ * Equaivalent to just constructing from 3 vectors
+ */
+mat3 basis(const vec3& x, const vec3& y, const vec3& z);
+
+/**
+ * Returns a basis matrix from 2 vectors (assumed to be the `x` and `y` axies respectively)
+ * The third vector is determined by the cross product of `x` and `y`
+ * @return A 3d basis matrix
+ */
+mat3 basis(const vec3& x, const vec3& y);
+
+/**
+ * Returns a basis matrix from one vector (assumed to be the `z` axis)
+ * The x axis is found using `vec3::tangent` and the y axis is the cross product of the x axis and `z`
+ */
+mat3 basis(const vec3& z);
 
 /**
  * Converts a matrix to a string
  * @note The matrix is printed in column-major order
  */
-std::string to_string(const Engine::mat3& mat);
+std::string to_string(const mat3& mat);
 
 }
 

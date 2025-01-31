@@ -153,12 +153,6 @@ mat3::operator bool() const {
 #pragma region overloads
 
 
-std::ostream& operator <<(std::ostream& os, const mat3& mat){
-    os << std::to_string(mat);
-    return os;
-}
-
-
 mat3& mat3::operator =(const mat3& other){
     for (unsigned int i = 0; i < N; i++) {
         data[i] = other.data[i];
@@ -347,11 +341,6 @@ float mat3::determinant() const {
 }
 
 
-float mat3::determinant(const mat3& mat) {
-    return mat.determinant();
-}
-
-
 mat3 mat3::transpose() const {
     mat3 result;
     for (unsigned int i = 0; i < N; i++) {
@@ -363,17 +352,9 @@ mat3 mat3::transpose() const {
 }
 
 
-mat3 mat3::transpose(const mat3& mat) {
-    return mat.transpose();
-}
-
-
 mat3 mat3::inverse() const {
-    return inverse(*this);
-}
+    const mat3& mat = *this;
 
-
-mat3 mat3::inverse(const mat3& mat) {
     float a = mat[1][1]*mat[2][2] - mat[2][1]*mat[1][2];
     float b = mat[1][2]*mat[2][0] - mat[1][0]*mat[2][2];
     float c = mat[1][0]*mat[2][1] - mat[2][0]*mat[1][1];
@@ -404,12 +385,7 @@ float mat3::trace() const {
 }
 
 
-float mat3::trace(const mat3& mat) {
-    return mat.trace();
-}
-
-
-mat3 mat3::rotation(const vec3& axis, const float& angle) {
+mat3 rotation(const vec3& axis, const float& angle) {
     float s = sinf(angle);
     float c = cosf(angle);
     float t = 1 - c;
@@ -421,19 +397,12 @@ mat3 mat3::rotation(const vec3& axis, const float& angle) {
 }
 
 
-mat3 mat3::rotation(const vec3& euler) {
-    // most compilers will optimize this
-    float cx = cosf(euler.x);
-    float sx = sinf(euler.x);
-    float cy = cosf(euler.y);    
-    float sy = sinf(euler.y);
-    float cz = cosf(euler.z);
-    float sz = sinf(euler.z);
+mat3 rotation(const vec3& euler) {
     return rotationX(euler.x) * rotationY(euler.y) * rotationZ(euler.z);
 }
 
 
-mat3 mat3::rotationX(const float& angle) {
+mat3 rotationX(const float& angle) {
     float c = cosf(angle);
     float s = sinf(angle);
     return mat3(
@@ -444,7 +413,7 @@ mat3 mat3::rotationX(const float& angle) {
 }
 
 
-mat3 mat3::rotationY(const float& angle) {
+mat3 rotationY(const float& angle) {
     float c = cosf(angle);
     float s = sinf(angle);
     return mat3(
@@ -455,7 +424,7 @@ mat3 mat3::rotationY(const float& angle) {
 }
 
 
-mat3 mat3::rotationZ(const float& angle) {
+mat3 rotationZ(const float& angle) {
     float c = cosf(angle);
     float s = sinf(angle);
     return mat3(
@@ -466,7 +435,7 @@ mat3 mat3::rotationZ(const float& angle) {
 }
 
 
-mat3 mat3::skew(const vec3& skew) {
+mat3 skew(const vec3& skew) {
     return mat3(
         1, skew.x, skew.x,
         skew.y, 1, skew.y,
@@ -475,7 +444,7 @@ mat3 mat3::skew(const vec3& skew) {
 }
 
 
-mat3 mat3::scale(const vec3& scale) {
+mat3 scale(const vec3& scale) {
     return mat3(
         scale.x, 0, 0,
         0, scale.y, 0,
@@ -484,30 +453,27 @@ mat3 mat3::scale(const vec3& scale) {
 }
 
 
-mat3 mat3::basis(const vec3& x, const vec3& y, const vec3& z) {
+mat3 basis(const vec3& x, const vec3& y, const vec3& z) {
     return mat3(x, y, z);
 }
 
 
-mat3 mat3::basis(const vec3& x, const vec3& y) {
-    return mat3(x, y, vec3::cross(x,y));
+mat3 basis(const vec3& x, const vec3& y) {
+    return mat3(x, y, cross(x,y));
 }
 
 
-mat3 mat3::basis(const vec3& z) {
+mat3 basis(const vec3& z) {
     vec3 t = z.tangent();
-    return mat3(t, vec3::cross(t,z), z);
+    return mat3(t, cross(t,z), z);
 }
 
-#pragma endregion matrix operations
 
-}
-
-namespace std {
-    
-
-std::string to_string(const Engine::mat3& mat) {
+std::string to_string(const mat3& mat) {
     return "[ " + std::to_string(mat[0][0]) + " " + std::to_string(mat[0][1]) + " " + std::to_string(mat[0][2]) + " ]\n[ " + std::to_string(mat[1][0]) + " " + std::to_string(mat[1][1]) + " " + std::to_string(mat[1][2]) + " ]\n[ " + std::to_string(mat[2][0]) + " " + std::to_string(mat[2][1]) + " " + std::to_string(mat[2][2]) + " ]";
 }
+
+
+#pragma endregion matrix operations
 
 }

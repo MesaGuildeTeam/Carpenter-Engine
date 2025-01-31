@@ -34,14 +34,14 @@ void Engine::UI::UIElement::SetAnchor(const char* anchor) {
   }, m_name.c_str(), m_uiClass, anchor);
 }
 
-void Engine::UI::UIElement::SetDimensions(vec2f dimensions) {
+void Engine::UI::UIElement::SetDimensions(vec2 dimensions) {
   EM_ASM({
     document.getElementById(`${UTF8ToString($1) != "" ? UTF8ToString($1) + "-" : ""}${UTF8ToString($0)}`).style.width = `${$2}px`;
     document.getElementById(`${UTF8ToString($1) != "" ? UTF8ToString($1) + "-" : ""}${UTF8ToString($0)}`).style.height = `${$3}px`;
   }, m_name.c_str(), m_uiClass, dimensions.x, dimensions.y);
 }
 
-void Engine::UI::UIElement::SetOffset(vec2f offset) {
+void Engine::UI::UIElement::SetOffset(vec2 offset) {
   EM_ASM({
     document.getElementById(`${UTF8ToString($1) != "" ? UTF8ToString($1) + "-" : ""}${UTF8ToString($0)}`).style.setProperty('--offset-x', `${$2}px`);
     document.getElementById(`${UTF8ToString($1) != "" ? UTF8ToString($1) + "-" : ""}${UTF8ToString($0)}`).style.setProperty('--offset-y', `${$3}px`);

@@ -143,18 +143,18 @@ int main() {
     });
 
     runner.addTest("vec2 dot", "tests that dot(vec2, vec2) works", []() {
-        return bool(vec2::dot(vec2(1, 2), vec2(2, 3)) == 8);
+        return bool(dot(vec2(1, 2), vec2(2, 3)) == 8);
     });
     
     runner.addTest("vec2 anglebetween", "tests that anglebetween(vec2, vec2) works", []() {
-        return approxequals(vec2::dot(vec2(1, 2), vec2(2, 3))/sqrt(vec2(1, 2).lengthSquared()*vec2(2, 3).lengthSquared()), cos(vec2::angleBetween(vec2(1, 2), vec2(2, 3))), 0.0001f);
+        return approxequals(dot(vec2(1, 2), vec2(2, 3))/sqrt(vec2(1, 2).lengthSquared()*vec2(2, 3).lengthSquared()), cos(angleBetween(vec2(1, 2), vec2(2, 3))), 0.0001f);
     });
 
     runner.addTest("vec2 reflect", "tests that reflect(vec2, vec2) works", []() {
         vec2 n = vec2(2, 3).normalized();
         vec2 i = vec2(1, 2).normalized();
-        vec2 r = vec2::reflect(i, n);
-        return approxequals(vec2::dot(r, n), -vec2::dot(i, n), 0.01f);
+        vec2 r = reflect(i, n);
+        return approxequals(dot(r, n), -dot(i, n), 0.01f);
     });
 
     runner.addTest("vec2 length", "tests that vec2.length() works", []() {
@@ -175,18 +175,11 @@ int main() {
         vec2 a = vec2(2, 3);
         vec2 b = vec2(4, 6);
         vec2 c = vec2(6, 9);
-        return bool(vec2::distanceSquared(a, b) == a.lengthSquared());
-    });
-
-    runner.addTest("vec2 cross", "tests that cross(vec2, vec2) works", []() {
-        float a = vec2::cross(vec2(1, 2), vec2(2, 3));
-        float b = vec3::cross(vec3(1, 2, 0), vec3(2, 3, 0)).z;
-        //float b = mat2(vec2(1, 2), vec2(2, 3)).determinant();
-        return bool(a == b);
+        return bool(distanceSquared(a, b) == a.lengthSquared());
     });
 
     runner.addTest("vec2 tangent", "tests that vec2::tangent is tangent to the source vector", []() {
-        return bool(vec2::dot(vec2(1, 2), vec2(1, 2).tangent()) == 0);
+        return bool(dot(vec2(1, 2), vec2(1, 2).tangent()) == 0);
     });
 
     runner.runTests();

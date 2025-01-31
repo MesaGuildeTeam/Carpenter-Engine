@@ -8,8 +8,7 @@
 namespace Engine {
 
 /**
- * A 4x4 column-major matrix of float
- * Aka `mat4x4`, `mat4f`, `mat4x4f`
+* A 4x4 column-major matrix of float
  */
 class mat4 {
 
@@ -242,12 +241,6 @@ class mat4 {
     #pragma region overloads
 
     /**
-     * Stream insertion operator
-     * Note: matrix is printed in column-major order
-     */
-    friend std::ostream& operator <<(std::ostream& os, const mat4& mat);
-
-    /**
      * Copy assignment operator
      */
     mat4& operator =(const mat4& other);
@@ -371,24 +364,10 @@ class mat4 {
     //float determinant() const;
 
     /**
-     * Returns the determinant of a matrix
-     * @param mat the matrix to take the determinant of
-     * @return Determinant of the matrix
-     */
-    //static float determinant(const mat4& mat);
-
-    /**
      * Returns the transpose of this matrix
      * @return Transpose of this matrix
      */
     mat4 transpose() const;
-
-    /**
-     * Returns the transpose of a matrix
-     * @param mat the matrix to transpose
-     * @return Transpose of the matrix
-     */
-    static mat4 transpose(const mat4& mat);
 
     /**
      * Returns the inverse of this matrix
@@ -397,63 +376,45 @@ class mat4 {
     //mat4 inverse() const;
 
     /**
-     * Returns the inverse of a matrix
-     * @param mat the matrix to invert
-     * @return Inverse of the matrix
-     */
-    //static mat4 inverse(const mat4& mat);
-
-    /**
      * Returns the trace of this matrix (sum of diagonal elements)
      * @return Trace of this matrix
      */
     float trace() const;
 
-    /**
-     * Returns the trace of a matrix (sum of diagonal elements)
-     * @param mat the matrix to take the trace of
-     * @return Trace of the matrix
-     */
-    static float trace(const mat4& mat);
-
-    /**
-     * Returns a skew matrix
-     * @param skew the skew vector
-     * @return A 3d skew matrix
-     */
-    static mat4 skew(const vec4& skew);
-
-    /**
-     * Returns a scale matrix
-     * Equaivalent to component-wise vector multiplication
-     * @param scale the scale vector
-     * @return A 4d scale matrix
-     */
-    static mat4 scale(const vec4& scale);
-
-    /**
-     * Returns a basis matrix from 4 vectors
-     * @param x the x basis vector
-     * @param y the y basis vector
-     * @param z the z basis vector
-     * @param w the w basis vector
-     * @return A 4d basis matrix
-     * Equaivalent to just constructing from 4 vectors
-     */
-    static mat4 basis(const vec4& x, const vec4& y, const vec4& z, const vec4& w);
-
     #pragma endregion matrix operations
 };
 
-}
+/**
+ * Returns a skew matrix
+ * @param skew the skew vector
+ * @return A 3d skew matrix
+ */
+mat4 skew(const vec4& skew);
 
-namespace std {
+/**
+ * Returns a scale matrix
+ * Equaivalent to component-wise vector multiplication
+ * @param scale the scale vector
+ * @return A 4d scale matrix
+ */
+mat4 scale(const vec4& scale);
+
+/**
+ * Returns a basis matrix from 4 vectors
+ * @param x the x basis vector
+ * @param y the y basis vector
+ * @param z the z basis vector
+ * @param w the w basis vector
+ * @return A 4d basis matrix
+ * Equaivalent to just constructing from 4 vectors
+ */
+mat4 basis(const vec4& x, const vec4& y, const vec4& z, const vec4& w);
     
 /**
  * Converts a matrix to a string
  * @note The matrix is printed in column-major order
  */
-std::string to_string(const Engine::mat4& mat);
+std::string to_string(const mat4& mat);
 
 }
 

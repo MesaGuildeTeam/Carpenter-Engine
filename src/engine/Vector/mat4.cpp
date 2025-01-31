@@ -153,12 +153,6 @@ mat4::operator bool() const {
 #pragma region overloads
 
 
-std::ostream& operator <<(std::ostream& os, const mat4& mat){
-    os << std::to_string(mat);
-    return os;
-}
-
-
 mat4& mat4::operator =(const mat4& other){
     for (unsigned int i = 0; i < N; i++) {
         data[i] = other.data[i];
@@ -349,22 +343,12 @@ mat4 mat4::transpose() const {
 }
 
 
-mat4 mat4::transpose(const mat4& mat) {
-    return mat.transpose();
-}
-
-
 float mat4::trace() const {
     return data[0][0] + data[1][1] + data[2][2] + data[3][3];
 }
 
 
-float mat4::trace(const mat4& mat) {
-    return mat.trace();
-}
-
-
-mat4 mat4::skew(const vec4& skew) {
+mat4 skew(const vec4& skew) {
     return mat4(
         1, skew.x, skew.x, skew.x,
         skew.y, 1, skew.y, skew.y,
@@ -374,7 +358,7 @@ mat4 mat4::skew(const vec4& skew) {
 }
 
 
-mat4 mat4::scale(const vec4& scale) {
+mat4 scale(const vec4& scale) {
     return mat4(
         scale.x, 0, 0, 0,
         0, scale.y, 0, 0,
@@ -384,23 +368,20 @@ mat4 mat4::scale(const vec4& scale) {
 }
 
 
-mat4 mat4::basis(const vec4& x, const vec4& y, const vec4& z, const vec4& w) {
+mat4 basis(const vec4& x, const vec4& y, const vec4& z, const vec4& w) {
     return mat4(x, y, z, w);
 }
 
-#pragma endregion matrix operations
 
-}
-
-namespace std {
-    
-
-std::string to_string(const Engine::mat4& mat) {
+std::string to_string(const mat4& mat) {
     return "[ " + std::to_string(mat[0][0]) + " " + std::to_string(mat[0][1]) + " " + std::to_string(mat[0][2]) + " " + std::to_string(mat[0][3]) + 
     " ]\n[ " + std::to_string(mat[1][0]) + " " + std::to_string(mat[1][1]) + " " + std::to_string(mat[1][2]) + " " + std::to_string(mat[1][3]) + 
     " ]\n[ " + std::to_string(mat[2][0]) + " " + std::to_string(mat[2][1]) + " " + std::to_string(mat[2][2]) + " " + std::to_string(mat[2][3]) + 
     " ]\n[ " + std::to_string(mat[3][0]) + " " + std::to_string(mat[3][1]) + " " + std::to_string(mat[3][2]) + " " + std::to_string(mat[3][3]) + 
     " ]\n[ " + std::to_string(mat[4][0]) + " " + std::to_string(mat[4][1]) + " " + std::to_string(mat[4][2]) + " " + std::to_string(mat[4][3]) + " ]";
 }
+
+
+#pragma endregion matrix operations
 
 }
