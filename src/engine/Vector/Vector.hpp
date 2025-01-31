@@ -10,9 +10,9 @@ namespace Engine {
     class vec2;
     class vec3;
     class vec4;
-    class vec2b;
-    class vec3b;
-    class vec4b;
+    class bvec2;
+    class bvec3;
+    class bvec4;
     class mat2;
     class mat3;
     class mat4;
@@ -30,7 +30,7 @@ namespace Engine {
     struct is_vecb : std::false_type {};
     // has a true value if a type is a bool vector
     template <typename T>
-    requires (std::is_same_v<T, vec2b> || std::is_same_v<T, vec3b> || std::is_same_v<T, vec4b>)
+    requires (std::is_same_v<T, bvec2> || std::is_same_v<T, bvec3> || std::is_same_v<T, bvec4>)
     struct is_vecf<T> : std::true_type {};
 
     // has a true value if a type is a vector
@@ -86,19 +86,19 @@ namespace Engine {
      * returns the dimension of a vector, matrix, or scalar type
      */
     template <typename T>
-    requires (std::is_same_v<T, vec2> || std::is_same_v<T, vec2b>)
+    requires (std::is_same_v<T, vec2> || std::is_same_v<T, bvec2>)
     struct dimension_of<T> : std::integral_constant<unsigned int, 2> {};
     /**
      * returns the dimension of a vector, matrix, or scalar type
      */
     template <typename T>
-    requires (std::is_same_v<T, vec3> || std::is_same_v<T, vec3b>)
+    requires (std::is_same_v<T, vec3> || std::is_same_v<T, bvec3>)
     struct dimension_of<T> : std::integral_constant<unsigned int, 3> {};
     /**
      * returns the dimension of a vector, matrix, or scalar type
      */
     template <typename T>
-    requires (std::is_same_v<T, vec4> || std::is_same_v<T, vec4b>)
+    requires (std::is_same_v<T, vec4> || std::is_same_v<T, bvec4>)
     struct dimension_of<T> : std::integral_constant<unsigned int, 4> {};
     /**
      * the dimension of a vector, matrix, or scalar type

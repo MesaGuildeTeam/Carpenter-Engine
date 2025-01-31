@@ -3,7 +3,7 @@
 
 
 #include "Vector.hpp"
-#include "vec3b.hpp"
+#include "bvec3.hpp"
 
 namespace Engine {
 
@@ -114,7 +114,7 @@ class vec3 {
      * Casts a boolean vector to a float vector
      * @param vec boolean vector
      */
-    vec3(const vec3b& vec);
+    vec3(const bvec3& vec);
 
     #pragma endregion conversions
 
@@ -331,32 +331,32 @@ class vec3 {
     /**
      * Component-wise equality operator
      */
-    vec3b operator ==(const vec3& other) const;
+    bvec3 operator ==(const vec3& other) const;
 
     /**
      * Component-wise inequality operator
      */
-    vec3b operator !=(const vec3& other) const;
+    bvec3 operator !=(const vec3& other) const;
     
     /**
      * Component-wise less than operator
      */
-    vec3b operator <(const vec3& other) const;
+    bvec3 operator <(const vec3& other) const;
 
     /**
      * Component-wise greater than operator
      */
-    vec3b operator >(const vec3& other) const;
+    bvec3 operator >(const vec3& other) const;
 
     /**
      * Component-wise less than or equal to operator
      */
-    vec3b operator <=(const vec3& other) const;
+    bvec3 operator <=(const vec3& other) const;
 
     /**
      * Component-wise greater than or equal to operator
      */
-    vec3b operator >=(const vec3& other) const;
+    bvec3 operator >=(const vec3& other) const;
 
     /**
      * Component-wise addition assignment operator

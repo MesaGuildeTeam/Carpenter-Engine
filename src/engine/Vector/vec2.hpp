@@ -2,7 +2,7 @@
 #define ENGINE_VEC2
 
 #include "Vector.hpp"
-#include "vec2b.hpp"
+#include "bvec2.hpp"
 
 namespace Engine {
 
@@ -106,7 +106,7 @@ class vec2 {
      * Casts a boolean vector to a float vector
      * @param vec boolean vector
      */
-    vec2(const vec2b& vec);
+    vec2(const bvec2& vec);
 
     #pragma endregion conversions
 
@@ -313,32 +313,32 @@ class vec2 {
     /**
      * Component-wise equality operator
      */
-    vec2b operator ==(const vec2& other) const;
+    bvec2 operator ==(const vec2& other) const;
 
     /**
      * Component-wise inequality operator
      */
-    vec2b operator !=(const vec2& other) const;
+    bvec2 operator !=(const vec2& other) const;
 
     /**
      * Component-wise less than operator
      */
-    vec2b operator <(const vec2& other) const;
+    bvec2 operator <(const vec2& other) const;
 
     /**
      * Component-wise greater than operator
      */
-    vec2b operator >(const vec2& other) const;
+    bvec2 operator >(const vec2& other) const;
 
     /**
      * Component-wise less than or equal to operator
      */
-    vec2b operator <=(const vec2& other) const;
+    bvec2 operator <=(const vec2& other) const;
 
     /**
      * Component-wise greater than or equal to operator
      */
-    vec2b operator >=(const vec2& other) const;
+    bvec2 operator >=(const vec2& other) const;
 
     /**
      * Component-wise addition assignment operator

@@ -9,7 +9,7 @@ namespace Engine {
 /**
  * 2d vector of bool
  */
-class vec2b {
+class bvec2 {
     private:
     // components
     std::array<bool,2> data;
@@ -21,11 +21,11 @@ class vec2b {
     /**
      * Vector of all falses
      */
-    static const vec2b zero;
+    static const bvec2 zero;
     /**
      * Vector of all trues
      */
-    static const vec2b one;
+    static const bvec2 one;
 
         /**
      * Dimension of vector
@@ -39,7 +39,7 @@ class vec2b {
     /**
      * Default constructor, fills the vector with false
      */
-    vec2b();
+    bvec2();
 
     /**
      * Fill constructor, fills the vector with the provided scalar value
@@ -47,7 +47,7 @@ class vec2b {
      */
     template <typename T>
     requires std::is_convertible_v<T, bool>
-    vec2b(T a){
+    bvec2(T a){
         data.fill(bool(a));
     }
 
@@ -59,7 +59,7 @@ class vec2b {
      */
     template <typename ... Vectors>
     requires ((is_vec_v<Vectors> || std::is_convertible_v<Vectors, bool>) && ... ) && ((dimension_of_v<Vectors> + ...) == dimension)
-    vec2b(Vectors... vecs) {
+    bvec2(Vectors... vecs) {
         unsigned int i = 0;
         ([&] {
             if constexpr (is_vec_v<Vectors>) {
@@ -81,14 +81,14 @@ class vec2b {
     /**
      * Casts a vector to a bool
      * True if all components are non-zero
-     * To check if any components are non-zero, compare with `vec2b::zero` rather than casting
+     * To check if any components are non-zero, compare with `bvec2::zero` rather than casting
      */
     operator bool() const;
 
     /**
      * casts a float vector to a boolean vector
      */
-    vec2b(const vec2& vec);
+    bvec2(const vec2& vec);
 
     #pragma endregion conversions
 
@@ -225,52 +225,52 @@ class vec2b {
     /**
      * Copy assignment operator
      */
-    vec2b& operator =(const vec2b& other);
+    bvec2& operator =(const bvec2& other);
 
     /**
      * Component-wise and operator
      */
-    friend vec2b operator &&(const vec2b& a, const vec2b& b);
+    friend bvec2 operator &&(const bvec2& a, const bvec2& b);
 
     /**
      * Component-wise and operator
      */
-    friend vec2b operator &&(const bool& a, const vec2b& b);
+    friend bvec2 operator &&(const bool& a, const bvec2& b);
 
     /**
      * Component-wise and operator
      */
-    friend vec2b operator &&(const vec2b& a, const bool& b);
+    friend bvec2 operator &&(const bvec2& a, const bool& b);
 
     /**
      * Component-wise or operator
      */
-    friend vec2b operator ||(const vec2b& a, const vec2b& b);
+    friend bvec2 operator ||(const bvec2& a, const bvec2& b);
 
     /**
      * Component-wise or operator
      */
-    friend vec2b operator ||(const bool& a, const vec2b& b);
+    friend bvec2 operator ||(const bool& a, const bvec2& b);
 
     /**
      * Component-wise or operator
      */
-    friend vec2b operator ||(const vec2b& a, const bool& b);
+    friend bvec2 operator ||(const bvec2& a, const bool& b);
 
     /**
      * Component-wise not operator
      */
-    vec2b operator !() const;
+    bvec2 operator !() const;
 
     /**
      * Component-wise equality operator
      */
-    friend vec2b operator ==(const vec2b& a, const vec2b& b);
+    friend bvec2 operator ==(const bvec2& a, const bvec2& b);
 
     /**
      * Component-wise inequality operator
      */
-    friend vec2b operator !=(const vec2b& a, const vec2b& b);
+    friend bvec2 operator !=(const bvec2& a, const bvec2& b);
 
     #pragma endregion overloads
 
@@ -301,7 +301,7 @@ class vec2b {
  * Converts a vector to a string
  * @note Format is `[x, y, ...]`
  */
-std::string to_string(const vec2b& vec);
+std::string to_string(const bvec2& vec);
 
 }
 

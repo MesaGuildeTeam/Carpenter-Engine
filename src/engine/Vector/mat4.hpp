@@ -3,7 +3,7 @@
 
 #include "Vector.hpp"
 #include "vec4.hpp"
-#include "vec4b.hpp"
+#include "bvec4.hpp"
 
 namespace Engine {
 

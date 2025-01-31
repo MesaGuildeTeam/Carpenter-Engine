@@ -50,7 +50,7 @@ vec4::operator bool() const {
 }
 
 
-vec4::vec4(const vec4b& vec){
+vec4::vec4(const bvec4& vec){
     x = vec.x;
     y = vec.y;
     z = vec.z;
@@ -220,33 +220,33 @@ vec4 operator /(const vec4& a, const float& b) {
 }
 
 
-vec4b vec4::operator ==(const vec4& other) const {
-    return vec4b(x == other.x, y == other.y, z == other.z, w == other.w);
+bvec4 vec4::operator ==(const vec4& other) const {
+    return bvec4(x == other.x, y == other.y, z == other.z, w == other.w);
 }
 
 
-vec4b vec4::operator !=(const vec4& other) const {
-    return vec4b(x != other.x, y != other.y, z != other.z, w != other.w);
+bvec4 vec4::operator !=(const vec4& other) const {
+    return bvec4(x != other.x, y != other.y, z != other.z, w != other.w);
 }
 
 
-vec4b vec4::operator <(const vec4& other) const {
-    return vec4b(x < other.x, y < other.y, z < other.z, w < other.w);
+bvec4 vec4::operator <(const vec4& other) const {
+    return bvec4(x < other.x, y < other.y, z < other.z, w < other.w);
 }
 
 
-vec4b vec4::operator >(const vec4& other) const {
-    return vec4b(x > other.x, y > other.y, z > other.z, w > other.w);
+bvec4 vec4::operator >(const vec4& other) const {
+    return bvec4(x > other.x, y > other.y, z > other.z, w > other.w);
 }
 
 
-vec4b vec4::operator <=(const vec4& other) const {
-    return vec4b(x <= other.x, y <= other.y, z <= other.z, w <= other.w);
+bvec4 vec4::operator <=(const vec4& other) const {
+    return bvec4(x <= other.x, y <= other.y, z <= other.z, w <= other.w);
 }
 
 
-vec4b vec4::operator >=(const vec4& other) const {
-    return vec4b(x >= other.x, y >= other.y, z >= other.z, w >= other.w);   
+bvec4 vec4::operator >=(const vec4& other) const {
+    return bvec4(x >= other.x, y >= other.y, z >= other.z, w >= other.w);   
 }
 
 

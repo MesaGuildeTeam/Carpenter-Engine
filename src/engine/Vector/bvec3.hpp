@@ -1,18 +1,19 @@
-#ifndef ENGINE_VEC4B
-#define ENGINE_VEC4B
+#ifndef ENGINE_VEC3B
+#define ENGINE_VEC3B
+
 
 #include "Vector.hpp"
-#include "vec4.hpp"
+#include "vec3.hpp"
 
 namespace Engine {
 
 /**
- * 4d vector of bool
+ * 3d vector of bool
  */
-class vec4b {
+class bvec3 {
     private:
     // components
-    std::array<bool,4> data;
+    std::array<bool,3> data;
 
     public:
 
@@ -21,16 +22,16 @@ class vec4b {
     /**
      * Vector of all falses
      */
-    static const vec4b zero;
+    static const bvec3 zero;
     /**
      * Vector of all trues
      */
-    static const vec4b one;
+    static const bvec3 one;
 
     /**
      * Dimension of vector
      */
-    static constexpr unsigned int dimension = 4;
+    static constexpr unsigned int dimension = 3;
 
     #pragma endregion constants
 
@@ -39,7 +40,7 @@ class vec4b {
     /**
      * Default constructor, fills the vector with false
      */
-    vec4b();
+    bvec3();
 
     /**
      * Fill constructor, fills the vector with the provided scalar value
@@ -47,7 +48,7 @@ class vec4b {
      */
     template <typename T>
     requires std::is_convertible_v<T, bool>
-    vec4b(T a){
+    bvec3(T a){
         data.fill(bool(a));
     }
 
@@ -59,7 +60,7 @@ class vec4b {
      */
     template <typename ... Vectors>
     requires ((is_vec_v<Vectors> || std::is_convertible_v<Vectors, bool>) && ... ) && ((dimension_of_v<Vectors> + ...) == dimension)
-    vec4b(Vectors... vecs) {
+    bvec3(Vectors... vecs) {
         unsigned int i = 0;
         ([&] {
             if constexpr (is_vec_v<Vectors>) {
@@ -81,15 +82,14 @@ class vec4b {
     /**
      * Casts a vector to a bool
      * True if all components are non-zero
-     * To check if any components are non-zero, compare with `vec4b::zero` rather than casting
+     * To check if any components are non-zero, compare with `bvec3::zero` rather than casting
      */
     operator bool() const;
 
     /**
-     * Casts a float vector to a boolean vector
-     * @param vec float vector
+     * casts a float vector to a boolean vector
      */
-    vec4b(const vec4& vec);
+    bvec3(const vec3& vec);
 
     #pragma endregion conversions
 
@@ -123,11 +123,6 @@ class vec4b {
      * @note Equivalent to `vec[2]`
      */
     bool& z = data[2];
-    /**
-     * The 4th component of the vector
-     * @note Equivalent to `vec[3]`
-     */
-    bool& w = data[3];
 
     // color
     /**
@@ -145,11 +140,6 @@ class vec4b {
      * @note Equivalent to `vec[2]`
      */
     bool& b = data[2];
-    /**
-     * The 4th component of the vector
-     * @note Equivalent to `vec[3]`
-     */
-    bool& a = data[3];
 
     // texture coordinate
     /**
@@ -246,52 +236,52 @@ class vec4b {
     /**
      * Copy assignment operator
      */
-    vec4b& operator =(const vec4b& other);
+    bvec3& operator =(const bvec3& other);
 
     /**
      * Component-wise and operator
      */
-    friend vec4b operator &&(const vec4b& a, const vec4b& b);
+    friend bvec3 operator &&(const bvec3& a, const bvec3& b);
 
     /**
      * Component-wise and operator
      */
-    friend vec4b operator &&(const bool& a, const vec4b& b);
+    friend bvec3 operator &&(const bool& a, const bvec3& b);
 
     /**
      * Component-wise and operator
      */
-    friend vec4b operator &&(const vec4b& a, const bool& b);
+    friend bvec3 operator &&(const bvec3& a, const bool& b);
 
     /**
      * Component-wise or operator
      */
-    friend vec4b operator ||(const vec4b& a, const vec4b& b);
+    friend bvec3 operator ||(const bvec3& a, const bvec3& b);
 
     /**
      * Component-wise or operator
      */
-    friend vec4b operator ||(const bool& a, const vec4b& b);
+    friend bvec3 operator ||(const bool& a, const bvec3& b);
 
     /**
      * Component-wise or operator
      */
-    friend vec4b operator ||(const vec4b& a, const bool& b);
+    friend bvec3 operator ||(const bvec3& a, const bool& b);
 
     /**
      * Component-wise not operator
      */
-    vec4b operator !() const;
+    bvec3 operator !() const;
 
     /**
      * Component-wise equality operator
      */
-    friend vec4b operator ==(const vec4b& a, const vec4b& b);
+    friend bvec3 operator ==(const bvec3& a, const bvec3& b);
 
     /**
      * Component-wise inequality operator
      */
-    friend vec4b operator !=(const vec4b& a, const vec4b& b);
+    friend bvec3 operator !=(const bvec3& a, const bvec3& b);
 
     #pragma endregion overloads
 
@@ -322,7 +312,7 @@ class vec4b {
  * Converts a vector to a string
  * @note Format is `[x, y, ...]`
  */
-std::string to_string(const vec4b& vec);
+std::string to_string(const bvec3& vec);
 
 }
 

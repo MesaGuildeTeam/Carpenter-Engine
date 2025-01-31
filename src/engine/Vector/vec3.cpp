@@ -44,7 +44,7 @@ vec3::operator bool() const {
 }
 
 
-vec3::vec3(const vec3b& vec){
+vec3::vec3(const bvec3& vec){
     x = vec.x;
     y = vec.y;
     z = vec.z;
@@ -212,33 +212,33 @@ vec3 operator /(const vec3& a, const float& b) {
 }
 
 
-vec3b vec3::operator ==(const vec3& other) const {
-    return vec3b(x == other.x, y == other.y, z == other.z);
+bvec3 vec3::operator ==(const vec3& other) const {
+    return bvec3(x == other.x, y == other.y, z == other.z);
 }
 
 
-vec3b vec3::operator !=(const vec3& other) const {
-    return vec3b(x != other.x, y != other.y, z != other.z);
+bvec3 vec3::operator !=(const vec3& other) const {
+    return bvec3(x != other.x, y != other.y, z != other.z);
 }
 
 
-vec3b vec3::operator <(const vec3& other) const {
-    return vec3b(x < other.x, y < other.y, z < other.z);
+bvec3 vec3::operator <(const vec3& other) const {
+    return bvec3(x < other.x, y < other.y, z < other.z);
 }
 
 
-vec3b vec3::operator >(const vec3& other) const {
-    return vec3b(x > other.x, y > other.y, z > other.z);
+bvec3 vec3::operator >(const vec3& other) const {
+    return bvec3(x > other.x, y > other.y, z > other.z);
 }
 
 
-vec3b vec3::operator <=(const vec3& other) const {
-    return vec3b(x <= other.x, y <= other.y, z <= other.z);
+bvec3 vec3::operator <=(const vec3& other) const {
+    return bvec3(x <= other.x, y <= other.y, z <= other.z);
 }
 
 
-vec3b vec3::operator >=(const vec3& other) const {
-    return vec3b(x >= other.x, y >= other.y, z >= other.z);
+bvec3 vec3::operator >=(const vec3& other) const {
+    return bvec3(x >= other.x, y >= other.y, z >= other.z);
 }
 
 

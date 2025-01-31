@@ -40,7 +40,7 @@ vec2::operator bool() const {
 }
 
 
-vec2::vec2(const vec2b& vec){
+vec2::vec2(const bvec2& vec){
     x = vec.x;
     y = vec.y;
 }
@@ -205,33 +205,33 @@ vec2 operator /(const vec2& a, const float& b) {
 }
 
 
-vec2b vec2::operator ==(const vec2& other) const {
-    return vec2b(x == other.x, y == other.y);
+bvec2 vec2::operator ==(const vec2& other) const {
+    return bvec2(x == other.x, y == other.y);
 }
 
 
-vec2b vec2::operator !=(const vec2& other) const {
-    return vec2b(x != other.x, y != other.y);
+bvec2 vec2::operator !=(const vec2& other) const {
+    return bvec2(x != other.x, y != other.y);
 }
 
 
-vec2b vec2::operator <(const vec2& other) const {
-    return vec2b(x < other.x, y < other.y);
+bvec2 vec2::operator <(const vec2& other) const {
+    return bvec2(x < other.x, y < other.y);
 }
 
 
-vec2b vec2::operator >(const vec2& other) const {
-    return vec2b(x > other.x, y > other.y);
+bvec2 vec2::operator >(const vec2& other) const {
+    return bvec2(x > other.x, y > other.y);
 }
 
 
-vec2b vec2::operator <=(const vec2& other) const {
-    return vec2b(x <= other.x, y <= other.y);
+bvec2 vec2::operator <=(const vec2& other) const {
+    return bvec2(x <= other.x, y <= other.y);
 }
 
 
-vec2b vec2::operator >=(const vec2& other) const {
-    return vec2b(x >= other.x, y >= other.y);
+bvec2 vec2::operator >=(const vec2& other) const {
+    return bvec2(x >= other.x, y >= other.y);
 }
 
 

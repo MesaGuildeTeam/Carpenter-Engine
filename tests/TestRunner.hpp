@@ -19,7 +19,6 @@ class TestRunner {
 
     struct Test {
         std::string name;
-        std::string description;
         std::function<bool()> test;
     };
 
@@ -45,8 +44,8 @@ class TestRunner {
      * @param description desription of the test
      * @param test function to run as the test, returns bool
      */
-    void addTest(std::string name, std::string description, std::function<bool()> test) {
-        tests.push_back(Test{name, description, test});
+    void addTest(std::string name, std::function<bool()> test) {
+        tests.push_back(Test{name, test});
     }
 
     /**
@@ -78,7 +77,7 @@ class TestRunner {
         if (failed.size() != 0){
             std::cout << "Failed tests:" << std::endl;
             for (unsigned int i = 0; i < failed.size(); i++) {
-                std::cout << "  " << failed[i].name << ": " << failed[i].description << std::endl;
+                std::cout << "  " << failed[i].name << ": " << std::endl;
             }
         }
         return testsPassed;
