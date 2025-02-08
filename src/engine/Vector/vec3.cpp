@@ -34,6 +34,10 @@ vec3::vec3(){
     z = 0.0f;
 }
 
+vec3::vec3(const vec3& vec) {
+    data = vec.data;
+}
+
 #pragma endregion constructors
 
 #pragma region conversions

@@ -52,6 +52,12 @@ class bvec4 {
     }
 
     /**
+     * Copy constructor
+     * @param vec vector to copy
+     */
+    bvec4(const bvec4& vec);
+
+    /**
      * Concatenation constructor
      * Creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
      * @param vecs list of vectors or scalars
@@ -59,7 +65,7 @@ class bvec4 {
      */
     template <typename ... Vectors>
     requires ((is_vec_v<Vectors> || std::is_convertible_v<Vectors, bool>) && ... ) && ((dimension_of_v<Vectors> + ...) == dimension)
-    bvec4(Vectors... vecs) {
+    bvec4(const Vectors... vecs) {
         unsigned int i = 0;
         ([&] {
             if constexpr (is_vec_v<Vectors>) {

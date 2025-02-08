@@ -22,6 +22,10 @@ bvec2::bvec2() {
     y = false;
 }
 
+bvec2::bvec2(const bvec2& vec) {
+    data = vec.data;
+}
+
 #pragma endregion constructors
 
 #pragma region conversions

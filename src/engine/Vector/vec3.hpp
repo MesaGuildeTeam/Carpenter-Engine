@@ -76,6 +76,12 @@ class vec3 {
     }
 
     /**
+     * Copy constructor
+     * @param vec vector to copy
+     */
+    vec3(const vec3& vec);
+
+    /**
      * Concatenation constructor
      * Creates a vector from a list of vectors and scalars of a convertible type and of total dimensions summing to the target dimension
      * @param vecs list of vectors or scalars

@@ -23,6 +23,11 @@ bvec3::bvec3() {
     z = false;
 }
 
+
+bvec3::bvec3(const bvec3& vec) {
+    data = vec.data;
+}
+
 #pragma endregion constructors
 
 #pragma region conversions

@@ -40,6 +40,10 @@ vec4::vec4(){
     w = 0.0f;
 }
 
+vec4::vec4(const vec4& vec) {
+    data = vec.data;
+}
+
 #pragma endregion constructors
 
 #pragma region conversions

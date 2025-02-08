@@ -30,6 +30,10 @@ vec2::vec2(){
     y = 0.0f;
 }
 
+vec2::vec2(const vec2& vec) {
+    data = vec.data;
+}
+
 #pragma endregion constructors
 
 #pragma region conversions

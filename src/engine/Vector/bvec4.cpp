@@ -24,6 +24,10 @@ bvec4::bvec4() {
     w = false;
 }
 
+bvec4::bvec4(const bvec4& vec) {
+    data = vec.data;
+}
+
 #pragma endregion constructors
 
 #pragma region conversions
