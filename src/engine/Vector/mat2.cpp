@@ -225,11 +225,11 @@ mat2 mat2::operator -() const {
 
 
 mat2 operator *(const mat2& a, const mat2& b){
-    mat2 result;
+    mat2 result = mat2::zero;
     for (unsigned int i = 0; i < mat2::N; i++) {
         for (unsigned int j = 0; j < mat2::N; j++) {
             for (unsigned int k = 0; k < mat2::N; k++) {
-                result[i][j] += a[k][i] * b[j][k];
+                result[j][i] += a[k][i] * b[j][k];
             }
         }
     }
@@ -238,7 +238,7 @@ mat2 operator *(const mat2& a, const mat2& b){
 
 
 vec2 operator *(const mat2& a, const vec2& b){
-    vec2 result;
+    vec2 result = vec2::zero;
     for (unsigned int i = 0; i < mat2::N; i++) {
         result += a[i]*b[i];
     }
@@ -368,7 +368,7 @@ mat2 mat2::inverse() const {
 
 
 float mat2::trace() const {
-    return data[0][0] + data[1][1] + data[2][2];
+    return data[0][0] + data[1][1];
 }
 
 
@@ -382,24 +382,11 @@ mat2 rotation(const float& angle) {
 }
 
 
-mat2 skew(const vec2& skew) {
-    return mat2(
-        1, skew.x,
-        skew.y, 1
-    );
-}
-
-
 mat2 scale(const vec2& scale) {
     return mat2(
         scale.x, 0,
         0, scale.y
     );
-}
-
-
-mat2 basis(const vec2& x, const vec2& y) {
-    return mat2(x, y);
 }
 
 

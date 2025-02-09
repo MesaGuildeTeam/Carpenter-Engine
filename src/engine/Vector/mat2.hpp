@@ -392,13 +392,6 @@ class mat2 {
 mat2 rotation(const float& angle);
 
 /**
- * Returns a skew matrix
- * @param skew the skew vector
- * @returns A 2d skew matrix
- */
-mat2 skew(const vec2& skew);
-
-/**
  * Returns a scale matrix
  * @param scale the scale vector
  * @return A 2d scale matrix
@@ -407,17 +400,8 @@ mat2 skew(const vec2& skew);
 mat2 scale(const vec2& scale);
 
 /**
- * Returns a basis matrix from 2 vectors
- * @param x the x axis
- * @param y the y axis
- * @return A 2d basis matrix
- * Equaivalent to just constructing from 2 vectors
- */
-mat2 basis(const vec2& x, const vec2& y);
-
-/**
- * Returns a basis matrix from one vector (assumed to be the x axis)
- * @param x the x axis
+ * Returns an orthonormal basis matrix from one vector (assumed to be the x axis)
+ * @param x the x axis, assumed to be normalized
  * @return A 2d basis matrix
  */
 mat2 basis(const vec2& x);
