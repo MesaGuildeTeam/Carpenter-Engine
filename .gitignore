@@ -1,7 +1,6 @@
 .vscode
 
 # C++ Build Stuff
-build
 
 **/*.o
 **/*.tmp
@@ -14,6 +13,8 @@ yarn.lock
 coverage
 emsdk
 objs
+build
+tests/WASM
 
 # Generated Documentation
 docs/jsdoc

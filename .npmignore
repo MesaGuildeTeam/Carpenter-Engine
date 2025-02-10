@@ -1,0 +1,15 @@
+node_modules
+.vscode
+
+Doxyfile
+tests
+examples
+docs
+coverage
+
+src/**/*.cpp
+build
+Assets
+tableconf.json
+makefile
+jsdoc.json

@@ -56,7 +56,7 @@ npm run build
 - All the documentation. If you use doxygen on the source code, you will see the game engine documentation will be packaged into docs/doxygen
 
 `scripts`
-- anything involving the terminal is probably running in here. 
+- anything involving shell scripts are probably stored in here. 
 
 `src`
 - All the source code of the product including the engine framework and the toolkit to assist developing a game with this.
@@ -66,3 +66,9 @@ npm run build
 
 `examples`
 - examples used to test the modules of the game engine in a manual environment. They can either be practical examples, or they can be generic tests to see how the features behave.
+
+`tests`
+- All Unit tests are performed here. These tests can either be in JavaScript tested in Jest, or a C++ unit test that gets compiled to WASM before running.
+
+`Assets`
+- All the assets are used for examples

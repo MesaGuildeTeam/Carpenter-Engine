@@ -21,3 +21,11 @@ The build process is standardized so that libraries can be linked easier on comp
 
 > ### Current plans for improvement
 > One of the issues with this system at the moment is that it compiles *every* file in this project. In the future, there should be a system to monitor which files have not been modified since last compilation, and to not recompile those files.
+
+### Cleaning
+with the `flip` command, you can clean your project folder, and all of the .o files built in the folder
+
+## Testing
+testing compiles and runs all tests in tests/CPP into tests/WASM before running the tests.
+
+You can also run `table dev` to test the runtime of the game.
