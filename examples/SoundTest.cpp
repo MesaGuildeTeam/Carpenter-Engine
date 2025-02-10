@@ -71,5 +71,5 @@ Engine::Game& instance{Engine::Game::getInstance((Engine::Scene*) new TestScene(
 
 extern "C" {
   void CallDraw() {instance.DrawScene();};
-  void CallUpdate() {instance.UpdateScene(0.1f);};
+  void CallUpdate(float dt) {instance.UpdateScene(dt);};
 }

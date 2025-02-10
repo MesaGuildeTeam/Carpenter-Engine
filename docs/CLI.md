@@ -26,4 +26,6 @@ The build process is standardized so that libraries can be linked easier on comp
 with the `flip` command, you can clean your project folder, and all of the .o files built in the folder
 
 ## Testing
-testing compiles and runs all tests in tests/CPP into tests/WASM before running the tests
+testing compiles and runs all tests in tests/CPP into tests/WASM before running the tests.
+
+You can also run `table dev` to test the runtime of the game.
