@@ -384,52 +384,52 @@ class vec4 {
     /**
      * Component-wise addition assignment operator
      */
-    vec4 operator +=(const vec4& other);
+    vec4& operator +=(const vec4& other);
 
     /**
      * Component-wise addition assignment operator
      */
-    vec4 operator +=(const float& other);
+    vec4& operator +=(const float& other);
 
     /**
      * Component-wise subtraction assignment operator
      */
-    vec4 operator -=(const vec4& other);
+    vec4& operator -=(const vec4& other);
 
     /**
      * Component-wise subtraction assignment operator
      */
-    vec4 operator -=(const float& other);
+    vec4& operator -=(const float& other);
 
     /**
      * Component-wise multiplication assignment operator
      */
-    vec4 operator *=(const vec4& other);
+    vec4& operator *=(const vec4& other);
 
     /**
      * Component-wise multiplication assignment operator
      */
-    vec4 operator *=(const float& other);
+    vec4& operator *=(const float& other);
 
     /**
      * Component-wise division assignment operator
      */
-    vec4 operator /=(const vec4& other);
+    vec4& operator /=(const vec4& other);
 
     /**
      * Component-wise division assignment operator
      */
-    vec4 operator /=(const float& other);
+    vec4& operator /=(const float& other);
 
     /**
      * Component-wise increment operator
      */
-    vec4 operator ++();
+    vec4& operator ++();
 
     /**
      * Component-wise decrement operator
      */
-    vec4 operator --();
+    vec4& operator --();
 
     #pragma endregion overloads
 

@@ -349,52 +349,52 @@ class vec2 {
     /**
      * Component-wise addition assignment operator
      */
-    vec2 operator +=(const vec2& other);
+    vec2& operator +=(const vec2& other);
 
     /**
      * Component-wise addition assignment operator
      */
-    vec2 operator +=(const float& other);
+    vec2& operator +=(const float& other);
 
     /**
      * Component-wise subtraction assignment operator
      */
-    vec2 operator -=(const vec2& other);
+    vec2& operator -=(const vec2& other);
 
     /**
      * Component-wise subtraction assignment operator
      */
-    vec2 operator -=(const float& other);
+    vec2& operator -=(const float& other);
 
     /**
      * Component-wise multiplication assignment operator
      */
-    vec2 operator *=(const vec2& other);
+    vec2& operator *=(const vec2& other);
 
     /**
      * Component-wise multiplication assignment operator
      */
-    vec2 operator *=(const float& other);
+    vec2& operator *=(const float& other);
 
     /**
      * Component-wise division assignment operator
      */
-    vec2 operator /=(const vec2& other);
+    vec2& operator /=(const vec2& other);
 
     /**
      * Component-wise division assignment operator
      */
-    vec2 operator /=(const float& other);
+    vec2& operator /=(const float& other);
 
     /**
      * Component-wise increment operator
      */
-    vec2 operator ++();
+    vec2& operator ++();
 
     /**
      * Component-wise decrement operator
      */
-    vec2 operator --();
+    vec2& operator --();
 
     #pragma endregion overloads
 

@@ -246,7 +246,7 @@ bvec3 vec3::operator >=(const vec3& other) const {
 }
 
 
-vec3 vec3::operator +=(const vec3& other) {
+vec3& vec3::operator +=(const vec3& other) {
     x += other.x;
     y += other.y;
     z += other.z;
@@ -254,7 +254,7 @@ vec3 vec3::operator +=(const vec3& other) {
 }
 
 
-vec3 vec3::operator +=(const float& other) {
+vec3& vec3::operator +=(const float& other) {
     x += other;
     y += other;
     z += other;
@@ -262,7 +262,7 @@ vec3 vec3::operator +=(const float& other) {
 }
 
 
-vec3 vec3::operator -=(const vec3& other) {
+vec3& vec3::operator -=(const vec3& other) {
     x -= other.x;
     y -= other.y;
     z -= other.z;
@@ -270,7 +270,7 @@ vec3 vec3::operator -=(const vec3& other) {
 }
 
 
-vec3 vec3::operator -=(const float& other) {
+vec3& vec3::operator -=(const float& other) {
     x -= other;
     y -= other;
     z -= other;
@@ -278,7 +278,7 @@ vec3 vec3::operator -=(const float& other) {
 }
 
 
-vec3 vec3::operator *=(const vec3& other) {
+vec3& vec3::operator *=(const vec3& other) {
     x *= other.x;
     y *= other.y;
     z *= other.z;
@@ -286,7 +286,7 @@ vec3 vec3::operator *=(const vec3& other) {
 }
 
 
-vec3 vec3::operator *=(const float& other) {
+vec3& vec3::operator *=(const float& other) {
     x *= other;
     y *= other;
     z *= other;
@@ -294,7 +294,7 @@ vec3 vec3::operator *=(const float& other) {
 }
 
 
-vec3 vec3::operator /=(const vec3& other) {
+vec3& vec3::operator /=(const vec3& other) {
     x /= other.x;
     y /= other.y;
     z /= other.z;
@@ -302,7 +302,7 @@ vec3 vec3::operator /=(const vec3& other) {
 }
 
 
-vec3 vec3::operator /=(const float& other) {
+vec3& vec3::operator /=(const float& other) {
     x /= other;
     y /= other;
     z /= other;
@@ -310,7 +310,7 @@ vec3 vec3::operator /=(const float& other) {
 }
 
 
-vec3 vec3::operator ++() {
+vec3& vec3::operator ++() {
     x++;
     y++;
     z++;
@@ -318,7 +318,7 @@ vec3 vec3::operator ++() {
 }
 
 
-vec3 vec3::operator --() {
+vec3& vec3::operator --() {
     x--;
     y--;
     z--;
@@ -347,9 +347,9 @@ float vec3::length() const {
 
 vec3 vec3::tangent() const {
     if (fabs(x) <= fabs(z)) {
-        return vec3(-y, x, 0);
+        return vec3(-y, x, 0).normalized();
     } else {
-        return vec3(0, -z, y);
+        return vec3(0, -z, y).normalized();
     }
 }
 

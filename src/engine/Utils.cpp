@@ -23,3 +23,7 @@ Engine::vec3 Engine::rotate(const vec3& vec, const vec3& angle) {
     cosX * (cosY * vec.z + sinY * (sinZ * vec.y + cosZ * vec.x)) - sinX * (cosZ * vec.y - sinZ * vec.x)
   };
 }
+
+float Engine::sign(float x) {
+  return (0 < x) - (x < 0);
+}

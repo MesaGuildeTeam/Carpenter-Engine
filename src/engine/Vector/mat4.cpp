@@ -229,7 +229,7 @@ mat4 operator *(const mat4& a, const mat4& b){
     for (unsigned int i = 0; i < mat4::N; i++) {
         for (unsigned int j = 0; j < mat4::N; j++) {
             for (unsigned int k = 0; k < mat4::N; k++) {
-                result[i][j] += a[k][i] * b[j][k];
+                result[j][i] += a[k][i] * b[j][k];
             }
         }
     }
@@ -348,16 +348,6 @@ float mat4::trace() const {
 }
 
 
-mat4 skew(const vec4& skew) {
-    return mat4(
-        1, skew.x, skew.x, skew.x,
-        skew.y, 1, skew.y, skew.y,
-        skew.z, skew.z, 1, skew.z,
-        skew.w, skew.w, skew.w, 1
-    );
-}
-
-
 mat4 scale(const vec4& scale) {
     return mat4(
         scale.x, 0, 0, 0,
@@ -365,11 +355,6 @@ mat4 scale(const vec4& scale) {
         0, 0, scale.z, 0,
         0, 0, 0, scale.w
     );
-}
-
-
-mat4 basis(const vec4& x, const vec4& y, const vec4& z, const vec4& w) {
-    return mat4(x, y, z, w);
 }
 
 

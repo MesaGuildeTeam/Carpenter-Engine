@@ -367,52 +367,52 @@ class vec3 {
     /**
      * Component-wise addition assignment operator
      */
-    vec3 operator +=(const vec3& other);
+    vec3& operator +=(const vec3& other);
 
     /**
      * Component-wise addition assignment operator
      */
-    vec3 operator +=(const float& other);
+    vec3& operator +=(const float& other);
 
     /**
      * Component-wise subtraction assignment operator
      */
-    vec3 operator -=(const vec3& other);
+    vec3& operator -=(const vec3& other);
 
     /**
      * Component-wise subtraction assignment operator
      */
-    vec3 operator -=(const float& other);
+    vec3& operator -=(const float& other);
 
     /**
      * Component-wise multiplication assignment operator
      */
-    vec3 operator *=(const vec3& other);
+    vec3& operator *=(const vec3& other);
 
     /**
      * Component-wise multiplication assignment operator
      */
-    vec3 operator *=(const float& other);
+    vec3& operator *=(const float& other);
 
     /**
      * Component-wise division assignment operator
      */
-    vec3 operator /=(const vec3& other);
+    vec3& operator /=(const vec3& other);
 
     /**
      * Component-wise division assignment operator
      */
-    vec3 operator /=(const float& other);
+    vec3& operator /=(const float& other);
 
     /**
      * Component-wise increment operator
      */
-    vec3 operator ++();
+    vec3& operator ++();
 
     /**
      * Component-wise decrement operator
      */
-    vec3 operator --();
+    vec3& operator --();
 
     #pragma endregion overloads
 

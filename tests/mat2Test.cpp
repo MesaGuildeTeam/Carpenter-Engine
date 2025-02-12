@@ -25,7 +25,7 @@ int main() {
     });
 
     runner.addTest("mat2 fill constructor float", []() {
-        mat2 m = mat2(1);
+        mat2 m = mat2(1.0f);
         return m[0].x == 1 && m[0].y == 0 && m[1].x == 0 && m[1].y == 1;
     });
 
@@ -122,6 +122,13 @@ int main() {
         vec2 b = vec2(1,0);
         vec2 c = vec2(0,1);
         return (bool)(approxequals(a*b, vec2(0,1), 0.001f) && approxequals(a*c, vec2(-1,0), 0.001f));
+    });
+
+    runner.addTest("mat3 rotation to", []() {
+        vec2 a = vec2(1,2);
+        vec2 b = vec2(3,4);
+        mat2 r = rotation(a,b);
+        return approxequals((r*a).normalized(), b.normalized(), 0.00001f);
     });
 
     runner.addTest("mat2 scale", []() {

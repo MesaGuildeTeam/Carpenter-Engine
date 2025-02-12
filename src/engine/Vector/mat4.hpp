@@ -385,34 +385,16 @@ class mat4 {
 };
 
 /**
- * Returns a skew matrix
- * @param skew the skew vector
- * @return A 3d skew matrix
- */
-mat4 skew(const vec4& skew);
-
-/**
  * Returns a scale matrix
  * Equaivalent to component-wise vector multiplication
  * @param scale the scale vector
  * @return A 4d scale matrix
  */
 mat4 scale(const vec4& scale);
-
-/**
- * Returns a basis matrix from 4 vectors
- * @param x the x basis vector
- * @param y the y basis vector
- * @param z the z basis vector
- * @param w the w basis vector
- * @return A 4d basis matrix
- * Equaivalent to just constructing from 4 vectors
- */
-mat4 basis(const vec4& x, const vec4& y, const vec4& z, const vec4& w);
     
 /**
  * Converts a matrix to a string
- * @note The matrix is printed in column-major order
+ * @note Column vectors are printed horizontally
  */
 std::string to_string(const mat4& mat);
 

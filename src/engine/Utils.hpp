@@ -53,6 +53,8 @@ namespace Engine {
    * @return The rotated vector
    */
   vec3 rotate(const vec3& vec, const vec3& angle);
+
+  float sign(float x);
 }
 
 #endif

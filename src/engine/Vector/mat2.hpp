@@ -78,7 +78,7 @@ class mat2 {
     /**
      * Concatenation constructor
      * Creates a matrix from a list of convertable vector and scalar types
-     * Total dimension of input vectors must be 9
+     * Total dimension of input vectors must be 4
      * @param vecs list of vectors and scalars
      * @warning vectors and floats are inserted as columns. This means that `mat2(1,2,3,4)` creates the matrix with columns [1,2] and [3,4]
      */
@@ -392,6 +392,14 @@ class mat2 {
 mat2 rotation(const float& angle);
 
 /**
+ * Returns a 2d rotation matrix from a to b
+ * @param a the first vector
+ * @param b the second vector
+ * @return A 2d rotation matrix of angle: `angleBetween(a,b)` radians, such that `rotation(a,b)*a = b`
+ */
+mat2 rotation(const vec2& a, const vec2& b);
+
+/**
  * Returns a scale matrix
  * @param scale the scale vector
  * @return A 2d scale matrix
@@ -408,7 +416,7 @@ mat2 basis(const vec2& x);
 
 /**
  * Converts a matrix to a string
- * @note The matrix is printed in column-major order
+ * @note Column vectors are printed horizontally
  */
 std::string to_string(const mat2& mat);
 

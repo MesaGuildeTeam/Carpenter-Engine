@@ -1,5 +1,6 @@
 #include "mat2.hpp"
 #include <cmath>
+#include "Utils.hpp"
 
 namespace Engine {
 
@@ -379,6 +380,17 @@ mat2 rotation(const float& angle) {
         c, s,
         -s, c
     );
+}
+
+mat2 rotation(const vec2& a, const vec2& b) {
+    float d = dot(a,b);
+    float l = dot(a,a)*dot(b,b);
+    float c = a.x*b.y - a.y*b.x;
+    float s = sign(c)*sqrt(l - d*d);
+    return mat2(
+        d, s,
+        -s, d
+    )*(1/sqrtf(l));
 }
 
 

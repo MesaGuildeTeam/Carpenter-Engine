@@ -75,6 +75,16 @@ class mat3 {
         }
     }
 
+    //static_assert(std::is_convertible_v<mat3, float>);
+    //static_assert(std::is_convertible_v<int, float>);
+    //static_assert(is_vec_v<mat3>);
+
+    template <typename ... Vectors>
+    requires (std::is_convertible_v<Vectors, float> && ... )
+    bool test(const Vectors... vecs) {
+        return true;
+    }
+
     /**
      * Concatenation constructor
      * Creates a matrix from a list of convertable vector and scalar types
@@ -387,11 +397,19 @@ class mat3 {
 
 /**
  * Returns a 3d rotation matrix of some angle about an axis
- * @param axis the axis of rotation
+ * @param axis the axis of rotation, assumed to be normalized
  * @param angle the angle of the rotation in radians
  * @return A 3d rotation matrix of `angle` radians about `axis`
  */
 mat3 rotation(const vec3& axis, const float& angle);
+
+/**
+ * Returns a 3d rotation matrix from a to b
+ * @param a the first vector
+ * @param b the second vector
+ * @return A 3d rotation matrix of angle: `angleBetween(a,b)` radians, about axis: `cross(a,b)`, such that `rotation(a,b)*a = b`
+ */
+mat3 rotation(const vec3& a, const vec3& b);
 
 /**
  * Returns a 3d rotation matrix about z then y then x
@@ -437,31 +455,25 @@ mat3 skew(const vec3& skew);
 mat3 scale(const vec3& scale);
 
 /**
- * Returns a basis matrix from 3 vectors
- * @param x the x axis
- * @param y the y axis
- * @param z the z axis
- * @return A 3d basis matrix
- * Equaivalent to just constructing from 3 vectors
- */
-mat3 basis(const vec3& x, const vec3& y, const vec3& z);
-
-/**
  * Returns a basis matrix from 2 vectors (assumed to be the `x` and `y` axies respectively)
  * The third vector is determined by the cross product of `x` and `y`
+ * @param x the x axis, assumed to be normalized
+ * @param y the y axis, assumed to be normalized, and orthogonal to `x`
  * @return A 3d basis matrix
  */
 mat3 basis(const vec3& x, const vec3& y);
 
 /**
- * Returns a basis matrix from one vector (assumed to be the `z` axis)
+ * Returns an orthonormal basis matrix from one vector (assumed to be the `z` axis)
  * The x axis is found using `vec3::tangent` and the y axis is the cross product of the x axis and `z`
+ * @param z the z axis, assumed to be normalized
+ * @return A 3d basis matrix
  */
 mat3 basis(const vec3& z);
 
 /**
  * Converts a matrix to a string
- * @note The matrix is printed in column-major order
+ * @note Column vectors are printed horizontally
  */
 std::string to_string(const mat3& mat);
 

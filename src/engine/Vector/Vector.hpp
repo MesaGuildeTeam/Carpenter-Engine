@@ -105,24 +105,6 @@ namespace Engine {
      */
     template <typename T>
     constexpr unsigned int dimension_of_v = dimension_of<T>::value;
-    /**
-     * returns the dimension of a vector, matrix, or scalar type
-     */
-    template <typename T>
-    requires (std::is_same_v<T, mat2>)
-    struct dimension_of<T> : std::integral_constant<unsigned int, 2> {};
-    /**
-     * returns the dimension of a vector, matrix, or scalar type
-     */
-    template <typename T>
-    requires (std::is_same_v<T, mat3>)
-    struct dimension_of<T> : std::integral_constant<unsigned int, 3> {};
-    /**
-     * returns the dimension of a vector, matrix, or scalar type
-     */
-    template <typename T>
-    requires (std::is_same_v<T, mat4>)
-    struct dimension_of<T> : std::integral_constant<unsigned int, 4> {};
 }
 
 #endif

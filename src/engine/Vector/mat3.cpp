@@ -229,7 +229,7 @@ mat3 operator *(const mat3& a, const mat3& b){
     for (unsigned int i = 0; i < mat3::N; i++) {
         for (unsigned int j = 0; j < mat3::N; j++) {
             for (unsigned int k = 0; k < mat3::N; k++) {
-                result[i][j] += a[k][i] * b[j][k];
+                result[j][i] += a[k][i] * b[j][k];
             }
         }
     }
@@ -333,11 +333,7 @@ mat3& mat3::operator --() {
 
 
 float mat3::determinant() const {
-    float det = 0;
-    for (unsigned int i = 0; i < N; i ++){
-        det += (i % 2 == 0 ? 1 : -1) * data[i][0] * (data[(i + 1) % 3][1]*data[(i + 2) % 3][2] - data[(i + 1) % 3][2]*data[(i + 2) % 3][1]);
-    }
-    return det;
+    return data[0][0]*(data[1][1]*data[2][2] - data[2][1]*data[1][2]) + data[0][1]*(data[2][0]*data[1][2] - data[1][0]*data[2][2]) + data[0][2]*(data[1][0]*data[2][1] - data[2][0]*data[1][1]);
 }
 
 
@@ -388,6 +384,20 @@ float mat3::trace() const {
 mat3 rotation(const vec3& axis, const float& angle) {
     float s = sinf(angle);
     float c = cosf(angle);
+    float t = 1 - c;
+    return mat3(
+        axis.x*axis.x*t + c, axis.x*axis.y*t + axis.z*s, axis.x*axis.z*t - axis.y*s,
+        axis.x*axis.y*t - axis.z*s, axis.y*axis.y*t + c, axis.y*axis.z*t + axis.x*s,
+        axis.x*axis.z*t + axis.y*s, axis.y*axis.z*t - axis.x*s, axis.z*axis.z*t + c
+    );
+}
+
+
+mat3 rotation(const vec3& a, const vec3& b){
+    vec3 na = a/sqrtf(dot(a,a)*dot(b,b));
+    vec3 axis = cross(na,b);
+    float c = dot(na,b);
+    float s = sqrtf(1 - c*c);
     float t = 1 - c;
     return mat3(
         axis.x*axis.x*t + c, axis.x*axis.y*t + axis.z*s, axis.x*axis.z*t - axis.y*s,
@@ -450,11 +460,6 @@ mat3 scale(const vec3& scale) {
         0, scale.y, 0,
         0, 0, scale.z
     );
-}
-
-
-mat3 basis(const vec3& x, const vec3& y, const vec3& z) {
-    return mat3(x, y, z);
 }
 
 

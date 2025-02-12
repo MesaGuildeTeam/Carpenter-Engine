@@ -254,7 +254,7 @@ bvec4 vec4::operator >=(const vec4& other) const {
 }
 
 
-vec4 vec4::operator +=(const vec4& other) {
+vec4& vec4::operator +=(const vec4& other) {
     x += other.x;
     y += other.y;
     z += other.z;
@@ -263,7 +263,7 @@ vec4 vec4::operator +=(const vec4& other) {
 }
 
 
-vec4 vec4::operator +=(const float& other) {
+vec4& vec4::operator +=(const float& other) {
     x += other;
     y += other;
     z += other;
@@ -272,7 +272,7 @@ vec4 vec4::operator +=(const float& other) {
 }
 
 
-vec4 vec4::operator -=(const vec4& other) {
+vec4& vec4::operator -=(const vec4& other) {
     x -= other.x;
     y -= other.y;
     z -= other.z;
@@ -281,7 +281,7 @@ vec4 vec4::operator -=(const vec4& other) {
 }
 
 
-vec4 vec4::operator -=(const float& other) {
+vec4& vec4::operator -=(const float& other) {
     x -= other;
     y -= other;
     z -= other;
@@ -290,7 +290,7 @@ vec4 vec4::operator -=(const float& other) {
 }
 
 
-vec4 vec4::operator *=(const vec4& other) {
+vec4& vec4::operator *=(const vec4& other) {
     x *= other.x;
     y *= other.y;
     z *= other.z;
@@ -299,7 +299,7 @@ vec4 vec4::operator *=(const vec4& other) {
 }
 
 
-vec4 vec4::operator *=(const float& other) {
+vec4& vec4::operator *=(const float& other) {
     x *= other;
     y *= other;
     z *= other;
@@ -308,7 +308,7 @@ vec4 vec4::operator *=(const float& other) {
 }
 
 
-vec4 vec4::operator /=(const vec4& other) {
+vec4& vec4::operator /=(const vec4& other) {
     x /= other.x;
     y /= other.y;
     z /= other.z;
@@ -317,7 +317,7 @@ vec4 vec4::operator /=(const vec4& other) {
 }
 
 
-vec4 vec4::operator /=(const float& other) {
+vec4& vec4::operator /=(const float& other) {
     x /= other;
     y /= other;
     z /= other;
@@ -326,7 +326,7 @@ vec4 vec4::operator /=(const float& other) {
 }
 
 
-vec4 vec4::operator ++() {
+vec4& vec4::operator ++() {
     x++;
     y++;
     z++;
@@ -335,7 +335,7 @@ vec4 vec4::operator ++() {
 }
 
 
-vec4 vec4::operator --() {
+vec4& vec4::operator --() {
     x--;
     y--;
     z--;

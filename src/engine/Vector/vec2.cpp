@@ -239,70 +239,70 @@ bvec2 vec2::operator >=(const vec2& other) const {
 }
 
 
-vec2 vec2::operator +=(const vec2& other) {
+vec2& vec2::operator +=(const vec2& other) {
     x += other.x;
     y += other.y;
     return *this;
 }
 
 
-vec2 vec2::operator +=(const float& other) {
+vec2& vec2::operator +=(const float& other) {
     x += other;
     y += other;
     return *this;
 }
 
 
-vec2 vec2::operator -=(const vec2& other) {
+vec2& vec2::operator -=(const vec2& other) {
     x -= other.x;
     y -= other.y;
     return *this;
 }
 
 
-vec2 vec2::operator -=(const float& other) {
+vec2& vec2::operator -=(const float& other) {
     x -= other;
     y -= other;
     return *this;
 }
 
 
-vec2 vec2::operator *=(const vec2& other) {
+vec2& vec2::operator *=(const vec2& other) {
     x *= other.x;
     y *= other.y;
     return *this;
 }
 
 
-vec2 vec2::operator *=(const float& other) {
+vec2& vec2::operator *=(const float& other) {
     x *= other;
     y *= other;
     return *this;
 }
 
 
-vec2 vec2::operator /=(const vec2& other) {
+vec2& vec2::operator /=(const vec2& other) {
     x /= other.x;
     y /= other.y;
     return *this;
 }
 
 
-vec2 vec2::operator /=(const float& other) {
+vec2& vec2::operator /=(const float& other) {
     x /= other;
     y /= other;
     return *this;
 }
 
 
-vec2 vec2::operator ++() {
+vec2& vec2::operator ++() {
     x++;
     y++;
     return *this;
 }
 
 
-vec2 vec2::operator --() {
+vec2& vec2::operator --() {
     x--;
     y--;
     return *this;
