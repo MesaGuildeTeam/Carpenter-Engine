@@ -445,15 +445,6 @@ mat3 rotationZ(const float& angle) {
 }
 
 
-mat3 skew(const vec3& skew) {
-    return mat3(
-        1, skew.x, skew.x,
-        skew.y, 1, skew.y,
-        skew.z, skew.z, 1
-    );
-}
-
-
 mat3 scale(const vec3& scale) {
     return mat3(
         scale.x, 0, 0,

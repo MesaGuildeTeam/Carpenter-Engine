@@ -449,13 +449,6 @@ mat3 rotationY(const float& angle);
 mat3 rotationZ(const float& angle);
 
 /**
- * Returns a skew matrix
- * @param skew the skew vector
- * @return A 3d skew matrix
- */
-mat3 skew(const vec3& skew);
-
-/**
  * Returns a scale matrix
  * Equaivalent to component-wise vector multiplication
  * @param scale the scale vector
