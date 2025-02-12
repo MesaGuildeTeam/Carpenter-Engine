@@ -75,11 +75,11 @@ function buildGame(config = defaultBuildSteps) {
       filesList = filesList + `"${folder}/${file}.o" `;
     });
     if (FrameworkLibrary != "")
-      utils.processFiles(FrameworkLibrary, ".o", (file, folder) => {
+      utils.processFiles(FrameworkLibrary, ".o", (file, folder) => { 
         filesList = filesList + `"${folder}/${file}.o" `;
       });
 
-    let exec = `${EMCC} ${filesList} ${(config.mainFile != "" && config.mainFile != null) ? config.mainFile + " -I" + includeDir : ""} -o ./build/engine.js -sEXPORTED_FUNCTIONS=_CallUpdate,_CallDraw -sEXPORTED_RUNTIME_METHODS=ccall,cwrap --bind -sALLOW_MEMORY_GROWTH`;
+    let exec = `${EMCC} ${filesList} ${(config.mainFile != "" && config.mainFile != null) ? config.mainFile + " -I" + includeDir : ""} -o ./build/engine.js -sEXPORTED_FUNCTIONS=_CallUpdate,_CallDraw -sEXPORTED_RUNTIME_METHODS=ccall,cwrap --bind -sALLOW_MEMORY_GROWTH --preload-file ./Assets@/`;
     console.log(exec);
     child_process.execSync(exec);
   }

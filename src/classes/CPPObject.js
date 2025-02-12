@@ -42,9 +42,11 @@ class CPPObject {
 
     // Will assume that this does not create an error since this file should exist.
 
-    this.lastModification = fs.statSync(
-      `${this.path}/${this.name}.cpp`,
-    ).atimeMs;
+    if (fs.existsSync(`${this.path}/${this.name}.cpp`)) {
+      this.lastModification = fs.statSync(
+        `${this.path}/${this.name}.cpp`,
+      ).atimeMs;
+    }
 
     // Ok this one can create an error
     try {
@@ -58,6 +60,7 @@ class CPPObject {
    * Returns a boolean to determine if this file needs to be built
    */
   needsBuild() {
+    if (!fs.existsSync(`${this.path}/${this.name}.cpp`)) return false;
     return this.lastBuild == null || this.lastModification > this.lastBuild;
   }
 
@@ -80,12 +83,13 @@ class CPPObject {
    */
   get dependencies() {
     if (!fs.existsSync(`${this.path}/${this.name}.hpp`)) return [];
-    let fileData = fs.readFileSync(`${this.path}/${this.name}.hpp`, "utf8");
+    let fileHeader = fs.readFileSync(`${this.path}/${this.name}.hpp`, "utf8");
     let dependencies = [];
 
     // Get all immediate header file dependencies
-    [...fileData.matchAll(local_dependency_search)].forEach((element) => {
+    [...fileHeader.matchAll(local_dependency_search)].forEach((element) => {
       let file = this.path + "/" + element[1].replace(".hpp", ".cpp");
+      if (!fs.existsSync(file)) return;
       dependencies.push(path.normalize(file));
     });
 
