@@ -12,10 +12,21 @@ namespace Engine {
  */
 class vec4 {
     private:
+
+    static constexpr unsigned int N = 4;
     // components
     std::array<float,4> data;
 
     public:
+
+    // forwards iterator
+    using iterator = std::array<float,N>::iterator;
+    // const forwards iterator
+    using const_iterator = std::array<float,N>::const_iterator;
+    // reverse iterator
+    using reverse_iterator = std::array<float,N>::reverse_iterator;
+    // const reverse iterator
+    using const_reverse_iterator = std::array<float,N>::const_reverse_iterator;
 
     #pragma region constants
     /**
@@ -62,7 +73,7 @@ class vec4 {
     /**
      * Dimension of vector
      */
-    static constexpr unsigned int dimension = 4;
+    static constexpr unsigned int dimension = N;
 
     #pragma endregion constants
 
@@ -209,73 +220,73 @@ class vec4 {
      * Iterator to the first component
      * @see [std::array::begin](https://en.cppreference.com/w/cpp/container/array/begin)
      */
-    auto begin() noexcept;
+    iterator begin() noexcept;
 
     /**
      * Iterator to the end of the components
      * @see [std::array::end](https://en.cppreference.com/w/cpp/container/array/end)
      */
-    auto end() noexcept;
+    iterator end() noexcept;
 
     /**
-     * Iterator to the first component
+     * Const iterator to the first component
      * @see [std::array::begin](https://en.cppreference.com/w/cpp/container/array/begin)
      */
-    auto begin() const noexcept;
+    const_iterator begin() const noexcept;
 
     /**
-     * Iterator to the end of the components
+     * Const iterator to the end of the components
      * @see [std::array::end](https://en.cppreference.com/w/cpp/container/array/end)
      */
-    auto end() const noexcept;
+    const_iterator end() const noexcept;
 
     /**
-     * Iterator to the first component
+     * Const iterator to the first component
      * @see [std::array::cbegin](https://en.cppreference.com/w/cpp/container/array/cbegin)
      */
-    auto cbegin() const noexcept;
+    const_iterator cbegin() const noexcept;
 
     /**
-     * Iterator to the end of the components
+     * Const iterator to the end of the components
      * @see [std::array::cend](https://en.cppreference.com/w/cpp/container/array/cend)
      */
-    auto cend() const noexcept;
+    const_iterator cend() const noexcept;
 
     /**
      * Reverse iterator to the first component
      * @see [std::array::rbegin](https://en.cppreference.com/w/cpp/container/array/rbegin)
      */
-    auto rbegin() noexcept;
+    reverse_iterator rbegin() noexcept;
 
     /**
      * Reverse iterator to the end of the components
      * @see [std::array::rend](https://en.cppreference.com/w/cpp/container/array/rend)
      */
-    auto rend() noexcept;
+    reverse_iterator rend() noexcept;
 
     /**
-     * Reverse iterator to the first component
+     * Const reverse iterator to the first component
      * @see [std::array::rbegin](https://en.cppreference.com/w/cpp/container/array/rbegin)
      */
-    auto rbegin() const noexcept;
+    const_reverse_iterator rbegin() const noexcept;
 
     /**
-     * Reverse iterator to the end of the components
+     * Const reverse iterator to the end of the components
      * @see [std::array::rend](https://en.cppreference.com/w/cpp/container/array/rend)
      */
-    auto rend() const noexcept;
+    const_reverse_iterator rend() const noexcept;
 
     /**
-     * Reverse iterator to the first component
+     * Const reverse iterator to the first component
      * @see [std::array::crbegin](https://en.cppreference.com/w/cpp/container/array/crbegin)
      */
-    auto crbegin() const noexcept;
+    const_reverse_iterator crbegin() const noexcept;
 
     /**
-     * Reverse iterator to the end of the components
+     * Const reverse iterator to the end of the components
      * @see [std::array::crend](https://en.cppreference.com/w/cpp/container/array/crend)
      */
-    auto crend() const noexcept;
+    const_reverse_iterator crend() const noexcept;
 
     #pragma endregion iteration
     

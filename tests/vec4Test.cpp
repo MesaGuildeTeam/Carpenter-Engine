@@ -30,6 +30,27 @@ int main() {
         return v.x == 3 && v.y == 3 && v.z == 3 && v.w == 3;
     });
 
+    runner.addTest("vec4 concat constructor brackets", []() {
+        vec4 m = {1,2,3,5};
+        return m == vec4(1,2,3,5);
+    });
+
+    runner.addTest("vec4 iterator", []() {
+        vec4 m = {1,2,3,5};
+        for (auto it = m.begin(); it != m.end(); it++) {
+            *it = *it * 2;
+        }
+        return m == vec4(2,4,6,10);
+    });
+
+    runner.addTest("vec4 for each", []() {
+        vec4 m = {1,2,3,5};
+        for (float& v : m) {
+            v *= 2.0f;
+        }
+        return m == vec4(2,4,6,10);
+    });
+
     runner.addTest("vec4 concat constructor copy fill", []() {
         vec4 v = vec4(vec4(3));
         return v.x == 3 && v.y == 3 && v.z == 3 && v.w == 3;
@@ -39,7 +60,7 @@ int main() {
         vec4 v1 = vec4(3);
         vec4 v = vec4(v1);
         v1 = vec4(4);
-        return v.x == 4 && v.y == 4 && v.z == 4 && v.w == 4;
+        return v.x == 3 && v.y == 3 && v.z == 3 && v.w == 3;
     });
 
     runner.addTest("vec4 concat constructor copy cast", []() {

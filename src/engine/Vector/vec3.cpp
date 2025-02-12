@@ -79,62 +79,62 @@ const float& vec3::operator [](unsigned int i) const {
 #pragma region iteration
 
 
-auto vec3::begin() noexcept {
+vec3::iterator vec3::begin() noexcept {
     return data.begin();
 }
 
 
-auto vec3::end() noexcept {
+vec3::iterator vec3::end() noexcept {
     return data.end();
 }
 
 
-auto vec3::begin() const noexcept {
+vec3::const_iterator vec3::begin() const noexcept {
     return data.begin();
 }
 
 
-auto vec3::end() const noexcept {
+vec3::const_iterator vec3::end() const noexcept {
     return data.end();
 }
 
 
-auto vec3::cbegin() const noexcept {
+vec3::const_iterator vec3::cbegin() const noexcept {
     return data.cbegin();
 }
 
 
-auto vec3::cend() const noexcept {
+vec3::const_iterator vec3::cend() const noexcept {
     return data.cend();
 }
 
 
-auto vec3::rbegin() noexcept {
+vec3::reverse_iterator vec3::rbegin() noexcept {
     return data.rbegin();
 }
 
 
-auto vec3::rend() noexcept {
+vec3::reverse_iterator vec3::rend() noexcept {
     return data.rend();
 }
 
 
-auto vec3::rbegin() const noexcept {
+vec3::const_reverse_iterator vec3::rbegin() const noexcept {
     return data.rbegin();
 }
 
 
-auto vec3::rend() const noexcept {
+vec3::const_reverse_iterator vec3::rend() const noexcept {
     return data.rend();
 }
 
 
-auto vec3::crbegin() const noexcept {
+vec3::const_reverse_iterator vec3::crbegin() const noexcept {
     return data.crbegin();
 }
 
 
-auto vec3::crend() const noexcept {
+vec3::const_reverse_iterator vec3::crend() const noexcept {
     return data.crend();
 }
 

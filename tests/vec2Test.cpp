@@ -38,7 +38,7 @@ int main() {
         vec2 v1 = vec2(3);
         vec2 v = vec2(v1);
         v1 = vec2(4);
-        return v.x == 4 && v.y == 4;
+        return v.x == 3 && v.y == 3;
     });
 
     runner.addTest("vec2 concat constructor copy cast", []() {

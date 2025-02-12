@@ -39,7 +39,7 @@ int main() {
         vec3 v1 = vec3(3);
         vec3 v = vec3(v1);
         v1 = vec3(4);
-        return v.x == 4 && v.y == 4 && v.z == 4;
+        return v.x == 3 && v.y == 3 && v.z == 3;
     });
 
     runner.addTest("vec3 concat constructor copy cast", []() {

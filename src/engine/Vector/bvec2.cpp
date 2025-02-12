@@ -60,62 +60,62 @@ const bool& bvec2::operator [](unsigned int i) const {
 #pragma region iteration
 
 
-auto bvec2::begin() noexcept {
+bvec2::iterator bvec2::begin() noexcept {
     return data.begin();
 }
 
 
-auto bvec2::end() noexcept {
+bvec2::iterator bvec2::end() noexcept {
     return data.end();
 }
 
 
-auto bvec2::begin() const noexcept {
+bvec2::const_iterator bvec2::begin() const noexcept {
     return data.begin();
 }
 
 
-auto bvec2::end() const noexcept {
+bvec2::const_iterator bvec2::end() const noexcept {
     return data.end();
 }
 
 
-auto bvec2::cbegin() const noexcept {
+bvec2::const_iterator bvec2::cbegin() const noexcept {
     return data.cbegin();
 }
 
 
-auto bvec2::cend() const noexcept { 
+bvec2::const_iterator bvec2::cend() const noexcept {
     return data.cend();
 }
 
 
-auto bvec2::rbegin() noexcept {
+bvec2::reverse_iterator bvec2::rbegin() noexcept {
     return data.rbegin();
 }
 
 
-auto bvec2::rend() noexcept {
+bvec2::reverse_iterator bvec2::rend() noexcept {
     return data.rend();
 }
 
 
-auto bvec2::rbegin() const noexcept {
+bvec2::const_reverse_iterator bvec2::rbegin() const noexcept {
     return data.rbegin();
 }
 
 
-auto bvec2::rend() const noexcept {
+bvec2::const_reverse_iterator bvec2::rend() const noexcept {
     return data.rend();
 }
 
 
-auto bvec2::crbegin() const noexcept {
+bvec2::const_reverse_iterator bvec2::crbegin() const noexcept {
     return data.crbegin();
 }
 
 
-auto bvec2::crend() const noexcept { 
+bvec2::const_reverse_iterator bvec2::crend() const noexcept {
     return data.crend();
 }
 

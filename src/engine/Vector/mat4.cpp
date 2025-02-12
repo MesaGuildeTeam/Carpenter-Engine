@@ -55,62 +55,62 @@ const vec4& mat4::operator [](unsigned int i) const {
 #pragma region iteration
 
 
-auto mat4::begin() noexcept {
+mat4::iterator mat4::begin() noexcept {
     return data.begin();
 }
 
 
-auto mat4::end() noexcept {
+mat4::iterator mat4::end() noexcept {
     return data.end();
 }
 
 
-auto mat4::begin() const noexcept {
+mat4::const_iterator mat4::begin() const noexcept {
     return data.begin();
 }
 
 
-auto mat4::end() const noexcept {
+mat4::const_iterator mat4::end() const noexcept {
     return data.end();
 }
 
 
-auto mat4::cbegin() const noexcept {
+mat4::const_iterator mat4::cbegin() const noexcept {
     return data.cbegin();
 }
 
 
-auto mat4::cend() const noexcept {
+mat4::const_iterator mat4::cend() const noexcept {
     return data.cend();
 }
 
 
-auto mat4::rbegin() noexcept {
+mat4::reverse_iterator mat4::rbegin() noexcept {
     return data.rbegin();
 }
 
 
-auto mat4::rend() noexcept {
+mat4::reverse_iterator mat4::rend() noexcept {
     return data.rend();
 }
 
 
-auto mat4::rbegin() const noexcept {
+mat4::const_reverse_iterator mat4::rbegin() const noexcept {
     return data.rbegin();
 }
 
 
-auto mat4::rend() const noexcept {
+mat4::const_reverse_iterator mat4::rend() const noexcept {
     return data.rend();
 }
 
 
-auto mat4::crbegin() const noexcept {
+mat4::const_reverse_iterator mat4::crbegin() const noexcept {
     return data.crbegin();
 }
 
 
-auto mat4::crend() const noexcept {
+mat4::const_reverse_iterator mat4::crend() const noexcept {
     return data.crend();
 }
 
