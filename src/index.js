@@ -1,50 +1,84 @@
-const setup = require('./setup.js');
-const pkg = require('../package.json');
-const utils = require('./utils.js');
-const build = require('./build.js');
+const { Command } = require("commander");
+const program = new Command();
 
-// Debug to see what the arguments are
-//console.log(process.argv);
+const setup = require("./setup.js");
+const pkg = require("../package.json");
+const utils = require("./utils.js");
+const build = require("./build.js");
+const clean = require("./clean.js");
+const testing = require("./testing.js");
+
 const title = `  ${utils.Asciis.Table} Table Engine v${pkg.version} ${utils.Asciis.Table}
------------------${'-'.repeat(pkg.version.length)}---------
-${pkg.description}\n`
+-----------------${"-".repeat(pkg.version.length)}---------`;
 
-const usage = `Usage: table <command> [options]\n`
-  
-const commands = `Commands:
-  setup   Check and install emscripten to compile the project
+program
+  .name("table")
+  .description(pkg.description)
+  .version(pkg.version, "-v, --version")
+  .addHelpText("beforeAll", title);
 
-  build   Build the project with the configuration used. If no configuration is provided, the complete build process will be used
-  options:
-    -b    Compile the .cpp files into wasm .o files
-    -l    Link all the files together
-    -p    Package the static html into the project
-`
+// Environment Setup Command
+program
+  .command("setup")
+  .description(
+    "setup your environment by installing emscripten and creating the necessary folders",
+  )
+  .action(() => {
+    setup.installEmscripten();
+  });
 
-function ShowHelp() {
-  console.log(usage);
-  console.log(commands);
-}
+// Build Command
+program
+  .command("build")
+  .description(
+    "build the project using the configuration in tableconf.json or the default configuration. If no step are defined, the complete build process will be used.",
+  )
+  .option("-c, --compile", "Compile the .cpp files into wasm .o files")
+  .option("-l, --link", "Link all the files together")
+  .option(
+    "-p, --package",
+    "Package the static webpage into the build ready for distribution",
+  )
+  .option("-m, --main <option>", "Link a main .cpp file outside the project source code when using -l")
+  .action((options) => {
+    if (Object.keys(options).length == 0) {
+      build.buildGame();
+      return;
+    }
+    build.buildGame({
+      runBuild: options.compile,
+      runLink: options.link,
+      runPackage: options.package,
+      mainFile: options.main,
+    });
+  });
 
-// Process Arguments
+program
+  .command("dev")
+  .description(
+    "Run the development and testing environment for the game engine",
+  )
+  .action(() => {
+    require("./environment/server");
+  });
 
-if (process.argv.length <= 2) {
-  console.log(title);
-  ShowHelp();
-  return process.exit(0);
-}
+program
+  .command("test")
+  .description("Run the tests for the game engine")
+  .action(() => {
+    testing.RunTests();
+  });
 
-console.log("Working in", process.cwd(), "On platform", process.platform)
+// Cleans the project
+program
+  .command("flip")
+  .description(
+    "clean the files built by the build process \x1b[2m" +
+      utils.Asciis.TableFlip +
+      "\x1b[0m",
+  )
+  .action(() => {
+    clean.clean();
+  });
 
-switch (process.argv[2]) {
-  case 'setup': 
-    return setup.installEmscripten();
-  case 'build': 
-    return build.buildGame(build.processArgs(process.argv.slice(3, process.argv.length)));
-  default:
-    console.error(`${utils.Asciis.TableFlipper} Unknown command ${process.argv[2]}\n`);
-    ShowHelp();
-    return process.exit(1);
-}
-
-return process.exit(0);
+program.parse();

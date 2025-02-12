@@ -8,17 +8,18 @@
     "example": "examples"
   },
   "scripts": {
-    "test": "jest --coverage",
+    "start": "npx table setup",
+    "test": "npx jest & npx table test",
     "build_docs": "jsdoc ./ -c jsdoc.json -r -d docs/jsdoc/ -R ./docs/overview.md",
-    "build": "npx table setup && npx table build -b"
+    "build": "npx table build -c"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/MesaGuildeTeam/Table-Engine.git"
   },
   "bin": {
-    "table": "./bin/table",
-    "emsc_sc": "./bin/emsc_sc"
+    "table": "bin/table",
+    "emsc_sc": "bin/emsc_sc"
   },
   "keywords": [
     "C++",
@@ -36,5 +37,9 @@
   "devDependencies": {
     "jest": "^29.7.0",
     "jsdoc": "^4.0.4"
+  },
+  "dependencies": {
+    "commander": "^13.1.0",
+    "express": "5.0.1"
   }
 }

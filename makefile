@@ -11,8 +11,11 @@ default: build_example
 docs:
 	doxygen
 
-build_example: 
-	$(CC) $(OBJS) examples/$(EXAMPLE).cpp -o build/engine.js -sEXPORTED_FUNCTIONS=$(EXPFUNCS) -Isrc/engine/ $(LINKER) $(COMPILE)
+#build_example: 
+#	$(CC) $(OBJS) examples/$(EXAMPLE).cpp -o build/engine.js -sEXPORTED_FUNCTIONS=$(EXPFUNCS) -Isrc/engine/ $(LINKER) $(COMPILE)
+
+build_example:
+	npx table build -clp -m examples/$(EXAMPLE).cpp
 
 build_test:
 	npm run build

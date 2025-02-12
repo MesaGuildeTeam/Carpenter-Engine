@@ -50,6 +50,6 @@ class TestScene : public Engine::Scene {
 Engine::Game game = Engine::Game::getInstance(new TestScene());
 
 extern "C" {
-  EMSCRIPTEN_KEEPALIVE void CallDraw() { game.DrawScene(); }
-  EMSCRIPTEN_KEEPALIVE void CallUpdate() { game.UpdateScene(0.1f); }
+  void CallDraw() { game.DrawScene(); }
+  void CallUpdate(float dt) { game.UpdateScene(dt); }
 }

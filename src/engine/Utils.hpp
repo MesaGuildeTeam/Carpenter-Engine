@@ -55,6 +55,14 @@ namespace Engine {
   vec3 rotate(const vec3& vec, const vec3& angle);
 
   float sign(float x);
+
+  /**
+   * Using SIMD Intrinsics, returns the inverse square root of a float
+   * 
+   * @param x The float to take the inverse square root of
+   * @return The inverse square root
+   */
+  float InvSQRT(float x);
 }
 
 #endif

@@ -27,3 +27,12 @@ Engine::vec3 Engine::rotate(const vec3& vec, const vec3& angle) {
 float Engine::sign(float x) {
   return (0 < x) - (x < 0);
 }
+
+float Engine::sign(float x) {
+  return (0 < x) - (x < 0);
+}
+
+float Engine::InvSQRT(float x) {
+  // There is a better way to do this
+  return 1.0f / sqrt(x);
+}

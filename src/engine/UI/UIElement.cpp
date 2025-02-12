@@ -8,8 +8,10 @@ Engine::UI::UIElement::UIElement(std::string name) : Engine::Node(name) {
 }
 
 void Engine::UI::UIElement::Init() {
-  const char* parentElement = m_parent->m_nodeType == "UI" ? m_parent->m_name.c_str() : "ui-layer";
-  const char* parentClass = m_parent->m_nodeType == "UI" ? ((UI::UIElement*)m_parent)->m_uiClass : "";
+  bool isParentUI = strcmp(m_parent->m_nodeType, "UI") == 0;
+
+  const char* parentElement = isParentUI ? m_parent->m_name.c_str() : "ui-layer";
+  const char* parentClass = isParentUI ? ((UI::UIElement*)m_parent)->m_uiClass : "";
 
   EM_ASM({
       var uielement = document.createElement(UTF8ToString($3));
