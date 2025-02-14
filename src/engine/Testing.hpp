@@ -50,7 +50,7 @@ namespace Testing {
 
             auto end = std::chrono::high_resolution_clock::now();
 
-            if (test.test()) {
+            if (result) {
               std::cout << " PASSED ";
               m_passedTests++;
             } else {
