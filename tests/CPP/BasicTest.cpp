@@ -1,6 +1,8 @@
 #include <Testing.hpp>
 
-Testing::TestRunner runner;
+using namespace Testing;
+
+TestRunner runner{TestRunner::getInstance()};
 
 int main() {
   runner.addTest("Basic Unit Test", []() {return true;});
@@ -10,8 +12,5 @@ int main() {
     return true;
   });
 
-  runner.runTests();
   return 0;
 }
-
-PREPARETESTEXTERNALS(runner)

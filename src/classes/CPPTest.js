@@ -6,8 +6,6 @@ const path = require("path");
 const utils = require("../utils");
 const CPPObject = require("./CPPObject");
 
-
-
 let buildConfig;
 
 try {
@@ -32,10 +30,9 @@ const test_dependency_search = /#include <([A-Za-z0-9\/\\]+)\.hpp>/g;
  * A reference class to a compilable `.cpp` test file.
  */
 class CPPTest extends CPPObject {
-
   /**
    * default constructor of the test file
-   * @param {string} name the name of the test 
+   * @param {string} name the name of the test
    */
   constructor(name) {
     super(name);
@@ -59,29 +56,35 @@ class CPPTest extends CPPObject {
       file.build();
       files = files + `"./objs/${file.name}.o"`;
     });
-    
+
     fs.mkdirSync("./tests/WASM", { recursive: true });
 
-    let execCmd = `${EMCC} "${this.path}/${this.name}.cpp" ${files} -o "./tests/WASM/${this.name}.js" -std=c++20 -I${includeDir} -DTESTNAME="${this.path}/${this.name}.cpp" -sEXPORTED_FUNCTIONS=_getTestCount,_getPassedTestCount,_main -sMODULARIZE`;
+    let execCmd = `${EMCC} "${this.path}/${this.name}.cpp" ${files} -o "./tests/WASM/${this.name}.js" -std=c++20 -I${includeDir} -DTESTNAME="${this.path}/${this.name}.cpp" -sEXPORTED_FUNCTIONS=_Testing_getTestCount,_Testing_getPassedTestCount,_Testing_runTests,_main -sMODULARIZE`;
 
-    console.log(`Building test: ${this.name}.cpp`);
+    console.log(execCmd);
+    //console.log(`Building test: ${this.name}.cpp`);
 
     child_process.execSync(execCmd, { cwd: process.cwd() });
   }
 
   /**
-   * asynchronously runs the test file 
-   * @returns {boolean} a promise that returns true if the test passed 
+   * asynchronously runs the test file
+   * @returns {boolean} a promise that returns true if the test passed
    */
   async run() {
     let test = require("../../tests/WASM/" + this.name + ".js");
 
     const runtime = await test().then((instance) => {
-      let testCount = instance._getTestCount();
-      let passed = instance._getPassedTestCount();
+      instance._main();
+      instance._Testing_runTests();
+
+      let testCount = instance._Testing_getTestCount();
+      let passed = instance._Testing_getPassedTestCount();
       let failed = testCount - passed;
 
-      console.log(`${this.name}: ${passed} passed, ${failed} failed, ${testCount} total ${passed == 0 ? utils.Asciis.TableFlip : ""}`);
+      console.log(
+        `${this.name}: ${passed} passed, ${failed} failed, ${testCount} total ${passed == 0 ? utils.Asciis.TableFlip : ""}`,
+      );
 
       return passed == testCount;
     });
@@ -103,8 +106,7 @@ class CPPTest extends CPPObject {
     [...fileData.matchAll(test_dependency_search)].forEach((element) => {
       let file = buildConfig.inputPath + "/" + element[1] + ".cpp";
       console.log(file);
-      if (fs.existsSync(file)) 
-        dependencies.push(path.normalize(file));
+      if (fs.existsSync(file)) dependencies.push(path.normalize(file));
     });
 
     // Recursively return the rest of the tree of dependencies
