@@ -3,7 +3,7 @@
 #include <vector>
 #include <chrono>
 #include <cmath>
-#include "TestRunner.hpp"
+#include <Testing.hpp>
 
 using namespace Engine;
 using namespace std;
@@ -25,10 +25,9 @@ bool approxequals(mat4 a, mat4 b, float epsilon) {
     return true;
 }
 
-static_assert(std::is_convertible_v<mat4, float>);
+Testing::TestRunner runner;
 
 int main() {
-    TestRunner runner = TestRunner("bvec2 class tester", "tests all methods of bvec2", "bvec2");
 
     runner.addTest("mat4 default constructor", []() {
         mat4 m = mat4();
@@ -180,3 +179,5 @@ int main() {
 
     return 0;
 }
+
+PREPARETESTEXTERNALS(runner);

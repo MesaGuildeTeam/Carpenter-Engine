@@ -8,4 +8,4 @@ int main() {
   runner.runTests();
 }
 
-PREPARETESTEXTERNALS(runner)
+PREPARETESTEXTERNALS(runner);

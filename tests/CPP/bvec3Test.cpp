@@ -3,7 +3,7 @@
 #include <vector>
 #include <chrono>
 #include <cmath>
-#include "TestRunner.hpp"
+#include <Testing.hpp>
 
 using namespace Engine;
 using namespace std;
@@ -12,9 +12,10 @@ bool approxequals(float a, float b, float epsilon) {
     return abs(a - b) < epsilon;
 }
 
-int main() {
-    TestRunner runner = TestRunner("bvec3 class tester", "tests all methods of bvec3", "bvec3");
+Testing::TestRunner runner;
 
+int main() {
+    
     runner.addTest("bvec3 default constructor", []() {
         bvec3 v = bvec3();
         return !v.x && !v.y && !v.z;
@@ -105,3 +106,5 @@ int main() {
 
     return 0;
 }
+
+PREPARETESTEXTERNALS(runner);
