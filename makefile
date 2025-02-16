@@ -17,12 +17,12 @@ docs:
 build_example:
 	npx table build -clp -m examples/$(EXAMPLE).cpp
 
-build_test:
-	npm run build
-	$(CC) $(OBJS) tests/$(TEST).cpp -o build/engine.js -Isrc/engine/ $(LINKER) $(COMPILE)
+#build_test:
+#	npm run build
+#	$(CC) $(OBJS) tests/$(TEST).cpp -o build/engine.js -Isrc/engine/ $(LINKER) $(COMPILE)
 
-run_test:
-	npx http-server -o /build
+#run_test:
+#	npx http-server -o /build
 
 clean:
 	rm -rf build $(OBJS)

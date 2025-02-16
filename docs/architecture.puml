@@ -94,8 +94,8 @@ namespace Engine {
 
   namespace Graphics {
     abstract Mesh {
-      + {method} Vec3 getVertex()
-      + {method} Vec2 getVertex2D()
+      + {method} vec3 getVertex()
+      + {method} vec2 getVertex2D()
     }
 
     class Texture {
@@ -128,7 +128,7 @@ namespace Engine {
     }
 
     class Sound extends Audio {
-      + void Play(Vec3f position);
+      + void Play(vec3 position);
     }
 
     class Music extends Audio {

@@ -13,7 +13,7 @@ namespace Engine {
 class vec3 {
     private:
 
-    static constexpr unsigned int N = 4;
+    static constexpr unsigned int N = 3;
     // components
     std::array<float,N> data;
 
