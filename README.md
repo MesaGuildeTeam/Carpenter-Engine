@@ -39,22 +39,17 @@ public:
 };
 
 Game game{Game::getInstance(new ExampleScene())};
-
-extern "C" {
-  void CallDraw() { game.DrawScene(); }
-  void CallUpdate(float dt) { game.UpdateScene(dt); }
-}
 ```
 > This is `examples/HelloWorld.cpp`.
-> 
+>
 > If you wish to try more examples, see the `examples` folder.
 
 ## Running the Game
 When you are ready to test the game, you can build the game and run it with `npx table build -cl`.
-This will compile and link the game engine into a .wasm and .js file. 
+This will compile and link the game engine into a .wasm and .js file.
 
-To test the game from here, you can run `npx table dev` to start the testing environment. 
-This will open a web server on `http://localhost:3000/runtime` 
+To test the game from here, you can run `npx table dev` to start the testing environment.
+This will open a web server on `http://localhost:3000/runtime`
 
 When you are ready to package the whole static web app, you can run `npx table build -p` which packages the static page on top of the compiled .wasm file into build/.
 

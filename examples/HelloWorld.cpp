@@ -12,8 +12,3 @@ public:
 };
 
 Game game{Game::getInstance(new ExampleScene())};
-
-extern "C" {
-  void CallDraw() { game.DrawScene(); }
-  void CallUpdate(float dt) { game.UpdateScene(dt); }
-}

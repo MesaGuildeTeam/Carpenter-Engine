@@ -48,3 +48,8 @@ void Engine::Game::DrawScene() {
 void Engine::Game::UpdateScene(float dt) {
   m_currentScene->Update(dt);
 }
+
+extern "C" {
+    void Engine_CallDraw() { Engine::Game::getInstance().DrawScene(); }
+    void Engine_CallUpdate(float dt) { Engine::Game::getInstance().UpdateScene(dt); }
+}

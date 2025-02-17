@@ -10,9 +10,9 @@
 Engine::UI::UIInput* inputField;
 
 void functionCallback() {
-  std::cout << "Button clicked. Input is:\nint: " << inputField->getInputInt() 
-  << "\ndouble: " << inputField->getInputDouble() 
-  << "\nstring: " << inputField->getInputString() 
+  std::cout << "Button clicked. Input is:\nint: " << inputField->getInputInt()
+  << "\ndouble: " << inputField->getInputDouble()
+  << "\nstring: " << inputField->getInputString()
   << std::endl;
 }
 
@@ -21,7 +21,7 @@ class TestScene : public Engine::Scene {
 
     TestScene() : Engine::Scene("TestScene") {
       std::cout << "TEST: Creating test scene" << std::endl;
-      
+
       AddChild((Engine::Node*)(new Engine::UI::UIElement("BaseUI")));
       ((Engine::UI::UIElement*)GetChild(0))->SetDimensions({500, 200});
       ((Engine::UI::UIElement*)GetChild(0))->SetOffset({0, 0});
@@ -48,8 +48,3 @@ class TestScene : public Engine::Scene {
 };
 
 Engine::Game game = Engine::Game::getInstance(new TestScene());
-
-extern "C" {
-  void CallDraw() { game.DrawScene(); }
-  void CallUpdate(float dt) { game.UpdateScene(dt); }
-}

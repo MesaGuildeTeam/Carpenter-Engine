@@ -1,11 +1,11 @@
 #include <Testing.hpp>
 
-Testing::TestRunner runner;
+using namespace Testing;
 
-int main() { 
+TestRunner& runner{TestRunner::getInstance("Tests Don't Pass")};
+
+int main() {
   runner.addTest("Unit test that intentionally fails", []() {return false;});
 
-  runner.runTests();
+  return 0;
 }
-
-PREPARETESTEXTERNALS(runner);
