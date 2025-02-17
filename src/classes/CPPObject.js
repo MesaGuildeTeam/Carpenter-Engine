@@ -60,6 +60,9 @@ class CPPObject {
    * Returns a boolean to determine if this file needs to be built
    */
   needsBuild() {
+    for (let dep of this.dependencies) {
+      if (new CPPObject(dep).needsBuild()) return true;
+    }
     if (!fs.existsSync(`${this.path}/${this.name}.cpp`)) return false;
     return this.lastBuild == null || this.lastModification > this.lastBuild;
   }
@@ -93,12 +96,15 @@ class CPPObject {
       dependencies.push(path.normalize(file));
     });
 
-    // Recursively return the rest of the tree of dependencies
+    // Recursively return the remaining tree of dependencies
     if (dependencies.length != 0) {
+      let newDependencies = [];
       dependencies.forEach((dep) => {
         let more = new CPPObject(dep).dependencies;
         dependencies = [...new Set(dependencies.concat(more))];
       });
+
+      dependencies = [...new Set(dependencies.concat(newDependencies))];
     }
 
     return dependencies;

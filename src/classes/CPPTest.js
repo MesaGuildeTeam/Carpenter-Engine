@@ -75,7 +75,6 @@ class CPPTest extends CPPObject {
     let test = require("../../tests/WASM/" + this.name + ".js");
 
     const runtime = await test().then((instance) => {
-      instance._main();
       instance._Testing_runTests();
 
       let testCount = instance._Testing_getTestCount();
@@ -102,19 +101,22 @@ class CPPTest extends CPPObject {
     let fileData = fs.readFileSync(`${this.path}/${this.name}.cpp`, "utf8");
     let dependencies = [];
 
-    // Get all immediate header file dependencies
+    // Get all immediate header files
     [...fileData.matchAll(test_dependency_search)].forEach((element) => {
       let file = buildConfig.inputPath + "/" + element[1] + ".cpp";
       console.log(file);
       if (fs.existsSync(file)) dependencies.push(path.normalize(file));
     });
 
-    // Recursively return the rest of the tree of dependencies
+    // Recursively return the remaining tree of dependencies
     if (dependencies.length != 0) {
+      let newDependencies = [];
       dependencies.forEach((dep) => {
         let more = new CPPObject(dep).dependencies;
-        dependencies = [...new Set(dependencies.concat(more))];
+        newDependencies = [...new Set(dependencies.concat(more))];
       });
+
+      dependencies = [...new Set(dependencies.concat(newDependencies))];
     }
 
     return dependencies;
