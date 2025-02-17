@@ -1,7 +1,11 @@
 #include "Testing.hpp"
 
-Testing::TestRunner& Testing::TestRunner::getInstance() {
-    static TestRunner instance;
+Testing::TestRunner instance;
+
+Testing::TestRunner& Testing::TestRunner::getInstance(std::string name) {
+    if (instance.m_tests.size() == 0)
+        instance.m_testName = name;
+    
     return instance;
 }
 
@@ -10,7 +14,7 @@ void Testing::TestRunner::addTest(std::string name, std::function<bool()> test) 
 }
 
 void Testing::TestRunner::runTests() {
-    std::cout << STRINGIFY(TESTNAME) << "\n";
+    std::cout << "\n" << m_testName << "\n";
     for (Test& test : m_tests) {
         std::cout << test.name;
 
@@ -21,10 +25,10 @@ void Testing::TestRunner::runTests() {
         auto end = std::chrono::high_resolution_clock::now();
 
         if (result) {
-            std::cout << " PASSED ";
+            std::cout << " \x1B[32mPASSED\x1B[0m ";
             m_passedTests++;
         } else {
-            std::cout << " FAILED ";
+            std::cout << " \x1B[31mFAILED\x1B[0m ";
         }
 
         std::cout << "\x1B[2m" << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count() << "ms\x1B[0m" << std::endl;
@@ -41,14 +45,14 @@ unsigned int Testing::TestRunner::getPassedTestCount() {
 
 extern "C" {
     void Testing_runTests() {
-        Testing::TestRunner::getInstance().runTests();
+        instance.runTests();
     }
 
     unsigned Testing_getTestCount() {
-        return Testing::TestRunner::getInstance().getTestCount();
+        return instance.getTestCount();
     }
 
     unsigned Testing_getPassedTestCount() {
-        return Testing::TestRunner::getInstance().getPassedTestCount();
+        return instance.getPassedTestCount();
     }
 }

@@ -22,12 +22,11 @@ namespace Testing {
 
       std::vector<Test> m_tests;
       unsigned int m_passedTests = 0;
-
-      TestRunner() {};
+      std::string m_testName;
 
       public:
 
-      static TestRunner& getInstance();
+      static TestRunner& getInstance(std::string name = "Test");
 
       /**
        * Adds a test to the test runner

@@ -61,8 +61,7 @@ class CPPTest extends CPPObject {
 
     let execCmd = `${EMCC} "${this.path}/${this.name}.cpp" ${files} -o "./tests/WASM/${this.name}.js" -std=c++20 -I${includeDir} -DTESTNAME="${this.path}/${this.name}.cpp" -sEXPORTED_FUNCTIONS=_Testing_getTestCount,_Testing_getPassedTestCount,_Testing_runTests,_main -sMODULARIZE`;
 
-    console.log(execCmd);
-    //console.log(`Building test: ${this.name}.cpp`);
+    console.log(`Building test: ${this.name}.cpp`);
 
     child_process.execSync(execCmd, { cwd: process.cwd() });
   }
@@ -82,7 +81,7 @@ class CPPTest extends CPPObject {
       let failed = testCount - passed;
 
       console.log(
-        `${this.name}: ${passed} passed, ${failed} failed, ${testCount} total ${passed == 0 ? utils.Asciis.TableFlip : ""}`,
+        `${passed} passed, ${failed} failed, ${testCount} total ${passed == 0 ? utils.Asciis.TableFlip : ""}`,
       );
 
       return passed == testCount;
@@ -104,7 +103,6 @@ class CPPTest extends CPPObject {
     // Get all immediate header files
     [...fileData.matchAll(test_dependency_search)].forEach((element) => {
       let file = buildConfig.inputPath + "/" + element[1] + ".cpp";
-      console.log(file);
       if (fs.existsSync(file)) dependencies.push(path.normalize(file));
     });
 

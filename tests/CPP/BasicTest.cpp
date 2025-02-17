@@ -2,12 +2,12 @@
 
 using namespace Testing;
 
-TestRunner runner{TestRunner::getInstance()};
+TestRunner& runner{TestRunner::getInstance("Basic Tests")};
 
 int main() {
-  runner.addTest("Basic Unit Test", []() {return true;});
+  runner.addTest("Return Successful Test", []() {return true;});
 
-  runner.addTest("Add to 24-bit limit", []() {
+  runner.addTest("Add to 24-bit limit to test timing", []() {
     for (unsigned i = 0; i < 0xFFFFFF; i++);
     return true;
   });

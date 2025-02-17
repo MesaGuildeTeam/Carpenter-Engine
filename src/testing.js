@@ -27,7 +27,7 @@ async function RunTests() {
   });
 
   await Promise.all(filePromise).then(() => {
-    console.log(`Suites: ${passedSuites} passed, ${suiteCount - passedSuites} failed, ${suiteCount} total ${passedSuites == 0 ? utils.Asciis.TableFlip : ""}`); 
+    console.log(`\nSuites: ${passedSuites} passed, ${suiteCount - passedSuites} failed, ${suiteCount} total ${passedSuites == 0 ? utils.Asciis.TableFlip : ""}`); 
   });
 }
 
