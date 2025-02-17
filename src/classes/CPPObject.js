@@ -93,13 +93,17 @@ class CPPObject {
       dependencies.push(path.normalize(file));
     });
 
+    let subdependencies = [];
+
     // Recursively return the rest of the tree of dependencies
-    if (dependencies.length != 0) {
-      dependencies.forEach((dep) => {
+    dependencies.forEach((dep) => {
+      if (!dependencies.includes(dep)){
         let more = new CPPObject(dep).dependencies;
-        dependencies = [...new Set(dependencies.concat(more))];
-      });
-    }
+        subdependencies.concat(more);
+      }
+    });
+
+    dependencies.concat(subdependencies);
 
     return dependencies;
   }

@@ -57,7 +57,7 @@ class CPPTest extends CPPObject {
     this.dependencies.forEach((dep) => {
       let file = new CPPObject(dep);
       file.build();
-      files = files + `"./objs/${file.name}.o"`;
+      files = files + ` "./objs/${file.name}.o"`;
     });
     
     fs.mkdirSync("./tests/WASM", { recursive: true });
