@@ -27,7 +27,9 @@ bool approxequals(mat3 a, mat3 b, float epsilon) {
 
 static_assert(std::is_convertible_v<mat3, float>);
 
-Testing::TestRunner runner;
+using namespace Testing;
+
+TestRunner& runner{TestRunner::getInstance("mat3 Tests")};
 
 int main() {
     
@@ -228,9 +230,5 @@ int main() {
         return a*a.transpose() == mat3::identity;
     });
 
-    runner.runTests();
-
     return 0;
 }
-
-PREPARETESTEXTERNALS(runner);

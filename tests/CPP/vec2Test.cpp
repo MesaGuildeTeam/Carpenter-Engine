@@ -11,7 +11,9 @@ bool approxequals(float a, float b, float epsilon) {
     return abs(a - b) < epsilon;
 }
 
-Testing::TestRunner runner;
+using namespace Testing;
+
+TestRunner& runner{TestRunner::getInstance("vec2 Tests")};
 
 int main() {
 
@@ -183,9 +185,6 @@ int main() {
         return bool(dot(vec2(1, 2), vec2(1, 2).tangent()) == 0);
     });
 
-    runner.runTests();
 
     return 0;
 }
-
-PREPARETESTEXTERNALS(runner);

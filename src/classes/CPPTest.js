@@ -111,7 +111,7 @@ class CPPTest extends CPPObject {
       let newDependencies = [];
       dependencies.forEach((dep) => {
         let more = new CPPObject(dep).dependencies;
-        newDependencies = [...new Set(dependencies.concat(more))];
+        newDependencies = [...new Set(newDependencies.concat(more))];
       });
 
       dependencies = [...new Set(dependencies.concat(newDependencies))];

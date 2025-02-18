@@ -12,7 +12,9 @@ bool approxequals(float a, float b, float epsilon) {
     return abs(a - b) < epsilon;
 }
 
-Testing::TestRunner runner;
+using namespace Testing;
+
+TestRunner& runner{TestRunner::getInstance("vec4 Tests")};
 
 int main() {
     
@@ -206,9 +208,6 @@ int main() {
         return bool(distanceSquared(a, b) == a.lengthSquared());
     });
 
-    runner.runTests();
 
     return 0;
 }
-
-PREPARETESTEXTERNALS(runner);

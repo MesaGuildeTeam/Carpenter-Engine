@@ -16,7 +16,9 @@ bool approxequals(vec2 a, vec2 b, float epsilon) {
     return abs(a - b) < epsilon;
 }
 
-Testing::TestRunner runner;
+using namespace Testing;
+
+TestRunner& runner{TestRunner::getInstance("mat2 Tests")};
 
 int main() {
 
@@ -144,9 +146,6 @@ int main() {
         return (bool)(a*a.transpose() == mat2::identity);
     });
 
-    runner.runTests();
 
     return 0;
 }
-
-PREPARETESTEXTERNALS(runner);

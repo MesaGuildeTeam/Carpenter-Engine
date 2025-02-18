@@ -25,7 +25,9 @@ bool approxequals(mat4 a, mat4 b, float epsilon) {
     return true;
 }
 
-Testing::TestRunner runner;
+using namespace Testing;
+
+TestRunner& runner{TestRunner::getInstance("mat4 Tests")};
 
 int main() {
 
@@ -175,9 +177,6 @@ int main() {
         return (bool)(a*b == vec4(3,8,15,21));
     });
 
-    runner.runTests();
 
     return 0;
 }
-
-PREPARETESTEXTERNALS(runner);

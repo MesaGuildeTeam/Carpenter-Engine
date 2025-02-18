@@ -23,7 +23,7 @@ const includeDir =
     ? buildConfig.includeDir
     : "node_modules/table-engine/src/engine/";
 
-const local_dependency_search = /#include "([^"]*)"/g;
+const local_dependency_search = /#include "(.*?)"/g;
 
 /**
  * A reference class to a compilable `.cpp` file.
@@ -34,19 +34,18 @@ class CPPObject {
    * @param {string} name name of the .cpp file to be compiled
    */
   constructor(name) {
+    this.depName = name;
     this.name = path.basename(name, path.extname(name));
     this.path = path.dirname(name);
 
     this.lastModification = null;
     this.lastBuild = null;
 
-    // Will assume that this does not create an error since this file should exist.
-
-    if (fs.existsSync(`${this.path}/${this.name}.cpp`)) {
-      this.lastModification = fs.statSync(
-        `${this.path}/${this.name}.cpp`,
-      ).atimeMs;
+    if (!fs.existsSync(`${this.path}/${this.name}.cpp`)) {
+      throw new Error(`File does not exist. ${this.path}/${this.name}.cpp`);
     }
+
+    this.lastModification = fs.statSync(`${this.path}/${this.name}.cpp`, undefined).atimeMs;
 
     // Ok this one can create an error
     try {
@@ -60,11 +59,21 @@ class CPPObject {
    * Returns a boolean to determine if this file needs to be built
    */
   needsBuild() {
-    for (let dep of this.dependencies) {
-      if (new CPPObject(dep).needsBuild()) return true;
-    }
-    if (!fs.existsSync(`${this.path}/${this.name}.cpp`)) return false;
-    return this.lastBuild == null || this.lastModification > this.lastBuild;
+    // check this file and its dependecies
+    let tocheck = [this.depName, ...this.dependencies];
+
+    tocheck.forEach((dep) => {
+      let depObj = new CPPObject(dep);
+
+      // Don't build if dependency doesn't exist
+      if (!fs.existsSync(`${depObj.path}/${depObj.name}.cpp`)) return false;
+
+      if (depObj.lastBuild == null || depObj.lastModification > depObj.lastBuild) {
+        return true;
+      }
+    });
+
+    return false;
   }
 
   /**
@@ -84,30 +93,38 @@ class CPPObject {
    * @warn This process assumes the file has a .hpp file along with the .cpp file. Please code as if you were programming with OOP
    * @returns {String[]} Array of cpp files that this one depends on
    */
-  get dependencies() {
-    if (!fs.existsSync(`${this.path}/${this.name}.hpp`)) return [];
-    let fileHeader = fs.readFileSync(`${this.path}/${this.name}.hpp`, "utf8");
+  get dependencies(){
+    // yeah, thats a function in a function
+
     let dependencies = [];
 
-    // Get all immediate header file dependencies
-    [...fileHeader.matchAll(local_dependency_search)].forEach((element) => {
-      let file = this.path + "/" + element[1].replace(".hpp", ".cpp");
-      if (!fs.existsSync(file)) return;
-      dependencies.push(path.normalize(file));
-    });
-
-    // Recursively return the remaining tree of dependencies
-    if (dependencies.length != 0) {
-      let newDependencies = [];
-      dependencies.forEach((dep) => {
-        let more = new CPPObject(dep).dependencies;
-        dependencies = [...new Set(dependencies.concat(more))];
+    // recursivly get dependencies and add them to dependencies
+    function getDependenciesR(obj) {
+      if (!fs.existsSync(`${obj.path}/${obj.name}.hpp`)) {
+        return;
+      }
+      let fileHeader = fs.readFileSync(`${obj.path}/${obj.name}.hpp`, "utf8");
+    
+      // Get all immediate header file dependencies
+      [...fileHeader.matchAll(local_dependency_search)].forEach((element) => {
+        // Get file dep name and check existence
+        let file = obj.path + "/" + element[1].replace(".hpp", ".cpp");
+        if (!fs.existsSync(file)) return;
+        let dep = path.normalize(file);
+        // add dependency
+        if (!(dependencies.includes(dep))) {
+          dependencies.push(dep);
+          // add subdependencies
+          getDependenciesR(new CPPObject(dep));
+        }
       });
-
-      dependencies = [...new Set(dependencies.concat(newDependencies))];
     }
 
-    return dependencies;
+    // fill dependencies
+    getDependenciesR(this);
+
+    // filter out this file from its dependencies
+    return dependencies.filter(dep => dep !== this.depName);
   }
 }
 

@@ -12,7 +12,9 @@ bool approxequals(float a, float b, float epsilon) {
     return abs(a - b) < epsilon;
 }
 
-Testing::TestRunner runner;
+using namespace Testing;
+
+TestRunner& runner{TestRunner::getInstance("bvec4 Tests")};
 
 int main() {
     
@@ -102,9 +104,6 @@ int main() {
         return bool(bvec4(1, 0, 0, 1).count() == 2);
     });
 
-    runner.runTests();
 
     return 0;
 }
-
-PREPARETESTEXTERNALS(runner);
