@@ -23,7 +23,9 @@ const includeDir =
     ? buildConfig.includeDir
     : "node_modules/table-engine/src/engine/";
 
-const local_dependency_search = /#include "([^"]*)"/g;
+const local_dependency_search = /#include "([^"]*)\"/g;
+
+var visitedArray = [];
 
 /**
  * A reference class to a compilable `.cpp` file.
@@ -60,9 +62,6 @@ class CPPObject {
    * Returns a boolean to determine if this file needs to be built
    */
   needsBuild() {
-    for (let dep of this.dependencies) {
-      if (new CPPObject(dep).needsBuild()) return true;
-    }
     if (!fs.existsSync(`${this.path}/${this.name}.cpp`)) return false;
     return this.lastBuild == null || this.lastModification > this.lastBuild;
   }
@@ -84,28 +83,39 @@ class CPPObject {
    * @warn This process assumes the file has a .hpp file along with the .cpp file. Please code as if you were programming with OOP
    * @returns {String[]} Array of cpp files that this one depends on
    */
-  get dependencies() {
+  getDependencies(root = true) {
+    if (root == true) visitedArray = [];
+    if (visitedArray.includes(`${this.path}/${this.name}.cpp`)) return [];
+    visitedArray.push(`${this.path}/${this.name}.cpp`);
+
     if (!fs.existsSync(`${this.path}/${this.name}.hpp`)) return [];
+
     let fileHeader = fs.readFileSync(`${this.path}/${this.name}.hpp`, "utf8");
     let dependencies = [];
 
     // Get all immediate header file dependencies
-    [...fileHeader.matchAll(local_dependency_search)].forEach((element) => {
-      let file = this.path + "/" + element[1].replace(".hpp", ".cpp");
+    let dependenciesFound = [...fileHeader.matchAll(local_dependency_search)];
+    //console.log(`Dependencies for ${this.name}.cpp`, dependenciesFound.length);
+    if (dependenciesFound.length == 0) return [];
+
+    dependenciesFound.forEach((element) => {
+      let file = this.path + "/" + element[1].replace(/\.hpp$/, ".cpp");
       if (!fs.existsSync(file)) return;
       dependencies.push(path.normalize(file));
     });
 
     // Recursively return the remaining tree of dependencies
-    if (dependencies.length != 0) {
-      let newDependencies = [];
-      dependencies.forEach((dep) => {
-        let more = new CPPObject(dep).dependencies;
-        dependencies = [...new Set(dependencies.concat(more))];
-      });
 
-      dependencies = [...new Set(dependencies.concat(newDependencies))];
-    }
+    let newDependencies = [];
+
+    dependencies.forEach((dep) => {
+      let more = new CPPObject(dep).getDependencies(false);
+      newDependencies = [...new Set(newDependencies.concat(more))];
+    });
+
+    dependencies = [...new Set(dependencies.concat(newDependencies))];
+
+    //console.log(`dependencies for ${this.name}.cpp`, dependencies);
 
     return dependencies;
   }
