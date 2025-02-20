@@ -14,8 +14,8 @@ const { fail } = require("assert");
 async function RunTests() {
   let passedSuites = 0;
   let suiteCount = 0;
-  
-  let files = fs.readdirSync("./tests/CPP")
+
+  let files = fs.readdirSync("./tests/CPP");
 
   const filePromise = files.map(async (file) => {
     let test = new CPPTest("./tests/CPP/" + file);
@@ -27,10 +27,12 @@ async function RunTests() {
   });
 
   await Promise.all(filePromise).then(() => {
-    console.log(`Suites: ${passedSuites} passed, ${suiteCount - passedSuites} failed, ${suiteCount} total ${passedSuites == 0 ? utils.Asciis.TableFlip : ""}`); 
+    console.log(
+      `\nSuites: ${passedSuites} passed, ${suiteCount - passedSuites} failed, ${suiteCount} total ${passedSuites == 0 ? utils.Asciis.TableFlip : ""}`,
+    );
   });
 }
 
 module.exports = {
-  RunTests: RunTests
-}
+  RunTests: RunTests,
+};

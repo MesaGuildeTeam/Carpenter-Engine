@@ -21,64 +21,30 @@ namespace Testing {
       };
 
       std::vector<Test> m_tests;
-      unsigned int m_passedTests = 0; 
-  
+      unsigned int m_passedTests = 0;
+      std::string m_testName;
+
       public:
+
+      static TestRunner& getInstance(std::string name = "Test");
 
       /**
        * Adds a test to the test runner
-       * 
+       *
        * @param name The name of the test
        * @param test The test function
-       */ 
-      void addTest(std::string name, std::function<bool()> test) {
-          m_tests.push_back(Test{name, test});
-      }
+       */
+      void addTest(std::string name, std::function<bool()> test);
 
       /**
        *  Runs all the tests, processes, and outputs the results
-       */ 
-      void runTests() {
-          std::cout << STRINGIFY(TESTNAME) << "\n";
-          
-          for (Test& test : m_tests) {
-            std::cout << test.name;
+       */
+      void runTests();
 
-            auto start = std::chrono::high_resolution_clock::now();
+      unsigned int getTestCount();
 
-            bool result = test.test();
-
-            auto end = std::chrono::high_resolution_clock::now();
-
-            if (result) {
-              std::cout << " PASSED ";
-              m_passedTests++;
-            } else {
-              std::cout << " FAILED ";
-            }
-
-            std::cout << "\x1B[2m" << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count() << "ms\x1B[0m" << std::endl;
-          }
-      }
-
-      unsigned int getTestCount() {
-        return m_tests.size();
-      }
-
-      unsigned int getPassedTestCount() {
-        return m_passedTests;
-      }
+      unsigned int getPassedTestCount();
   };
 };
-
-#define PREPARETESTEXTERNALS(TEST) \
-extern "C" { \
-  unsigned getTestCount() { \
-    return TEST.getTestCount(); \
-  } \
-  unsigned getPassedTestCount() { \
-    return TEST.getPassedTestCount(); \
-  } \
-}
 
 #endif
