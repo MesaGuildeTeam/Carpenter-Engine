@@ -3,7 +3,7 @@
 
 using namespace Engine;
 
-Testing::TestRunner runner;
+Testing::TestRunner& runner{Testing::TestRunner::getInstance("Input Class Tests")};
 Input::Input TestInput;
 
 int main() {
@@ -38,8 +38,5 @@ int main() {
         return (!TestInput.IsDown() && !TestInput.IsPressed() && !TestInput.IsReleased());
     });
     
-    runner.runTests();
     return 0;
 }
-
-PREPARETESTEXTERNALS(runner);
