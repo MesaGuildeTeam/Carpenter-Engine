@@ -9,13 +9,13 @@ Engine::Input::Input::Input(char keyCode, char mouseButton, char gamepadInput) {
 
 const float MINIMUM_STRENGTH{0.5f};
 
-void Engine::Input::Input::Update(float strength) {
-    bool isDown = strength >= MINIMUM_STRENGTH;
+void Engine::Input::Input::Update() {
+    bool isDown = currentStrength >= MINIMUM_STRENGTH;
     bool wasDown = m_isDown >= MINIMUM_STRENGTH;
 
     m_isPressed = isDown && !m_isPressed && !wasDown;
     m_isReleased = !isDown && wasDown && !m_isReleased;
-    m_isDown = strength;
+    m_isDown = currentStrength;
 }
 
 bool Engine::Input::Input::IsPressed() const {

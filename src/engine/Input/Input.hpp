@@ -29,6 +29,8 @@ namespace Engine::Input {
     bool m_isReleased = false;
       
     public:
+
+    float currentStrength = 0;
     
     /**
      * Intended Constructor 
@@ -41,12 +43,12 @@ namespace Engine::Input {
     Input() : Input(0, 0, 0) {};
   
     /**
-     * Updates the state of each possible input solution
+     * Updates the state of each possible input solution.
+     * Override currentStrength first with a value between 0 and 1 to indicate the strength of the input to update to.
      * 
-     * @param strength A value between 0 and 1 on the magnitude of the input
      * @warning This should only be called by the InputManager
      */ 
-    void Update(float strength);
+    void Update();
       
     /**
      * Checks if the input is just pressed
@@ -76,6 +78,22 @@ namespace Engine::Input {
      */
     float Strength() const;
 
+    /**
+     * Returns the input parameter for the given device
+     * 
+     * ## Specific Cases
+     * 
+     * These are the specific cases based on the input device:
+     * 
+     * - KEYBOARD: Returns the key code
+     * 
+     * - MOUSE: Returns the mouse button
+     * 
+     * - GAMEPAD: Returns the gamepad input
+     * 
+     * @param mode The input device
+     * @return The input parameter
+     */
     char GetInput(InputDevice mode) const;
   };
 }

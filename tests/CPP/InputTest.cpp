@@ -9,27 +9,32 @@ Input::Input TestInput;
 int main() {
     
     runner.addTest("Initial Check", []() {
-        TestInput.Update(0);
+        TestInput.currentStrength = 0;
+        TestInput.Update();
         return (TestInput.IsDown() == false);
     });
 
     runner.addTest("Press", []() {
-        TestInput.Update(1);
+        TestInput.currentStrength = 1;
+        TestInput.Update();
         return (TestInput.IsDown() && TestInput.IsPressed() && !TestInput.IsReleased());
     });
 
     runner.addTest("Hold Down", []() {
-        TestInput.Update(1);
+        TestInput.currentStrength = 1;
+        TestInput.Update();
         return (TestInput.IsDown() && !TestInput.IsPressed() && !TestInput.IsReleased());
     });
     
     runner.addTest("Release", []() {
-        TestInput.Update(0);
+        TestInput.currentStrength = 0;
+        TestInput.Update();
         return (!TestInput.IsDown() && !TestInput.IsPressed() && TestInput.IsReleased());
     });
 
     runner.addTest("Wait", []() {
-        TestInput.Update(0);
+        TestInput.currentStrength = 0;
+        TestInput.Update();
         return (!TestInput.IsDown() && !TestInput.IsPressed() && !TestInput.IsReleased());
     });
     
