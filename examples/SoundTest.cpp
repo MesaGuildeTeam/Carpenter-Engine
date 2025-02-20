@@ -50,7 +50,7 @@ class TestContainer: public Engine::UI::UIElement {
     std::cout << "TEST: Creating Sound Container\n";
     size_t SoundsTestContainer = AddChild((Engine::Node*) new Engine::UI::UIElement("SoundSection"));
     ((Engine::UI::UIElement*)GetChild(SoundsTestContainer))->SetDimensions({300, 300});
-    
+
     ((Engine::UI::UIElement*)GetChild(SoundsTestContainer))->SetAnchor("topright");
     ((Engine::UI::UIElement*)GetChild(SoundsTestContainer))->AddChild((Engine::Node*) new Engine::UI::UIButton("SoundPulse", "Play Sound", PlaySound));
 
@@ -68,8 +68,3 @@ class TestScene : public Engine::Scene {
 };
 
 Engine::Game& instance{Engine::Game::getInstance((Engine::Scene*) new TestScene())};
-
-extern "C" {
-  void CallDraw() {instance.DrawScene();};
-  void CallUpdate(float dt) {instance.UpdateScene(dt);};
-}

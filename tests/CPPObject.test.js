@@ -20,7 +20,7 @@ describe("Testing the CPPObject with src/engine/Game.cpp", () => {
   });
 
   test("Return Dependency Tree", () => {
-    let deps = obj.dependencies;
+    let deps = obj.getDependencies(true);
 
     expect(deps).toStrictEqual([
       path.normalize("src/engine/Node.cpp"),
@@ -34,7 +34,7 @@ describe("Testing the CPPObject with src/engine/UI/UIButton.cpp", () => {
   let obj = new CPPObject("./src/engine/UI/UIButton.cpp");
 
   test("Return Dependency Tree", () => {
-    let deps = obj.dependencies;
+    let deps = obj.getDependencies();
 
     expect(deps).toStrictEqual([
       path.normalize("src/engine/UI/UILabel.cpp"),
