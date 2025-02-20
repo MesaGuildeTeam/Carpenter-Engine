@@ -12,6 +12,7 @@ class ExampleScene : public Scene {
     public:
     ExampleScene() : Scene("ExampleScene") {
         inputManager.AddAxis("Horizontal", Input::Input('d', -1, -1), Input::Input('a', -1, -1));
+        inputManager.AddInput("Jump", Input::Input(Input::KeyCodes::SPACE, -1, -1));
     }
 
     void Update(float dt) override {
@@ -25,6 +26,14 @@ class ExampleScene : public Scene {
 
         if (inputManager.GetAxis("Horizontal") < 0) {
             std::cout << "Left" << std::endl;
+        }
+
+        if (inputManager.GetInput("Jump").IsPressed()) {
+            std::cout << "Jump" << std::endl;
+        }
+
+        if (inputManager.GetInput("Jump").IsReleased()) {
+            std::cout << "Jump released" << std::endl;
         }
     }
 };

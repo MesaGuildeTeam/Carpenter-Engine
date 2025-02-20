@@ -2,7 +2,14 @@
 #define ENGINE_INPUT
 
 namespace Engine::Input {
-  
+ 
+  /**
+   * A list of keycodes that require an integer instead of a char
+   */
+  enum KeyCodes {
+    SPACE = 32
+  };
+
   enum InputDevice {
     KEYBOARD,
     GAMEPAD,
