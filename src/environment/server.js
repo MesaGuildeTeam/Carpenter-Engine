@@ -23,6 +23,10 @@ server.get("/runtime/engine.js", (req, res) => {
   res.sendFile(process.cwd() + "/build/engine.js");
 });
 
+server.get("/runtime/engine.data", (req, res) => {
+  res.sendFile(process.cwd() + "/build/engine.data");
+});
+
 server.use("/Assets", express.static("./Assets"));
 
 server.listen(3000, () => {
