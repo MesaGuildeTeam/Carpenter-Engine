@@ -4,6 +4,8 @@
 #include "Input.hpp"
 #include <map>
 
+#include <emscripten/html5.h>
+
 namespace Engine::Input {
   
   /**
@@ -17,9 +19,20 @@ namespace Engine::Input {
       Input negative;
     }; 
 
-    std::map<const char*, Axis> m_axes; 
+    std::map<const char*, Axis> m_axes;  
+
+    static bool keyDown_emscripten(int eventType, const EmscriptenKeyboardEvent *keyEvent, void *userData);
     
+    static bool keyUp_emscripten(int eventType, const EmscriptenKeyboardEvent *keyEvent, void *userData);
+
     public:
+
+    InputManager();
+
+    /**
+     * Updates the input manager based on the inputs available
+     */
+    void Update();
 
     /**
      * Adds an axis to the input manager
@@ -47,7 +60,7 @@ namespace Engine::Input {
      * 
      * @return The value of the input between 0 and 1
      */
-    Input GetInput(const char* name);
+    Input& GetInput(const char* name);
   };
 }
 
