@@ -38,9 +38,4 @@ class ExampleScene : public Scene {
     }
 };
 
-Game& game{Game::getInstance((Scene*)new ExampleScene())};
-
-extern "C" {
-    void CallDraw() {game.DrawScene(); }
-    void CallUpdate(float dt) { game.UpdateScene(dt); }
-}
+Game& game{Game::getInstance(new ExampleScene())};
