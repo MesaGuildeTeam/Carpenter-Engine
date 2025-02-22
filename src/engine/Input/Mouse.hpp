@@ -14,7 +14,7 @@ namespace Engine::Input {
   class Mouse {
     private:
 
-    Vec2f m_position{0, 0};
+    Vec2f m_position = {0, 0};
 
     Mouse();
 

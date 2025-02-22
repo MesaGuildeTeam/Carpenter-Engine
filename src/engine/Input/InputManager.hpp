@@ -25,6 +25,10 @@ namespace Engine::Input {
     
     static bool keyUp_emscripten(int eventType, const EmscriptenKeyboardEvent *keyEvent, void *userData);
 
+    static bool mouseDown_emscripten(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData);
+
+    static bool mouseUp_emscripten(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData);
+
     public:
 
     InputManager();

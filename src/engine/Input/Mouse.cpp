@@ -7,8 +7,8 @@ Engine::Input::Mouse::Mouse() {
 bool Engine::Input::Mouse::mouseMove_emscripten(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData) {
   Engine::Input::Mouse* mouse = (Engine::Input::Mouse*)userData;
 
-  mouse->m_position.x = mouseEvent->canvasX;
-  mouse->m_position.y = mouseEvent->canvasY;
+  mouse->m_position.x = mouseEvent->clientX;
+  mouse->m_position.y = mouseEvent->clientY;
 
   return true;
 }

@@ -33,9 +33,44 @@ bool Engine::Input::InputManager::keyUp_emscripten(int eventType, const Emscript
   return true;
 }
 
+bool Engine::Input::InputManager::mouseDown_emscripten(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData) {
+  Engine::Input::InputManager* inputManager = (Engine::Input::InputManager*)userData;
+
+  for (auto& [key, axis] : inputManager->m_axes) {
+    if (axis.positive.GetInput(Engine::Input::InputDevice::MOUSE) == mouseEvent->button) {
+      axis.positive.currentStrength = 1.0f;
+    }
+
+    if (axis.negative.GetInput(Engine::Input::InputDevice::MOUSE) == mouseEvent->button) {
+      axis.negative.currentStrength = 1.0f;
+    }
+  }
+
+  return true;
+}
+
+bool Engine::Input::InputManager::mouseUp_emscripten(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData) {
+  Engine::Input::InputManager* inputManager = (Engine::Input::InputManager*)userData;
+
+  for (auto& [key, axis] : inputManager->m_axes) {
+    if (axis.positive.GetInput(Engine::Input::InputDevice::MOUSE) == mouseEvent->button) {
+      axis.positive.currentStrength = 0.0f;
+    }
+
+    if (axis.negative.GetInput(Engine::Input::InputDevice::MOUSE) == mouseEvent->button) {
+      axis.negative.currentStrength = 0.0f;
+    }
+  }
+
+  return true;
+}
+
 Engine::Input::InputManager::InputManager() {
   emscripten_set_keydown_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, this, false, &Engine::Input::InputManager::keyDown_emscripten);
   emscripten_set_keyup_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, this, false, &Engine::Input::InputManager::keyUp_emscripten);
+
+  emscripten_set_mousedown_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, this, true, &Engine::Input::InputManager::mouseDown_emscripten);
+  emscripten_set_mouseup_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, this, true, &Engine::Input::InputManager::mouseUp_emscripten);
 }
 
 void Engine::Input::InputManager::Update() {
