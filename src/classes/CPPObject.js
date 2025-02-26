@@ -91,15 +91,17 @@ class CPPObject {
     if (!fs.existsSync(`${this.path}/${this.name}.hpp`)) return [];
 
     let fileHeader = fs.readFileSync(`${this.path}/${this.name}.hpp`, "utf8");
+    let fileContent = fs.readFileSync(`${this.path}/${this.name}.cpp`, "utf8");
     let dependencies = [];
 
     // Get all immediate header file dependencies
     let dependenciesFound = [...fileHeader.matchAll(local_dependency_search)];
-    //console.log(`Dependencies for ${this.name}.cpp`, dependenciesFound.length);
+    dependenciesFound = [...dependenciesFound, ...fileContent.matchAll(local_dependency_search)];
     if (dependenciesFound.length == 0) return [];
 
     dependenciesFound.forEach((element) => {
-      let file = this.path + "/" + element[1].replace(/\.hpp$/, ".cpp");
+      let file = this.path + "/" + element[1].replace(".hpp", ".cpp");
+      //console.log(file);
       if (!fs.existsSync(file)) return;
       dependencies.push(path.normalize(file));
     });
@@ -110,10 +112,16 @@ class CPPObject {
 
     dependencies.forEach((dep) => {
       let more = new CPPObject(dep).getDependencies(false);
-      newDependencies = [...new Set(newDependencies.concat(more))];
+      newDependencies = [...newDependencies.concat(more)];
     });
 
     dependencies = [...new Set(dependencies.concat(newDependencies))];
+
+    dependencies = dependencies.filter(
+      (dep) => {
+        return dep != path.normalize(`${this.path}/${this.name}.cpp`)
+      }
+    );
 
     //console.log(`dependencies for ${this.name}.cpp`, dependencies);
 
