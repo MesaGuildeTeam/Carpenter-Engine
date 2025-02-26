@@ -62,6 +62,8 @@ class CPPTest extends CPPObject {
 
     let execCmd = `${EMCC} "${this.path}/${this.name}.cpp" ${files} -o "./tests/WASM/${this.name}.js" -std=c++20 -I${includeDir} -DTESTNAME="${this.path}/${this.name}.cpp" -sEXPORTED_FUNCTIONS=_Testing_getTestCount,_Testing_getPassedTestCount,_Testing_runTests,_main -sMODULARIZE`;
 
+    console.log(execCmd);
+
     child_process.execSync(execCmd, { cwd: process.cwd() });
   }
 
@@ -95,7 +97,7 @@ class CPPTest extends CPPObject {
    * @warn This process assumes the file has a .hpp file along with the .cpp file. Please code as if you were programming with OOP
    * @returns {String[]} Array of cpp files that this one depends on
    */
-  getDependencies(root = true) {
+  getDependencies() {
     let fileData = fs.readFileSync(`${this.path}/${this.name}.cpp`, "utf8");
     let dependencies = [];
 
@@ -107,6 +109,7 @@ class CPPTest extends CPPObject {
     );*/
 
     dependenciesFound.forEach((element) => {
+      //console.log(element[1]);
       let file = buildConfig.inputPath + "/" + element[1] + ".cpp";
       if (fs.existsSync(file)) dependencies.push(path.normalize(file));
     });
