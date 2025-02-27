@@ -60,12 +60,11 @@ const defaultBuildSteps = {
  * @memberof Build
  */
 function buildGame(config = defaultBuildSteps) {
-  console.log(process.cwd());
+
   // Build process
   if (config.runBuild)
     utils.processFiles(srcLocation, ".cpp", (file, folder) => {
       new CPPObject(`${folder}/${file}.cpp}`).build();
-      //buildFile(file, folder);
     });
 
   // Link process
@@ -80,8 +79,7 @@ function buildGame(config = defaultBuildSteps) {
       });
 
     let exec = `${EMCC} ${filesList} ${config.mainFile != "" && config.mainFile != null ? config.mainFile + " -I" + includeDir : ""} -o ./build/engine.js -sEXPORTED_FUNCTIONS=_Engine_CallUpdate,_Engine_CallDraw -sEXPORTED_RUNTIME_METHODS=ccall,cwrap --bind -sALLOW_MEMORY_GROWTH`;
-    console.log(exec);
-    child_process.execSync(exec);
+    utils.execCommand(exec, "Linking Game");
   }
 
   // Package process
