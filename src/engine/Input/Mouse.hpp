@@ -42,6 +42,11 @@ namespace Engine::Input {
     void AddListener(Input* input);
 
     /**
+     * Removes an input listener 
+     */
+    void RemoveListener(Input* input);
+
+    /**
      * Returns the x position of the mouse
      */
     Vec2f GetPosition();

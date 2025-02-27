@@ -8,11 +8,13 @@ Engine::Input::Input::Input(InputParams params) {
     m_mouseButton = params.mouseButton;
     m_gamepadInput = params.gamepadInput;
 
-    if (m_mouseButton != -1) {
-        
-        Engine::Input::Mouse& mouse = Engine::Input::Mouse::GetInstance();
-        mouse.AddListener(this);
-    }
+    if (m_mouseButton != -1)
+        Engine::Input::Mouse::GetInstance().AddListener(this);
+}
+
+Engine::Input::Input::~Input() {
+    if (m_mouseButton != -1)
+        Engine::Input::Mouse::GetInstance().RemoveListener(this);
 }
 
 const float MINIMUM_STRENGTH{0.5f};

@@ -54,6 +54,11 @@ namespace Engine::Input {
      * Base Constructor
      */
     Input() : Input((InputParams){}) {};
+
+    /**
+     * 
+     */
+    ~Input();
   
     /**
      * Updates the state of each possible input solution.

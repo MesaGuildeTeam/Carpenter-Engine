@@ -50,6 +50,10 @@ void Engine::Input::Mouse::AddListener(Input* input) {
   m_listeners.push_back(input);
 }
 
+void Engine::Input::Mouse::RemoveListener(Input* input) {
+  m_listeners.erase(std::remove(m_listeners.begin(), m_listeners.end(), input), m_listeners.end());
+}
+
 Engine::Input::Mouse& Engine::Input::Mouse::GetInstance() {
   static Mouse instance;
   return instance;
