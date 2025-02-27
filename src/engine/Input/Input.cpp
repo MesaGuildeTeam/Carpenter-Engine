@@ -1,5 +1,6 @@
 #include "Input.hpp"
 #include "Mouse.hpp"
+#include "Keyboard.hpp"
 
 #include <iostream>
 
@@ -8,11 +9,17 @@ Engine::Input::Input::Input(InputParams params) {
     m_mouseButton = params.mouseButton;
     m_gamepadInput = params.gamepadInput;
 
+    if (m_keyCode != -1)
+        Engine::Input::Keyboard::GetInstance().AddListener(this);
+
     if (m_mouseButton != -1)
         Engine::Input::Mouse::GetInstance().AddListener(this);
 }
 
 Engine::Input::Input::~Input() {
+    if (m_keyCode != -1)
+        Engine::Input::Keyboard::GetInstance().RemoveListener(this);
+        
     if (m_mouseButton != -1)
         Engine::Input::Mouse::GetInstance().RemoveListener(this);
 }

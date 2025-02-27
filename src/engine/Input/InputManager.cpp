@@ -1,41 +1,7 @@
 #include "InputManager.hpp"
 #include <iostream>
 
-bool Engine::Input::InputManager::keyDown_emscripten(int eventType, const EmscriptenKeyboardEvent *keyEvent, void *userData) {
-  Engine::Input::InputManager* inputManager = (Engine::Input::InputManager*)userData;
-
-  for (auto& [key, axis] : inputManager->m_axes) {
-    if (axis.positive->GetInput(Engine::Input::InputDevice::KEYBOARD) == keyEvent->key[0]) {
-      axis.positive->currentStrength = 1.0f;
-    }
-
-    if (axis.negative->GetInput(Engine::Input::InputDevice::KEYBOARD) == keyEvent->key[0]) {
-      axis.negative->currentStrength = 1.0f;
-    }
-  }
-
-  return true;
-}
-
-bool Engine::Input::InputManager::keyUp_emscripten(int eventType, const EmscriptenKeyboardEvent *keyEvent, void *userData) {
-  Engine::Input::InputManager* inputManager = (Engine::Input::InputManager*)userData;
-
-  for (auto& [key, axis] : inputManager->m_axes) {
-    if (axis.positive->GetInput(Engine::Input::InputDevice::KEYBOARD) == keyEvent->key[0]) {
-      axis.positive->currentStrength = 0.0f;
-    }
-
-    if (axis.negative->GetInput(Engine::Input::InputDevice::KEYBOARD) == keyEvent->key[0]) {
-      axis.negative->currentStrength = 0.0f;
-    }
-  }
-
-  return true;
-}
-
 Engine::Input::InputManager::InputManager() {
-  emscripten_set_keydown_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, this, false, &Engine::Input::InputManager::keyDown_emscripten);
-  emscripten_set_keyup_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, this, false, &Engine::Input::InputManager::keyUp_emscripten);
 }
 
 void Engine::Input::InputManager::Update() {

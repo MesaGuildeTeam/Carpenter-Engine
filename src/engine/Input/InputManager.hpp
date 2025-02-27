@@ -21,10 +21,6 @@ namespace Engine::Input {
 
     std::map<const char*, Axis> m_axes;  
 
-    static bool keyDown_emscripten(int eventType, const EmscriptenKeyboardEvent *keyEvent, void *userData);
-    
-    static bool keyUp_emscripten(int eventType, const EmscriptenKeyboardEvent *keyEvent, void *userData);
-
     public:
 
     InputManager();
