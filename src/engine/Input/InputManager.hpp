@@ -15,8 +15,8 @@ namespace Engine::Input {
     private:
 
     struct Axis {
-      Input positive;
-      Input negative;
+      Input* positive;
+      Input* negative;
     }; 
 
     std::map<const char*, Axis> m_axes;  
@@ -24,10 +24,6 @@ namespace Engine::Input {
     static bool keyDown_emscripten(int eventType, const EmscriptenKeyboardEvent *keyEvent, void *userData);
     
     static bool keyUp_emscripten(int eventType, const EmscriptenKeyboardEvent *keyEvent, void *userData);
-
-    static bool mouseDown_emscripten(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData);
-
-    static bool mouseUp_emscripten(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData);
 
     public:
 
@@ -43,7 +39,7 @@ namespace Engine::Input {
      * 
      * This can be accessed later using the `GetAxis` function
      */
-    void AddAxis(const char* axis, Input positive, Input negative);
+    void AddAxis(const char* axis, InputParams positive, InputParams negative);
 
     /**
      * Returns the value of the axis at the frame with the given name
@@ -57,14 +53,14 @@ namespace Engine::Input {
      * 
      * This can be accessed later using the `GetInput` function
      */
-    void AddInput(const char* name, Input input);
+    void AddInput(const char* name, InputParams input);
 
     /**
      * Returns the value of the input at the frame with the given name
      * 
      * @return The value of the input between 0 and 1
      */
-    Input& GetInput(const char* name);
+    Input* GetInput(const char* name);
   };
 }
 

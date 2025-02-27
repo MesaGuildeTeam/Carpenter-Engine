@@ -16,6 +16,12 @@ namespace Engine::Input {
     MOUSE
   };
 
+  struct InputParams {
+    char keyCode = -1;
+    char mouseButton = -1;
+    char gamepadInput = -1;
+  };
+
   /**
    * A class used to represent a single generic input. 
    * Used as a compositional class to the InputManager class
@@ -42,12 +48,12 @@ namespace Engine::Input {
     /**
      * Intended Constructor 
      */
-    Input(char keyCode, char mouseButton, char gamepadInput);
-    
+    Input(InputParams params);
+
     /**
      * Base Constructor
      */
-    Input() : Input(0, 0, 0) {};
+    Input() : Input((InputParams){}) {};
   
     /**
      * Updates the state of each possible input solution.

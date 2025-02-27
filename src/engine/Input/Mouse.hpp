@@ -1,7 +1,10 @@
 #ifndef ENGINE_MOUSE
 #define ENGINE_MOUSE
 
+#include "Input.hpp"
 #include "../Utils.hpp"
+
+#include <vector>
 #include <emscripten/html5.h>
 
 namespace Engine::Input {
@@ -18,7 +21,13 @@ namespace Engine::Input {
 
     Mouse();
 
+    std::vector<Input*> m_listeners;
+
     static bool mouseMove_emscripten(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData);
+
+    static bool mouseDown_emscripten(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData);
+
+    static bool mouseUp_emscripten(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData);
 
     public:
 
@@ -26,6 +35,11 @@ namespace Engine::Input {
      * Returns the singleton instance
      */
     static Mouse& GetInstance();
+
+    /**
+     * Adds an input listener to the mouse
+     */
+    void AddListener(Input* input);
 
     /**
      * Returns the x position of the mouse

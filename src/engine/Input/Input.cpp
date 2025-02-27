@@ -1,10 +1,18 @@
 #include "Input.hpp"
+#include "Mouse.hpp"
+
 #include <iostream>
 
-Engine::Input::Input::Input(char keyCode, char mouseButton, char gamepadInput) {
-    m_keyCode = keyCode;
-    m_mouseButton = mouseButton;
-    m_gamepadInput = gamepadInput;    
+Engine::Input::Input::Input(InputParams params) {
+    m_keyCode = params.keyCode;
+    m_mouseButton = params.mouseButton;
+    m_gamepadInput = params.gamepadInput;
+
+    if (m_mouseButton != -1) {
+        
+        Engine::Input::Mouse& mouse = Engine::Input::Mouse::GetInstance();
+        mouse.AddListener(this);
+    }
 }
 
 const float MINIMUM_STRENGTH{0.5f};

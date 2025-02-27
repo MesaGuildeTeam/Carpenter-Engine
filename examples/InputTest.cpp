@@ -15,9 +15,9 @@ class ExampleScene : public Scene {
     
     public:
     ExampleScene() : Scene("ExampleScene") {
-        inputManager.AddAxis("Horizontal", Input::Input('d', -1, -1), Input::Input('a', -1, -1));
-        inputManager.AddInput("Jump", Input::Input(Input::KeyCodes::SPACE, -1, -1));
-        inputManager.AddInput("MouseClick", Input::Input(-1, 0, -1));
+        inputManager.AddAxis("Horizontal", {'d'}, {'a'});
+        inputManager.AddInput("Jump", {Input::KeyCodes::SPACE});
+        inputManager.AddInput("MouseClick", {-1, 0});
     }
 
     void Update(float dt) override {
@@ -33,19 +33,19 @@ class ExampleScene : public Scene {
             std::cout << "Left" << std::endl;
         }
 
-        if (inputManager.GetInput("Jump").IsPressed()) {
+        if (inputManager.GetInput("Jump")->IsPressed()) {
             std::cout << "Jump" << std::endl;
         }
 
-        if (inputManager.GetInput("Jump").IsReleased()) {
+        if (inputManager.GetInput("Jump")->IsReleased()) {
             std::cout << "Jump released" << std::endl;
         }
 
-        if (inputManager.GetInput("MouseClick").IsPressed()) {
+        if (inputManager.GetInput("MouseClick")->IsPressed()) {
             std::cout << "Mouse clicked at <" << mouse.GetPosition().x << ", " << mouse.GetPosition().y << ">" << std::endl;
         }
 
-        if (inputManager.GetInput("MouseClick").IsReleased()) {
+        if (inputManager.GetInput("MouseClick")->IsReleased()) {
             std::cout << "Mouse click released" << std::endl;
         }
     }
