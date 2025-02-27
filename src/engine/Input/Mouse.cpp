@@ -7,6 +7,7 @@ bool Engine::Input::Mouse::mouseDown_emscripten(int eventType, const EmscriptenM
 
   for (auto input : mouse.m_listeners) {
     if (input == nullptr) continue;
+    
     if (input->GetInput(InputDevice::MOUSE) == (char)mouseEvent->button) {
       input->currentStrength = 1.0f;
     }
@@ -16,9 +17,9 @@ bool Engine::Input::Mouse::mouseDown_emscripten(int eventType, const EmscriptenM
 }
 
 bool Engine::Input::Mouse::mouseUp_emscripten(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData) {
-  Engine::Input::Mouse* mouse = (Engine::Input::Mouse*)userData;
+  Engine::Input::Mouse& mouse = Engine::Input::Mouse::GetInstance();
 
-  for (auto& input : mouse->m_listeners) {
+  for (auto& input : mouse.m_listeners) {
     if (input == nullptr) continue;
 
     if (input->GetInput(InputDevice::MOUSE) == mouseEvent->button) {
