@@ -36,18 +36,6 @@ const staticDir =
     ? buildConfig.static
     : "node_modules/table-engine/src/static/";
 
-/**
- * Builds the c++ file specified into a .o file
- * @param {string} path The file name based on the buildconfig.json
- *
- * @memberof Build
- */
-function buildFile(path, folder) {
-  let execCmd = `${EMCC} -c "${folder}/${path}.cpp" -o "${outputLocation}/${path}.o" -std=c++20 -I${includeDir}`;
-  console.log(execCmd);
-  child_process.execSync(execCmd, { cwd: process.cwd() });
-}
-
 const defaultBuildSteps = {
   runBuild: true,
   runLink: true,
@@ -85,6 +73,8 @@ function buildGame(config = defaultBuildSteps) {
   // Package process
   if (config.runPackage)
     console.log(child_process.execSync(`cp -r ${staticDir}/* ./build/`));
+
+  console.log("Build process finished successfully!");
 
   return process.exit(0);
 }

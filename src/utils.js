@@ -22,6 +22,16 @@ const Asciis = {
   Waiting: "\x1b[33m[⌛︎]\x1b[0m",
 }
 
+var verbose = false;
+
+/**
+ * Configures the CLI to be verbose about its actions.
+ * @param {boolean} value 
+ */
+function setVerbose(value = true) {
+  verbose = value;
+}
+
 /**
  * A customized string that throws a funny error message
  * 
@@ -54,18 +64,27 @@ function processFiles(folder, extension, callback) {
  * @param {string} script The script to run
  * @memberof Setup
  */
-function execCommand(script, message = "Running", verbose = false) {
+function execCommand(script, message = "Running") {
   try {
     process.stdout.write(message);
+
     let output = child_process.execSync(script, {cwd: process.cwd(), stdio: ['ignore', 'pipe', 'pipe']});
 
     process.stdout.write(" " + Asciis.Success + "\n");
 
+    if (verbose)
+      console.log("\x1b[2m" + script, "\x1b[0m");
+
     if (output == "")
       return;
+
     console.log("\x1b[2m" + output.toString(), "\x1b[0m");
   } catch (error) {
     process.stdout.write(" " + Asciis.Fail + "\n");
+
+    if (verbose)
+      console.log("\x1b[2m" + script, "\x1b[0m");
+    
     console.log("\x1b[31;2m" + error, "\x1b[0m");
     process.exit(1);
   }
@@ -75,5 +94,6 @@ module.exports = {
   Asciis: Asciis,
   throwError: throwError,
   processFiles: processFiles,
-  execCommand: execCommand
+  execCommand: execCommand,
+  setVerbose: setVerbose
 };
