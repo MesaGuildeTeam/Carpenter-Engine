@@ -24,6 +24,8 @@ namespace Testing {
       unsigned int m_passedTests = 0;
       std::string m_testName;
 
+      std::vector<std::string> m_logs;
+
       public:
 
       static TestRunner& getInstance(std::string name = "Test");
@@ -40,6 +42,16 @@ namespace Testing {
        *  Runs all the tests, processes, and outputs the results
        */
       void runTests();
+
+      /**
+       * Logs a message to the test being run that this is called under
+       */
+      void DebugLog(std::string message);
+
+      /**
+       * Prints and dequeues all the logs in the logs vector
+       */
+      void PrintLogs();
 
       unsigned int getTestCount();
 

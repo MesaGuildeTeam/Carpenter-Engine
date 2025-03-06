@@ -32,7 +32,24 @@ void Testing::TestRunner::runTests() {
         }
 
         std::cout << "\x1B[2m" << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count() << "ms\x1B[0m" << std::endl;
+
+        if (m_logs.size() != 0)
+            PrintLogs();
     }
+}
+
+void Testing::TestRunner::DebugLog(std::string message) {
+    m_logs.push_back(message);
+}
+
+void Testing::TestRunner::PrintLogs() {
+    std::cout << "\x1B[2mLogs:\n";
+    for (std::string log : m_logs)
+        std::cout << log << std::endl;
+
+    std::cout << "\x1B[0m";
+
+    m_logs.clear();
 }
 
 unsigned int Testing::TestRunner::getTestCount() {
