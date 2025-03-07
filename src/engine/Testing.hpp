@@ -17,8 +17,10 @@ namespace Testing {
       private:
       struct Test {
           std::string name;
-          std::function<bool()> test;
+          std::function<void()> test;
       };
+
+      bool m_currentSuccess = true;
 
       std::vector<Test> m_tests;
       unsigned int m_passedTests = 0;
@@ -36,7 +38,7 @@ namespace Testing {
        * @param name The name of the test
        * @param test The test function
        */
-      void addTest(std::string name, std::function<bool()> test);
+      void addTest(std::string name, std::function<void()> test);
 
       /**
        *  Runs all the tests, processes, and outputs the results
@@ -47,6 +49,13 @@ namespace Testing {
        * Logs a message to the test being run that this is called under
        */
       void DebugLog(std::string message);
+
+      /**
+       * Logs an error message to the test being run 
+       */
+      void DebugError(std::string message);
+
+      void Assert(bool condition, std::string message);
 
       /**
        * Prints and dequeues all the logs in the logs vector
