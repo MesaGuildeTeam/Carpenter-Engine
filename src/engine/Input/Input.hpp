@@ -10,6 +10,17 @@ namespace Engine::Input {
     SPACE = 32
   };
 
+  /**
+   * A list of mouse actions that you can check for
+   */
+  enum MouseActions {
+    LEFT = 0,
+    MIDDLE = 1,
+    RIGHT = 2,
+    SCROLLUP = 3,
+    SCROLLDOWN = 4
+  };
+
   enum InputDevice {
     KEYBOARD,
     GAMEPAD,

@@ -29,6 +29,8 @@ namespace Engine::Input {
 
     static bool mouseUp_emscripten(int eventType, const EmscriptenMouseEvent *mouseEvent, void *userData);
 
+    static bool mouseScroll_emscripten(int eventType, const EmscriptenWheelEvent *wheelEvent, void *userData);
+
     public:
 
     /**

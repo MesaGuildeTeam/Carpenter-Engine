@@ -18,6 +18,7 @@ class ExampleScene : public Scene {
         inputManager.AddAxis("Horizontal", {'d'}, {'a'});
         inputManager.AddInput("Jump", {Input::KeyCodes::SPACE});
         inputManager.AddInput("MouseClick", {-1, 0});
+        inputManager.AddAxis("Scroll", {-1, 4}, {-1, 3});
     }
 
     void Update(float dt) override {
@@ -48,6 +49,9 @@ class ExampleScene : public Scene {
         if (inputManager.GetInput("MouseClick")->IsReleased()) {
             std::cout << "Mouse click released" << std::endl;
         }
+
+        if (std::abs(inputManager.GetAxis("Scroll")) >= 0)
+            std::cout << "Scroll strength of " << inputManager.GetAxis("Scroll") << std::endl;
     }
 };
 
