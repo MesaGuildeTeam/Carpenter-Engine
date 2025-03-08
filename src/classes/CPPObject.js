@@ -23,7 +23,9 @@ const includeDir =
     ? buildConfig.includeDir
     : "node_modules/table-engine/src/engine/";
 
-const local_dependency_search = /#include "(.*?)"/g;
+const local_dependency_search = /#include "([^"]*)\"/g;
+
+var visitedArray = [];
 
 /**
  * A reference class to a compilable `.cpp` file.
@@ -59,21 +61,8 @@ class CPPObject {
    * Returns a boolean to determine if this file needs to be built
    */
   needsBuild() {
-    // check this file and its dependecies
-    let tocheck = [this.depName, ...this.dependencies];
-
-    tocheck.forEach((dep) => {
-      let depObj = new CPPObject(dep);
-
-      // Don't build if dependency doesn't exist
-      if (!fs.existsSync(`${depObj.path}/${depObj.name}.cpp`)) return false;
-
-      if (depObj.lastBuild == null || depObj.lastModification > depObj.lastBuild) {
-        return true;
-      }
-    });
-
-    return false;
+    if (!fs.existsSync(`${this.path}/${this.name}.cpp`)) return false;
+    return this.lastBuild == null || this.lastModification > this.lastBuild;
   }
 
   /**
@@ -93,38 +82,49 @@ class CPPObject {
    * @warn This process assumes the file has a .hpp file along with the .cpp file. Please code as if you were programming with OOP
    * @returns {String[]} Array of cpp files that this one depends on
    */
-  get dependencies(){
-    // yeah, thats a function in a function
+  getDependencies(root = true) {
+    if (root == true) visitedArray = [];
+    if (visitedArray.includes(`${this.path}/${this.name}.cpp`)) return [];
+    visitedArray.push(`${this.path}/${this.name}.cpp`);
 
+    if (!fs.existsSync(`${this.path}/${this.name}.hpp`)) return [];
+
+    let fileHeader = fs.readFileSync(`${this.path}/${this.name}.hpp`, "utf8");
+    let fileContent = fs.readFileSync(`${this.path}/${this.name}.cpp`, "utf8");
     let dependencies = [];
 
-    // recursivly get dependencies and add them to dependencies
-    function getDependenciesR(obj) {
-      if (!fs.existsSync(`${obj.path}/${obj.name}.hpp`)) {
-        return;
+    // Get all immediate header file dependencies
+    let dependenciesFound = [...fileHeader.matchAll(local_dependency_search)];
+    dependenciesFound = [...dependenciesFound, ...fileContent.matchAll(local_dependency_search)];
+    if (dependenciesFound.length == 0) return [];
+
+    dependenciesFound.forEach((element) => {
+      let file = this.path + "/" + element[1].replace(".hpp", ".cpp");
+      //console.log(file);
+      if (!fs.existsSync(file)) return;
+      dependencies.push(path.normalize(file));
+    });
+
+    // Recursively return the remaining tree of dependencies
+
+    let newDependencies = [];
+
+    dependencies.forEach((dep) => {
+      let more = new CPPObject(dep).getDependencies(false);
+      newDependencies = [...newDependencies.concat(more)];
+    });
+
+    dependencies = [...new Set(dependencies.concat(newDependencies))];
+
+    dependencies = dependencies.filter(
+      (dep) => {
+        return dep != path.normalize(`${this.path}/${this.name}.cpp`)
       }
-      let fileHeader = fs.readFileSync(`${obj.path}/${obj.name}.hpp`, "utf8");
-    
-      // Get all immediate header file dependencies
-      [...fileHeader.matchAll(local_dependency_search)].forEach((element) => {
-        // Get file dep name and check existence
-        let file = obj.path + "/" + element[1].replace(".hpp", ".cpp");
-        if (!fs.existsSync(file)) return;
-        let dep = path.normalize(file);
-        // add dependency
-        if (!(dependencies.includes(dep))) {
-          dependencies.push(dep);
-          // add subdependencies
-          getDependenciesR(new CPPObject(dep));
-        }
-      });
-    }
+    );
 
-    // fill dependencies
-    getDependenciesR(this);
+    //console.log(`dependencies for ${this.name}.cpp`, dependencies);
 
-    // filter out this file from its dependencies
-    return dependencies.filter(dep => dep !== this.depName);
+    return dependencies;
   }
 }
 

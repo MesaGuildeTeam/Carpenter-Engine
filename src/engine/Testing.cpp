@@ -14,7 +14,7 @@ void Testing::TestRunner::addTest(std::string name, std::function<bool()> test) 
 }
 
 void Testing::TestRunner::runTests() {
-    std::cout << "\n" << m_testName << "\n";
+    std::cout << "\n\x1b[1m" << m_testName << "\n\x1b[0m";
     for (Test& test : m_tests) {
         std::cout << test.name;
 
@@ -25,10 +25,10 @@ void Testing::TestRunner::runTests() {
         auto end = std::chrono::high_resolution_clock::now();
 
         if (result) {
-            std::cout << " \x1B[32mPASSED\x1B[0m ";
+            std::cout << " \x1B[32m[✓]\x1B[0m ";
             m_passedTests++;
         } else {
-            std::cout << " \x1B[31mFAILED\x1B[0m ";
+            std::cout << " \x1B[31m[X]\x1B[0m ";
         }
 
         std::cout << "\x1B[2m" << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count() << "ms\x1B[0m" << std::endl;

@@ -24,7 +24,7 @@ const includeDir =
     ? buildConfig.includeDir
     : "node_modules/table-engine/src/engine/";
 
-const test_dependency_search = /#include <([A-Za-z0-9\/\\]+)\.hpp>/g;
+const test_dependency_search = /#include <([A-Za-z0-9\/\\]+).hpp>/g;
 
 /**
  * A reference class to a compilable `.cpp` test file.
@@ -50,10 +50,11 @@ class CPPTest extends CPPObject {
   build() {
     if (!this.needsBuild()) return;
 
+    console.log(`building test ${this.name}.cpp`);
+
     let files = "";
-    this.dependencies.forEach((dep) => {
+    this.getDependencies().forEach((dep) => {
       let file = new CPPObject(dep);
-      file.build();
       files = files + `"./objs/${file.name}.o" `;
     });
 
@@ -61,7 +62,7 @@ class CPPTest extends CPPObject {
 
     let execCmd = `${EMCC} "${this.path}/${this.name}.cpp" ${files} -o "./tests/WASM/${this.name}.js" -std=c++20 -I${includeDir} -DTESTNAME="${this.path}/${this.name}.cpp" -sEXPORTED_FUNCTIONS=_Testing_getTestCount,_Testing_getPassedTestCount,_Testing_runTests,_main -sMODULARIZE`;
 
-    console.log(`Building test: ${this.name}.cpp`);
+    console.log(execCmd);
 
     child_process.execSync(execCmd, { cwd: process.cwd() });
   }
@@ -96,12 +97,19 @@ class CPPTest extends CPPObject {
    * @warn This process assumes the file has a .hpp file along with the .cpp file. Please code as if you were programming with OOP
    * @returns {String[]} Array of cpp files that this one depends on
    */
-  get dependencies() {
+  getDependencies() {
     let fileData = fs.readFileSync(`${this.path}/${this.name}.cpp`, "utf8");
     let dependencies = [];
 
     // Get all immediate header files
-    [...fileData.matchAll(test_dependency_search)].forEach((element) => {
+    let dependenciesFound = [...fileData.matchAll(test_dependency_search)];
+    /*console.log(
+      `Dependencies for Test ${this.name}.cpp:`,
+      dependenciesFound.length,
+    );*/
+
+    dependenciesFound.forEach((element) => {
+      //console.log(element[1]);
       let file = buildConfig.inputPath + "/" + element[1] + ".cpp";
       if (fs.existsSync(file)) dependencies.push(path.normalize(file));
     });
@@ -110,12 +118,14 @@ class CPPTest extends CPPObject {
     if (dependencies.length != 0) {
       let newDependencies = [];
       dependencies.forEach((dep) => {
-        let more = new CPPObject(dep).dependencies;
+        let more = new CPPObject(dep).getDependencies(true);
         newDependencies = [...new Set(newDependencies.concat(more))];
       });
 
       dependencies = [...new Set(dependencies.concat(newDependencies))];
     }
+
+    //console.log("Dependencies:", dependencies);
 
     return dependencies;
   }

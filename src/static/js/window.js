@@ -178,7 +178,5 @@ window.addEventListener("load", () => {
   game.musicVolume.gain.value = 1;
   game.musicVolume.connect(game.musicManager.destination);
 
-  import("../engine.js").then((module) => {
-    windowLoop();
-  });
+  setInterval(windowLoop, 1000 / 60);
 });
