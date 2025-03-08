@@ -7,7 +7,7 @@ Engine::Audio::Sound::Sound(const char* filename) : Engine::Audio::Audio::Audio(
   }, m_filename);
 }
 
-void Engine::Audio::Sound::m_playThreadMethod(vec3 position) {
+void Engine::Audio::Sound::m_playThreadMethod(Vec3f position) {
   float gain = 1.0f, panning = 0.0f;
 
   // These algorithms may need to be revised. I will trust that these work for now though.
@@ -24,7 +24,7 @@ void Engine::Audio::Sound::Play() {
   Engine::Audio::Audio::Play();
 }
 
-void Engine::Audio::Sound::Play(vec3 position) {
+void Engine::Audio::Sound::Play(Vec3f position) {
   // Threads are funny in Emscripten. Add the parameter in the build system when we are ready to use it
   #ifdef ENGNINE_THREADING
   std::thread t(&Engine::Audio::Sound::m_playThreadMethod, this, position);
