@@ -65,8 +65,8 @@ namespace Engine {
 
       + {method} void AddTheme(themeName);
       + {method} void SetAnchor(anchor);
-      + {method} void SetDimensions(vec2 dimensions);
-      + {method} void SetOffset(vec2 offset);
+      + {method} void SetDimensions(Vec2f dimensions);
+      + {method} void SetOffset(Vec2f offset);
     }
 
     class UILabel extends UIElement {
@@ -94,8 +94,8 @@ namespace Engine {
 
   namespace Graphics {
     abstract Mesh {
-      + {method} vec3 getVertex()
-      + {method} vec2 getVertex2D()
+      + {method} Vec3 getVertex()
+      + {method} Vec2 getVertex2D()
     }
 
     class Texture {
@@ -128,7 +128,7 @@ namespace Engine {
     }
 
     class Sound extends Audio {
-      + void Play(vec3 position);
+      + void Play(Vec3f position);
     }
 
     class Music extends Audio {

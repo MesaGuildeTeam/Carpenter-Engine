@@ -1,5 +1,5 @@
-#ifndef ENGINE_RENDERER
-#define ENGINE_RENDERER
+#ifndef ENGINE_WINDOW
+#define ENGINE_WINDOW
 
 namespace Engine {
   

@@ -15,7 +15,7 @@ namespace Engine::Audio {
     /**
      * A Private method to start a thread that plays the sound as the main code continues
      */
-    void m_playThreadMethod(vec3 position);
+    void m_playThreadMethod(Vec3f position);
 
     public:
 
@@ -26,7 +26,7 @@ namespace Engine::Audio {
     /**
      * Plays the sound relative to where the camera position is
      */
-    void Play(vec3 position);
+    void Play(Vec3f position);
   };
 
 }
