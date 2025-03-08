@@ -12,8 +12,8 @@ yarn.lock
 
 coverage
 emsdk
-objs/*.*
-build/*.*
+objs/*
+build/*
 tests/WASM
 
 # Generated Documentation
