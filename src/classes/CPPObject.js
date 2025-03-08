@@ -36,19 +36,18 @@ class CPPObject {
    * @param {string} name name of the .cpp file to be compiled
    */
   constructor(name) {
+    this.depName = name;
     this.name = path.basename(name, path.extname(name));
     this.path = path.dirname(name);
 
     this.lastModification = null;
     this.lastBuild = null;
 
-    // Will assume that this does not create an error since this file should exist.
-
-    if (fs.existsSync(`${this.path}/${this.name}.cpp`)) {
-      this.lastModification = fs.statSync(
-        `${this.path}/${this.name}.cpp`,
-      ).atimeMs;
+    if (!fs.existsSync(`${this.path}/${this.name}.cpp`)) {
+      throw new Error(`File does not exist. ${this.path}/${this.name}.cpp`);
     }
+
+    this.lastModification = fs.statSync(`${this.path}/${this.name}.cpp`, undefined).atimeMs;
 
     // Ok this one can create an error
     try {
