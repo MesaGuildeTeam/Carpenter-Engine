@@ -162,6 +162,7 @@ window.addEventListener("resize", () => {
 
   game.canvases["canvas"].width = window.innerWidth;
   game.canvases["canvas"].height = window.innerHeight;
+  game.gl["canvas"].viewport(0, 0, window.innerWidth, window.innerHeight);
 });
 
 // Game Loop

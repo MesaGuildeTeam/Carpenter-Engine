@@ -47,6 +47,14 @@ Engine::Vec2f Engine::Graphics::Mesh::GetTextureCoord(int index) {
   return m_texcoords[m_indices[index]]; 
 }
 
+float* Engine::Graphics::Mesh::GetVertices() {
+  return (float*)(m_vertices.data());
+}
+
+unsigned short* Engine::Graphics::Mesh::GetIndices() {
+  return m_indices.data();
+}
+
 unsigned long Engine::Graphics::Mesh::GetIndexCount() { 
   return m_indices.size(); 
 }

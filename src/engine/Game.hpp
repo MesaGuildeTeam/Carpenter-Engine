@@ -69,6 +69,11 @@ namespace Engine {
      */
     void UpdateScene(float dt);
 
+    /**
+     * Returns the base renderer associated with the game engine
+     */
+    Graphics::Renderer& GetRenderer();
+
   };
 }
 

@@ -11,6 +11,7 @@ Engine::Game::Game(Scene* startingScene): m_renderer{Graphics::Renderer()} {
     game.ready = true;
     game.canvases["canvas"].width = window.innerWidth;
     game.canvases["canvas"].height = window.innerHeight;
+    game.gl["canvas"].viewport(0, 0, window.innerWidth, window.innerHeight);
 
     game.uiContainer = document.getElementById('ui-layer');
   );
@@ -47,6 +48,10 @@ void Engine::Game::DrawScene() {
 
 void Engine::Game::UpdateScene(float dt) {
   m_currentScene->Update(dt);
+}
+
+Engine::Graphics::Renderer& Engine::Game::getRenderer() {
+  return m_renderer;
 }
 
 extern "C" {

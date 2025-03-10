@@ -55,7 +55,8 @@ namespace Engine::Graphics {
       /**
        * Returns the vertex at the given index based on the index buffer
        * 
-       * @param index The index of the index array 
+       * @param index The index of the index array
+       * @deprecated
        */
       Vec3f GetVertex(int index);
 
@@ -68,6 +69,18 @@ namespace Engine::Graphics {
        * Returns the texture coordinate at the given index based on the index buffer
        */
       Vec2f GetTextureCoord(int index);
+
+      /**
+       * Returns a pointer to float C array of vertices
+       * This output is designed to be ready for OpenGL use
+       */
+      float* GetVertices();
+
+      /**
+       * Returns a pointer to float C array of vertices
+       * This output is designed to be ready for OpenGL use
+       */
+      unsigned short* GetIndices();
 
       /**
        * Returns the number of indeces in the index buffer
