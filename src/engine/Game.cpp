@@ -6,8 +6,7 @@ Engine::Game& Engine::Game::getInstance(Engine::Scene* startingScene) {
   return instance;
 }
 
-Engine::Game::Game(Scene* startingScene) {
-  m_renderer = Renderer("canvas");
+Engine::Game::Game(Scene* startingScene): m_renderer{Renderer()} {
   EM_ASM(
     game.ready = true;
     game.canvases["canvas"].width = window.innerWidth;
@@ -42,6 +41,7 @@ Engine::Success Engine::Game::UnloadScene(const char* id) {
 }
 
 void Engine::Game::DrawScene() {
+  m_renderer.ClearBuffer();
   m_currentScene->Draw();
 }
 

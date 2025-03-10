@@ -43,7 +43,7 @@ const staticDir =
  * @memberof Build
  */
 function buildFile(path, folder) {
-  let execCmd = `${EMCC} -c "${folder}/${path}.cpp" -o "${outputLocation}/${path}.o" -std=c++20 -I${includeDir}`;
+  let execCmd = `${EMCC} -c "${folder}/${path}.cpp" -o "${outputLocation}/${path}.o" -std=c++20 -I${includeDir} `;
   console.log(execCmd);
   child_process.execSync(execCmd, { cwd: process.cwd() });
 }
@@ -79,7 +79,7 @@ function buildGame(config = defaultBuildSteps) {
         filesList = filesList + `"${folder}/${file}.o" `;
       });
 
-    let exec = `${EMCC} ${filesList} ${config.mainFile != "" && config.mainFile != null ? config.mainFile + " -I" + includeDir : ""} -o ./build/engine.js -sEXPORTED_FUNCTIONS=_Engine_CallUpdate,_Engine_CallDraw -sEXPORTED_RUNTIME_METHODS=ccall,cwrap --bind -sALLOW_MEMORY_GROWTH`;
+    let exec = `${EMCC} ${filesList} ${config.mainFile != "" && config.mainFile != null ? config.mainFile + " -I" + includeDir : ""} -o ./build/engine.js -sEXPORTED_FUNCTIONS=_Engine_CallUpdate,_Engine_CallDraw -sEXPORTED_RUNTIME_METHODS=ccall,cwrap --bind -sALLOW_MEMORY_GROWTH -sMAX_WEBGL_VERSION=2`;
     console.log(exec);
     child_process.execSync(exec);
   }

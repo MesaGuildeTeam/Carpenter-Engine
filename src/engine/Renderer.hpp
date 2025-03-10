@@ -1,5 +1,5 @@
-#ifndef ENGINE_WINDOW
-#define ENGINE_WINDOW
+#ifndef ENGINE_RENDERER
+#define ENGINE_RENDERER
 
 namespace Engine {
   
@@ -8,11 +8,13 @@ namespace Engine {
    */
   class Renderer {
     private:
-    const char* m_canvasId;
+    unsigned long m_context;
 
     public:
 
-    Renderer(const char* id = "canvas");
+    Renderer(const char* id = "#canvas");
+
+    void ClearBuffer();
   };
 }
 
