@@ -1,9 +1,9 @@
 #include "Shader.hpp"
-#include <GLES2/gl2.h>
+#include <GLES3/gl3.h>
+#include <iostream>
 
 const char* defaultVertexShader {
-  "#version 330 core\n"
-  "layout (location = 0) in vec3 aPos;\n"
+  "attribute vec3 aPos;\n"
   "void main()\n"
   "{\n"
   "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
@@ -11,15 +11,11 @@ const char* defaultVertexShader {
 };
 
 const char* defaultFragmentShader {
-  "#version 330 core\n"
-  "out vec4 FragColor;\n"
   "void main()\n"
   "{\n"
-  "    FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
+  "    gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);\n"
   "}\0"
 };
-
-Engine::Graphics::Shader Engine::Graphics::DefaultShader;
 
 Engine::Graphics::Shader::Shader() : Shader(defaultFragmentShader, defaultVertexShader) {}
 
@@ -30,6 +26,15 @@ Engine::Graphics::Shader::Shader(const char* frag, const char* vert) {
   unsigned vertexShader = glCreateShader(GL_VERTEX_SHADER);
   glShaderSource(vertexShader, 1, &vert, 0);
   glCompileShader(vertexShader);
+
+  int success;
+  char infoLog[512];
+  glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
+
+  if (!success) {
+    glGetShaderInfoLog(vertexShader, 512, 0, infoLog);
+    std::cerr << "ERROR: Shader Failed to compile successfully\n" << infoLog << std::endl; 
+  }
 
   // Generate and check fragment shader
   unsigned fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);

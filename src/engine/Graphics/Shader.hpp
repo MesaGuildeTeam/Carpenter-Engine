@@ -17,8 +17,6 @@ namespace Engine::Graphics {
 
     void Use();
   };
-
-  extern Shader DefaultShader;
 }
 
 #endif
