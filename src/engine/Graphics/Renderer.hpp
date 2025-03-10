@@ -13,10 +13,13 @@ namespace Engine::Graphics {
   class Renderer {
     private:
     unsigned long m_context;
+    const char* m_id;
     
     unsigned int m_vbo;
     unsigned int m_vao;
     unsigned int m_ebo;
+
+    unsigned int m_currentShaderProgram;
 
     public:
 
@@ -26,6 +29,7 @@ namespace Engine::Graphics {
 
     void DrawMesh(Mesh* mesh);
     
+    void UseShader(Shader* shader);
   };
  
   extern std::unique_ptr<Shader> DefaultShader;

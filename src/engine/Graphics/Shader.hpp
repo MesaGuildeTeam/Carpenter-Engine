@@ -16,6 +16,8 @@ namespace Engine::Graphics {
     Shader(const char* frag, const char* vert);
 
     void Use();
+
+    unsigned int GetShaderProgram();
   };
 }
 

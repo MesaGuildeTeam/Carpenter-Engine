@@ -4,9 +4,10 @@
 
 const char* defaultVertexShader {
   "attribute vec3 aPos;\n"
+  "uniform vec2 window;\n"
   "void main()\n"
   "{\n"
-  "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+  "   gl_Position = vec4(aPos.x * window.y / window.x, aPos.y, aPos.z, 1.0);\n"
   "}\0"
 };
 
@@ -54,4 +55,8 @@ Engine::Graphics::Shader::Shader(const char* frag, const char* vert) {
 
 void Engine::Graphics::Shader::Use() {
   glUseProgram(m_shaderProgram);
+}
+
+unsigned int Engine::Graphics::Shader::GetShaderProgram() {
+  return m_shaderProgram;
 }

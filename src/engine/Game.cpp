@@ -50,7 +50,7 @@ void Engine::Game::UpdateScene(float dt) {
   m_currentScene->Update(dt);
 }
 
-Engine::Graphics::Renderer& Engine::Game::getRenderer() {
+Engine::Graphics::Renderer& Engine::Game::GetRenderer() {
   return m_renderer;
 }
 

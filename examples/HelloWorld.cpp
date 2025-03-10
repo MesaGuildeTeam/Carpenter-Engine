@@ -25,7 +25,6 @@ class ExampleScene : public Scene {
   void Draw() override {
     Scene::Draw();
 
-    Engine::Graphics::DefaultShader->Use();
     Game::getInstance().GetRenderer().DrawMesh(&mesh);
   }
 };
