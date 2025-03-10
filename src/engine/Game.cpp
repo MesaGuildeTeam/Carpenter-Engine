@@ -6,7 +6,7 @@ Engine::Game& Engine::Game::getInstance(Engine::Scene* startingScene) {
   return instance;
 }
 
-Engine::Game::Game(Scene* startingScene): m_renderer{Renderer()} {
+Engine::Game::Game(Scene* startingScene): m_renderer{Graphics::Renderer()} {
   EM_ASM(
     game.ready = true;
     game.canvases["canvas"].width = window.innerWidth;

@@ -3,7 +3,7 @@
 #include <iostream>
 #include <GLES2/gl2.h>
 
-Engine::Renderer::Renderer(const char* id) {
+Engine::Graphics::Renderer::Renderer(const char* id) {
   EmscriptenWebGLContextAttributes attrs;
   emscripten_webgl_init_context_attributes(&attrs);
   attrs.alpha = EM_TRUE;
@@ -25,10 +25,10 @@ Engine::Renderer::Renderer(const char* id) {
 
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-  std::cout << "DEBUG: Canvas Initialized, " << id << std::endl;
+  std::cout << "DEBUG: Canvas Initialized with tag " << id << std::endl;
 }
 
-void Engine::Renderer::ClearBuffer() {
+void Engine::Graphics::Renderer::ClearBuffer() {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 

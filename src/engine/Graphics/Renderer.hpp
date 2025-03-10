@@ -1,7 +1,9 @@
 #ifndef ENGINE_RENDERER
 #define ENGINE_RENDERER
 
-namespace Engine {
+#include "Mesh.hpp"
+
+namespace Engine::Graphics {
   
   /**
    * The window used to interact with the DOM Canvas 
@@ -15,6 +17,7 @@ namespace Engine {
     Renderer(const char* id = "#canvas");
 
     void ClearBuffer();
+    
   };
 }
 

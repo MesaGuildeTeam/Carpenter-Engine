@@ -2,7 +2,7 @@
 #define ENGINE_GAME
 
 #include "Node.hpp"
-#include "Renderer.hpp"
+#include "Graphics/Renderer.hpp"
 #include <map>
 
 namespace Engine {
@@ -15,7 +15,7 @@ namespace Engine {
     Scene* m_currentScene;
     std::map<const char*, Scene*> m_loadedScenes;
 
-    Renderer m_renderer;
+    Graphics::Renderer m_renderer;
 
     // SINGLETON STUFF //
     static Game* m_instance;
