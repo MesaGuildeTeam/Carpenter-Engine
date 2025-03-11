@@ -23,10 +23,13 @@ namespace Engine::Input {
 
     public:
 
+    /**
+     * Default Constructor
+     */
     InputManager();
 
     /**
-     * Updates the input manager based on the inputs available
+     * Updates the input manager based on the input data available
      */
     void Update();
 

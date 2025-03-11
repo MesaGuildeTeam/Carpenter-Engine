@@ -67,7 +67,7 @@ namespace Engine::Input {
     Input() : Input((InputParams){}) {};
 
     /**
-     * 
+     * Object Destructor
      */
     ~Input();
   
