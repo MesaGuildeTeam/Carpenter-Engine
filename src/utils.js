@@ -45,6 +45,10 @@ function throwError(message) {
  * Recursive function
  * 
  * Gets every file with the extension from a certain directory and its child folders and runs a callback on it
+ * 
+ * @param {string} folder The folder to start the recursive search from
+ * @param {string} extension The extension to look for
+ * @param {function} callback The callback to run
  */
 function processFiles(folder, extension, callback) {
   fs.readdirSync(folder).forEach(file => {
@@ -59,10 +63,10 @@ function processFiles(folder, extension, callback) {
 }
 
 /**
- * Runs the following script from the scripts folder. Uses the appropriate extension based on the OS
+ * Runs the following command as a process. The output is printed to the console in a nice format readable by the user
  * 
- * @param {string} script The script to run
- * @memberof Setup
+ * @param {string} script The command to run
+ * @param {string} message The message to print
  */
 function execCommand(script, message = "Running") {
   try {

@@ -58,7 +58,8 @@ class CPPObject {
   }
 
   /**
-   * Returns a boolean to determine if this file needs to be built
+   * A method that returns if this file needs to be built
+   * @returns {boolean}
    */
   needsBuild() {
     if (!fs.existsSync(`${this.path}/${this.name}.cpp`)) return false;

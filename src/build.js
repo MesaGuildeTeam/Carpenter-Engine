@@ -44,7 +44,13 @@ const defaultBuildSteps = {
 };
 
 /**
- * Goes through the whole build process of the game and its engine
+ * Goes through the whole build process of the game and its engine:
+ * 1. Starts with building each C++ file in the src folder through the `-c` flag
+ * 2. Then links all the object files together through the `-l` flag
+ * 3. Finally packages the game into a static webpage through the `-p` flag
+ * 
+ * If you wish to include a custom main file for testing, you can use the `-m` flag with the path to the file
+ * 
  * @memberof Build
  */
 function buildGame(config = defaultBuildSteps) {
