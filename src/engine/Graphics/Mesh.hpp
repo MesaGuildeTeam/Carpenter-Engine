@@ -33,7 +33,6 @@ namespace Engine::Graphics {
        * @param t2 The second texture coordinate of the triangle
        * @param t3 The third texture coordinate of the triangle
        * 
-       * @deprecated
        */
       Success AddTriangle(Vec3f v1, Vec3f v2, Vec3f v3, Vec2f t1, Vec2f t2, Vec2f t3);
 

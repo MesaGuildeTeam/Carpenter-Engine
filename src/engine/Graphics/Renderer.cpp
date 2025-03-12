@@ -22,8 +22,8 @@ Engine::Graphics::Renderer::Renderer(const char* id) {
 
   EM_ASM({
     let name = UTF8ToString($0);
-    game.canvases[UTF8ToString($0).split("#")[1]] = document.getElementById(UTF8ToString($0).split("#")[1]);
-    game.gl[UTF8ToString($0).split("#")[1]] = game.canvases[UTF8ToString($0).split("#")[1]].getContext("webgl2");
+    game.canvases[UTF8ToString($0)] = document.getElementById(UTF8ToString($0));
+    game.gl[UTF8ToString($0)] = game.canvases[UTF8ToString($0)].getContext("webgl2");
   }, id);
 
   // Setup Clear Color
