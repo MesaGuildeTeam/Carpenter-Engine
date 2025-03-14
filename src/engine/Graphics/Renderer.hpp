@@ -10,17 +10,11 @@ namespace Engine::Graphics {
   /**
    * @brief a class used to interact with html canvases
    * 
-   * Each canvas has its own unique renderer using OpenGL ES 2.0.
+   * Each canvas has its own unique renderer using OpenGL ES 3.0.
    * This allows us to render unique meshes, textures, and shaders
    * to canvases on the web. If you are trying to render to the main
    * canvas, you can access it using `Engine::Game::GetInstance().GetRenderer()`, 
    * and that will return the main renderer.
-   * 
-   * ## Example
-   * 
-   * ```cpp
-   * 
-   * ```
    */
   class Renderer {
     private:

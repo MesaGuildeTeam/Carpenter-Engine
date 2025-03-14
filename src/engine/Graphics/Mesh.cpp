@@ -1,7 +1,26 @@
 #include "Mesh.hpp"
 #include <iostream>
 
-Engine::Success Engine::Graphics::Mesh::AddTriangle(Vec3f v1, Vec3f v2, Vec3f v3, Vec2f t1, Vec2f t2, Vec2f t3) {
+void Engine::Graphics::Vertex::CalculateNormals(Vertex& v2, Vertex& v3) {
+  nx = (v3.y - y) * (v2.z - z) - (v3.z - z) * (v2.x - x);
+  ny = (v3.z - z) * (v2.x - x) - (v3.x - x) * (v2.y - y);
+  nz = (v3.x - x) * (v2.y - y) - (v3.y - y) * (v2.z - z);
+  float length = sqrtf(nx * nx + ny * ny + nz * nz);
+
+  nx /= length;
+  ny /= length;
+  nz /= length;
+  
+  v2 = {v2.x, v2.y, v2.z, v2.u, v2.v, nx, ny, nz};
+  v3 = {v3.x, v3.y, v3.z, v3.u, v3.v, nx, ny, nz};
+}
+
+bool Engine::Graphics::Vertex::operator==(const Vertex& rhs) {
+  bool output = x == rhs.x && y == rhs.y && z == rhs.z && u == rhs.u && v == rhs.v && nx == rhs.nx && ny == rhs.ny && nz == rhs.nz;
+  return output;
+};
+
+Engine::Success Engine::Graphics::Mesh::AddTriangle(Vertex v1, Vertex v2, Vertex v3) {
   // TODO: Make this more efficient with the following
   // - Implement normals calculation (Requires Vec3f's cross product to be implemented)
   
@@ -37,23 +56,11 @@ Engine::Success Engine::Graphics::Mesh::AddTriangle(Vec3f v1, Vec3f v2, Vec3f v3
   return Engine::SUCCESS;
 }
 
-Engine::Success Engine::Graphics::Mesh::AddQuad(Vec3f v1, Vec3f v2, Vec3f v3, Vec3f v4, Vec2f t1, Vec2f t2, Vec2f t3, Vec2f t4) {
-  AddTriangle(v1, v2, v3, t1, t2, t3);
-  AddTriangle(v1, v3, v4, t1, t3, t4);
+Engine::Success Engine::Graphics::Mesh::AddQuad(Vertex v1, Vertex v2, Vertex v3, Vertex v4) {
+  AddTriangle(v1, v2, v3);
+  AddTriangle(v1, v3, v4);
   
   return Engine::SUCCESS;
-}
-
-Engine::Vec3f Engine::Graphics::Mesh::GetVertex(int index) { 
-  return m_vertices[m_indices[index]]; 
-}
-
-Engine::Vec2f Engine::Graphics::Mesh::GetVertex2D(int index) {
-  return {m_vertices[m_indices[index]].x, m_vertices[m_indices[index]].y};
-}
-
-Engine::Vec2f Engine::Graphics::Mesh::GetTextureCoord(int index) { 
-  return m_texcoords[m_indices[index]]; 
 }
 
 float* Engine::Graphics::Mesh::GetVertices() {

@@ -43,6 +43,8 @@ Engine::Graphics::Renderer::Renderer(const char* id) {
   glBindVertexArray(m_vao);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ebo);
   glEnableVertexAttribArray(0);
+  glEnableVertexAttribArray(1);
+  glEnableVertexAttribArray(2);
 
   std::cout << "DEBUG: Canvas Initialized with tag " << id << std::endl;
 }
@@ -65,11 +67,18 @@ void Engine::Graphics::Renderer::DrawMesh(Engine::Graphics::Mesh* mesh) {
   glUniform2f(windowDimensionsSize, WindowDimensions[0], WindowDimensions[1]);
 
   // Bind data
-  glBufferData(GL_ARRAY_BUFFER, indexCount * sizeof(Vec3f), vertexBuffer, GL_DYNAMIC_DRAW);
-  glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexCount * sizeof(unsigned short), indexBuffer, GL_STATIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, indexCount * sizeof(Engine::Graphics::Vertex), vertexBuffer, GL_DYNAMIC_DRAW);
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexCount * sizeof(unsigned short), indexBuffer, GL_DYNAMIC_DRAW);
   //glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
 
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vec3f), (void*)0);
+  //int positionIndex = glGetAttribLocation(m_currentShaderProgram, "aPosition");
+  //int texCoordIndex = glGetAttribLocation(m_currentShaderProgram, "aTexCoord");
+  //int normalIndex = glGetAttribLocation(m_currentShaderProgram, "aNormal");
+
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Engine::Graphics::Vertex), (void*)0); // position
+  glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Engine::Graphics::Vertex), (void*)(sizeof(float) * 3)); // texture coordinates
+  glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Engine::Graphics::Vertex), (void*)(sizeof(float) * 5)); // normal
+
   glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_SHORT, 0);
 }
 
