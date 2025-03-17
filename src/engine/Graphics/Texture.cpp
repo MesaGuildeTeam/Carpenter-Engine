@@ -8,7 +8,6 @@
 
 Engine::Graphics::Texture::Texture(const char* path) {
   m_filename = path;
-  emscripten_wget_data(m_filename, 0, 0, 0);
 }
 
 void Engine::Graphics::Texture::LoadTexture() {

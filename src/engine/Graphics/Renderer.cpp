@@ -1,7 +1,6 @@
 #include "Renderer.hpp"
 #include <emscripten/html5.h>
 #include <iostream>
-#include <GLES3/gl3.h>
 
 // This is moved here to be initialized at renderer construction
 std::unique_ptr<Engine::Graphics::Shader> Engine::Graphics::DefaultShader;
@@ -85,4 +84,9 @@ void Engine::Graphics::Renderer::DrawMesh(Engine::Graphics::Mesh* mesh) {
 void Engine::Graphics::Renderer::UseShader(Shader* shader) {
   shader->Use();
   m_currentShaderProgram = shader->GetShaderProgram();
+}
+
+void Engine::Graphics::Renderer::UseTexture(Engine::Graphics::Texture& texture, unsigned int textureSlot) {
+  glActiveTexture(textureSlot);
+  glBindTexture(GL_TEXTURE_2D, texture.GetTexture());
 }

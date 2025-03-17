@@ -25,8 +25,7 @@ class ExampleScene : public Scene {
   void Draw() override {
     Scene::Draw();
 
-    texture.GetTexture();
-
+    Game::getInstance().GetRenderer().UseTexture(texture, GL_TEXTURE0);
     Game::getInstance().GetRenderer().DrawMesh(&mesh);
   }
 };

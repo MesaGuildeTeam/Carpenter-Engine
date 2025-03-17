@@ -5,6 +5,7 @@
 #include "Shader.hpp"
 #include "Texture.hpp"
 #include <memory>
+#include <GLES3/gl3.h>
 
 namespace Engine::Graphics {
   
@@ -57,10 +58,17 @@ namespace Engine::Graphics {
     void UseShader(Shader* shader);
 
     /**
-     * @brief Sets the material preset for the shader.
+     * Takes the texture and binds it to the specified slot.
      * 
+     * ## Example
+     * ```cpp
+     * Graphics::Renderer& renderer{Game::getInstance().GetRenderer()};
+     * Texture testTexture("Assets/placeholder.png");
+     * renderer.UseTexture(&testTexture, GL_TEXTURE0);
+     * renderer.DrawMesh(&testMesh);
+     * ```
      */
-    //void UseMaterial(Material* material);
+    void UseTexture(Texture& texture, unsigned int slot);
   };
 
   /**

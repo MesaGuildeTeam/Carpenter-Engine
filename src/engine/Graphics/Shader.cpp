@@ -21,9 +21,10 @@ const char* defaultFragmentShader {
   "precision mediump float;\n"
   "varying vec2 v_UV;\n"
   "varying vec3 v_Normal;\n"
+  "uniform sampler2D u_Color;\n"
   "void main()\n"
   "{\n"
-  "    gl_FragColor = vec4(v_UV, 0.0, 1.0);\n"
+  "    gl_FragColor = texture2D(u_Color, v_UV);\n"
   "}\0"
 };
 
@@ -43,13 +44,20 @@ Engine::Graphics::Shader::Shader(const char* frag, const char* vert) {
 
   if (!success) {
     glGetShaderInfoLog(vertexShader, 512, 0, infoLog);
-    std::cerr << "ERROR: Shader Failed to compile successfully\n" << infoLog << std::endl; 
+    std::cerr << "ERROR: Vertex Shader Failed to compile successfully\n" << infoLog << std::endl; 
   }
 
   // Generate and check fragment shader
   unsigned fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
   glShaderSource(fragmentShader, 1, &frag, 0);
   glCompileShader(fragmentShader);
+
+  glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
+
+  if (!success) {
+    glGetShaderInfoLog(fragmentShader, 512, 0, infoLog);
+    std::cerr << "ERROR: Fragment Shader Failed to compile successfully\n" << infoLog << std::endl; 
+  }
 
   // Setup shader program
   m_shaderProgram = glCreateProgram();
