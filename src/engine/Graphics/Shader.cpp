@@ -3,24 +3,27 @@
 #include <iostream>
 
 const char* defaultVertexShader {
-  "attribute vec3 aPos;\n"
-  "attribute vec2 aUV;\n"
-  "attribute vec3 aNormal;\n"
+  "attribute vec3 a_Position;\n"
+  "attribute vec2 a_UV;\n"
+  "attribute vec3 a_Normal;\n"
   "uniform vec2 window;\n"
-  "varying vec2 vUV;\n"
+  "varying vec2 v_UV;\n"
+  "varying vec3 v_Normal;\n"
   "void main()\n"
   "{\n"
-  "   gl_Position = vec4(aPos.x * window.y / window.x, aPos.y, aPos.z, 1.0);\n"
-  "   vUV = aUV;\n"
+  "   gl_Position = vec4(a_Position.x * window.y / window.x, a_Position.y, a_Position.z, 1.0);\n"
+  "   v_UV = a_UV;\n"
+  "   v_Normal = a_Normal;\n"
   "}\0"
 };
 
 const char* defaultFragmentShader {
   "precision mediump float;\n"
-  "varying vec2 vUV;\n"
+  "varying vec2 v_UV;\n"
+  "varying vec3 v_Normal;\n"
   "void main()\n"
   "{\n"
-  "    gl_FragColor = vec4(vUV, 0.0, 1.0);\n"
+  "    gl_FragColor = vec4(v_UV, 0.0, 1.0);\n"
   "}\0"
 };
 
@@ -55,9 +58,9 @@ Engine::Graphics::Shader::Shader(const char* frag, const char* vert) {
 
   glLinkProgram(m_shaderProgram);
 
-  glBindAttribLocation(m_shaderProgram, 0, "aPos");
-  glBindAttribLocation(m_shaderProgram, 1, "aUV");
-  glBindAttribLocation(m_shaderProgram, 2, "aNormal");
+  glBindAttribLocation(m_shaderProgram, 0, "a_Position");
+  glBindAttribLocation(m_shaderProgram, 1, "a_UV");
+  glBindAttribLocation(m_shaderProgram, 2, "a_Normal");
 
   // Clean up unneeded data
   glDeleteShader(vertexShader);
