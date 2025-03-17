@@ -27,7 +27,7 @@ server.get("/runtime/engine.data", (req, res) => {
   res.sendFile(process.cwd() + "/build/engine.data");
 });
 
-server.use("/Assets", express.static("./Assets"));
+server.use("/runtime/Assets", express.static("./Assets"));
 
 server.listen(3000, () => {
   console.log("\nDevelopment environment is now running!", utils.Asciis.Success);

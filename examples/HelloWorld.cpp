@@ -14,15 +14,18 @@ class CubeMesh : public Graphics::Mesh {
 class ExampleScene : public Scene {
   private:
   CubeMesh mesh;
+  Graphics::Texture texture;
   
   public:
-  ExampleScene() : Scene("ExampleScene") {
+  ExampleScene() : Scene("ExampleScene"), texture("Assets/placeholder.png") {
     UI::UILabel* label = new UI::UILabel("Label", "Hello World from Table Engine");
     AddChild(label);
   }
 
   void Draw() override {
     Scene::Draw();
+
+    texture.GetTexture();
 
     Game::getInstance().GetRenderer().DrawMesh(&mesh);
   }

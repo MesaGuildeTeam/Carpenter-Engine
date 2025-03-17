@@ -72,7 +72,7 @@ class CPPObject {
   build() {
     if (!this.needsBuild()) return;
 
-    let execCmd = `${EMCC} -c "${this.path}/${this.name}.cpp" -o "${outputLocation}/${this.name}.o" -std=c++20 -I${includeDir}`;
+    let execCmd = `${EMCC} -c "${this.path}/${this.name}.cpp" -o "${outputLocation}/${this.name}.o" -std=c++20 -I${includeDir} -Iinclude/`;
     console.log(`compiling ${this.name}.cpp with em++`);
     child_process.execSync(execCmd, { cwd: process.cwd() });
   }

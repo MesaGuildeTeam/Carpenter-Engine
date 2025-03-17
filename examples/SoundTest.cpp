@@ -13,8 +13,8 @@
 
 // Song
 
-Engine::Audio::Music sampleSong("../Assets/demo.wav");
-Engine::Audio::Sound sampleSound("../Assets/drop.mp3");
+Engine::Audio::Music sampleSong("Assets/demo.wav");
+Engine::Audio::Sound sampleSound("Assets/drop.mp3");
 
 void MusicToggle() {
   Engine::Audio::SoundState state = sampleSong.playing();

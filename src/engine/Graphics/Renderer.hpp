@@ -3,6 +3,7 @@
 
 #include "Mesh.hpp"
 #include "Shader.hpp"
+#include "Texture.hpp"
 #include <memory>
 
 namespace Engine::Graphics {
