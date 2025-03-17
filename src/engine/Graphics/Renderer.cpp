@@ -28,6 +28,8 @@ Engine::Graphics::Renderer::Renderer(const char* id) {
   // Setup Clear Color
   glClearColor(0.2f, 0.3f, 0.4f, 1.0f);
   glEnable(GL_DEPTH_TEST);
+  glEnable(GL_BLEND);
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
   Engine::Graphics::DefaultShader = std::unique_ptr<Engine::Graphics::Shader>(new Engine::Graphics::Shader());
 
