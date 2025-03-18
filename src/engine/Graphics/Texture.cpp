@@ -23,6 +23,8 @@ void Engine::Graphics::Texture::LoadTexture() {
   //unsigned char* textureData = stbi_load(m_filename, &m_dimensions[0], &m_dimensions[1], nullptr, 4);
   unsigned char* textureData = stbi_load_from_memory(data, size, &m_dimensions[0], &m_dimensions[1], nullptr, 4);
 
+  free(data);
+
   if (textureData == nullptr) {
     std::cerr << "ERROR: Failed to load image name: " << m_filename << std::endl;
     return;
@@ -36,7 +38,7 @@ void Engine::Graphics::Texture::LoadTexture() {
   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_dimensions[0], m_dimensions[1], 0, GL_RGBA, GL_UNSIGNED_BYTE, textureData);
   glGenerateMipmap(GL_TEXTURE_2D);
 
-  delete[] textureData;
+  STBI_FREE(textureData);
 }
 
 unsigned Engine::Graphics::Texture::GetTexture() {
