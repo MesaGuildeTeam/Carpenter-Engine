@@ -32,18 +32,20 @@ namespace Engine::Graphics {
     public:
 
     /**
-     * The default constructor
+     * @brief The default constructor
      * 
      * @param id the element id of the html canvas
      */
     Renderer(const char* id = "canvas");
 
     /**
-     * Clears the canvas to black
+     * @brief Clears the canvas to the default clear color
      */
     void ClearBuffer();
 
     /**
+     * @brief Draws a mesh to the canvas
+     * 
      * Draws a mesh to the canvas with the currently loaded shader.
      * To draw with a specified shader, call `UseShader(shader)` first.
      * 
@@ -52,23 +54,43 @@ namespace Engine::Graphics {
     void DrawMesh(Mesh* mesh);
     
     /**
-     * Sets the currently loaded shader.
+     * @brief Sets the currently loaded shader.
+     * 
      * Call this before drawing a mesh, but you are also suggested to use `UseMaterial` instead.
      */
     void UseShader(Shader* shader);
 
     /**
-     * Takes the texture and binds it to the specified slot.
+     * @brief Takes the texture and binds it to the specified slot.
+     * 
+     * To bind a texture to the renderer slot, you use the texture you wish to bind,
+     * and the slot you wish to bind it to.
+     * 
+     * 
+     * By default, the method binds the texture to slot 0 or `GL_TEXTURE0`. 
+     * If you wish to select another slot, please refer to the OpenGL documentation,
+     * or here are a few standards the team follows:
+     * 
+     * - `GL_TEXTURE0`: Albedo/Color
+     * 
+     * - `GL_TEXTURE1`: Normal
      * 
      * ## Example
      * ```cpp
-     * Graphics::Renderer& renderer{Game::getInstance().GetRenderer()};
-     * Texture testTexture("Assets/placeholder.png");
-     * renderer.UseTexture(&testTexture, GL_TEXTURE0);
-     * renderer.DrawMesh(&testMesh);
+     * Engine::Graphics::Texture texture("Assets/placeholder.png");
+     * 
+     * class TestObject : public Engine::Node {
+     *   void Draw() override {
+     *     Engine::Game::getInstance().GetRenderer().UseTexture(texture, GL_TEXTURE0);
+     *     Engine::Game::getInstance().GetRenderer().DrawMesh(&mesh);
+     *   }
+     * };
      * ```
+     * 
+     * @param texture the texture to bind
+     * @param slot the slot to bind the texture to. 
      */
-    void UseTexture(Texture& texture, unsigned int slot);
+    void UseTexture(Texture& texture, unsigned int slot = GL_TEXTURE0);
   };
 
   /**

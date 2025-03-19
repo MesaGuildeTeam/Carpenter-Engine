@@ -70,4 +70,7 @@ If you want to read more about the technical details of the game engine, I recom
 # Credits
 
 Music for Demonstration for Examples/SoundTest.cpp: Roberto Selles
+
 Drop Sound Effect: [Pixabay](https://pixabay.com/sound-effects/drop-sound-effect-240899/)
+
+Placeholder Texture: [Jummit on OpenGameArt](https://opengameart.org/content/grid-placeholder-texture-templategridalbedopng)
