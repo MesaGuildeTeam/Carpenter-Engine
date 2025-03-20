@@ -27,7 +27,12 @@ namespace Engine::Graphics {
   class Shader {
     private:
 
-    unsigned int m_shaderProgram;
+    unsigned int m_shaderProgram = -1;
+
+    const char* m_frag;
+    const char* m_vert;
+
+    void CompileShader();
 
     public:
 

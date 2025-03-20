@@ -1,41 +1,29 @@
 #include "Shader.hpp"
 #include <GLES3/gl3.h>
+#include <emscripten/html5.h>
 #include <iostream>
+#include "../Game.hpp"
 
-const char* defaultVertexShader {
-  "attribute vec3 a_Position;\n"
-  "attribute vec2 a_UV;\n"
-  "attribute vec3 a_Normal;\n"
-  "uniform vec2 window;\n"
-  "varying vec2 v_UV;\n"
-  "varying vec3 v_Normal;\n"
-  "void main()\n"
-  "{\n"
-  "   gl_Position = vec4(a_Position.x * window.y / window.x, a_Position.y, a_Position.z, 1.0);\n"
-  "   v_UV = a_UV;\n"
-  "   v_Normal = a_Normal;\n"
-  "}\0"
-};
+Engine::Graphics::Shader::Shader() : Shader("js/default.frag", "js/default.vert") {}
 
-const char* defaultFragmentShader {
-  "precision mediump float;\n"
-  "varying vec2 v_UV;\n"
-  "varying vec3 v_Normal;\n"
-  "uniform sampler2D u_Color;\n"
-  "void main()\n"
-  "{\n"
-  "    gl_FragColor = texture2D(u_Color, v_UV);\n"
-  "}\0"
-};
-
-Engine::Graphics::Shader::Shader() : Shader(defaultFragmentShader, defaultVertexShader) {}
-
-Engine::Graphics::Shader::Shader(const char* frag) : Shader(frag, defaultVertexShader) {}
+Engine::Graphics::Shader::Shader(const char* frag) : Shader(frag, "js/default.vert") {}
 
 Engine::Graphics::Shader::Shader(const char* frag, const char* vert) {
-  // Generate and check vertex shader
+  m_frag = frag;
+  m_vert = vert;
+}
+
+void Engine::Graphics::Shader::CompileShader() {
+  // Load shader scripts
+  char* vScript, *fScript;
+  int vertexShaderSize, fragmentShaderSize;
+
+  emscripten_wget_data(m_frag, (void**)&fScript, &fragmentShaderSize, nullptr);
+  emscripten_wget_data(m_vert, (void**)&vScript, &vertexShaderSize, nullptr);
+  
+  // Compile and check vertex shader
   unsigned vertexShader = glCreateShader(GL_VERTEX_SHADER);
-  glShaderSource(vertexShader, 1, &vert, 0);
+  glShaderSource(vertexShader, 1, &vScript, &vertexShaderSize);
   glCompileShader(vertexShader);
 
   int success;
@@ -47,9 +35,9 @@ Engine::Graphics::Shader::Shader(const char* frag, const char* vert) {
     std::cerr << "ERROR: Vertex Shader Failed to compile successfully\n" << infoLog << std::endl; 
   }
 
-  // Generate and check fragment shader
+  // Compile and check fragment shader
   unsigned fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-  glShaderSource(fragmentShader, 1, &frag, 0);
+  glShaderSource(fragmentShader, 1, &fScript, &fragmentShaderSize);
   glCompileShader(fragmentShader);
 
   glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
@@ -73,9 +61,15 @@ Engine::Graphics::Shader::Shader(const char* frag, const char* vert) {
   // Clean up unneeded data
   glDeleteShader(vertexShader);
   glDeleteShader(fragmentShader);
+  delete[] vScript;
+  delete[] fScript;
 }
 
 void Engine::Graphics::Shader::Use() {
+  if (m_shaderProgram == -1) {
+    CompileShader();
+  }
+
   glUseProgram(m_shaderProgram);
 }
 
