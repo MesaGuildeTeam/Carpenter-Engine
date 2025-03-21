@@ -96,6 +96,13 @@ namespace Engine::Graphics {
       float* GetVertices();
 
       /**
+       * @brief Returns the number of vertices in the vertex buffer
+       * 
+       * @return The number of vertices
+       */
+      unsigned long GetVertexCount();
+
+      /**
        * @brief Returns a pointer to an unsigned int array of indices.
        * This output is designed to be ready for OpenGL use.
        * 

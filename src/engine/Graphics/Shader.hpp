@@ -64,11 +64,6 @@ namespace Engine::Graphics {
     Shader(const char* frag, const char* vert);
 
     /**
-     * @deprecated Use the shader in `Engine::Graphics::Renderer::UseShader()` instead.
-     */
-    void Use();
-
-    /**
      * @brief Gets the shader program
      * 
      * Returns the shader program that was loaded into the GPU.

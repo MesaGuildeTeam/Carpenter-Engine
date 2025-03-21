@@ -72,14 +72,12 @@ void Engine::Graphics::Shader::CompileShader() {
   delete[] fScript;
 }
 
-void Engine::Graphics::Shader::Use() {
+
+
+unsigned int Engine::Graphics::Shader::GetShaderProgram() {
   if (m_shaderProgram == -1) {
     CompileShader();
   }
 
-  glUseProgram(m_shaderProgram);
-}
-
-unsigned int Engine::Graphics::Shader::GetShaderProgram() {
   return m_shaderProgram;
 }

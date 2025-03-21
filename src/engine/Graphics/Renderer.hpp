@@ -67,7 +67,7 @@ namespace Engine::Graphics {
      * 
      * Call this before drawing a mesh, but you are also suggested to use `UseMaterial` instead.
      */
-    void UseShader(Shader* shader);
+    void UseShader(Shader& shader);
 
     /**
      * @brief Takes the texture and binds it to the specified slot.
@@ -107,7 +107,7 @@ namespace Engine::Graphics {
    * This is a default shader so it is not *required* to make your own shaders. 
    * 
    */
-  extern std::unique_ptr<Shader> DefaultShader;
+  extern Shader DefaultShader;
 }
 
 #endif

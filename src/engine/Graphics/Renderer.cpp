@@ -7,7 +7,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 // This is moved here to be initialized at renderer construction
-std::unique_ptr<Engine::Graphics::Shader> Engine::Graphics::DefaultShader;
+Engine::Graphics::Shader Engine::Graphics::DefaultShader;
 
 Engine::Graphics::Renderer::Renderer(const char* id) {
   EmscriptenWebGLContextAttributes attrs;
@@ -29,15 +29,15 @@ Engine::Graphics::Renderer::Renderer(const char* id) {
     game.gl[UTF8ToString($0)] = game.canvases[UTF8ToString($0)].getContext("webgl2");
   }, id);
 
-  // Setup Clear Color
+  // Setup Clear Color and default render settings
   glClearColor(0.2f, 0.3f, 0.4f, 1.0f);
   glEnable(GL_DEPTH_TEST);
   glEnable(GL_BLEND);
+  glEnable(GL_CULL_FACE);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-  Engine::Graphics::DefaultShader = std::unique_ptr<Engine::Graphics::Shader>(new Engine::Graphics::Shader());
-
-  UseShader(DefaultShader.get());
+  glFrontFace(GL_CCW);
+  
+  UseShader(DefaultShader);
 
   // Generate and configure buffers
   glGenBuffers(1, &m_vbo);
@@ -61,10 +61,11 @@ void Engine::Graphics::Renderer::ClearBuffer() {
 void Engine::Graphics::Renderer::DrawMesh(Engine::Graphics::Mesh* mesh, Engine::Vec3f position, Engine::Vec3f scale, Engine::Vec3f rotation) {
   // Generate Data
   float* vertexBuffer = mesh->GetVertices();
+  unsigned long vertexCount = mesh->GetVertexCount();
   unsigned short* indexBuffer = mesh->GetIndices();
   unsigned long indexCount = mesh->GetIndexCount();
 
-  // Prepare Transformation Matrix Uniform
+  // Prepare Transformation uniforms
 
   // Window Dimensions
   int WindowDimensions[2] {0, 0}; // Width, Height
@@ -80,20 +81,14 @@ void Engine::Graphics::Renderer::DrawMesh(Engine::Graphics::Mesh* mesh, Engine::
 
   transformationMatrix = glm::translate(transformationMatrix, glm::vec3(position.x, position.y, position.z)); // position
 
-  transformationMatrix = glm::scale(transformationMatrix, glm::vec3(scale.x, scale.y, scale.z)); // scale
-  
+  transformationMatrix = glm::scale(transformationMatrix, glm::vec3(scale.x, scale.y, scale.z)); // scale  
 
   int transformUniform = glGetUniformLocation(m_currentShaderProgram, "u_Transform");
   glUniformMatrix4fv(transformUniform, 1, GL_FALSE, &transformationMatrix[0][0]);
 
   // Bind data
-  glBufferData(GL_ARRAY_BUFFER, indexCount * sizeof(Engine::Graphics::Vertex), vertexBuffer, GL_DYNAMIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, vertexCount * sizeof(Engine::Graphics::Vertex), vertexBuffer, GL_DYNAMIC_DRAW);
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexCount * sizeof(unsigned short), indexBuffer, GL_DYNAMIC_DRAW);
-  //glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
-
-  //int positionIndex = glGetAttribLocation(m_currentShaderProgram, "aPosition");
-  //int texCoordIndex = glGetAttribLocation(m_currentShaderProgram, "aTexCoord");
-  //int normalIndex = glGetAttribLocation(m_currentShaderProgram, "aNormal");
 
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Engine::Graphics::Vertex), (void*)0); // position
   glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Engine::Graphics::Vertex), (void*)(sizeof(float) * 3)); // texture coordinates
@@ -102,9 +97,9 @@ void Engine::Graphics::Renderer::DrawMesh(Engine::Graphics::Mesh* mesh, Engine::
   glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_SHORT, 0);
 }
 
-void Engine::Graphics::Renderer::UseShader(Shader* shader) {
-  shader->Use();
-  m_currentShaderProgram = shader->GetShaderProgram();
+void Engine::Graphics::Renderer::UseShader(Shader& shader) {
+  m_currentShaderProgram = shader.GetShaderProgram();
+  glUseProgram(m_currentShaderProgram);
 }
 
 void Engine::Graphics::Renderer::UseTexture(Engine::Graphics::Texture& texture, unsigned int textureSlot) {
