@@ -46,12 +46,21 @@ namespace Engine::Graphics {
     /**
      * @brief Draws a mesh to the canvas
      * 
-     * Draws a mesh to the canvas with the currently loaded shader.
-     * To draw with a specified shader, call `UseShader(shader)` first.
+     * Draws a mesh to the canvas with the currently loaded data.
+     * The data loaded (but not required) includes:
+     *
+     * - Shaders
+     *
+     * - Uniforms
+     * 
+     * - Textures
      * 
      * @param mesh the mesh to draw
+     * @param position the position of the mesh
+     * @param scale the scaling of the mesh
+     * @param rotation the rotation of the mesh in degrees
      */
-    void DrawMesh(Mesh* mesh);
+    void DrawMesh(Mesh* mesh, Vec3f position = {0, 0, 0}, Vec3f scale = {1, 1, 1}, Vec3f rotation = {0, 0, 0});
     
     /**
      * @brief Sets the currently loaded shader.
@@ -95,7 +104,7 @@ namespace Engine::Graphics {
 
   /**
    * @brief The default shader used by the renderer.
-   * This is a static variable used to avoid needing to create a new shader every time.
+   * This is a default shader so it is not *required* to make your own shaders. 
    * 
    */
   extern std::unique_ptr<Shader> DefaultShader;

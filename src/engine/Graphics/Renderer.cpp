@@ -2,6 +2,10 @@
 #include <emscripten/html5.h>
 #include <iostream>
 
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 // This is moved here to be initialized at renderer construction
 std::unique_ptr<Engine::Graphics::Shader> Engine::Graphics::DefaultShader;
 
@@ -54,18 +58,33 @@ void Engine::Graphics::Renderer::ClearBuffer() {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void Engine::Graphics::Renderer::DrawMesh(Engine::Graphics::Mesh* mesh) {
+void Engine::Graphics::Renderer::DrawMesh(Engine::Graphics::Mesh* mesh, Engine::Vec3f position, Engine::Vec3f scale, Engine::Vec3f rotation) {
   // Generate Data
   float* vertexBuffer = mesh->GetVertices();
   unsigned short* indexBuffer = mesh->GetIndices();
   unsigned long indexCount = mesh->GetIndexCount();
 
   // Prepare Transformation Matrix Uniform
-  int WindowDimensions[2] {0, 0}; // Width, Height... Fullscreen?
-  emscripten_get_canvas_element_size(m_id, &WindowDimensions[0], &WindowDimensions[1]);
-  int windowDimensionsSize = glGetUniformLocation(m_currentShaderProgram, "window");
 
+  // Window Dimensions
+  int WindowDimensions[2] {0, 0}; // Width, Height
+  emscripten_get_canvas_element_size(m_id, &WindowDimensions[0], &WindowDimensions[1]);
+  int windowDimensionsSize = glGetUniformLocation(m_currentShaderProgram, "u_Window");
   glUniform2f(windowDimensionsSize, WindowDimensions[0], WindowDimensions[1]);
+
+  // The Rest of the Matrix
+  glm::mat4 transformationMatrix = glm::mat4(1.0f);
+  transformationMatrix = glm::rotate(transformationMatrix, glm::radians(rotation.x), glm::vec3(1.0f, 0.0f, 0.0f)); // rotation
+  transformationMatrix = glm::rotate(transformationMatrix, glm::radians(rotation.y), glm::vec3(0.0f, 1.0f, 0.0f)); // rotation
+  transformationMatrix = glm::rotate(transformationMatrix, glm::radians(rotation.z), glm::vec3(0.0f, 0.0f, 1.0f)); // rotation
+
+  transformationMatrix = glm::translate(transformationMatrix, glm::vec3(position.x, position.y, position.z)); // position
+
+  transformationMatrix = glm::scale(transformationMatrix, glm::vec3(scale.x, scale.y, scale.z)); // scale
+  
+
+  int transformUniform = glGetUniformLocation(m_currentShaderProgram, "u_Transform");
+  glUniformMatrix4fv(transformUniform, 1, GL_FALSE, &transformationMatrix[0][0]);
 
   // Bind data
   glBufferData(GL_ARRAY_BUFFER, indexCount * sizeof(Engine::Graphics::Vertex), vertexBuffer, GL_DYNAMIC_DRAW);

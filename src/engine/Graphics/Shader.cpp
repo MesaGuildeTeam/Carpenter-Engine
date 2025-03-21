@@ -54,6 +54,13 @@ void Engine::Graphics::Shader::CompileShader() {
 
   glLinkProgram(m_shaderProgram);
 
+  glGetProgramiv(m_shaderProgram, GL_LINK_STATUS, &success);
+
+  if (!success) {
+    glGetProgramInfoLog(m_shaderProgram, 512, 0, infoLog);
+    std::cerr << "ERROR: Shader Program Failed to link successfully\n" << infoLog << std::endl;
+  }
+
   glBindAttribLocation(m_shaderProgram, 0, "a_Position");
   glBindAttribLocation(m_shaderProgram, 1, "a_UV");
   glBindAttribLocation(m_shaderProgram, 2, "a_Normal");

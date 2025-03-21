@@ -5,11 +5,14 @@ To make this game engine compatible with web browsers, the system uses OpenGL ES
 # General Parameters
 
 ## Window
-`uniform vec2 window`
-
-> [!note] to be refactored into matrix
+`uniform vec2 u_Window`
 
 the whole purpose of the window uniform is to pass your window dimensions to the game engine. This is intended for scaling your objects to fit the users window to how you wish your game to behave.
+
+## Transformation
+`uniform mat4 u_Transform`
+
+the goal of the transformation uniform is to tell the vertex shader how to transform the vertex. Usually this will include translations, scaling, and potentially rotations. If you were to call `Engine::Graphics::Renderer::DrawMesh()`, you will definitely have access to all of these parameters.
 
 # Vertex Shaders
 

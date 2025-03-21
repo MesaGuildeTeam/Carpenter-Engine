@@ -26,7 +26,7 @@ class ExampleScene : public Scene {
     Scene::Draw();
 
     Game::getInstance().GetRenderer().UseTexture(texture, GL_TEXTURE0);
-    Game::getInstance().GetRenderer().DrawMesh(&mesh);
+    Game::getInstance().GetRenderer().DrawMesh(&mesh, {0, 0, 0}, {1, 1, 1}, {45, 45, 0});
   }
 };
 
