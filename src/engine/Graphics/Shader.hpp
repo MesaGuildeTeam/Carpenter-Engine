@@ -23,6 +23,9 @@ namespace Engine::Graphics {
    *   }
    * };
    * ```
+   * 
+   * @authors
+   * - Roberto Selles/Henderythmix
    */
   class Shader {
     private:

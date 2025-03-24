@@ -17,6 +17,9 @@ namespace Engine::Graphics {
    * to canvases on the web. If you are trying to render to the main
    * canvas, you can access it using `Engine::Game::GetInstance().GetRenderer()`, 
    * and that will return the main renderer.
+   * 
+   * @authors 
+   * - Roberto Selles/Henderythmix
    */
   class Renderer {
     private:

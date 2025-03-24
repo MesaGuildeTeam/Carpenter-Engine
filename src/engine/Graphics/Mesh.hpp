@@ -10,7 +10,20 @@ namespace Engine::Graphics {
    * @brief A structure used to store mesh vertices.
    * 
    * Each vertex has a position, texture coordinate, and normal vector which can be processed in shaders.
-   * Positions and coordinates are required, however normals are predefined or calculated if not provided.
+   * Positions and coordinates are required. However, normal vectors are optional.
+   * If you don't provide a normal vector, the engine will compute one for you in respect to the triangle you create.
+   * 
+   * @param x The x position of the vertex
+   * @param y The y position of the vertex
+   * @param z The z position of the vertex
+   * @param u The u texture coordinate of the vertex
+   * @param v The v texture coordinate of the vertex
+   * @param nx The x component of the normal vector *(optional)*
+   * @param ny The y component of the normal vector *(optional)*
+   * @param nz The z component of the normal vector *(optional)*
+   * 
+   * @authors
+   * - Roberto Selles/Henderythmix
    */
   struct Vertex {
     float x, y, z, u, v;
@@ -54,7 +67,8 @@ namespace Engine::Graphics {
    * @warning All triangles must be loaded in counter-clockwise order 
    * due to the engine's winding order.
    * 
-   * @author Roberto Selles
+   * @authors
+   * - Roberto Selles/Henderythmix
    */
   class Mesh {
     private:
@@ -64,9 +78,10 @@ namespace Engine::Graphics {
     protected:
 
       /**
-       * Adds a triangle to the mesh, and computes the normals for the vertices
+       * @brief Adds a triangle to the mesh, and computes the normals for the vertices
        * 
-       * Until further notice, this method will be deprecated. It will still work, but it will not behave as intended
+       * Triangles must be added in counter-clockwise order. 
+       * If not, the renderer will assume the plane is facing the wrong way.
        * 
        * @param v1 The first vertex of the triangle
        * @param v2 The second vertex of the triangle

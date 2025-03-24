@@ -73,8 +73,6 @@ Engine::Success Engine::Graphics::Mesh::AddTriangle(Vertex v1, Vertex v2, Vertex
     m_vertices.push_back(n3);
     m_indices.push_back(m_vertices.size() - 1);
   }
-
-  std::cout << m_indices.size() << " " << m_vertices.size() << std::endl;
   
   return Engine::SUCCESS;
 }

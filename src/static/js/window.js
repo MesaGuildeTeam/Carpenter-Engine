@@ -166,11 +166,22 @@ window.addEventListener("resize", () => {
 });
 
 // Game Loop
+
+var lastTime = new Date().getTime();
+
+async function update() {
+  var now = new Date().getTime();
+  _Engine_CallUpdate((now - lastTime) / 1000);
+  lastTime = now;
+};
+
+async function draw() {_Engine_CallDraw()};
+
 function windowLoop() {
   if (!game.ready) return;
 
-  _Engine_CallUpdate(0.1);
-  _Engine_CallDraw();
+  update();
+  draw();
 }
 
 window.addEventListener("load", () => {
