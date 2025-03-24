@@ -32,6 +32,8 @@ namespace Engine::Graphics {
 
     unsigned int m_currentShaderProgram;
 
+    Vec3f* m_referencePoint;
+
     public:
 
     /**
@@ -103,6 +105,17 @@ namespace Engine::Graphics {
      * @param slot the slot to bind the texture to. 
      */
     void UseTexture(Texture& texture, unsigned int slot = GL_TEXTURE0);
+
+    /**
+     * @brief Sets the camera reference.
+     * 
+     * The camera reference can be any Vec3f pointer, but it is suggested to use a camera class position.
+     * 
+     * TODO: Make a camera class which requires a GameObject class
+     * 
+     * @param cameraPos the camera position
+     */
+    void SetCameraReference(Vec3f* cameraPos);
   };
 
   /**

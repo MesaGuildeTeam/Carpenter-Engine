@@ -6,10 +6,12 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+Engine::Vec3f defaultReferencePoint = {0, 0, 0};
+
 // This is moved here to be initialized at renderer construction
 Engine::Graphics::Shader Engine::Graphics::DefaultShader;
 
-Engine::Graphics::Renderer::Renderer(const char* id) {
+Engine::Graphics::Renderer::Renderer(const char* id): m_referencePoint(&defaultReferencePoint) {
   EmscriptenWebGLContextAttributes attrs;
   emscripten_webgl_init_context_attributes(&attrs);
   attrs.alpha = EM_TRUE;
@@ -79,7 +81,7 @@ void Engine::Graphics::Renderer::DrawMesh(Engine::Graphics::Mesh* mesh, Engine::
   transformationMatrix = glm::rotate(transformationMatrix, glm::radians(rotation.y), glm::vec3(0.0f, 1.0f, 0.0f)); // rotation
   transformationMatrix = glm::rotate(transformationMatrix, glm::radians(rotation.z), glm::vec3(0.0f, 0.0f, 1.0f)); // rotation
 
-  transformationMatrix = glm::translate(transformationMatrix, glm::vec3(position.x, position.y, position.z)); // position
+  transformationMatrix = glm::translate(transformationMatrix, glm::vec3(position.x - m_referencePoint->x, position.y - m_referencePoint->y, position.z - m_referencePoint->z)); // position
 
   transformationMatrix = glm::scale(transformationMatrix, glm::vec3(scale.x, scale.y, scale.z)); // scale  
 
