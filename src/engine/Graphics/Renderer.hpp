@@ -4,6 +4,7 @@
 #include "Mesh.hpp"
 #include "Shader.hpp"
 #include "Texture.hpp"
+#include "../GameObject.hpp"
 #include <memory>
 #include <GLES3/gl3.h>
 
@@ -32,7 +33,7 @@ namespace Engine::Graphics {
 
     unsigned int m_currentShaderProgram;
 
-    Vec3f* m_referencePoint;
+    GameObject* m_camera;
 
     public:
 
@@ -109,13 +110,13 @@ namespace Engine::Graphics {
     /**
      * @brief Sets the camera reference.
      * 
-     * The camera reference can be any Vec3f pointer, but it is suggested to use a camera class position.
+     * The goal of this object is to provide a reference to the camera for the renderer.
+     * Any game object can be a camera, and all it does is set a reference point to
+     * the camera's position and rotation.
      * 
-     * TODO: Make a camera class which requires a GameObject class
-     * 
-     * @param cameraPos the camera position
+     * @param camera the object to use as a camera
      */
-    void SetCameraReference(Vec3f* cameraPos);
+    void SetCameraReference(GameObject& camera);
   };
 
   /**

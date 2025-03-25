@@ -85,8 +85,10 @@ function buildGame(config = defaultBuildSteps) {
   }
 
   // Package process
-  if (config.runPackage)
+  if (config.runPackage) {
     console.log(child_process.execSync(`cp -r ${staticDir}/* ./build/`));
+    console.log(child_process.execSync(`cp -r ./Assets ./build/`));
+  }
 
   return process.exit(0);
 }
