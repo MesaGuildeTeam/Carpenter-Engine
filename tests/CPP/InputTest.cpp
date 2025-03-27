@@ -9,33 +9,34 @@ Input::Input TestInput;
 int main() {
     
     runner.addTest("Initial Check", []() {
+        runner.DebugLog("Input class size: " + std::to_string(sizeof(Input::Input)) + " bytes");
         TestInput.currentStrength = 0;
         TestInput.Update();
-        return (TestInput.IsDown() == false);
+        runner.Assert(TestInput.IsDown() == false, "Input does not start off released! IsDown() != false");
     });
 
     runner.addTest("Press", []() {
         TestInput.currentStrength = 1;
         TestInput.Update();
-        return (TestInput.IsDown() && TestInput.IsPressed() && !TestInput.IsReleased());
+        runner.Assert(TestInput.IsDown() && TestInput.IsPressed() && !TestInput.IsReleased(), "Press is not updated correctly!");
     });
 
     runner.addTest("Hold Down", []() {
         TestInput.currentStrength = 1;
         TestInput.Update();
-        return (TestInput.IsDown() && !TestInput.IsPressed() && !TestInput.IsReleased());
+        runner.Assert(TestInput.IsDown() && !TestInput.IsPressed() && !TestInput.IsReleased(), "Hold is not updated correctly!");
     });
     
     runner.addTest("Release", []() {
         TestInput.currentStrength = 0;
         TestInput.Update();
-        return (!TestInput.IsDown() && !TestInput.IsPressed() && TestInput.IsReleased());
+        runner.Assert(!TestInput.IsDown() && !TestInput.IsPressed() && TestInput.IsReleased(), "Release is not updated correctly!");
     });
 
     runner.addTest("Wait", []() {
         TestInput.currentStrength = 0;
         TestInput.Update();
-        return (!TestInput.IsDown() && !TestInput.IsPressed() && !TestInput.IsReleased());
+        runner.Assert(!TestInput.IsDown() && !TestInput.IsPressed() && !TestInput.IsReleased(), "Wait is not updated correctly!");
     });
     
     return 0;
