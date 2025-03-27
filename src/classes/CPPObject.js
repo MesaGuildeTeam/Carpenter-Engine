@@ -1,7 +1,6 @@
 const fs = require("fs");
 const path = require("path");
 const utils = require("../utils");
-const child_process = require("child_process");
 const os = require("os");
 
 var buildConfig;
@@ -59,7 +58,8 @@ class CPPObject {
   }
 
   /**
-   * Returns a boolean to determine if this file needs to be built
+   * A method that returns if this file needs to be built
+   * @returns {boolean}
    */
   needsBuild() {
     if (!fs.existsSync(`${this.path}/${this.name}.cpp`)) return false;
@@ -73,8 +73,7 @@ class CPPObject {
     if (!this.needsBuild()) return;
 
     let execCmd = `${EMCC} -c "${this.path}/${this.name}.cpp" -o "${outputLocation}/${this.name}.o" -std=c++20 -I${includeDir}`;
-    console.log(`compiling ${this.name}.cpp with em++`);
-    child_process.execSync(execCmd, { cwd: process.cwd() });
+    utils.execCommand(execCmd, `Compiling ${this.name}.cpp`);
   }
 
   /**

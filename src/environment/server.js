@@ -14,7 +14,7 @@ try {
 // Adding the game testing environment 
 
 server.use("/runtime", express.static(buildConfig.static));
-
+  
 server.get("/runtime/engine.wasm", (req, res) => {
   res.sendFile(process.cwd() + "/build/engine.wasm");
 });
@@ -29,7 +29,11 @@ server.get("/runtime/engine.data", (req, res) => {
 
 server.use("/Assets", express.static("./Assets"));
 
-server.listen(3000, () => {
-  console.log("\nDevelopment environment is now running!", utils.Asciis.Success);
-  console.log("Test your game at: http://localhost:3000/runtime");
-});
+function runServer() {
+  server.listen(3000, () => {
+    console.log("\nDevelopment environment is now running!", utils.Asciis.Success);
+    console.log("Test your game at: http://localhost:3000/runtime");
+  });
+}
+
+module.exports = runServer;
