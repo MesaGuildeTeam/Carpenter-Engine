@@ -1,6 +1,5 @@
 const os = require("os");
 const fs = require("fs");
-const child_process = require("child_process");
 const path = require("path");
 
 const utils = require("../utils");
@@ -50,8 +49,6 @@ class CPPTest extends CPPObject {
   build() {
     if (!this.needsBuild()) return;
 
-    console.log(`building test ${this.name}.cpp`);
-
     let files = "";
     this.getDependencies().forEach((dep) => {
       let file = new CPPObject(dep);
@@ -62,9 +59,7 @@ class CPPTest extends CPPObject {
 
     let execCmd = `${EMCC} "${this.path}/${this.name}.cpp" ${files} -o "./tests/WASM/${this.name}.js" -std=c++20 -I${includeDir} -DTESTNAME="${this.path}/${this.name}.cpp" -sEXPORTED_FUNCTIONS=_Testing_getTestCount,_Testing_getPassedTestCount,_Testing_runTests,_main -sMODULARIZE`;
 
-    console.log(execCmd);
-
-    child_process.execSync(execCmd, { cwd: process.cwd() });
+    utils.execCommand(execCmd, `Compiling test ${this.name}.cpp`);
   }
 
   /**

@@ -9,7 +9,7 @@ Testing::TestRunner& Testing::TestRunner::getInstance(std::string name) {
     return instance;
 }
 
-void Testing::TestRunner::addTest(std::string name, std::function<bool()> test) {
+void Testing::TestRunner::addTest(std::string name, std::function<void()> test) {
     m_tests.push_back({name, test});
 }
 
@@ -20,11 +20,12 @@ void Testing::TestRunner::runTests() {
 
         auto start = std::chrono::high_resolution_clock::now();
 
-        bool result = test.test();
+        m_currentSuccess = true;
+        test.test();
 
         auto end = std::chrono::high_resolution_clock::now();
 
-        if (result) {
+        if (m_currentSuccess == true) {
             std::cout << " \x1B[32m[✓]\x1B[0m ";
             m_passedTests++;
         } else {
@@ -32,7 +33,35 @@ void Testing::TestRunner::runTests() {
         }
 
         std::cout << "\x1B[2m" << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count() << "ms\x1B[0m" << std::endl;
+
+        if (m_logs.size() != 0)
+            PrintLogs();
     }
+}
+
+void Testing::TestRunner::DebugLog(std::string message) {
+    m_logs.push_back("\x1b[2m" + message + "\x1b[0m");
+}
+
+void Testing::TestRunner::DebugError(std::string message) {
+    m_currentSuccess = false;
+    m_logs.push_back("\x1b[2;31m" + message + "\x1b[0m");
+}
+
+void Testing::TestRunner::Assert(bool condition, std::string message) {
+    if (!condition) {
+        DebugError(message);
+    } 
+}
+
+void Testing::TestRunner::PrintLogs() {
+    std::cout << "\x1B[2mLogs:\n";
+    for (std::string log : m_logs)
+        std::cout << log << std::endl;
+
+    std::cout << "\x1B[0m";
+
+    m_logs.clear();
 }
 
 unsigned int Testing::TestRunner::getTestCount() {

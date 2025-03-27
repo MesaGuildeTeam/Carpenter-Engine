@@ -14,7 +14,8 @@ const title = `  ${utils.Asciis.Table} Table Engine v${pkg.version} ${utils.Asci
 program
   .name("table")
   .description(pkg.description)
-  .version(pkg.version, "-v, --version")
+  .version(pkg.version)
+  .option("-v, --verbose", "verbose mode", false)
   .addHelpText("beforeAll", title);
 
 // Environment Setup Command
@@ -24,6 +25,9 @@ program
     "setup your environment by installing emscripten and creating the necessary folders",
   )
   .action(() => {
+    if (program.opts().verbose) {
+      utils.setVerbose(true);
+    }
     setup.installEmscripten();
   });
 
@@ -41,6 +45,10 @@ program
   )
   .option("-m, --main <option>", "Link a main .cpp file outside the project source code when using -l")
   .action((options) => {
+    if (program.opts().verbose) {
+      utils.setVerbose(true);
+    }
+
     if (Object.keys(options).length == 0) {
       build.buildGame();
       return;
@@ -59,13 +67,22 @@ program
     "Run the development and testing environment for the game engine",
   )
   .action(() => {
-    require("./environment/server");
+    if (program.opts().verbose) {
+      utils.setVerbose(true);
+    }
+
+    let server = require("./environment/server");
+
+    server();
   });
 
 program
   .command("test")
   .description("Run the tests for the game engine")
   .action(() => {
+    if (program.opts().verbose) {
+      utils.setVerbose(true);
+    }
     testing.RunTests();
   });
 
@@ -78,6 +95,9 @@ program
       "\x1b[0m",
   )
   .action(() => {
+    if (program.opts().verbose) {
+      utils.setVerbose(true);
+    }
     clean.clean();
   });
 

@@ -36,18 +36,6 @@ const staticDir =
     ? buildConfig.static
     : "node_modules/table-engine/src/static/";
 
-/**
- * Builds the c++ file specified into a .o file
- * @param {string} path The file name based on the buildconfig.json
- *
- * @memberof Build
- */
-function buildFile(path, folder) {
-  let execCmd = `${EMCC} -c "${folder}/${path}.cpp" -o "${outputLocation}/${path}.o" -std=c++20 -I${includeDir}`;
-  console.log(execCmd);
-  child_process.execSync(execCmd, { cwd: process.cwd() });
-}
-
 const defaultBuildSteps = {
   runBuild: true,
   runLink: true,
@@ -56,16 +44,21 @@ const defaultBuildSteps = {
 };
 
 /**
- * Goes through the whole build process of the game and its engine
+ * Goes through the whole build process of the game and its engine:
+ * 1. Starts with building each C++ file in the src folder through the `-c` flag
+ * 2. Then links all the object files together through the `-l` flag
+ * 3. Finally packages the game into a static webpage through the `-p` flag
+ * 
+ * If you wish to include a custom main file for testing, you can use the `-m` flag with the path to the file
+ * 
  * @memberof Build
  */
 function buildGame(config = defaultBuildSteps) {
-  console.log(process.cwd());
+
   // Build process
   if (config.runBuild)
     utils.processFiles(srcLocation, ".cpp", (file, folder) => {
       new CPPObject(`${folder}/${file}.cpp}`).build();
-      //buildFile(file, folder);
     });
 
   // Link process
@@ -79,14 +72,15 @@ function buildGame(config = defaultBuildSteps) {
         filesList = filesList + `"${folder}/${file}.o" `;
       });
 
-    let exec = `${EMCC} ${filesList} ${config.mainFile != "" && config.mainFile != null ? config.mainFile + " -I" + includeDir : ""} -o ./build/engine.js -sEXPORTED_FUNCTIONS=_Engine_CallUpdate,_Engine_CallDraw -sEXPORTED_RUNTIME_METHODS=ccall,cwrap --bind -sALLOW_MEMORY_GROWTH`;
-    console.log(exec);
-    child_process.execSync(exec);
+    let exec = `${EMCC} ${filesList} ${config.mainFile != "" && config.mainFile != null ? config.mainFile + " -I" + includeDir : ""} -o ./build/engine.js -std=c++20 -sEXPORTED_FUNCTIONS=_Engine_CallUpdate,_Engine_CallDraw -sEXPORTED_RUNTIME_METHODS=ccall,cwrap --bind -sALLOW_MEMORY_GROWTH`;
+    utils.execCommand(exec, "Linking Game");
   }
 
   // Package process
   if (config.runPackage)
     console.log(child_process.execSync(`cp -r ${staticDir}/* ./build/`));
+
+  console.log("Build process finished successfully!");
 
   return process.exit(0);
 }

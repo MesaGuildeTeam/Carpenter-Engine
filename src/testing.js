@@ -1,11 +1,9 @@
 /** @namespace Testing */
 
 const fs = require("fs");
-const path = require("path");
 
 const utils = require("./utils");
 const CPPTest = require("./classes/CPPTest");
-const { fail } = require("assert");
 
 /**
  * Runs all tests and outputs the results
@@ -30,6 +28,9 @@ async function RunTests() {
     console.log(
       `\nSuites: ${passedSuites} passed, ${suiteCount - passedSuites} failed, ${suiteCount} total ${passedSuites == 0 ? utils.Asciis.TableFlip : ""}`,
     );
+
+    if (passedSuites != suiteCount) process.exit(1);
+    else process.exit(0);
   });
 }
 
