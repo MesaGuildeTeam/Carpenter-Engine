@@ -122,3 +122,7 @@ void Engine::Graphics::Renderer::UseTexture(Engine::Graphics::Texture& texture, 
   glActiveTexture(textureSlot);
   glBindTexture(GL_TEXTURE_2D, texture.GetTexture());
 }
+
+void Engine::Graphics::Renderer::SetCameraReference(Engine::GameObject& camera) {
+  m_camera = &camera;
+}
