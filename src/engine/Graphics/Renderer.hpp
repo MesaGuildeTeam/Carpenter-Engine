@@ -4,6 +4,7 @@
 #include "Mesh.hpp"
 #include "Shader.hpp"
 #include "Texture.hpp"
+#include "Material.hpp"
 #include "../GameObject.hpp"
 #include <memory>
 #include <GLES3/gl3.h>
@@ -106,6 +107,15 @@ namespace Engine::Graphics {
      * @param slot the slot to bind the texture to. 
      */
     void UseTexture(Texture& texture, unsigned int slot = GL_TEXTURE0);
+
+    /**
+     * @brief Sets the currently loaded material.
+     * 
+     * Allows a pointer to a material to be used.
+     * 
+     * @param material the material to use
+     */
+    void UseMaterial(Material* material);
 
     /**
      * @brief Sets the camera reference.

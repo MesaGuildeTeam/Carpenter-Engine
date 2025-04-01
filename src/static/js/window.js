@@ -169,19 +169,21 @@ window.addEventListener("resize", () => {
 
 var lastTime = new Date().getTime();
 
-async function update() {
+function update() {
   var now = new Date().getTime();
   _Engine_CallUpdate((now - lastTime) / 1000);
   lastTime = now;
 };
 
-async function draw() {_Engine_CallDraw()};
+function draw() {_Engine_CallDraw()};
 
 function windowLoop() {
-  if (!game.ready) return;
+  if (!game.ready) return setTimeout(windowLoop, 100);
 
   update();
   draw();
+
+  setTimeout(windowLoop, 1000 / 60);
 }
 
 window.addEventListener("load", () => {
@@ -190,5 +192,5 @@ window.addEventListener("load", () => {
   game.musicVolume.gain.value = 1;
   game.musicVolume.connect(game.musicManager.destination);
 
-  setInterval(windowLoop, 1000 / 60);
+  windowLoop();
 });
