@@ -24,7 +24,7 @@ void main() {
     proportionalPos.y = newPos.y * u_Window.x / u_Window.y;
   }
   
-  gl_Position = vec4(proportionalPos, newPos.z, 1.0);
+  gl_Position = vec4(proportionalPos, (newPos.z - 100.0) / 100.0, 1.0);
   
   v_UV = a_UV;
 

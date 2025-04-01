@@ -75,11 +75,12 @@ void Engine::Graphics::Renderer::DrawMesh(Engine::Graphics::Mesh* mesh, Engine::
 
   // Object Transformation Matrix
   glm::mat4 transformationMatrix = glm::mat4(1.0f);
+
+  transformationMatrix = glm::translate(transformationMatrix, glm::vec3(position.x, position.y, position.z)); // position
+
   transformationMatrix = glm::rotate(transformationMatrix, glm::radians(rotation.x), glm::vec3(1.0f, 0.0f, 0.0f)); // rotation
   transformationMatrix = glm::rotate(transformationMatrix, glm::radians(rotation.y), glm::vec3(0.0f, 1.0f, 0.0f)); // rotation
   transformationMatrix = glm::rotate(transformationMatrix, glm::radians(rotation.z), glm::vec3(0.0f, 0.0f, 1.0f)); // rotation
-
-  transformationMatrix = glm::translate(transformationMatrix, glm::vec3(position.x, position.y, position.z)); // position
 
   transformationMatrix = glm::scale(transformationMatrix, glm::vec3(scale.x, scale.y, scale.z)); // scale  
 
@@ -91,11 +92,12 @@ void Engine::Graphics::Renderer::DrawMesh(Engine::Graphics::Mesh* mesh, Engine::
   Vec3f camRot = m_camera->GetGlobalRotation();
 
   glm::mat4 cameraMatrix = glm::mat4(1.0f);
+
+  cameraMatrix = glm::translate(cameraMatrix, glm::vec3(camPos.x, camPos.y, camPos.z)); // position
+
   cameraMatrix = glm::rotate(cameraMatrix, glm::radians(camRot.x), glm::vec3(1.0f, 0.0f, 0.0f)); // rotation
   cameraMatrix = glm::rotate(cameraMatrix, glm::radians(camRot.y), glm::vec3(0.0f, 1.0f, 0.0f)); // rotation
   cameraMatrix = glm::rotate(cameraMatrix, glm::radians(camRot.z), glm::vec3(0.0f, 0.0f, 1.0f)); // rotation
-
-  cameraMatrix = glm::translate(cameraMatrix, glm::vec3(camPos.x, camPos.y, camPos.z)); // position
 
   int cameraUniform = glGetUniformLocation(m_currentShaderProgram, "u_Camera");
   glUniformMatrix4fv(cameraUniform, 1, GL_FALSE, &cameraMatrix[0][0]);

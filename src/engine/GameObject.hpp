@@ -17,7 +17,7 @@ namespace Engine {
 
     Vec3f Position{0.0f, 0.0f, 0.0f};
     Vec3f Scale{1.0f, 1.0f, 1.0f};
-    Vec3f Rotation{25.0f, 0.0f, 0.0f};
+    Vec3f Rotation{0.0f, 0.0f, 0.0f};
     
     public:
 
