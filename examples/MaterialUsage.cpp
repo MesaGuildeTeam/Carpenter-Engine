@@ -1,19 +1,12 @@
 #include <Game.hpp>
 #include <iostream>
+#include <Graphics/Shapes.hpp>
 
 using namespace Engine;
 
-class Plane : public Graphics::Mesh {
-public:
-
-  Plane() : Graphics::Mesh() {
-    AddQuad({-1, -1, 0, 0, 1}, {1, -1, 0, 1, 1}, {1, 1, 0, 1, 0}, {-1, 1, 0, 0, 0});
-  }
-};
-
 class ExampleScene : public Scene {
   private:
-  Plane mesh;
+  Graphics::Plane mesh;
   Graphics::Shader shader;
   Graphics::Material material;
   

@@ -1,5 +1,6 @@
 #include <Game.hpp>
 #include <UI/UILabel.hpp>
+#include <Graphics/Shapes.hpp>
 
 using namespace Engine;
 
@@ -7,23 +8,13 @@ class CubeMesh : public Graphics::Mesh {
   public:
 
   CubeMesh() : Graphics::Mesh() {
-    AddQuad({-0.5, -0.5, -0.5, 0, 1}, {0.5, -0.5, -0.5, 1, 1}, {0.5, 0.5, -0.5, 1, 0}, {-0.5, 0.5, -0.5, 0, 0});
-
-    AddQuad({-0.5, -0.5, 0.5, 0, 1}, {-0.5, 0.5, 0.5, 1, 1}, {0.5, 0.5, 0.5, 1, 0}, {0.5, -0.5, 0.5, 0, 0});
-
-    AddQuad({-0.5, -0.5, -0.5, 0, 1}, {-0.5, 0.5, -0.5, 0, 0}, {-0.5, 0.5, 0.5, 1, 0}, {-0.5, -0.5, 0.5, 1, 1});
-
-    AddQuad({0.5, 0.5, -0.5, 0, 1}, {0.5, -0.5, -0.5, 0, 0}, {0.5, -0.5, 0.5, 1, 0}, {0.5, 0.5, 0.5, 1, 1});
-
-    AddQuad({-0.5, -0.5, -0.5, 0, 1}, {-0.5, -0.5, 0.5, 1, 1}, {0.5, -0.5, 0.5, 1, 0}, {0.5, -0.5, -0.5, 0, 0});
-
-    AddQuad({-0.5, 0.5, -0.5, 0, 1}, {0.5, 0.5, -0.5, 1, 1}, {0.5, 0.5, 0.5, 1, 0}, {-0.5, 0.5, 0.5, 0, 0});
+    
   }
 };
 
 class ExampleScene : public Scene {
   private:
-  CubeMesh mesh;
+  Graphics::Cube mesh;
   Graphics::Texture texture;
 
   float time = 0;
