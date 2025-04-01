@@ -27,6 +27,7 @@ class ExampleScene : public Scene {
 
   void Update(float dt) override {
     time += dt;
+    Game::getInstance().GetRenderer().SetBackgroundColor({1, 1, 1});
   }
 
   void Draw() override {

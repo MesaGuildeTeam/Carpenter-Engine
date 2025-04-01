@@ -31,7 +31,7 @@ Engine::Graphics::Renderer::Renderer(const char* id) : m_camera(nullptr) {
   }, id);
 
   // Setup Clear Color and default render settings
-  glClearColor(0.2f, 0.3f, 0.4f, 1.0f);
+  glClearColor(0.071f, 0.071f, 0.071f, 1.0f);
   glEnable(GL_DEPTH_TEST);
   glEnable(GL_BLEND);
   glEnable(GL_CULL_FACE);
@@ -130,4 +130,8 @@ void Engine::Graphics::Renderer::UseMaterial(Engine::Graphics::Material* materia
 
 void Engine::Graphics::Renderer::SetCameraReference(Engine::GameObject& camera) {
   m_camera = &camera;
+}
+
+void Engine::Graphics::Renderer::SetBackgroundColor(Vec3f color) {
+  glClearColor(color.x, color.y, color.z, 1.0f);
 }

@@ -127,6 +127,13 @@ namespace Engine::Graphics {
      * @param camera the object to use as a camera
      */
     void SetCameraReference(GameObject& camera);
+
+    /**
+     * @brief Sets the background color of the canvas.
+     * 
+     * @param color the color to set (RGB)
+     */
+    void SetBackgroundColor(Vec3f color);
   };
 }
 
