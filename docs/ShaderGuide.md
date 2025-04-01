@@ -9,10 +9,14 @@ To make this game engine compatible with web browsers, the system uses OpenGL ES
 
 the whole purpose of the window uniform is to pass your window dimensions to the game engine. This is intended for scaling your objects to fit the users window to how you wish your game to behave.
 
-## Transformation
+## Transformations
 `uniform mat4 u_Transform`
 
 the goal of the transformation uniform is to tell the vertex shader how to transform the vertex. Usually this will include translations, scaling, and potentially rotations. If you were to call `Engine::Graphics::Renderer::DrawMesh()`, you will definitely have access to all of these parameters.
+
+`uniform mat4 u_Camera`
+
+This holds the transformation in respect to the camera.
 
 # Vertex Shaders
 
