@@ -128,13 +128,6 @@ namespace Engine::Graphics {
      */
     void SetCameraReference(GameObject& camera);
   };
-
-  /**
-   * @brief The default shader used by the renderer.
-   * This is a default shader so it is not *required* to make your own shaders. 
-   * 
-   */
-  extern Shader DefaultShader;
 }
 
 #endif

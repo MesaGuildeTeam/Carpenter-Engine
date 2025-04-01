@@ -4,6 +4,8 @@
 #include <iostream>
 #include "../Game.hpp"
 
+Engine::Graphics::Shader Engine::Graphics::DefaultShader;
+
 Engine::Graphics::Shader::Shader() : Shader("js/default.frag", "js/default.vert") {}
 
 Engine::Graphics::Shader::Shader(const char* frag) : Shader(frag, "js/default.vert") {}
@@ -59,7 +61,9 @@ void Engine::Graphics::Shader::CompileShader() {
   if (!success) {
     glGetProgramInfoLog(m_shaderProgram, 512, 0, infoLog);
     std::cerr << "ERROR: Shader Program Failed to link successfully\n" << infoLog << std::endl;
-    m_shaderProgram = 4;
+    
+    // set the shader program to the default shader as a fallback
+    m_shaderProgram = DefaultShader.GetShaderProgram();
   } else {
     std::cout << "DEBUG: Shader Program linked successfully with ID " << m_shaderProgram << std::endl;
   }

@@ -77,6 +77,13 @@ namespace Engine::Graphics {
      */
     unsigned int GetShaderProgram();
   };
+
+  /**
+   * @brief The default shader used by the renderer.
+   * This is a default shader so it is not *required* to make your own shaders. 
+   * 
+   */
+  extern Shader DefaultShader;
 }
 
 #endif

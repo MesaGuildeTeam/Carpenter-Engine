@@ -9,7 +9,6 @@
 Engine::GameObject DefaultCamera("DefaultCamera");
 
 // This is moved here to be initialized at renderer construction
-Engine::Graphics::Shader Engine::Graphics::DefaultShader;
 
 Engine::Graphics::Renderer::Renderer(const char* id) : m_camera(nullptr) {
   EmscriptenWebGLContextAttributes attrs;
@@ -38,8 +37,6 @@ Engine::Graphics::Renderer::Renderer(const char* id) : m_camera(nullptr) {
   glEnable(GL_CULL_FACE);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
   glFrontFace(GL_CCW);
-  
-  UseShader(DefaultShader);
 
   // Generate and configure buffers
   glGenBuffers(1, &m_vbo);
@@ -54,6 +51,7 @@ Engine::Graphics::Renderer::Renderer(const char* id) : m_camera(nullptr) {
   glEnableVertexAttribArray(2);
 
   std::cout << "DEBUG: Canvas Initialized with tag " << id << std::endl;
+  UseShader(DefaultShader);
 }
 
 void Engine::Graphics::Renderer::ClearBuffer() {
