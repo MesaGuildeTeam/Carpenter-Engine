@@ -16,6 +16,11 @@ function clean() {
   utils.processFiles("./build", "", (file, folder) => {
     fs.rmSync(folder + "/" + file, { recursive: true, force: true });
   });
+
+  utils.processFiles("./tests/WASM", ".js", (file, folder) => {
+    fs.rmSync(folder + "/" + file + ".js", { recursive: true, force: true });
+    fs.rmSync(folder + "/" + file + ".wasm", { recursive: true, force: true });
+  });
 }
 
 module.exports = {
