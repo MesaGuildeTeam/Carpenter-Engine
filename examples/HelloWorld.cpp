@@ -4,25 +4,16 @@
 
 using namespace Engine;
 
-class CubeMesh : public Graphics::Mesh {
-  public:
-
-  CubeMesh() : Graphics::Mesh() {
-    
-  }
-};
-
 class ExampleScene : public Scene {
   private:
   Graphics::Cube mesh;
   Graphics::Texture texture;
-
   float time = 0;
+  UI::UILabel label;
 
   public:
-  ExampleScene() : Scene("ExampleScene"), texture("Assets/placeholder.png") {
-    UI::UILabel* label = new UI::UILabel("Label", "Hello World from Table Engine");
-    AddChild(label);
+  ExampleScene() : Scene("ExampleScene"), texture("Assets/placeholder.png"), label("Label", "Hello World") {
+    AddChild(&label);
   }
 
   void Draw() override {

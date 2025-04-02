@@ -27,14 +27,31 @@ you should then create a `src` folder and add a main.cpp file for your main. Her
 ```cpp
 #include <Game.hpp>
 #include <UI/UILabel.hpp>
+#include <Graphics/Shapes.hpp>
 
 using namespace Engine;
 
 class ExampleScene : public Scene {
-public:
-  ExampleScene() : Scene("ExampleScene") {
-    UI::UILabel* label = new UI::UILabel("Label", "Hello World from Table Engine");
-    AddChild(label);
+  private:
+  Graphics::Cube mesh;
+  Graphics::Texture texture;
+  float time = 0;
+  UI::UILabel label;
+
+  public:
+  ExampleScene() : Scene("ExampleScene"), texture("Assets/placeholder.png"), label("Label", "Hello World") {
+    AddChild(&label);
+  }
+
+  void Draw() override {
+    Scene::Draw();
+
+    Game::getInstance().GetRenderer().UseTexture(texture, GL_TEXTURE0);
+    Game::getInstance().GetRenderer().DrawMesh(&mesh, {0, 0, 10}, {1, 1, 1}, {-35, time, 0});
+  }
+
+  void Update(float dt) override {
+    time += dt;
   }
 };
 
