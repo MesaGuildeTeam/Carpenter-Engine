@@ -24,7 +24,7 @@ class ExampleScene : public Scene {
   }
 
   void Update(float dt) override {
-    time += dt;
+    time += 2 * dt;
   }
 };
 

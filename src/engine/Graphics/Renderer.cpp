@@ -31,7 +31,7 @@ Engine::Graphics::Renderer::Renderer(const char* id) : m_camera(nullptr) {
   }, id);
 
   // Setup Clear Color and default render settings
-  glClearColor(0.071f, 0.071f, 0.071f, 1.0f);
+  glClearColor(0.094f, 0.094f, 0.094f, 1.0f);
   glEnable(GL_DEPTH_TEST);
   glEnable(GL_BLEND);
   glEnable(GL_CULL_FACE);
