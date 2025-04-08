@@ -67,22 +67,24 @@ namespace Engine::Graphics {
      * @param scale the scaling of the mesh
      * @param rotation the rotation of the mesh in degrees
      */
-    void DrawMesh(Mesh* mesh, Vec3f position = {0, 0, 0}, Vec3f scale = {1, 1, 1}, Vec3f rotation = {0, 0, 0});
+    void DrawMesh(Mesh* mesh, Vec3f position = {0, 0, 0}, 
+      Vec3f scale = {1, 1, 1}, Vec3f rotation = {0, 0, 0});
     
     /**
      * @brief Sets the currently loaded shader.
      * 
-     * Call this before drawing a mesh, but you are also suggested to use `UseMaterial` instead.
+     * Call this before drawing a mesh, but you are also suggested to use
+     * `UseMaterial` instead.
      */
     void UseShader(Shader& shader);
 
     /**
      * @brief Takes the texture and binds it to the specified slot.
      * 
-     * To bind a texture to the renderer slot, you use the texture you wish to bind,
-     * and the slot you wish to bind it to.
+     * To bind a texture to the renderer slot, you use the texture you wish to
+     * bind, and the slot you wish to bind it to.
      * 
-     * 
+     * `
      * By default, the method binds the texture to slot 0 or `GL_TEXTURE0`. 
      * If you wish to select another slot, please refer to the OpenGL documentation,
      * or here are a few standards the team follows:
@@ -120,9 +122,9 @@ namespace Engine::Graphics {
     /**
      * @brief Sets the camera reference.
      * 
-     * The goal of this object is to provide a reference to the camera for the renderer.
-     * Any game object can be a camera, and all it does is set a reference point to
-     * the camera's position and rotation.
+     * The goal of this object is to provide a reference to the camera for the 
+     * renderer. Any game object can be a camera, and all it does is set a 
+     * reference point to the camera's position and rotation.
      * 
      * @param camera the object to use as a camera
      */

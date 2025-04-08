@@ -34,8 +34,10 @@ namespace Engine::Graphics {
     
     
     /**
-     * Loads the texture into place if the texture is not already loaded.
-     * This method is private and is called by GetTexture if the texture is not loaded yet.
+     * @brief Loads the texture into place if the texture is not already loaded.
+     * 
+     * This method is private and is called by GetTexture if the texture is not
+     * loaded yet.
      */
     void LoadTexture();
 
@@ -56,9 +58,9 @@ namespace Engine::Graphics {
     /**
      * @brief Returns the id of the texture
      * 
-     * This is the id of the texture that is loaded into the GPU according to the renderer.
-     * When constructed, the texture is not loaded in immediately, but rather
-     * when GetTexture is called.
+     * This is the id of the texture that is loaded into the GPU according to
+     * the renderer. When constructed, the texture is not loaded in immediately,
+     * but rather when GetTexture is called.
      * 
      * @return The id of the texture
      */

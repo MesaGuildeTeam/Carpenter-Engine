@@ -7,9 +7,10 @@ namespace Engine::Graphics {
    * @brief A class used to load and use shaders
    * 
    * This class is used to load and use shaders in the game engine.
-   * The shader takes two files, one for the vertex shader and one for the fragment shader,
-   * and compiles them into a GPU program to be used by the game engine to render models.
-   * If no shader scripts are provided, it will use the default shader. A fragment shader will be required first.
+   * The shader takes two files, one for the vertex shader and one for the 
+   * fragment shader, and compiles them into a GPU program to be used by 
+   * the game engine to render models. If no shader scripts are provided,
+   * it will use the default shader. A fragment shader will be required first.
    * 
    * ## Example
    * 
@@ -69,9 +70,9 @@ namespace Engine::Graphics {
     /**
      * @brief Gets the shader program
      * 
-     * Returns the shader program that was loaded into the GPU.
-     * If the shader is not compiled, it will compile the shader
-     * and *then* return the shader program.
+     * Returns the shader program that was loaded into the GPU. If the shader is
+     * not compiled, it will compile the shaderand *and then* return the shader
+     * program.
      * 
      * @return the shader program
      */

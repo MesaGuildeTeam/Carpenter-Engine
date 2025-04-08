@@ -34,7 +34,8 @@ void Engine::Graphics::Shader::CompileShader() {
 
   if (!success) {
     glGetShaderInfoLog(vertexShader, 512, 0, infoLog);
-    std::cerr << "ERROR: Vertex Shader Failed to compile successfully\n" << infoLog << std::endl;
+    std::cerr << "ERROR: Vertex Shader Failed to compile successfully\n" 
+      << infoLog << std::endl;
   }
 
   // Compile and check fragment shader
@@ -46,7 +47,8 @@ void Engine::Graphics::Shader::CompileShader() {
 
   if (!success) {
     glGetShaderInfoLog(fragmentShader, 512, 0, infoLog);
-    std::cerr << "ERROR: Fragment Shader Failed to compile successfully\n" << infoLog << std::endl;
+    std::cerr << "ERROR: Fragment Shader Failed to compile successfully\n" 
+      << infoLog << std::endl;
   }
 
   // Setup shader program
@@ -60,12 +62,14 @@ void Engine::Graphics::Shader::CompileShader() {
 
   if (!success) {
     glGetProgramInfoLog(m_shaderProgram, 512, 0, infoLog);
-    std::cerr << "ERROR: Shader Program Failed to link successfully\n" << infoLog << std::endl;
+    std::cerr << "ERROR: Shader Program Failed to link successfully\n" 
+      << infoLog << std::endl;
     
     // set the shader program to the default shader as a fallback
     m_shaderProgram = DefaultShader.GetShaderProgram();
   } else {
-    std::cout << "DEBUG: Shader Program linked successfully with ID " << m_shaderProgram << std::endl;
+    std::cout << "DEBUG: Shader Program linked successfully with ID " 
+      << m_shaderProgram << std::endl;
   }
 
   glBindAttribLocation(m_shaderProgram, 0, "a_Position");

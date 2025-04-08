@@ -12,7 +12,8 @@ class ExampleScene : public Scene {
   UI::UILabel label;
 
   public:
-  ExampleScene() : Scene("ExampleScene"), texture("Assets/placeholder.png"), label("Label", "Hello World") {
+  ExampleScene() : Scene("ExampleScene"), texture("Assets/placeholder.png"),
+  label("Label", "Hello World") {
     AddChild(&label);
   }
 
@@ -20,7 +21,8 @@ class ExampleScene : public Scene {
     Scene::Draw();
 
     Game::getInstance().GetRenderer().UseTexture(texture, GL_TEXTURE0);
-    Game::getInstance().GetRenderer().DrawMesh(&mesh, {0, 0, 10}, {1, 1, 1}, {-35, time, 0});
+    Game::getInstance().GetRenderer().DrawMesh(&mesh, {0, 0, 10}, {1, 1, 1},
+      {-35, time, 0});
   }
 
   void Update(float dt) override {

@@ -27,10 +27,12 @@ Engine::Graphics::Renderer::Renderer(const char* id) : m_camera(nullptr) {
   EM_ASM({
     let name = UTF8ToString($0);
     game.canvases[UTF8ToString($0)] = document.getElementById(UTF8ToString($0));
-    game.gl[UTF8ToString($0)] = game.canvases[UTF8ToString($0)].getContext("webgl2");
+    game.gl[UTF8ToString($0)] = game.canvases[UTF8ToString($0)]
+      .getContext("webgl2");
   }, id);
 
   // Setup Clear Color and default render settings
+  // Color is apprximately #181818ff
   glClearColor(0.094f, 0.094f, 0.094f, 1.0f);
   glEnable(GL_DEPTH_TEST);
   glEnable(GL_BLEND);
@@ -58,7 +60,8 @@ void Engine::Graphics::Renderer::ClearBuffer() {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void Engine::Graphics::Renderer::DrawMesh(Engine::Graphics::Mesh* mesh, Engine::Vec3f position, Engine::Vec3f scale, Engine::Vec3f rotation) {
+void Engine::Graphics::Renderer::DrawMesh(Engine::Graphics::Mesh* mesh, 
+  Engine::Vec3f position, Engine::Vec3f scale, Engine::Vec3f rotation) {
   // Generate Data
   float* vertexBuffer = mesh->GetVertices();
   unsigned long vertexCount = mesh->GetVertexCount();
@@ -76,13 +79,18 @@ void Engine::Graphics::Renderer::DrawMesh(Engine::Graphics::Mesh* mesh, Engine::
   // Object Transformation Matrix
   glm::mat4 transformationMatrix = glm::mat4(1.0f);
 
-  transformationMatrix = glm::translate(transformationMatrix, glm::vec3(position.x, position.y, position.z)); // position
+  transformationMatrix = glm::translate(transformationMatrix, 
+    glm::vec3(position.x, position.y, position.z)); // position
 
-  transformationMatrix = glm::rotate(transformationMatrix, glm::radians(rotation.x), glm::vec3(1.0f, 0.0f, 0.0f)); // rotation
-  transformationMatrix = glm::rotate(transformationMatrix, glm::radians(rotation.y), glm::vec3(0.0f, 1.0f, 0.0f)); // rotation
-  transformationMatrix = glm::rotate(transformationMatrix, glm::radians(rotation.z), glm::vec3(0.0f, 0.0f, 1.0f)); // rotation
+  transformationMatrix = glm::rotate(transformationMatrix, glm::radians(rotation.x),
+    glm::vec3(1.0f, 0.0f, 0.0f)); // rotation
+  transformationMatrix = glm::rotate(transformationMatrix, glm::radians(rotation.y),
+    glm::vec3(0.0f, 1.0f, 0.0f)); // rotation
+  transformationMatrix = glm::rotate(transformationMatrix, glm::radians(rotation.z), 
+    glm::vec3(0.0f, 0.0f, 1.0f)); // rotation
 
-  transformationMatrix = glm::scale(transformationMatrix, glm::vec3(scale.x, scale.y, scale.z)); // scale  
+  transformationMatrix = glm::scale(transformationMatrix, 
+    glm::vec3(scale.x, scale.y, scale.z)); // scale  
 
   int transformUniform = glGetUniformLocation(m_currentShaderProgram, "u_Transform");
   glUniformMatrix4fv(transformUniform, 1, GL_FALSE, &transformationMatrix[0][0]);
@@ -95,20 +103,28 @@ void Engine::Graphics::Renderer::DrawMesh(Engine::Graphics::Mesh* mesh, Engine::
 
   cameraMatrix = glm::translate(cameraMatrix, glm::vec3(camPos.x, camPos.y, camPos.z)); // position
 
-  cameraMatrix = glm::rotate(cameraMatrix, glm::radians(camRot.x), glm::vec3(1.0f, 0.0f, 0.0f)); // rotation
-  cameraMatrix = glm::rotate(cameraMatrix, glm::radians(camRot.y), glm::vec3(0.0f, 1.0f, 0.0f)); // rotation
-  cameraMatrix = glm::rotate(cameraMatrix, glm::radians(camRot.z), glm::vec3(0.0f, 0.0f, 1.0f)); // rotation
+  cameraMatrix = glm::rotate(cameraMatrix, glm::radians(camRot.x), 
+    glm::vec3(1.0f, 0.0f, 0.0f)); // rotation
+  cameraMatrix = glm::rotate(cameraMatrix, glm::radians(camRot.y), 
+    glm::vec3(0.0f, 1.0f, 0.0f)); // rotation
+  cameraMatrix = glm::rotate(cameraMatrix, glm::radians(camRot.z), 
+    glm::vec3(0.0f, 0.0f, 1.0f)); // rotation
 
   int cameraUniform = glGetUniformLocation(m_currentShaderProgram, "u_Camera");
   glUniformMatrix4fv(cameraUniform, 1, GL_FALSE, &cameraMatrix[0][0]);
 
   // Bind data
-  glBufferData(GL_ARRAY_BUFFER, vertexCount * sizeof(Engine::Graphics::Vertex), vertexBuffer, GL_DYNAMIC_DRAW);
-  glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexCount * sizeof(unsigned short), indexBuffer, GL_DYNAMIC_DRAW);
+  glBufferData(GL_ARRAY_BUFFER, vertexCount * sizeof(Engine::Graphics::Vertex),
+    vertexBuffer, GL_DYNAMIC_DRAW);
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexCount * sizeof(unsigned short),
+    indexBuffer, GL_DYNAMIC_DRAW);
 
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Engine::Graphics::Vertex), (void*)0); // position
-  glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Engine::Graphics::Vertex), (void*)(sizeof(float) * 3)); // texture coordinates
-  glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Engine::Graphics::Vertex), (void*)(sizeof(float) * 5)); // normal
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Engine::Graphics::Vertex),
+    (void*)0); // position
+  glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Engine::Graphics::Vertex),
+    (void*)(sizeof(float) * 3)); // texture coordinates
+  glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Engine::Graphics::Vertex),
+    (void*)(sizeof(float) * 5)); // normal
 
   glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_SHORT, 0);
 }
@@ -118,7 +134,8 @@ void Engine::Graphics::Renderer::UseShader(Shader& shader) {
   glUseProgram(m_currentShaderProgram);
 }
 
-void Engine::Graphics::Renderer::UseTexture(Engine::Graphics::Texture& texture, unsigned int textureSlot) {
+void Engine::Graphics::Renderer::UseTexture(Engine::Graphics::Texture& texture,
+  unsigned int textureSlot) {
   glActiveTexture(textureSlot);
   glBindTexture(GL_TEXTURE_2D, texture.GetTexture());
 }

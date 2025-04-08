@@ -29,13 +29,11 @@ bool Engine::Graphics::Vertex::operator==(const Vertex& rhs) {
   if (nx != rhs.nx) return false;
   if (ny != rhs.ny) return false;
   if (nz != rhs.nz) return false;
-  return true;
-  
-  // bool output = x == rhs.x && y == rhs.y && z == rhs.z && u == rhs.u && v == rhs.v && nx == rhs.nx && ny == rhs.ny && nz == rhs.nz;
-  // return output;
+  return true; 
 };
 
-Engine::Success Engine::Graphics::Mesh::AddTriangle(Vertex v1, Vertex v2, Vertex v3) {
+Engine::Success Engine::Graphics::Mesh::AddTriangle(Vertex v1, Vertex v2,
+  Vertex v3) {
   // TODO: Make this more efficient with the following
   // - Implement normals calculation (Requires Vec3f's cross product to be implemented)
   
@@ -77,7 +75,8 @@ Engine::Success Engine::Graphics::Mesh::AddTriangle(Vertex v1, Vertex v2, Vertex
   return Engine::SUCCESS;
 }
 
-Engine::Success Engine::Graphics::Mesh::AddQuad(Vertex v1, Vertex v2, Vertex v3, Vertex v4) {
+Engine::Success Engine::Graphics::Mesh::AddQuad(Vertex v1, Vertex v2,
+  Vertex v3, Vertex v4) {
   AddTriangle(v1, v2, v3);
   AddTriangle(v1, v3, v4);
   

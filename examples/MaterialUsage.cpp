@@ -13,7 +13,8 @@ class ExampleScene : public Scene {
   public:
   float time = 0;
 
-  ExampleScene() : Scene("ExampleScene"), shader("Assets/red_green.frag"), material(&shader) {
+  ExampleScene() : Scene("ExampleScene"), shader("Assets/red_green.frag"),
+  material(&shader) {
     material.CreateParameter("time", Graphics::MaterialParameterType::FLOAT);
     material.SetParameter("time", &time);
   }
