@@ -41,6 +41,7 @@ const defaultBuildSteps = {
   runLink: true,
   runPackage: true,
   mainFile: "",
+  debug: false,
 };
 
 /**
@@ -71,7 +72,9 @@ function buildGame(config = defaultBuildSteps) {
         filesList = filesList + `"${folder}/${file}.o" `;
       });
 
-    let exec = `${EMCC} ${filesList} ${config.mainFile != "" && config.mainFile != null ? config.mainFile + " -I" + includeDir : ""} -o ./build/engine.js -std=c++20 -sEXPORTED_FUNCTIONS=_Engine_CallUpdate,_Engine_CallDraw -sEXPORTED_RUNTIME_METHODS=ccall,cwrap --bind -sALLOW_MEMORY_GROWTH -sMAX_WEBGL_VERSION=2 -g -gsource-map -O3 -sASYNCIFY `;
+    let debugMethods = config.debug == true ? "-g -gsource-map" : "";
+
+    let exec = `${EMCC} ${filesList} ${config.mainFile != "" && config.mainFile != null ? config.mainFile + " -I" + includeDir : ""} -o ./build/engine.js -std=c++20 -sEXPORTED_FUNCTIONS=_Engine_CallUpdate,_Engine_CallDraw -sEXPORTED_RUNTIME_METHODS=ccall,cwrap --bind -sALLOW_MEMORY_GROWTH -sMAX_WEBGL_VERSION=2 -O3 -sASYNCIFY ${debugMethods}`;
     utils.execCommand(exec, "Linking Game");
   }
 
