@@ -1,12 +1,6 @@
 @startuml EngineArchitecture
 
 namespace Engine {
-  class Renderer {
-    + {method} Renderer(elementId)
-    
-    + {method} DrawMesh()
-    + {method} DrawMesh2D()
-  }
 
   class FileManager <<Singleton>> {
     
@@ -47,6 +41,12 @@ namespace Engine {
     + {method} void Init();
     + {method} void Draw();
     + {method} void Update(dt);
+  }
+
+  class GameObject extends Node {
+    # Vec3 Position, Scale, Rotation
+    + {method} GetGlobalPosition()
+    + {method} GetGlobalRotation()
   }
 
   class Scene extends Node
@@ -108,7 +108,7 @@ namespace Engine {
   }
 
   Scene -* Game
-  Renderer --* Game
+  Graphics.Renderer --* Game
 
   namespace UI {
     class UIElement {
@@ -146,27 +146,72 @@ namespace Engine {
 
   namespace Graphics {
     abstract Mesh {
-      + {method} Vec3 getVertex()
-      + {method} Vec2 getVertex2D()
+      - vector<Vertex> m_vertices
+      - vector<unsigned short> m_indices
+
+      # {method} Success AddTriangle(v1, v2, v3)
+      # {method} Success AddQuad(v1, v2, v3, v4)
+      + {method} float* GetVertices()
+      + {method} unsigned long GetVertexCount()
+      + {method} unsigned short* GetIndices()
+      + {method} unsigned long GetIndexCount()
     }
 
     class Texture {
-      - int TextureID
-      + {method} Texture(string filename)
-      + {method} const int getTextureID()
+      - int m_texture
+      - int[] m_dimensions
+      - const char* m_filename
+      - {method} void LoadTexture()
+      + {method} Texture(filename)
+      + {method} unsigned GetTexture()
     }
 
     class Shader {
-
+      - unsigned m_shaderProgram
+      - const char* m_frag, m_vert;
+      - {method} void CompileShader()
+      + {method} Shader(frag, vert)
+      + {method} unsigned GetShaderProgram()
     }
 
     class Material {
-
+      - Shader* m_referenceShader
+      - map<const char*, MaterialParamType> m_parameters
+      - map<const char*, void*> m_parameterValues
+      
+      + {method} Material(m_referenceShader)
+      + {method} void CreateParameter(name, type)
+      + {method} void* SetParameter(name, value)
+      + {method} void ApplyMaterialParams()
+      + {method} Shader* GetShader()
     }
 
-    Texture --* Material    
-    Shader -* Material
+    class Renderer {
+      - unsigned long m_context
+      - const char* m_id
+      - unsigned int m_vbo, m_vao, m_ebo
+      - unsigned m_currentShaderProgram
+      - GameObject* m_camera
+
+      + {method} Renderer(elementId)
+      + {method} void ClearBuffer()
+      + {method} void DrawMesh(mesh, position, scale, rotation)
+      + {method} void UseShader(shader)
+      + {method} void UseTexture(texture, slot)
+      + {method} void UseMaterial(material)
+      + {method} void SetCameraReference(camera)
+      + {method} void SetBackgroundColor(color)
+    }
+
+    Texture --* Renderer
+    Shader --* Material
+    Shader -* Renderer
+
+    Material .> Renderer 
+    Mesh .> Renderer
   }
+
+  GameObject --* Renderer
 
   namespace Audio {
     enum SoundState {
@@ -191,9 +236,6 @@ namespace Engine {
 
     SoundState -* Music
   }
-
-  Graphics.Material .> Renderer 
-  Graphics.Mesh .> Renderer 
 }
 
 namespace Browser {
@@ -226,7 +268,7 @@ namespace Browser {
   game.Audio -> Web_Audio_API
 }
 
-Engine.Renderer .> Browser.Canvas
+Engine.Graphics.Renderer .> Browser.Canvas
 Engine.Game ..* Browser.DOM : "CallDraw and CallUpdate are running through a loop created \nwith javascript on window.addEventListener('load')"
 Engine.UI.UIElement ..> Browser.User_Interface
 Engine.Audio.Audio ..* Browser.game.Audio
