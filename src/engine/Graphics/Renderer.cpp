@@ -6,11 +6,11 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-Engine::GameObject DefaultCamera("DefaultCamera");
+Engine::Camera DefaultCamera("DefaultCamera", 1.0f);
 
 // This is moved here to be initialized at renderer construction
 
-Engine::Graphics::Renderer::Renderer(const char* id) : m_camera(nullptr) {
+Engine::Graphics::Renderer::Renderer(const char* id) : m_camera(&DefaultCamera) {
   EmscriptenWebGLContextAttributes attrs;
   emscripten_webgl_init_context_attributes(&attrs);
   attrs.alpha = EM_TRUE;
@@ -60,7 +60,7 @@ void Engine::Graphics::Renderer::ClearBuffer() {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void Engine::Graphics::Renderer::DrawMesh(Engine::Graphics::Mesh* mesh, 
+void Engine::Graphics::Renderer::DrawMesh(Engine::Graphics::Mesh* mesh,
   Engine::Vec3f position, Engine::Vec3f scale, Engine::Vec3f rotation) {
   // Generate Data
   float* vertexBuffer = mesh->GetVertices();
@@ -79,18 +79,18 @@ void Engine::Graphics::Renderer::DrawMesh(Engine::Graphics::Mesh* mesh,
   // Object Transformation Matrix
   glm::mat4 transformationMatrix = glm::mat4(1.0f);
 
-  transformationMatrix = glm::translate(transformationMatrix, 
+  transformationMatrix = glm::translate(transformationMatrix,
     glm::vec3(position.x, position.y, position.z)); // position
 
   transformationMatrix = glm::rotate(transformationMatrix, glm::radians(rotation.x),
     glm::vec3(1.0f, 0.0f, 0.0f)); // rotation
   transformationMatrix = glm::rotate(transformationMatrix, glm::radians(rotation.y),
     glm::vec3(0.0f, 1.0f, 0.0f)); // rotation
-  transformationMatrix = glm::rotate(transformationMatrix, glm::radians(rotation.z), 
+  transformationMatrix = glm::rotate(transformationMatrix, glm::radians(rotation.z),
     glm::vec3(0.0f, 0.0f, 1.0f)); // rotation
 
-  transformationMatrix = glm::scale(transformationMatrix, 
-    glm::vec3(scale.x, scale.y, scale.z)); // scale  
+  transformationMatrix = glm::scale(transformationMatrix,
+    glm::vec3(scale.x, scale.y, scale.z)); // scale
 
   int transformUniform = glGetUniformLocation(m_currentShaderProgram, "u_Transform");
   glUniformMatrix4fv(transformUniform, 1, GL_FALSE, &transformationMatrix[0][0]);
@@ -103,12 +103,15 @@ void Engine::Graphics::Renderer::DrawMesh(Engine::Graphics::Mesh* mesh,
 
   cameraMatrix = glm::translate(cameraMatrix, glm::vec3(camPos.x, camPos.y, camPos.z)); // position
 
-  cameraMatrix = glm::rotate(cameraMatrix, glm::radians(camRot.x), 
+  cameraMatrix = glm::rotate(cameraMatrix, glm::radians(camRot.x),
     glm::vec3(1.0f, 0.0f, 0.0f)); // rotation
-  cameraMatrix = glm::rotate(cameraMatrix, glm::radians(camRot.y), 
+  cameraMatrix = glm::rotate(cameraMatrix, glm::radians(camRot.y),
     glm::vec3(0.0f, 1.0f, 0.0f)); // rotation
-  cameraMatrix = glm::rotate(cameraMatrix, glm::radians(camRot.z), 
+  cameraMatrix = glm::rotate(cameraMatrix, glm::radians(camRot.z),
     glm::vec3(0.0f, 0.0f, 1.0f)); // rotation
+  cameraMatrix = glm::scale(cameraMatrix, glm::vec3(
+      1.0f / m_camera->getFOV(), 1.0f / m_camera->getFOV(),
+      1.0f / m_camera->getFOV())); // scale
 
   int cameraUniform = glGetUniformLocation(m_currentShaderProgram, "u_Camera");
   glUniformMatrix4fv(cameraUniform, 1, GL_FALSE, &cameraMatrix[0][0]);
@@ -145,7 +148,7 @@ void Engine::Graphics::Renderer::UseMaterial(Engine::Graphics::Material* materia
   material->ApplyMaterialParams();
 }
 
-void Engine::Graphics::Renderer::SetCameraReference(Engine::GameObject& camera) {
+void Engine::Graphics::Renderer::SetCameraReference(Engine::Camera& camera) {
   m_camera = &camera;
 }
 
