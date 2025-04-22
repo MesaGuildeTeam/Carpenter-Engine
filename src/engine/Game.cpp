@@ -12,12 +12,12 @@ Engine::Game& Engine::Game::getInstance(Engine::Scene* startingScene) {
   return instance;
 }
 
-Engine::Game::Game(Scene* startingScene) {
-  m_renderer = Renderer("canvas");
+Engine::Game::Game(Scene* startingScene): m_renderer{Graphics::Renderer()} {
   EM_ASM(
     game.ready = true;
     game.canvases["canvas"].width = window.innerWidth;
     game.canvases["canvas"].height = window.innerHeight;
+    game.gl["canvas"].viewport(0, 0, window.innerWidth, window.innerHeight);
 
     game.uiContainer = document.getElementById('ui-layer');
   );
@@ -48,11 +48,16 @@ Engine::Success Engine::Game::UnloadScene(const char* id) {
 }
 
 void Engine::Game::DrawScene() {
+  m_renderer.ClearBuffer();
   m_currentScene->Draw();
 }
 
 void Engine::Game::UpdateScene(float dt) {
   m_currentScene->Update(dt);
+}
+
+Engine::Graphics::Renderer& Engine::Game::GetRenderer() {
+  return m_renderer;
 }
 
 extern "C" {

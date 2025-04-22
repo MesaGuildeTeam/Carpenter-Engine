@@ -47,6 +47,7 @@ const defaultBuildSteps = {
   runLink: true,
   runPackage: true,
   mainFile: "",
+  debug: false,
 };
 
 /**
@@ -54,13 +55,12 @@ const defaultBuildSteps = {
  * 1. Starts with building each C++ file in the src folder through the `-c` flag
  * 2. Then links all the object files together through the `-l` flag
  * 3. Finally packages the game into a static webpage through the `-p` flag
- * 
+ *
  * If you wish to include a custom main file for testing, you can use the `-m` flag with the path to the file
- * 
+ *
  * @memberof Build
  */
 function buildGame(config = defaultBuildSteps) {
-
   // Build process
   if (config.runBuild)
     utils.processFiles(srcLocation, ".cpp", (file, folder) => {
@@ -78,7 +78,9 @@ function buildGame(config = defaultBuildSteps) {
         filesList = filesList + `"${folder}/${file}.o" `;
       });
 
-    let exec = `${EMCC} ${filesList} ${config.mainFile != "" && config.mainFile != null ? config.mainFile + " -I" + includeDir : ""} -o ./build/engine.js -std=c++20 -sEXPORTED_FUNCTIONS=_Engine_CallUpdate,_Engine_CallDraw -sEXPORTED_RUNTIME_METHODS=ccall,cwrap --bind -sALLOW_MEMORY_GROWTH`;
+    let debugMethods = config.debug == true ? "-g -gsource-map" : "";
+
+    let exec = `${EMCC} ${filesList} ${config.mainFile != "" && config.mainFile != null ? config.mainFile + " -I" + includeDir : ""} -o ./build/engine.js -std=c++20 -sEXPORTED_FUNCTIONS=_Engine_CallUpdate,_Engine_CallDraw -sEXPORTED_RUNTIME_METHODS=ccall,cwrap --bind -sALLOW_MEMORY_GROWTH -sMAX_WEBGL_VERSION=2 -O3 -sASYNCIFY ${debugMethods}`;
     utils.execCommand(exec, "Linking Game");
   }
 

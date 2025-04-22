@@ -107,6 +107,8 @@ namespace Engine {
      * Returns the length of the vector
      */
     float lengthSquared();
+
+    bool operator==(const Vec3f& rhs);
   };
 
   /**

@@ -45,11 +45,15 @@ program
   )
   .option("-c, --compile", "Compile the .cpp files into wasm .o files")
   .option("-l, --link", "Link all the files together")
+  .option("-d, --debug", "Enable debug mode when linking the files")
   .option(
     "-p, --package",
     "Package the static webpage into the build ready for distribution",
   )
-  .option("-m, --main <option>", "Link a main .cpp file outside the project source code when using -l")
+  .option(
+    "-m, --main <option>",
+    "Link a main .cpp file outside the project source code when using -l",
+  )
   .action((options) => {
     if (program.opts().verbose) {
       utils.setVerbose(true);
@@ -64,6 +68,7 @@ program
       runLink: options.link,
       runPackage: options.package,
       mainFile: options.main,
+      debug: options.debug,
     });
   });
 

@@ -41,6 +41,10 @@ float Engine::Vec3f::lengthSquared() {
   return sqrt(x * x + y * y + z * z);
 }
 
+bool Engine::Vec3f::operator==(const Engine::Vec3f& rhs) {
+  return x == rhs.x && y == rhs.y && z == rhs.z;
+}
+
 // Vector Rotations
 
 Engine::Vec2f Engine::Rotate(Vec2f v, float angle) {
