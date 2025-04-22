@@ -25,8 +25,14 @@ describe("Testing the CPPObject with src/engine/Game.cpp", () => {
 
     expect(deps).toStrictEqual([
       path.normalize("src/engine/Node.cpp"),
-      path.normalize("src/engine/Renderer.cpp"),
+      path.normalize("src/engine/Graphics/Renderer.cpp"),
       path.normalize("src/engine/Utils.cpp"),
+      path.normalize("src/engine/Graphics/Mesh.cpp"),
+      path.normalize("src/engine/Graphics/Shader.cpp"),
+      path.normalize("src/engine/Graphics/Texture.cpp"),
+      path.normalize("src/engine/Graphics/Material.cpp"),
+      path.normalize("src/engine/GameObject.cpp"),
+      path.normalize("src/engine/GameObjects/Camera.cpp"),
     ]);
   });
 });
@@ -46,7 +52,7 @@ describe("Testing the CPPObject with src/engine/UI/UIButton.cpp", () => {
   });
 });
 
-describe("Testing CPPTest with tests/CPP/InputTest.cpp", () => { 
+describe("Testing CPPTest with tests/CPP/InputTest.cpp", () => {
   let inputFile = new CPPObject("src/engine/Input/Input.cpp");
   let obj = new CPPTest("./tests/CPP/InputTest.cpp");
 
@@ -55,6 +61,7 @@ describe("Testing CPPTest with tests/CPP/InputTest.cpp", () => {
 
     expect(deps).toStrictEqual([
       path.normalize("src/engine/Input/Mouse.cpp"),
+      path.normalize("src/engine/Input/Keyboard.cpp"),
       path.normalize("src/engine/Utils.cpp"),
     ]);
   });
@@ -66,7 +73,8 @@ describe("Testing CPPTest with tests/CPP/InputTest.cpp", () => {
       path.normalize("src/engine/Testing.cpp"),
       path.normalize("src/engine/Input/Input.cpp"),
       path.normalize("src/engine/Input/Mouse.cpp"),
+      path.normalize("src/engine/Input/Keyboard.cpp"),
       path.normalize("src/engine/Utils.cpp"),
     ]);
   });
-})
+});
