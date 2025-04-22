@@ -51,8 +51,60 @@ namespace Engine {
 
   class Scene extends Node
 
-  class InputManager {
+  namespace Input {
+    class InputManager {
+      - map<string, Axis> m_axes
 
+      + {method} InputManager()
+      + {method} void Update()
+      + {method} void AddAxis(string, InputParams, InputParams)
+      + {method} float GetAxis(string)
+      + {method} void AddInput(string, InputParams)
+      + {method} Input* GetInput
+    }
+
+    class Input {
+      - char m_keyCode
+      - char m_mouseButton
+      - char m_gamepadeInput
+      - float m_isDown
+      - bool m_isPressed
+      - bool m_isReleased
+      + float currentStrength
+
+      + {method} Input(InputParams)
+      + {method} ~Input()
+      + {method} void Update()
+      + {method} bool IsPressed()
+      + {method} bool IsReleased()
+      + {method} bool IsDown()
+      + {method} float Strength()
+      + {method} char GetInput(InputDevice)
+    }
+
+    class Mouse <<Singleton>> {
+      - Vec2f m_position
+      - vector<Input*> m_listeners
+      - {static} Mouse m_instance;
+      - {method} Mouse()
+      + {method} {static} GetInstance()
+      + {method} void AddListener(Input)
+      + {method} void RemoveListener(Input)
+      + {method} Vec2f GetPosition()
+    }
+
+    class Keyboard <<Singleton>> {
+      - vector<Input*> m_listeners
+      - {method} Keyboard()
+      - {static} Keyboard m_instance
+      + {method} {static} Keyboard& GetInstance()
+      + {method} void AddListener(Input)
+      + {method} void RemoveListener(Input)
+    }
+
+    Input --* Mouse
+    Input --* Keyboard
+    InputManager *- Input
   }
 
   Scene -* Game
@@ -178,5 +230,7 @@ Engine.Renderer .> Browser.Canvas
 Engine.Game ..* Browser.DOM : "CallDraw and CallUpdate are running through a loop created \nwith javascript on window.addEventListener('load')"
 Engine.UI.UIElement ..> Browser.User_Interface
 Engine.Audio.Audio ..* Browser.game.Audio
+Engine.Input.Keyboard ..* Browser.DOM
+Engine.Input.Mouse ..* Browser.DOM
 
 @enduml
