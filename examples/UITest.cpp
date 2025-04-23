@@ -1,3 +1,9 @@
+/**
+ * @file SoundTest.cpp
+ * @brief Basic UI test scene for the game engine
+ * @author: Roberto Selles
+ */
+
 #include <Game.hpp>
 
 #include <UI/UIElement.hpp>
@@ -7,44 +13,40 @@
 
 #include <iostream>
 
-Engine::UI::UIInput* inputField;
+using namespace Engine;
+
+UI::UIInput* inputField;
 
 void functionCallback() {
-  std::cout << "Button clicked. Input is:\nint: " << inputField->getInputInt()
-  << "\ndouble: " << inputField->getInputDouble()
-  << "\nstring: " << inputField->getInputString()
-  << std::endl;
+  std::cout << "Button Clicked. Input is:" << std::endl
+    << "int: " << inputField->getInputInt() << std::endl
+    << "double: " << inputField->getInputDouble() << std::endl
+    << "string: " << inputField->getInputString() << std::endl;
 }
 
-class TestScene : public Engine::Scene {
+class TestScene : public Scene {
   public:
+  UI::UIElement Base{UI::UIElement("BaseUI")};
+  UI::UILabel Label{UI::UILabel("Label", "Hello World")};
+  UI::UIButton Button{UI::UIButton("Button", "Click me", functionCallback)};
+  UI::UIInput Input{UI::UIInput("Input", "This is a Test Input")};
 
-    TestScene() : Engine::Scene("TestScene") {
-      std::cout << "TEST: Creating test scene" << std::endl;
+  TestScene() : Scene("TestScene") {
+    std::cout << "TEST: Creating test scene" << std::endl;
+    AddChild(&Base);
+    Base.SetDimensions({500, 200});
+    Base.SetOffset({0, 0});
+    Base.SetAnchor("center");
 
-      AddChild((Engine::Node*)(new Engine::UI::UIElement("BaseUI")));
-      ((Engine::UI::UIElement*)GetChild(0))->SetDimensions({500, 200});
-      ((Engine::UI::UIElement*)GetChild(0))->SetOffset({0, 0});
-      ((Engine::UI::UIElement*)GetChild(0))->SetAnchor("center");
+    Base.AddChild(&Label);
+    Base.AddChild(&Button);
+    Base.AddChild(&Input);
 
-      GetChild(0)->AddChild((Engine::Node*)(new Engine::UI::UILabel("Label", "Hello World")));
-      GetChild(0)->AddChild((Engine::Node*)(new Engine::UI::UIButton("Button", "Click me", functionCallback)));
-      ((Engine::UI::UIButton*)GetChild(0)->GetChild(1))->SetAnchor("topright");
+    Button.SetAnchor("topright");
+    Input.SetAnchor("bottomleft");
 
-      GetChild(0)->AddChild((Engine::Node*)(new Engine::UI::UIInput("Input", "This is a Test Input")));
-      inputField = (Engine::UI::UIInput*)GetChild(0)->GetChild(2);
-      inputField->SetAnchor("bottomleft");
-    };
-
-    void Draw() override {
-      //std::cout << "Drawing scene" << std::endl;
-      Engine::Node::Draw();
-    };
-
-    void Update(float dt) override {
-      Engine::Node::Update(dt);
-      //std::cout << "Updating scene" << std::endl;
-    };
+    inputField = &Input;
+  };
 };
 
-Engine::Game game = Engine::Game::getInstance(new TestScene());
+Game& game{Game::getInstance(new TestScene())};

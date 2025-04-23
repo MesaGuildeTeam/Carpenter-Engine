@@ -1,3 +1,9 @@
+/**
+ * @file SoundTest.cpp
+ * @brief Your basic spinning cube test 
+ * @author: Roberto Selles
+ */
+
 #include <Game.hpp>
 #include <UI/UILabel.hpp>
 #include <Graphics/Shapes.hpp>

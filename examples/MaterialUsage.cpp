@@ -1,3 +1,9 @@
+/**
+ * @file SoundTest.cpp
+ * @brief Material test to ensure shaders can receive updated variables 
+ * @author: Roberto Selles
+ */
+
 #include <Game.hpp>
 #include <iostream>
 #include <Graphics/Shapes.hpp>

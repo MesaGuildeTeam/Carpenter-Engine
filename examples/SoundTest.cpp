@@ -1,7 +1,7 @@
 /**
  * @file SoundTest.cpp
  * @brief Basic sound test scene for the game engine
- * @author: Roberto Selles (Henderythmix)
+ * @author: Roberto Selles
  */
 
 #include <Game.hpp>
@@ -11,15 +11,17 @@
 
 #include <iostream>
 
+using namespace Engine;
+
 // Song
 
-Engine::Audio::Music sampleSong("Assets/demo.wav");
-Engine::Audio::Sound sampleSound("Assets/drop.mp3");
+Audio::Music sampleSong("Assets/demo.wav");
+Audio::Sound sampleSound("Assets/drop.mp3");
 
 void MusicToggle() {
-  Engine::Audio::SoundState state = sampleSong.playing();
-  //std::cout << state << "\n"; // Used to debug the state of the song
-  if (state == Engine::Audio::SoundState::Playing) {
+  Audio::SoundState state = sampleSong.playing();
+  std::cout << state << "\n"; // Used to debug the state of the song
+  if (state == Audio::SoundState::Playing) {
     sampleSong.Pause();
   } else {
     sampleSong.Play();
@@ -30,41 +32,45 @@ void PlaySound() {
   sampleSound.Play();
 }
 
-class TestContainer: public Engine::UI::UIElement {
-  public:
-  TestContainer() : Engine::UI::UIElement("TestContainer") {};
+class TestContainer : UI::UIElement {
+  private:
+  UI::UIElement MusicTestContainer{UI::UIElement("MusicSection")};
+  UI::UIElement SoundsTestContainer{UI::UIElement("SoundSection")};
+  UI::UIButton MusicToggleBtn{UI::UIButton("MusicToggle", "Play/Pause Music", MusicToggle)};
+  UI::UIButton SkipTrack{UI::UIButton("SkipTrack", "Skip Track", Engine::Audio::SkipTrack)};
+  UI::UIButton SoundPulse{UI::UIButton("SoundPulse", "Play Sound", PlaySound)};
 
-  void Init() override {
+  public:
+  TestContainer() : UI::UIElement("TestContainer") {
     Engine::UI::UIElement::Init();
 
     std::cout << "TEST: Creating Music Container\n";
-    size_t MusicTestContainer = AddChild((Engine::Node*) new Engine::UI::UIElement("MusicSection"));
-    ((Engine::UI::UIElement*)GetChild(MusicTestContainer))->SetDimensions({300, 300});
+    AddChild(&MusicTestContainer);
+    MusicTestContainer.SetDimensions({300, 300});
 
-    ((Engine::UI::UIElement*)GetChild(MusicTestContainer))->AddChild((Engine::Node*) new Engine::UI::UIButton("MusicToggle", "Play/Pause Music", MusicToggle));
+    MusicTestContainer.AddChild(&MusicToggleBtn);
+    MusicTestContainer.AddChild(&SkipTrack);
 
-    size_t SkipTrack = ((Engine::UI::UIElement*)GetChild(MusicTestContainer))->AddChild((Engine::Node*) new Engine::UI::UIButton("SkipTrack", "Skip Track", Engine::Audio::SkipTrack));
-
-    ((Engine::UI::UIButton*)GetChild(MusicTestContainer)->GetChild(1))->SetAnchor("topright");
+    MusicToggleBtn.SetAnchor("topright");
 
     std::cout << "TEST: Creating Sound Container\n";
-    size_t SoundsTestContainer = AddChild((Engine::Node*) new Engine::UI::UIElement("SoundSection"));
-    ((Engine::UI::UIElement*)GetChild(SoundsTestContainer))->SetDimensions({300, 300});
-
-    ((Engine::UI::UIElement*)GetChild(SoundsTestContainer))->SetAnchor("topright");
-    ((Engine::UI::UIElement*)GetChild(SoundsTestContainer))->AddChild((Engine::Node*) new Engine::UI::UIButton("SoundPulse", "Play Sound", PlaySound));
+    AddChild(&SoundsTestContainer);
+    SoundsTestContainer.SetDimensions({300, 300});
+    SoundsTestContainer.SetAnchor("topright");
+    SoundsTestContainer.AddChild(&SoundPulse);
 
     sampleSong.setLoop(true);
   };
+
 };
 
-class TestScene : public Engine::Scene {
+class TestScene : public Scene {
   public:
-  TestScene() : Engine::Scene("TestScene") {
+  TestScene() : Scene("TestScene") {
     std::cout << "TEST: Creating Sound Test Scene\n";
-    AddChild((Engine::Node*) new TestContainer());
+    AddChild((Node*) new TestContainer());
     std::cout << "TEST: Container Created Successfully\n";
-  };
+  }
 };
 
-Engine::Game& instance{Engine::Game::getInstance((Engine::Scene*) new TestScene())};
+Engine::Game& game{Engine::Game::getInstance((Engine::Scene*) new TestScene())};
