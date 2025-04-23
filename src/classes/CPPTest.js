@@ -32,7 +32,12 @@ const includeDir =
 const test_dependency_search = /#include <([A-Za-z0-9\/\\]+).hpp>/g;
 
 /**
- * A reference class to a compilable `.cpp` test file.
+ * @brief A reference class to a compilable `.cpp` test file.
+ * Similarily to a CPPObject, this class also builds the file if it has not been
+ * built since it's last modification. However, this file assumes its directory
+ * is "./tests/CPP", so it will look for dependencies in "./src/" instead.
+ * 
+ * @author Roberto Selles
  */
 class CPPTest extends CPPObject {
   /**

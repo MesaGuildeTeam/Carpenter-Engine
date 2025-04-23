@@ -12,6 +12,7 @@ const utils = require('./utils');
 /**
  * Cleans the files built by the build process
  * @memberof Clean
+ * @author Roberto Selles
  */
 function clean() {
   console.log("Cleaning objs and build folders");

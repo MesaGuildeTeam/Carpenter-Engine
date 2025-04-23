@@ -32,7 +32,8 @@ var verbose = false;
 
 /**
  * Configures the CLI to be verbose about its actions.
- * @param {boolean} value 
+ * @param {boolean} value
+ * @author Roberto Selles
  */
 function setVerbose(value = true) {
   verbose = value;
@@ -41,7 +42,8 @@ function setVerbose(value = true) {
 /**
  * A customized string that throws a funny error message
  * 
- * @param {string} message 
+ * @param {string} message
+ * @author Roberto Selles
  */
 function throwError(message) {
   console.error("An error has occured" + Asciis.TableFlip + "\n\n" + message);
@@ -50,7 +52,8 @@ function throwError(message) {
 /**
  * Recursive function
  * 
- * Gets every file with the extension from a certain directory and its child folders and runs a callback on it
+ * Gets every file with the extension from a certain directory and its child 
+ * folders and runs a callback on it.
  * 
  * @param {string} folder The folder to start the recursive search from
  * @param {string} extension The extension to look for
@@ -69,10 +72,13 @@ function processFiles(folder, extension, callback) {
 }
 
 /**
- * Runs the following command as a process. The output is printed to the console in a nice format readable by the user
+ * Runs the following command as a process. The output is printed to the console
+ * in a nice format readable by the user.
  * 
  * @param {string} script The command to run
  * @param {string} message The message to print
+ * @returns {void} - either exit code or behaves as a void
+ * @author Roberto Selles
  */
 function execCommand(script, message = "Running") {
   try {

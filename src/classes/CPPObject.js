@@ -33,7 +33,11 @@ const local_dependency_search = /#include "([^"]*)\"/g;
 var visitedArray = [];
 
 /**
- * A reference class to a compilable `.cpp` file.
+ * @brief A reference class to a compilable `.cpp` file.
+ * Allows the program to determine if a file needs to be built or not and check
+ * for its dependencies recursively to determine what it needs to link with.
+ * 
+ * @author Roberto Selles
  */
 class CPPObject {
   /**

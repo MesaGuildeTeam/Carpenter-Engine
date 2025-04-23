@@ -45,12 +45,18 @@ function PrepareAudioModule() {
 }
 
 /**
- * A sound class container implemented in JavaScript.
+ * @brief A sound class container implemented in JavaScript.
  *
  * This class is the JavaScript representation of the engine's Sound class.
  * These are created via `Engine::Audio::Audio` (and its subclasses) to be manipulated easier.
+ * 
+ * @author Roberto Selles
  */
 game.Audio = class {
+  /**
+   * The default constructor used to create a sound
+   * @param {string} url to the audio file 
+   */
   constructor(filename) {
     this.filename = filename;
     this.element = new Audio(filename);

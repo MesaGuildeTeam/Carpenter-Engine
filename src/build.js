@@ -29,14 +29,17 @@ const EMCC =
 
 const srcLocation = buildConfig.inputPath || process.cwd() + "/src";
 const outputLocation = buildConfig.outputPath || process.cwd() + "/objs";
+
 const FrameworkLibrary =
   buildConfig.frameworkPath != null
     ? buildConfig.frameworkPath
     : process.cwd() + "/node_modules/table-engine/objs";
+
 const includeDir =
   buildConfig.includeDir != null
     ? buildConfig.includeDir
     : "node_modules/table-engine/src/engine/";
+
 const staticDir =
   buildConfig.static != null
     ? buildConfig.static
@@ -56,9 +59,13 @@ const defaultBuildSteps = {
  * 2. Then links all the object files together through the `-l` flag
  * 3. Finally packages the game into a static webpage through the `-p` flag
  *
- * If you wish to include a custom main file for testing, you can use the `-m` flag with the path to the file
+ * If you wish to include a custom main file for testing, you can use the `-m` 
+ * flag with the path to the file.
  *
+ * @param {Object} config - The configuration object; see defaultBuildSteps
+ * @returns {process} The exit code
  * @memberof Build
+ * @author Roberto Selles
  */
 function buildGame(config = defaultBuildSteps) {
   // Build process

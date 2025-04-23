@@ -13,7 +13,9 @@ const CPPTest = require("./classes/CPPTest");
 
 /**
  * Runs all tests and outputs the results
+ * @returns {process} The exit code
  * @namespace Testing
+ * @author Roberto Selles
  */
 async function RunTests() {
   let passedSuites = 0;
