@@ -12,18 +12,19 @@ Engine::Game& Engine::Game::getInstance(Engine::Scene* startingScene) {
   return instance;
 }
 
-Engine::Game::Game(Scene* startingScene): m_renderer{Graphics::Renderer()} {
+Engine::Game::Game(Scene* startingScene) {
+  AddScene("Scene0", startingScene);
+  SwitchScene("Scene0");
+  m_renderer = Graphics::Renderer();
+
   EM_ASM(
-    game.ready = true;
     game.canvases["canvas"].width = window.innerWidth;
     game.canvases["canvas"].height = window.innerHeight;
     game.gl["canvas"].viewport(0, 0, window.innerWidth, window.innerHeight);
 
     game.uiContainer = document.getElementById('ui-layer');
+    game.ready = true;
   );
-
-  AddScene("Scene0", startingScene);
-  SwitchScene("Scene0");
 }
 
 Engine::Success Engine::Game::AddScene(const char* id, Scene* scene) {

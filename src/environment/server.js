@@ -14,10 +14,17 @@ var buildConfig;
 try {
   buildConfig = require(process.cwd() + "/tableconf.json");
 } catch (exception) {
-  buildConfig = {};
+  buildConfig = {
+    "static": process.cwd() + "/node_modules/@mesaguilde/carpenter-engine/src/static"
+  };
 }
 
 // Adding the game testing environment
+
+server.use("/runtime", (req, res, next) => {
+  console.log("Requesting from game runtime: ", req.url);
+  next()
+});
 
 server.use("/runtime", express.static(buildConfig.static));
 

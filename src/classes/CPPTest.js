@@ -27,7 +27,7 @@ const EMCC =
 const includeDir =
   buildConfig.includeDir != null
     ? buildConfig.includeDir
-    : "node_modules/table-engine/src/engine/";
+    : "node_modules/@mesaguilde/carpenter-engine/src/engine/";
 
 const test_dependency_search = /#include <([A-Za-z0-9\/\\]+).hpp>/g;
 

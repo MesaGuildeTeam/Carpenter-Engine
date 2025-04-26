@@ -27,30 +27,36 @@ const EMCC =
     ? os.homedir() + "\\.table-engine\\emsdk\\upstream\\emscripten\\em++.bat"
     : "~/.table-engine/emsdk/upstream/emscripten/em++";
 
+const EMAR =
+  process.platform == "win32"
+    ? os.homedir() + "\\.table-engine\\emsdk\\upstream\\emscripten\\emar.bat"
+    : "~/.table-engine/emsdk/upstream/emscripten/emar";
+
 const srcLocation = buildConfig.inputPath || process.cwd() + "/src";
 const outputLocation = buildConfig.outputPath || process.cwd() + "/objs";
 
 const FrameworkLibrary =
   buildConfig.frameworkPath != null
     ? buildConfig.frameworkPath
-    : process.cwd() + "/node_modules/table-engine/objs";
+    : "./node_modules/@mesaguilde/carpenter-engine/build/engine.a";
 
 const includeDir =
   buildConfig.includeDir != null
     ? buildConfig.includeDir
-    : "node_modules/table-engine/src/engine/";
+    : "node_modules/@mesaguilde/carpenter-engine/src/engine/";
 
 const staticDir =
   buildConfig.static != null
     ? buildConfig.static
-    : "node_modules/table-engine/src/static/";
+    : "node_modules/@mesaguilde/carpenter-engine/src/static/";
 
 const defaultBuildSteps = {
   runBuild: true,
   runLink: true,
-  runPackage: true,
+  runPackage: false,
   mainFile: "",
   debug: false,
+  libMode: false
 };
 
 /**
@@ -80,14 +86,14 @@ function buildGame(config = defaultBuildSteps) {
     utils.processFiles(outputLocation, ".o", (file, folder) => {
       filesList = filesList + `"${folder}/${file}.o" `;
     });
-    if (FrameworkLibrary != "")
-      utils.processFiles(FrameworkLibrary, ".o", (file, folder) => {
-        filesList = filesList + `"${folder}/${file}.o" `;
-      });
 
     let debugMethods = config.debug == true ? "-g -gsource-map" : "";
 
-    let exec = `${EMCC} ${filesList} ${config.mainFile != "" && config.mainFile != null ? config.mainFile + " -I" + includeDir : ""} -o ./build/engine.js -std=c++20 -sEXPORTED_FUNCTIONS=_Engine_CallUpdate,_Engine_CallDraw -sEXPORTED_RUNTIME_METHODS=ccall,cwrap --bind -sALLOW_MEMORY_GROWTH -sMAX_WEBGL_VERSION=2 -O3 -sASYNCIFY ${debugMethods}`;
+    let exec = `${EMCC} ${filesList} ${config.mainFile != "" && config.mainFile != null ? config.mainFile + " -I" + includeDir : ""} ${FrameworkLibrary} -o ./build/engine.js -std=c++20 -sEXPORTED_FUNCTIONS=_Engine_CallUpdate,_Engine_CallDraw -sEXPORTED_RUNTIME_METHODS=ccall,cwrap --bind -sALLOW_MEMORY_GROWTH -sMAX_WEBGL_VERSION=2 -sASYNCIFY ${debugMethods}`;
+
+    if (config.libMode == true)
+      exec = `${EMAR} rcs ./build/engine.a ${filesList}`;
+    
     utils.execCommand(exec, "Linking Game");
   }
 

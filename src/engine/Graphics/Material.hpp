@@ -53,7 +53,7 @@ namespace Engine::Graphics {
      * 
      * Takes in a shader to use as a reference for the material.
      */
-    Material(Shader* referenceShader = &DefaultShader);
+    Material(Shader* referenceShader);
 
     /**
      * @brief Creates a parameter for the material

@@ -37,7 +37,7 @@ namespace Engine::Graphics {
   class Shader {
     private:
 
-    unsigned int m_shaderProgram = -1;
+    unsigned int m_shaderProgram;
 
     const char* m_frag;
     const char* m_vert;
@@ -90,7 +90,7 @@ namespace Engine::Graphics {
    * This is a default shader so it is not *required* to make your own shaders. 
    * 
    */
-  extern Shader DefaultShader;
+  extern Shader& DefaultShader();
 }
 
 #endif

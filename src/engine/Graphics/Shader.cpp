@@ -10,24 +10,33 @@
 #include <iostream>
 #include "../Game.hpp"
 
-Engine::Graphics::Shader Engine::Graphics::DefaultShader;
+Engine::Graphics::Shader::Shader() : Engine::Graphics::Shader("js/default.frag", "js/default.vert") {}
 
-Engine::Graphics::Shader::Shader() : Shader("js/default.frag", "js/default.vert") {}
-
-Engine::Graphics::Shader::Shader(const char* frag) : Shader(frag, "js/default.vert") {}
+Engine::Graphics::Shader::Shader(const char* frag) : Engine::Graphics::Shader(frag, "js/default.vert") {}
 
 Engine::Graphics::Shader::Shader(const char* frag, const char* vert) {
+  //std::cout << "Creating shader with fragment shader " << std::string(frag) << " and vertex shader " << std::string(vert) << std::endl;
+  m_shaderProgram = 0;
   m_frag = frag;
   m_vert = vert;
 }
 
 void Engine::Graphics::Shader::CompileShader() {
   // Load shader scripts
-  char* vScript, *fScript;
+  char *vScript, *fScript;
   int vertexShaderSize, fragmentShaderSize;
 
-  emscripten_wget_data(m_frag, (void**)&fScript, &fragmentShaderSize, nullptr);
-  emscripten_wget_data(m_vert, (void**)&vScript, &vertexShaderSize, nullptr);
+  int vScriptError, fScriptError;
+
+  //std::cout << "fetching data from vertex shader " << std::string(m_vert) << " and fragment shader " << std::string(m_frag) << std::endl;
+  emscripten_wget_data(m_frag, (void**)&fScript, &fragmentShaderSize, &fScriptError);
+  emscripten_wget_data(m_vert, (void**)&vScript, &vertexShaderSize, &vScriptError);
+
+  if (vScriptError != 0)
+    std::cerr << "ERROR: Failed to load vertex shader " << m_vert << std::endl;
+  
+  if (fScriptError != 0)
+    std::cerr << "ERROR: Failed to load fragment shader " << m_frag << std::endl;
   
   // Compile and check vertex shader
   unsigned vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -40,7 +49,7 @@ void Engine::Graphics::Shader::CompileShader() {
 
   if (!success) {
     glGetShaderInfoLog(vertexShader, 512, 0, infoLog);
-    std::cerr << "ERROR: Vertex Shader Failed to compile successfully\n" 
+    std::cerr << "ERROR: Vertex Shader Failed to compile\n" 
       << infoLog << std::endl;
   }
 
@@ -53,7 +62,7 @@ void Engine::Graphics::Shader::CompileShader() {
 
   if (!success) {
     glGetShaderInfoLog(fragmentShader, 512, 0, infoLog);
-    std::cerr << "ERROR: Fragment Shader Failed to compile successfully\n" 
+    std::cerr << "ERROR: Fragment Shader Failed to compile\n" 
       << infoLog << std::endl;
   }
 
@@ -72,7 +81,7 @@ void Engine::Graphics::Shader::CompileShader() {
       << infoLog << std::endl;
     
     // set the shader program to the default shader as a fallback
-    m_shaderProgram = DefaultShader.GetShaderProgram();
+    return;
   } else {
     std::cout << "DEBUG: Shader Program linked successfully with ID " 
       << m_shaderProgram << std::endl;
@@ -89,12 +98,15 @@ void Engine::Graphics::Shader::CompileShader() {
   delete[] fScript;
 }
 
-
-
 unsigned int Engine::Graphics::Shader::GetShaderProgram() {
-  if (m_shaderProgram == -1) {
+  if (m_shaderProgram == 0) {
     CompileShader();
   }
 
   return m_shaderProgram;
+}
+
+Engine::Graphics::Shader& Engine::Graphics::DefaultShader() {
+  static Engine::Graphics::Shader defaultShader("js/default.frag", "js/default.vert");
+  return defaultShader;
 }

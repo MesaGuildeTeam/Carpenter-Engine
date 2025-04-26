@@ -59,7 +59,7 @@ Engine::Graphics::Renderer::Renderer(const char* id) : m_camera(&DefaultCamera) 
   glEnableVertexAttribArray(2);
 
   std::cout << "DEBUG: Canvas Initialized with tag " << id << std::endl;
-  UseShader(DefaultShader);
+  UseShader(DefaultShader());
 }
 
 void Engine::Graphics::Renderer::ClearBuffer() {

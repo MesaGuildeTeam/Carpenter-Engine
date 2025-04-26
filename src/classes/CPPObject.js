@@ -22,11 +22,11 @@ const EMCC =
     ? os.homedir() + "\\.table-engine\\emsdk\\upstream\\emscripten\\em++.bat"
     : "~/.table-engine/emsdk/upstream/emscripten/em++";
 
-const outputLocation = buildConfig.outputPath || process.cwd() + "/objs";
+const outputLocation = buildConfig.outputPath || "./objs";
 const includeDir =
   buildConfig.includeDir != null
     ? buildConfig.includeDir
-    : "node_modules/table-engine/src/engine/";
+    : "node_modules/@mesaguilde/carpenter-engine/src/engine/";
 
 const local_dependency_search = /#include "([^"]*)\"/g;
 

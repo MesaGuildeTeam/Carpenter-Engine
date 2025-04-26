@@ -36,4 +36,4 @@ class ExampleScene : public Scene {
   }
 };
 
-Game game{Game::getInstance(new ExampleScene())};
+Game& game{Game::getInstance(new ExampleScene())};
