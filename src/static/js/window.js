@@ -30,11 +30,16 @@ const game = {
 // Audio System
 
 /**
- * A callback used to run the music queue when the window has been clicked anywhere once.
+ * A callback used to run the music queue when the window has been clicked 
+ * anywhere once.
  *
- * Due to autoplay by default being disabled on browsers, the autoplay must occur when the screen has been clicked once. This method is called to do that when the screen is clicked.
+ * Due to autoplay by default being disabled on browsers, the autoplay must
+ * occur when the screen has been clicked once. This method is called to do
+ * that when the screen is clicked.
  *
  * @namespace Client
+ * 
+ * @author Roberto Selles
  */
 function PrepareAudioModule() {
   if (game.playerReady) {
@@ -48,7 +53,8 @@ function PrepareAudioModule() {
  * @brief A sound class container implemented in JavaScript.
  *
  * This class is the JavaScript representation of the engine's Sound class.
- * These are created via `Engine::Audio::Audio` (and its subclasses) to be manipulated easier.
+ * These are created via `Engine::Audio::Audio` (and its subclasses) to be 
+ * manipulated easier.
  * 
  * @author Roberto Selles
  */
@@ -65,9 +71,10 @@ game.Audio = class {
     this.loop = false;
 
     // These are values to be assigned to the buffers when they are created
-    // They are assigned in the constructor for easy access, but they are only used in sounds
-    // the 1 is the base value of the gain
-    // the 0 is the base value of the panning
+    // They are assigned in the constructor for easy access, but they are only 
+    // used in sounds.
+    // - the 1 is the base value of the gain
+    // - the 0 is the base value of the panning
     this.buffers = [1, 0];
 
     this.element.addEventListener("ended", () => {
