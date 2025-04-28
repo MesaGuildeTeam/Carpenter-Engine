@@ -8,6 +8,7 @@
 #define ENGINE_MATERIAL
 
 #include "Shader.hpp"
+#include "../Utils.hpp"
 #include <map>
 
 namespace Engine::Graphics {
@@ -95,8 +96,11 @@ namespace Engine::Graphics {
      * 
      * This method gets called by the renderer when the material is applied.
      * 
+     * @returns Engine::Success::SUCCESS if the material was applied successfully. If one
+     * parameter failed to apply correctly, then the method returns an
+     * Engine::Success::FAILURE
      */
-    void ApplyMaterialParams();
+    Engine::Success ApplyMaterialParams();
 
     /**
      * @brief Gets the shader used by the material

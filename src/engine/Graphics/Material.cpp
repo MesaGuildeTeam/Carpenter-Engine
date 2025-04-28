@@ -25,8 +25,9 @@ void* Engine::Graphics::Material::SetParameter(const char* name, void* value) {
   return value;
 }
 
-void Engine::Graphics::Material::ApplyMaterialParams() {
+Engine::Success Engine::Graphics::Material::ApplyMaterialParams() {
   unsigned shaderProgram = m_referenceShader->GetShaderProgram();
+  Engine::Success success = Engine::Success::SUCCESS;
   for (auto& [key, type] : m_parameters) {
     if (m_parameters.find(key) == m_parameters.end()) continue;
     int uniformLocation = glGetUniformLocation(shaderProgram, key);
@@ -48,8 +49,12 @@ void Engine::Graphics::Material::ApplyMaterialParams() {
       case Engine::Graphics::MaterialParameterType::VEC4:
         glUniform4fv(uniformLocation, 1, (float*)value);
         break;
+      default:
+        success = Engine::Success::FAILURE;
     }
   }
+
+  return success;
 }
 
 Engine::Graphics::Shader* Engine::Graphics::Material::GetShader() {

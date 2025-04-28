@@ -41,7 +41,6 @@ void Engine::Audio::Music::setLoop(bool shouldLoop) {
   }, m_filename, shouldLoop);
 };
 
-EMSCRIPTEN_KEEPALIVE
 void Engine::Audio::SkipTrack() {
   EM_ASM({
     game.songQueue[0].element.pause();

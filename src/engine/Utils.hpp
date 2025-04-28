@@ -27,9 +27,9 @@ namespace Engine {
    * @author Roberto Selles
    */
   typedef enum {
-    FAILURE,
-    SUCCESS,
-    WARNING
+    FAILURE = -1,
+    SUCCESS = -2,
+    WARNING = -3
   } Success;
 
   /**

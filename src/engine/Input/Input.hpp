@@ -127,7 +127,8 @@ namespace Engine::Input {
      * - GAMEPAD: Returns the gamepad input
      * 
      * @param mode The input device
-     * @return The input parameter
+     * @return The input parameter. If there is an error with the input device,
+     * returns an Engine::Success::FAILURE as a char
      */
     char GetInput(InputDevice mode) const;
   };

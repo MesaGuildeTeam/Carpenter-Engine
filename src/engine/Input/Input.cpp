@@ -65,5 +65,7 @@ char Engine::Input::Input::GetInput(InputDevice mode) const {
             return m_gamepadInput;
         case MOUSE:
             return m_mouseButton;
+        default:
+            return Engine::Success::FAILURE;
     }
 }
