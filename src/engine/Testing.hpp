@@ -4,14 +4,6 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-/**
- * @file Testing.hpp
- * @brief A Unit tester used to run C++ unit tests
- * 
- * @authors Roberto Selles
- * @authors Armand Baril
-*/
-
 #ifndef ENGINE_TESTRUNNER
 #define ENGINE_TESTRUNNER
 
@@ -35,6 +27,10 @@ namespace Testing {
    * These tests get processed and compiled to WASM before being run via JavaScript and running `table test`.
    * There are extern functions defined in the `Testing.cpp` file that you can access to run tests.
    * 
+   * @warning This class is a singleton and should not be created manually.
+   * It is a singleton that is accessed with `Testing::TestRunner::getInstance()`
+   * and should be assigned to references of the class.
+   * 
    * ## Example
    * ```cpp
    * #include <Testing.hpp>
@@ -51,6 +47,8 @@ namespace Testing {
    * }
    * ```
    * 
+   * @author Roberto Selles
+   * @author Armand Baril
    */
   class TestRunner {
       private:

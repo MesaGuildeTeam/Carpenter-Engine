@@ -12,6 +12,16 @@
 
 namespace Engine::UI {
 
+  /**
+   * @brief An input field for UI
+   * 
+   * Takes in a text input, and you can get the input as an integer, double, 
+   * or string.
+   * 
+   * @see UIElement
+   * 
+   * @author Roberto Selles
+   */
   class UIInput : public UIElement {
     const char* m_placeholder;
     std::string m_value;
@@ -19,28 +29,35 @@ namespace Engine::UI {
     public:
 
     /**
-     * Default Constructor
+     * @brief Default Constructor
+     * 
+     * takes in a name, and a placeholder text
+     * 
+     * @param name The name of the UI element
+     * @param placeholder The placeholder text
+     * 
+     * @see UIElement
      */
     UIInput(std::string name, const char* placeholder = "");
 
     void Init() override;
 
     /**
-     * Returns the input as an integer
+     * @brief Returns the input as an integer
      * 
      * @return The input as an integer
      */
     int getInputInt();
 
     /**
-     * Returns the input as a double
+     * @brief Returns the input as a double
      * 
      * @return The input as a double
      */
     double getInputDouble();
 
     /**
-     * Returns the input as a string
+     * @brief Returns the input as a string
      * 
      * @return The input as a string
      */

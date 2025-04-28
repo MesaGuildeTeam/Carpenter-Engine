@@ -33,6 +33,9 @@ namespace Engine::Input {
     MOUSE
   };
 
+  /**
+   * @brief A struct used to hold the parameters of an input
+   */
   struct InputParams {
     char keyCode = -1;
     char mouseButton = -1;
@@ -40,8 +43,10 @@ namespace Engine::Input {
   };
 
   /**
-   * A class used to represent a single generic input. 
-   * Used as a compositional class to the InputManager class
+   * @brief A class used to represent a single input in an InputManager
+   * 
+   * Used as a compositional class to the InputManager class, this object will
+   * get linked to an input device singleton.
    *
    * Your input is a combination of the following:
    * - Keyboard keys
@@ -63,12 +68,20 @@ namespace Engine::Input {
     float currentStrength = 0;
     
     /**
-     * Intended Constructor 
+     * @brief The main constructor intended to be used by an InputManager
+     * 
+     * Takes in a keycode, mouse button, and/or gamepad input in that order.
+     * The input will automatically be linked to one of the possible input
+     * device classes.
+     * 
+     * @param params The parameters of the input 
      */
     Input(InputParams params);
 
     /**
-     * Base Constructor
+     * @breif Base Constructor
+     * 
+     * The default constructor that is not linked to any input.
      */
     Input() : Input((InputParams){}) {};
 
@@ -78,29 +91,32 @@ namespace Engine::Input {
     ~Input();
   
     /**
-     * Updates the state of each possible input solution.
-     * Override currentStrength first with a value between 0 and 1 to indicate the strength of the input to update to.
+     * @brief Updates the state of each possible input solution.
+     * 
+     * Override currentStrength first with a value between 0 and 1 to indicate
+     * the strength of the input to update to. This will update pressed, 
+     * released, and strength values of the input.
      * 
      * @warning This should only be called by the InputManager
      */ 
     void Update();
       
     /**
-     * Checks if the input is just pressed
+     * @brief Checks if the input is just pressed
      * 
      * @return True if the input is just pressed
      */
     bool IsPressed() const;
 
     /**
-     * Checks if the input is just released
+     * @brief Checks if the input is just released
      * 
      * @return True if the input is just released
      */
     bool IsReleased() const;
 
     /**
-     * Checks if the input is down
+     * @brief Checks if the input is down
      * 
      * @return True if the input is down 
      */

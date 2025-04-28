@@ -16,9 +16,10 @@
 namespace Engine::Input {
   
   /**
-   * Singleton class used to handle mouse input
+   * @brief Singleton class used to handle mouse input
    * 
-   * Primarily used to return the current position of the mouse. If you want to listen for mouse events, use the InputManager instead
+   * This class is primarily used to return the current position of the mouse. 
+   * If you want to listen for mouse button events, use the InputManager instead.
    */
   class Mouse {
     private:
@@ -40,22 +41,29 @@ namespace Engine::Input {
     public:
 
     /**
-     * Returns the singleton instance
+     * @brief Returns the singleton instance
      */
     static Mouse& GetInstance();
 
     /**
-     * Adds an input listener to the mouse
+     * @biref Adds an input listener to the mouse
+     * 
+     * @param input Reference to the input to add
      */
     void AddListener(Input* input);
 
     /**
      * Removes an input listener 
+     * 
+     * @param input Reference to the input to remove
      */
     void RemoveListener(Input* input);
 
     /**
-     * Returns the x position of the mouse
+     * @brief Returns the position of the mouse
+     * 
+     * @return The X and Y coordinates of the mouse from the top left of the
+     * window.
      */
     Vec2f GetPosition();
   };

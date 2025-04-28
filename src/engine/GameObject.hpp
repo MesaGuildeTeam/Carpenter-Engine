@@ -14,7 +14,38 @@ namespace Engine {
   /**
    * @brief A Game Object loaded in the scene
    * 
-   * Each game object has its own position, rotation, and scale
+   * Each game object is a node. However it also has its own position, rotation,
+   * and scale allowing it to be moved around in space.
+   * 
+   * ## Example
+   * 
+   * ```cpp
+   * // Object of Focus
+   * class CubeObject : public GameObject {
+   *   public:
+   *   Cube mesh;
+   *   CubeObject() : GameObject("Cube") {
+   *     Position = {0, 3, 4};
+   *   }
+   *  
+   *   void Draw() override {
+   *     Engine::Game::getInstance().GetRenderer().DrawMesh(&mesh, Position, Scale, Rotation);
+   *   }
+   * };
+   * 
+   * // Implementation
+   * class CubeScene : public Scene {
+   *   public:
+   *   CubeObject cube;
+   *   CubeScene() : Scene("CubeScene") {
+   *     AddChild(&cube);
+   *   }
+   * };  
+   * ```
+   * 
+   * @see Node
+   * 
+   * @author Roberto Selles
    */
   class GameObject : public Node {
     private:

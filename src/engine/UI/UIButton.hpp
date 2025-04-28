@@ -12,11 +12,21 @@
 
 namespace Engine::UI {
 
+  /**
+   * @brief A Button associated with a scene
+   * 
+   * Allows a function to be called when the button is clicked
+   * 
+   * @see UIElement
+   * @author Roberto Selles
+   */
   class UIButton : public UILabel {
     private:
 
     /**
-     * Emscripten mouse click callback. Init uses this to set the callback which then calls UIButton::OnClick
+     * @brief Emscripten mouse click callback. 
+     * 
+     * Init uses this to set the callback which then calls UIButton::OnClick
      * 
      * @param eventType The type of event
      * @param mouseEvent The mouse event
@@ -27,7 +37,13 @@ namespace Engine::UI {
     public:
 
     /** 
-     * The default constructor. Creates a button with the given name and text. The callback is assigned to OnClick
+     * @brief The default constructor. 
+     * 
+     * Creates a button with the given name and text. The callback is assigned to OnClick
+     * 
+     * @param name The name of the button
+     * @param text The text of the button
+     * @param callback The function to be called when the button is clicked
      */
     UIButton(std::string name, std::string text, void (&callback)());
 
@@ -37,7 +53,7 @@ namespace Engine::UI {
     void Init() override;
 
     /**
-     * A reference to the function to be called when the button is clicked
+     * @brief  reference to the function to be called when the button is clicked
      */
     void (&OnClick)();
 

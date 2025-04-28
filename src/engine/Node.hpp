@@ -14,7 +14,31 @@
 namespace Engine {
   
   /**
-   * A node in a game scene. Each node is linked with a parent and its children
+   * @brief A single node in a game scene. 
+   * 
+   * Each node is linked with a parent and its children. Nodes can be game 
+   * objects, scenes, UI elements, etc. There are predefined subclasses,
+   * but you can also make your own to manage the behaviour of scenes.
+   * 
+   * ## Example
+   * 
+   * ```cpp
+   * class ExampleNode : public Node {
+   *   public:
+   *   Cube mesh;
+   *   CubeObject() : Node("Cube") {}
+   * }
+   * 
+   * class ExampleScene : public Scene {
+   *   public:
+   *   ExampleNode node;
+   *   ExampleScene() : Scene("ExampleScene") {
+   *     AddChild(&node);
+   *   }
+   * }
+   * ```
+   * 
+   * @author Roberto Selles
    */
   class Node{
     private:
@@ -32,17 +56,18 @@ namespace Engine {
     std::string m_name;
 
     /** 
-     * Default constructor
+     * @brief Default constructor
      */  
     Node(std::string name);
   
     /** 
-     * Default destructor
+     * @brief Default destructor
      */
     ~Node();
 
     /**
-     * Adds a child to the node and assigns itself as the parent of the new node
+     * @brief Adds a child to the node and assigns itself as the parent of the 
+     * new node
      * 
      * @param child The child to add
      * @return The index of the child
@@ -50,7 +75,7 @@ namespace Engine {
     size_t AddChild(Node* child);
   
     /**
-     * Returns a reference to the child at the specified index
+     * @brief Returns a reference to the child at the specified index
      * 
      * @param index The index of the child to return
      * @return A reference to the child
@@ -58,7 +83,7 @@ namespace Engine {
     Node* GetChild(size_t index);
 
     /**
-     * Removes the child at the specified index
+     * @brief Removes the child at the specified index
      * 
      * @param index The index of the child to remove
      * @return SUCCESS if the child was removed, FAILURE otherwise
@@ -66,19 +91,27 @@ namespace Engine {
     Success RemoveChild(size_t index);
 
     /**
-     * Toggles the state of the node. Triggers callbacks onEnable and onDisable if the state changes successfully
+     * @brief Toggles the state of the node. 
+     * 
+     * This method triggers callbacks onEnable and onDisable if the state changes
+     * successfully.
      * 
      * @param enabled The new state of the node
+     * @return SUCCESS if the state changed successfully, FAILURE otherwise
      */
     Success SetEnabled(bool enabled = true);
 
     /**
-     * Overridable enable method for the node. Calls this whenever the node is enabled
+     * @brief Overridable enable method for the node. 
+     * 
+     * Calls this whenever the node is enabled
      */
     virtual void OnEnable() {};
 
     /**
-     * Overridable disable method for the node. Calls this whenever the node is disabled
+     * @brief Overridable disable method for the node. 
+     * 
+     * Calls this whenever the node is disabled
      */
     virtual void OnDisable() {};
     
@@ -87,14 +120,14 @@ namespace Engine {
     virtual void Init();
 
     /**
-     * Overridable draw method for the node
+     * @brief Overridable draw method for the node
      * 
      * @warning To maintain recursiveness, this method must be called in each method override
      */
     virtual void Draw();
 
     /**
-     * Overridable update method for the node
+     * @brief Overridable update method for the node
      * 
      * @warning To maintain recursiveness, this method must be called in each method override
      */
@@ -102,7 +135,7 @@ namespace Engine {
   };
 
   /**
-   * Typedef for a scene
+   * @brief Typedef of node for scenes
    */
   typedef Node Scene;
 }
