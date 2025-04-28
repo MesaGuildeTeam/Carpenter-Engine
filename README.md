@@ -1,6 +1,7 @@
 # Table Engine
 
 ![LICENSED UNDER MPL-2.0](https://img.shields.io/badge/License-MPL%2D-2.0-red?style=for-the-badge)
+[![Discord](https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/mXvpNy6wq7)
 
 ![C++](https://img.shields.io/badge/C%2B%2B-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white)
 [![Emscripten](https://img.shields.io/badge/emscripten-darkgreen?style=for-the-badge)](https://emscripten.org/)
@@ -104,7 +105,8 @@ as we can.
 ## Requests
 
 Although we will implement primarily what we need, we are always open to requests
-and suggestions. we will only ask for the request, and how the game engine will benefit from this. If we agree that a feature is in our scope, we will put it in
+and suggestions. we will only ask for the request, and how the game engine will 
+benefit from this. If we agree that a feature is in our scope, we will put it in
 our schedule to implement it and it will be done as soon as we can. 
 
 ## Reporting a Bug
