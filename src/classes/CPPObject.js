@@ -19,8 +19,8 @@ try {
 
 const EMCC =
   process.platform == "win32"
-    ? os.homedir() + "\\.table-engine\\emsdk\\upstream\\emscripten\\em++.bat"
-    : "~/.table-engine/emsdk/upstream/emscripten/em++";
+    ? os.homedir() + "\\.mesaguilde\\emsdk\\upstream\\emscripten\\em++.bat"
+    : "~/.mesaguilde/emsdk/upstream/emscripten/em++";
 
 const outputLocation = buildConfig.outputPath || "./objs";
 const includeDir =

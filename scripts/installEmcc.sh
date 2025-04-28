@@ -1,7 +1,7 @@
 #!/bin/bash
 cd ~/
-mkdir .table-engine
-cd .table-engine
+mkdir .mesaguilde
+cd .mesaguilde
 git clone https://github.com/emscripten-core/emsdk.git
 cd emsdk
 git pull

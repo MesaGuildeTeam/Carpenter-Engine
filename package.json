@@ -11,7 +11,7 @@
     "start": "npx table setup",
     "test": "npx jest & npx table test",
     "build_docs": "jsdoc ./ -c jsdoc.json -r -d docs/jsdoc/ -R ./docs/overview.md",
-    "build": "npx table build -c"
+    "build": "npx table build -clL"
   },
   "repository": {
     "type": "git",

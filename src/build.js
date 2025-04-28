@@ -24,13 +24,13 @@ try {
 
 const EMCC =
   process.platform == "win32"
-    ? os.homedir() + "\\.table-engine\\emsdk\\upstream\\emscripten\\em++.bat"
-    : "~/.table-engine/emsdk/upstream/emscripten/em++";
+    ? os.homedir() + "\\.mesaguilde\\emsdk\\upstream\\emscripten\\em++.bat"
+    : "~/.mesaguilde/emsdk/upstream/emscripten/em++";
 
 const EMAR =
   process.platform == "win32"
-    ? os.homedir() + "\\.table-engine\\emsdk\\upstream\\emscripten\\emar.bat"
-    : "~/.table-engine/emsdk/upstream/emscripten/emar";
+    ? os.homedir() + "\\.mesaguilde\\emsdk\\upstream\\emscripten\\emar.bat"
+    : "~/.mesaguilde/emsdk/upstream/emscripten/emar";
 
 const srcLocation = buildConfig.inputPath || process.cwd() + "/src";
 const outputLocation = buildConfig.outputPath || process.cwd() + "/objs";
