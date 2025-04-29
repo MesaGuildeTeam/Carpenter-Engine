@@ -35,9 +35,14 @@ Engine::Success Engine::Game::AddScene(const char* id, Scene* scene) {
 }
 
 Engine::Success Engine::Game::SwitchScene(const char* id) {
+  if (m_currentScene != nullptr)
+    m_currentScene->SetEnabled(false);
+
   if (m_loadedScenes.find(id) == m_loadedScenes.end())
     return FAILURE;
+
   m_currentScene = m_loadedScenes[id];
+  m_currentScene->SetEnabled(true);
   return SUCCESS;
 }
 

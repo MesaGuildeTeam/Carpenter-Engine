@@ -57,13 +57,16 @@ void Engine::UI::UIElement::SetOffset(Vec2f offset) {
 }
 
 void Engine::UI::UIElement::OnEnable() {
+  Engine::Node::OnEnable();
   EM_ASM({
     document.getElementById(`${UTF8ToString($1) != "" ? UTF8ToString($1) + "-" : ""}${UTF8ToString($0)}`).style.display = "block";
   }, m_name.c_str(), m_uiClass);
 }
 
 void Engine::UI::UIElement::OnDisable() {
+  Engine::Node::OnEnable();
   EM_ASM({
     document.getElementById(`${UTF8ToString($1) != "" ? UTF8ToString($1) + "-" : ""}${UTF8ToString($0)}`).style.display = "none";
+    console.log("Element disabled");
   }, m_name.c_str(), m_uiClass);
 }

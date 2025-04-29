@@ -41,7 +41,7 @@ Engine::Success Engine::Node::RemoveChild(size_t index) {
 Engine::Success Engine::Node::SetEnabled(bool enabled) {
   if (m_enabled == enabled)
     return FAILURE;
-  
+
   m_enabled = enabled;
 
   if (enabled)
@@ -52,12 +52,22 @@ Engine::Success Engine::Node::SetEnabled(bool enabled) {
   return SUCCESS;
 }
 
+void Engine::Node::OnEnable() {
+    for (Node* child : m_children)
+        child->OnEnable();
+}
+
+void Engine::Node::OnDisable() {
+    for (Node* child : m_children)
+        child->OnDisable();
+}
+
 void Engine::Node::Init() {}
 
 void Engine::Node::Draw() {
   if (!m_enabled)
     return;
-  
+
   for (Node* child : m_children)
     child->Draw();
 }
