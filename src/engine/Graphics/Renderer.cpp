@@ -82,6 +82,8 @@ void Engine::Graphics::Renderer::DrawMesh(Engine::Graphics::Mesh* mesh,
   int windowDimensionsSize = glGetUniformLocation(m_currentShaderProgram, "u_Window");
   glUniform2f(windowDimensionsSize, WindowDimensions[0], WindowDimensions[1]);
 
+  float FOV = m_camera->getFOV();
+
   // Object Transformation Matrix
   glm::mat4 transformationMatrix = glm::mat4(1.0f);
 
@@ -106,18 +108,19 @@ void Engine::Graphics::Renderer::DrawMesh(Engine::Graphics::Mesh* mesh,
   Vec3f camRot = m_camera->GetGlobalRotation();
 
   glm::mat4 cameraMatrix = glm::mat4(1.0f);
-
-  cameraMatrix = glm::translate(cameraMatrix, glm::vec3(camPos.x, camPos.y, camPos.z)); // position
-
   cameraMatrix = glm::rotate(cameraMatrix, glm::radians(camRot.x),
     glm::vec3(1.0f, 0.0f, 0.0f)); // rotation
   cameraMatrix = glm::rotate(cameraMatrix, glm::radians(camRot.y),
     glm::vec3(0.0f, 1.0f, 0.0f)); // rotation
   cameraMatrix = glm::rotate(cameraMatrix, glm::radians(camRot.z),
     glm::vec3(0.0f, 0.0f, 1.0f)); // rotation
-  cameraMatrix = glm::scale(cameraMatrix, glm::vec3(
-      1.0f / m_camera->getFOV(), 1.0f / m_camera->getFOV(),
-      1.0f / m_camera->getFOV())); // scale
+  cameraMatrix = glm::scale(cameraMatrix, glm::vec3(1.0f / FOV, 
+    1.0f / FOV, 1.0f / FOV)); // scale
+
+
+  cameraMatrix = glm::translate(cameraMatrix, glm::vec3(camPos.x / FOV, 
+    camPos.y / FOV, camPos.z / FOV)); // position
+
 
   int cameraUniform = glGetUniformLocation(m_currentShaderProgram, "u_Camera");
   glUniformMatrix4fv(cameraUniform, 1, GL_FALSE, &cameraMatrix[0][0]);

@@ -48,15 +48,11 @@ namespace Engine {
    * @author Roberto Selles
    */
   class GameObject : public Node {
-    private:
+    public:
     
-    protected:
-
     Vec3f Position{0.0f, 0.0f, 0.0f};
     Vec3f Scale{1.0f, 1.0f, 1.0f};
     Vec3f Rotation{0.0f, 0.0f, 0.0f};
-    
-    public:
 
     /**
      * @brief Default constructor
