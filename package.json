@@ -18,7 +18,7 @@
     "url": "git+https://github.com/MesaGuildeTeam/Table-Engine.git"
   },
   "bin": {
-    "table": "bin/table",
+    "carp": "bin/carp",
     "emsc_sc": "bin/emsc_sc"
   },
   "keywords": [
