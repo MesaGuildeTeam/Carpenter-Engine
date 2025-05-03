@@ -15,7 +15,8 @@ Engine::Node::Node(std::string name) {
 
 Engine::Node::~Node() {
   for (Node* child : m_children)
-    delete child;
+    if (child->m_parent != nullptr)
+      delete child;
 }
 
 size_t Engine::Node::AddChild(Node* child) {
@@ -30,11 +31,10 @@ Engine::Node* Engine::Node::GetChild(size_t index) {
 }
 
 Engine::Success Engine::Node::RemoveChild(size_t index) {
-  if (index >= m_children.size()) {
-    return FAILURE;
-  }
+  m_children[index]->OnDisable();
   delete m_children[index];
   m_children.erase(m_children.begin() + index);
+  m_children.shrink_to_fit();
   return SUCCESS;
 }
 

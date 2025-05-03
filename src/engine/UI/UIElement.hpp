@@ -39,6 +39,11 @@ namespace Engine::UI {
     UIElement(std::string name);
 
     /**
+     * Destructor Method
+     */
+    ~UIElement() override;
+
+    /**
      * @brief Creates the UI element and adds it to the DOM
      */
     void Init() override;

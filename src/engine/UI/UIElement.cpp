@@ -6,6 +6,7 @@
 
 #include "UIElement.hpp"
 #include <emscripten.h>
+#include <iostream>
 
 Engine::UI::UIElement::UIElement(std::string name) : Engine::Node(name) {
   m_nodeType = "UI";
@@ -28,6 +29,15 @@ void Engine::UI::UIElement::Init() {
       document.getElementById(`${UTF8ToString($1) != "" ? UTF8ToString($1) + "-" : ""}${UTF8ToString($0)}`)
         .appendChild(uielement);
     }, parentElement, parentClass, m_name.c_str(), m_uiTag, m_uiClass);
+}
+
+Engine::UI::UIElement::~UIElement() {
+  Node::~Node();
+  std::cout << "Deleting UI Element " << m_name << std::endl;
+
+  EM_ASM({
+    document.getElementById(`${UTF8ToString($1) != "" ? UTF8ToString($1) + "-" : ""}${UTF8ToString($0)}`).remove();
+  }, m_name.c_str(), m_uiClass);
 }
 
 void Engine::UI::UIElement::AddTheme(const char* theme) {

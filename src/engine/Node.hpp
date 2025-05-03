@@ -63,7 +63,7 @@ namespace Engine {
     /**
      * @brief Default destructor
      */
-    ~Node();
+    virtual ~Node();
 
     /**
      * @brief Adds a child to the node and assigns itself as the parent of the
