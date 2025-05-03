@@ -1,4 +1,6 @@
-\mainpage Carpenter Engine
+\mainpage
+
+![Carpenter Engine Logo by Iris Jiang](images/CarpenterEngine_Logo.png)
 
 Carpenter Engine is a Modular C++ Game Engine designed to take advantage of
 WebAssembly and web browser technology to create flexible web clients. The purpose
@@ -21,7 +23,8 @@ as we can.
 ## Requests
 
 Although we will implement primarily what we need, we are always open to requests
-and suggestions. we will only ask for the request, and how the game engine will benefit from this. If we agree that a feature is in our scope, we will put it in
+and suggestions. we will only ask for the request, and how the game engine will
+benefit from this. If we agree that a feature is in our scope, we will put it in
 our schedule to implement it and it will be done as soon as we can. 
 
 ## Reporting a Bug
@@ -39,11 +42,14 @@ Firefox based browsers too.
 
 Lead Project Manager and Developer: [Roberto Selles](https://henderythmix.is-a.dev)
 
-Pull Requests:
+Pull Request Monitoring:
 - [Kirstin Horvat](https://github.com/kbph05)
 
 Software Contributions:
-- [Armand Baril](https://github.com/BigChungus21220) - Testing Module
+- [Armand Baril](https://github.com/BigChungus21220) - Testing.hpp
+
+Other:
+- [Iris Jiang](https://github.com/Shenyuanmeigui12) - Carpenter Engine Logo
 
 ## Licensing
 Carpenter Engine is licensed under the Mozilla Public License 2.0. Any code modified
