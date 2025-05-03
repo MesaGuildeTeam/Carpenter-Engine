@@ -37,8 +37,8 @@ Building with the game engine requires the following tools before proceeding
 ## Setting up a Game
 To use the the engine in your own project:
 ```sh
-npm install --save-dev table-engine
-npx table setup # install emscripten for the toolkit, and generates necessary folders
+npm install --save-dev @mesaguilde/Carpenter-Engine
+npx carp setup # install emscripten for the toolkit, and generates necessary folders
 ```
 
 This will install/update emscripten for the user in a recognized directory and
@@ -87,13 +87,13 @@ Game game{Game::getInstance(new ExampleScene())};
 
 ## Running the Game
 When you are ready to test the game, you can build the game and run it with
-`npx table build -cl`. This will compile and link the game engine into a .wasm
+`npx carp build -cl`. This will compile and link the game engine into a .wasm
 and .js file.
 
-To test the game from here, you can run `npx table dev` to start the testing
+To test the game from here, you can run `npx carp dev` to start the testing
 environment. This will open a web server on `http://localhost:3000/runtime`
 
-When you are ready to package the whole static web app, you can run `npx table build -p`
+When you are ready to package the whole static web app, you can run `npx carp build -p`
 which packages the static page on top of the compiled `.wasm` file into `build/`.
 
 # Contributing
@@ -128,8 +128,8 @@ to build the game engine on your computer for contributing (assuming you have
 not cloned the repo yet), we suggest you start with the following process.
 
 ```sh
-git clone https://github.com/MesaGuildeTeam/Table-Engine
-cd Table-Engine
+git clone https://github.com/MesaGuildeTeam/Carpenter-Engine
+cd Carpenter-Engine
 npm start
 npm run build
 ```
