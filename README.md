@@ -37,7 +37,7 @@ Building with the game engine requires the following tools before proceeding
 ## Setting up a Game
 To use the the engine in your own project:
 ```sh
-npm install --save-dev @mesaguilde/Carpenter-Engine
+npm install --save-dev @mesaguilde/carpenter-engine
 npx carp setup # install emscripten for the toolkit, and generates necessary folders
 ```
 
