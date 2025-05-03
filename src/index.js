@@ -14,11 +14,11 @@ const build = require("./build.js");
 const clean = require("./clean.js");
 const testing = require("./testing.js");
 
-const title = `  ${utils.Asciis.Table} Table Engine v${pkg.version} ${utils.Asciis.Table}
------------------${"-".repeat(pkg.version.length)}---------`;
+const title = `  ${utils.Asciis.Table} Carpenter Engine v${pkg.version} ${utils.Asciis.Table}
+-----------------${"-".repeat(pkg.version.length)}-------------`;
 
 program
-  .name("table")
+  .name("carp")
   .description(pkg.description)
   .version(pkg.version)
   .option("-v, --verbose", "verbose mode", false)
