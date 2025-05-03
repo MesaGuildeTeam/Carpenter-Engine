@@ -6,16 +6,22 @@
 
 #include "Keyboard.hpp"
 
+#include <iostream>
+
 Engine::Input::Keyboard::Keyboard() {
   emscripten_set_keydown_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, this, false, &Engine::Input::Keyboard::keyDown_emscripten);
   emscripten_set_keyup_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, this, false, &Engine::Input::Keyboard::keyUp_emscripten);
 }
 
 bool Engine::Input::Keyboard::keyDown_emscripten(int eventType, const EmscriptenKeyboardEvent *keyEvent, void *userData) {
-  Engine::Input::Keyboard& keyboard = Engine::Input::Keyboard::GetInstance(); 
+  Engine::Input::Keyboard& keyboard = Engine::Input::Keyboard::GetInstance();
 
   for (auto input : keyboard.m_listeners) {
-    if (input == nullptr) continue;
+    // Turns out I also needed to check if GetInput returns -1.
+    // I don't fully understand yet... I'll leave it for now and refine this
+    // later
+    if (input == nullptr || input->GetInput(InputDevice::KEYBOARD) == -1) 
+      continue;
 
     if (input->GetInput(InputDevice::KEYBOARD) == keyEvent->key[0]) {
       input->currentStrength = 1.0f;
@@ -29,7 +35,8 @@ bool Engine::Input::Keyboard::keyUp_emscripten(int eventType, const EmscriptenKe
   Engine::Input::Keyboard& keyboard = Engine::Input::Keyboard::GetInstance(); 
 
   for (auto input : keyboard.m_listeners) {
-    if (input == nullptr) continue;
+    if (input == nullptr || input->GetInput(InputDevice::KEYBOARD) == -1) 
+      continue;
 
     if (input->GetInput(InputDevice::KEYBOARD) == keyEvent->key[0]) {
       input->currentStrength = 0.0f;
