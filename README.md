@@ -1,6 +1,6 @@
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/CarpenterEngine_Logo.png">
-  <img src="docs/CarpenterEngine_Logo_Light.png" alt="Carpenter Engine"/>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/CarpenterEngine_Logo.png">
+  <img src="docs/images/CarpenterEngine_Logo_Light.png" alt="Carpenter Engine"/>
 </picture>
 
 ![LICENSED UNDER MPL-2.0](https://img.shields.io/badge/License-MPL%2D-2.0-red?style=for-the-badge)
