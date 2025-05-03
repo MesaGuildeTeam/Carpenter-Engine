@@ -1,3 +1,9 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 #ifndef ENGINE_INPUTMANAGER
 #define ENGINE_INPUTMANAGER
 
@@ -9,7 +15,31 @@
 namespace Engine::Input {
   
   /**
-   * The input manager used to handle input events
+   * @brief A class used to handle inputs
+   * 
+   * When creating an input manager, you can either create a button via the
+   * `AddInput` function, or an axis via the `AddAxis` function.
+   * 
+   * A Scene can have multiple InputManagers which can be used to organize 
+   * inputs by object.
+   * 
+   * ## Example
+   * 
+   * ```cpp
+   * class ExampleObject : public GameObject {
+   *   private:
+   *
+   *   Input::InputManager inputManager;
+   * 
+   *   public:
+   *   ExampleScene() : Scene("ExampleScene") {
+   *     inputManager.AddAxis("Horizontal", {'d'}, {'a'});
+   *     inputManager.AddInput("Jump", {Input::KeyCodes::SPACE});
+   *     inputManager.AddInput("MouseClick", {-1, 0});
+   *     inputManager.AddAxis("Scroll", {-1, 4}, {-1, 3});
+   *   }
+   * }
+   * ```
    */
   class InputManager {
     private:
@@ -24,38 +54,47 @@ namespace Engine::Input {
     public:
 
     /**
-     * Default Constructor
+     * @brief Default Constructor
      */
     InputManager();
 
     /**
-     * Updates the input manager based on the input data available
+     * @brief Updates the input manager based on the input data available
      */
     void Update();
 
     /**
-     * Adds an axis to the input manager
+     * @brief Adds an axis to the input manager
      * 
      * This can be accessed later using the `GetAxis` function
+     * 
+     * @param axis The name of the axis
+     * @param positive The positive side of the axis (If down, axis = 1)
+     * @param negative The negative side of the axis (If down, axis = -1)
+     * 
+     * ## Note:
+     * 
+     * If both positive and negative are down, the axis will be set to 0 because
+     * the inputs will cancel out
      */
     void AddAxis(const char* axis, InputParams positive, InputParams negative);
 
     /**
-     * Returns the value of the axis at the frame with the given name
+     * @brief Returns the value of the axis at the frame with the given name
      * 
      * @return The value of the axis between -1 and 1
      */
     float GetAxis(const char* axis);
 
     /**
-     * Adds a single input to the input manager
+     * @brief Adds a single input to the input manager
      * 
      * This can be accessed later using the `GetInput` function
      */
     void AddInput(const char* name, InputParams input);
 
     /**
-     * Returns the value of the input at the frame with the given name
+     * @brief Returns the value of the input at the frame with the given name
      * 
      * @return The value of the input between 0 and 1
      */

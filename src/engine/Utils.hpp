@@ -1,3 +1,9 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 /**
  * @file Utils.hpp
  * @author Roberto Selles
@@ -21,13 +27,13 @@ namespace Engine {
    * @author Roberto Selles
    */
   typedef enum {
-    FAILURE,
-    SUCCESS,
-    WARNING
+    FAILURE = -1,
+    SUCCESS = -2,
+    WARNING = -3
   } Success;
 
   /**
-   * A 2D vector struct with overloaded operators
+   * @brief A 2D vector struct with overloaded operators
    */
   struct Vec2f {
     float x;
@@ -39,7 +45,7 @@ namespace Engine {
     // Vec2f operator=(const Vec2f& rhs);
 
     /**
-     * Add two Vec2f objects together
+     * @brief Add two Vec2f objects together
      */
     Vec2f operator+(const Vec2f& rhs);
 
@@ -49,12 +55,12 @@ namespace Engine {
     // Vec2f operator-(const Vec2f& rhs);
 
     /**
-     * Compute scalar multiplication
+     * @brief Compute scalar multiplication
      */
     Vec2f operator*(const float& rhs);
 
     /**
-     * Compute multiplication in parallel
+     * @brief Compute multiplication in parallel
      */
     Vec2f operator*(const Vec2f& rhs);
 
@@ -75,7 +81,7 @@ namespace Engine {
   };
 
   /**
-   * A 3D vector struct with overloaded operators
+   * @brief A 3D vector struct with overloaded operators
    */
   struct Vec3f {
     float x;
@@ -83,22 +89,22 @@ namespace Engine {
     float z;
 
     /**
-     * Adds two Vec3f objects
+     * @brief Adds two Vec3f objects
      */
     Vec3f operator+(const Vec3f& rhs);
 
     /**
-     * Compute scalar multiplication
+     * @brief Compute scalar multiplication
      */
     Vec3f operator*(const float& rhs);
 
     /**
-     * Computes Multiplication in parallel
+     * @brief Computes Multiplication in parallel
      */
     Vec3f operator*(const Vec3f& rhs);
 
     /**
-     * Returns the length of the vector
+     * @brief Returns the length of the vector
      */
     float lengthSquared();
 
@@ -106,7 +112,7 @@ namespace Engine {
   };
 
   /**
-   * A color struct with 4 components: RGBA
+   * @brief A color struct with 4 components: RGBA
    */
   struct Color {
     unsigned char r;
@@ -116,25 +122,27 @@ namespace Engine {
   };
 
   /**
-   * Rotates a vector by an angle
+   * @brief Rotates a 2D vector by an angle
    * 
    * @param v The vector to rotate
-   * @param angle The angle to rotate
+   * @param angle The angle to rotate by
    * @return The rotated vector
    */
   Vec2f Rotate(Vec2f v, float angle);
 
   /**
-   * Rotates a vector by an angle
+   * @brief Rotates a 3D vector in three dimensions
    * 
    * @param v The vector to rotate
-   * @param angle The angle to rotate
+   * @param angle The angles to rotate by
    * @return The rotated vector
    */
   Vec3f Rotate(Vec3f v, Vec3f angle);
 
   /**
-   * Using SIMD Intrinsics, returns the inverse square root of a float
+   * @brief returns the inverse square root of a float
+   * 
+   * TODO: Use SIMD Instrinsics to accelerate the calculation
    * 
    * @param x The float to take the inverse square root of
    * @return The inverse square root

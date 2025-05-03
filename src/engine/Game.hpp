@@ -1,3 +1,9 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 #ifndef ENGINE_GAME
 #define ENGINE_GAME
 
@@ -8,7 +14,23 @@
 namespace Engine {
   
   /**
-   * The game class singleton used to run the game loop
+   * @brief The game class singleton used to run the game loop
+   * 
+   * This class communicates with the game DOM to run the game loop.
+   * This allows the programmers to code without worrying about a 
+   * main function. The game can hold multiple scenes and switch between
+   * them using the `SwitchScene` method.
+   * 
+   * @warning This class is a singleton and should not be created manually.
+   * Instead, you use the `GetInstance` method to get the singleton instance
+   * and assign it only to references of the class.
+   * 
+   * ## Example 
+   * ```cpp
+   * Engine::Game& game = Engine::Game::GetInstance(new SampleScene());
+   * ```
+   * 
+   * @author Roberto Selles
    */
   class Game {
     private:
@@ -21,7 +43,7 @@ namespace Engine {
     static Game* m_instance;
 
     /**
-     * Constructor with default scene
+     * @brief Constructor with a default scene
      * 
      * @param startingScene The scene to start the game with
      */

@@ -43,7 +43,8 @@ class ExampleScene : public Scene {
         }
 
         if (inputManager.GetInput("MouseClick")->IsPressed()) {
-            std::cout << "Mouse clicked at <" << mouse.GetPosition().x << ", " << mouse.GetPosition().y << ">" << std::endl;
+            std::cout << "Mouse clicked at <" << mouse.GetPosition().x << ", " 
+                << mouse.GetPosition().y << ">" << std::endl;
         }
 
         if (inputManager.GetInput("MouseClick")->IsReleased()) {
@@ -51,7 +52,8 @@ class ExampleScene : public Scene {
         }
 
         if (std::abs(inputManager.GetAxis("Scroll")) >= 0)
-            std::cout << "Scroll strength of " << inputManager.GetAxis("Scroll") << std::endl;
+            std::cout << "Scroll strength of " << inputManager.GetAxis("Scroll") 
+                << std::endl;
     }
 };
 

@@ -14,7 +14,7 @@ varying vec3 v_Normal;
 void main() {
   mat3 normal_transform = mat3(u_Transform[0].xyz, u_Transform[1].xyz, u_Transform[2].xyz);
 
-  vec4 newPos = u_Transform * u_Camera * vec4(a_Position, 1.0);
+  vec4 newPos =  u_Camera * u_Transform * vec4(a_Position, 1.0);
   
   vec2 proportionalPos = vec2(newPos.x, newPos.y);
 

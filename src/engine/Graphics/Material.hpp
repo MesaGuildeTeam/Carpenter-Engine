@@ -1,7 +1,14 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 #ifndef ENGINE_MATERIAL
 #define ENGINE_MATERIAL
 
 #include "Shader.hpp"
+#include "../Utils.hpp"
 #include <map>
 
 namespace Engine::Graphics {
@@ -47,7 +54,7 @@ namespace Engine::Graphics {
      * 
      * Takes in a shader to use as a reference for the material.
      */
-    Material(Shader* referenceShader = &DefaultShader);
+    Material(Shader* referenceShader);
 
     /**
      * @brief Creates a parameter for the material
@@ -89,8 +96,11 @@ namespace Engine::Graphics {
      * 
      * This method gets called by the renderer when the material is applied.
      * 
+     * @returns Engine::Success::SUCCESS if the material was applied successfully. If one
+     * parameter failed to apply correctly, then the method returns an
+     * Engine::Success::FAILURE
      */
-    void ApplyMaterialParams();
+    Engine::Success ApplyMaterialParams();
 
     /**
      * @brief Gets the shader used by the material

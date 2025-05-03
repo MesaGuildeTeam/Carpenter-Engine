@@ -1,3 +1,9 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 const os = require("os");
 const fs = require("fs");
 const path = require("path");
@@ -15,18 +21,23 @@ try {
 
 const EMCC =
   process.platform == "win32"
-    ? os.homedir() + "\\.table-engine\\emsdk\\upstream\\emscripten\\em++.bat"
-    : "~/.table-engine/emsdk/upstream/emscripten/em++";
+    ? os.homedir() + "\\.mesaguilde\\emsdk\\upstream\\emscripten\\em++.bat"
+    : "~/.mesaguilde/emsdk/upstream/emscripten/em++";
 
 const includeDir =
   buildConfig.includeDir != null
     ? buildConfig.includeDir
-    : "node_modules/table-engine/src/engine/";
+    : "node_modules/@mesaguilde/carpenter-engine/src/engine/";
 
 const test_dependency_search = /#include <([A-Za-z0-9\/\\]+).hpp>/g;
 
 /**
- * A reference class to a compilable `.cpp` test file.
+ * @brief A reference class to a compilable `.cpp` test file.
+ * Similarily to a CPPObject, this class also builds the file if it has not been
+ * built since it's last modification. However, this file assumes its directory
+ * is "./tests/CPP", so it will look for dependencies in "./src/" instead.
+ * 
+ * @author Roberto Selles
  */
 class CPPTest extends CPPObject {
   /**

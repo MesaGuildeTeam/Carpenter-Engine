@@ -1,3 +1,9 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 const { Command } = require("commander");
 const program = new Command();
 
@@ -40,6 +46,7 @@ program
   .option("-c, --compile", "Compile the .cpp files into wasm .o files")
   .option("-l, --link", "Link all the files together")
   .option("-d, --debug", "Enable debug mode when linking the files")
+  .option("-L, --lib", "Compile the code as an emscripten friendly library")
   .option(
     "-p, --package",
     "Package the static webpage into the build ready for distribution",
@@ -63,6 +70,7 @@ program
       runPackage: options.package,
       mainFile: options.main,
       debug: options.debug,
+      libMode: options.lib,
     });
   });
 

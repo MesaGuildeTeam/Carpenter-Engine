@@ -1,3 +1,9 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 const express = require("express");
 const server = express();
 
@@ -8,10 +14,17 @@ var buildConfig;
 try {
   buildConfig = require(process.cwd() + "/tableconf.json");
 } catch (exception) {
-  buildConfig = {};
+  buildConfig = {
+    "static": process.cwd() + "/node_modules/@mesaguilde/carpenter-engine/src/static"
+  };
 }
 
 // Adding the game testing environment
+
+server.use("/runtime", (req, res, next) => {
+  console.log("Requesting from game runtime: ", req.url);
+  next()
+});
 
 server.use("/runtime", express.static(buildConfig.static));
 

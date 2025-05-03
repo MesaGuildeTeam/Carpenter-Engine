@@ -1,3 +1,9 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 #include "UIElement.hpp"
 #include <emscripten.h>
 
@@ -51,13 +57,16 @@ void Engine::UI::UIElement::SetOffset(Vec2f offset) {
 }
 
 void Engine::UI::UIElement::OnEnable() {
+  Engine::Node::OnEnable();
   EM_ASM({
     document.getElementById(`${UTF8ToString($1) != "" ? UTF8ToString($1) + "-" : ""}${UTF8ToString($0)}`).style.display = "block";
   }, m_name.c_str(), m_uiClass);
 }
 
 void Engine::UI::UIElement::OnDisable() {
+  Engine::Node::OnEnable();
   EM_ASM({
     document.getElementById(`${UTF8ToString($1) != "" ? UTF8ToString($1) + "-" : ""}${UTF8ToString($0)}`).style.display = "none";
+    console.log("Element disabled");
   }, m_name.c_str(), m_uiClass);
 }

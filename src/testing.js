@@ -1,3 +1,9 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 /** @namespace Testing */
 
 const fs = require("fs");
@@ -7,7 +13,9 @@ const CPPTest = require("./classes/CPPTest");
 
 /**
  * Runs all tests and outputs the results
+ * @returns {process} The exit code
  * @namespace Testing
+ * @author Roberto Selles
  */
 async function RunTests() {
   let passedSuites = 0;

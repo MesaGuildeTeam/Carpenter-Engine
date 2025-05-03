@@ -1,7 +1,7 @@
 {
-  "name": "table-engine",
-  "version": "0.1.0-snapshot",
-  "description": "A C++ game engine that takes advantage of WASM, and the web browser DOM",
+  "name": "@mesaguilde/carpenter-engine",
+  "version": "0.1.0",
+  "description": "A C++ game engine with a build once, run anywhere solution",
   "main": "src/index.js",
   "directories": {
     "doc": "docs",
@@ -11,7 +11,7 @@
     "start": "npx table setup",
     "test": "npx jest & npx table test",
     "build_docs": "jsdoc ./ -c jsdoc.json -r -d docs/jsdoc/ -R ./docs/overview.md",
-    "build": "npx table build -c"
+    "build": "npx table build -clL"
   },
   "repository": {
     "type": "git",
@@ -23,17 +23,23 @@
   },
   "keywords": [
     "C++",
-    "WASM",
-    "Gamedev",
-    "Engine",
-    "Games"
+    "cpp",
+    "wasm",
+    "game",
+    "WebGL",
+    "engine",
+    "game-engine",
+    "framework",
+    "emscripten",
+    "2d",
+    "3d"
   ],
   "author": "MesaGuilde Studios",
-  "license": "ISC",
+  "license": "MPL-2.0",
   "bugs": {
     "url": "https://github.com/MesaGuildeTeam/Table-Engine/issues"
   },
-  "homepage": "https://github.com/MesaGuildeTeam/Table-Engine#readme",
+  "homepage": "https://github.com/MesaGuildeTeam/Table-Engine",
   "devDependencies": {
     "jest": "^29.7.0",
     "jsdoc": "^4.0.4"

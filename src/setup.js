@@ -1,3 +1,9 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 /** @namespace Setup */
 
 const utils = require('./utils.js');
@@ -13,6 +19,7 @@ const scriptExtension = process.platform === 'win32' ? 'ps1' : 'sh';
  *  
  * @param {string} path the name of the directory to check
  * @memberof Setup
+ * @author Roberto Selles
  */
 async function findPathLocal(path) {
   await fs.stat(path, (err, status) => {
@@ -22,8 +29,12 @@ async function findPathLocal(path) {
 }
 
 /**
- * Installs Emscripten if it is not installed with the configuration defnined in its parameters 
+ * Installs Emscripten if it is not installed with the configuration defnined
+ * in its parameters
+ *  
+ * @param {Object} config the configuration object (currently unused) 
  * @memberof Setup
+ * @author Roberto Selles
  */
 function installEmscripten(config = {}) {
   // Install/Update Emscripten

@@ -1,3 +1,9 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 #ifndef ENGINE_SHADER
 #define ENGINE_SHADER
 
@@ -31,7 +37,7 @@ namespace Engine::Graphics {
   class Shader {
     private:
 
-    unsigned int m_shaderProgram = -1;
+    unsigned int m_shaderProgram;
 
     const char* m_frag;
     const char* m_vert;
@@ -84,7 +90,7 @@ namespace Engine::Graphics {
    * This is a default shader so it is not *required* to make your own shaders. 
    * 
    */
-  extern Shader DefaultShader;
+  extern Shader& DefaultShader();
 }
 
 #endif

@@ -1,74 +1,66 @@
-# Overview
 \mainpage
 
-Table Engine is a Modular C++ Game Engine designed to take advantage of WebAssembly and web browser technology to create flexible web clients.
-The purpose of the game engine will be to develop 2D and 2.5D games, but the goal is for the engine to be engine to be flexible that you can add any feature possible.
+![Carpenter Engine Logo by Iris Jiang](images/CarpenterEngine_Logo.png)
 
-The game engine comes with both the framework to develop games in the game engine, and a CLI to assist developing the game such as installing compilers and building the game for you.
+Carpenter Engine is a Modular C++ Game Engine designed to take advantage of
+WebAssembly and web browser technology to create flexible web clients. The purpose
+of the game engine is primarily to develop 2D and 2.5D games, but the goal is for
+the engine to be flexible that you can add any feature possible.
 
-For the design document, please refer to [This Google Document](https://docs.google.com/document/d/1oLOHmxrwEfjTDFo12rYifWIXcJgFl-JyXFgPHCGT00A)
+The game engine comes with both the framework to develop games in the game engine,
+and a CLI to assist developing the game such as installing compilers and building
+the game for you.
 
-# Tech Stack
-The game engine uses both a framework for to assist building games, and a toolkit written with node.js to streamline the game development process. For the bare minimum the only software you will need is Node.js. From here, you will have an easy way to install emsdk for use within developing games for the game engine 
+# Contributing
+Although we will try our hardest to catch and work on issues on our own, we
+will gladly look into any feedback you guys offer, and resolve bugs that you may
+have discovered on your own. If you wish to contribute to the issues, ensure that
+you are creating your own fork and we will manage any pull requests you offer If
+we approve the implementation of the feature. Any request or bug report you offer
+should be in the Issues section of the repo, and we will take care of it as soon
+as we can.
 
-Here are some general tools to view resources:
-Tool | Description
----|---
-Markdown | General documentation markup language
-PlantUML | Designing software structure before implementing
+## Requests
 
-## Framework
-Here are the tools used specifically along the game engine framework:
-Tool | Description
----|---
-Emscripten | The webassembly C/C++ compiler used to build the game and engine
-JavaScript | Game engine wrapper for the web app
-HTML5/CSS | The Foundation to giving the game engine a DOM to work with
-Doxygen | Generated documentation similar to javadocs for C++
+Although we will implement primarily what we need, we are always open to requests
+and suggestions. we will only ask for the request, and how the game engine will
+benefit from this. If we agree that a feature is in our scope, we will put it in
+our schedule to implement it and it will be done as soon as we can. 
 
-## Toolkit
-As for the toolkit, here are the important features
-Tool | Description
----|---
-Node.js | The foundation of the game engine
-JsDoc | Generated documentation similar to javadocs for JavaScript
-Jest | General purpose unit testing
+## Reporting a Bug
+If you need to report a bug, ensure you have the following:
+- Bug Description
+- How to replicate
+- Hardware and Browser Specs
 
-# Building the Engine Framework
+The amount of hardware you include is not the biggest concern, we are most
+concerned about the browser you are using. We currently maintain primarily for
+Chrome/Chromium based browsers only, but we are also looking into supporting
+Firefox based browsers too.
 
-If you are building from source, use the following build process to build the engine code. 
+# Credits
 
-```
-git clone https://github.com/MesaGuildeTeam/Table-Engine
-cd Table-Engine
-npm install
-npm run build
-```
+Lead Project Manager and Developer: [Roberto Selles](https://henderythmix.is-a.dev)
 
-##
+Pull Request Monitoring:
+- [Kirstin Horvat](https://github.com/kbph05)
 
-# Project Structure
+Software Contributions:
+- [Armand Baril](https://github.com/BigChungus21220) - Testing.hpp
 
-'bin'
-- The npm executables are stored here to assist with the game engine 
+Other:
+- [Iris Jiang](https://github.com/Shenyuanmeigui12) - Carpenter Engine Logo
 
-`docs`
-- All the documentation. If you use doxygen on the source code, you will see the game engine documentation will be packaged into docs/doxygen
+## Licensing
+Carpenter Engine is licensed under the Mozilla Public License 2.0. Any code modified
+from the original source code must be made open source and licensed under MPL-2.0.
 
-`scripts`
-- anything involving shell scripts are probably stored in here. 
+> Accreditation of Carpenter Engine will be enforced by the Engine in the splash
+> Screen. Although not enforced, further credit of MesaGuilde or Carpenter Engine
+> will always be appreciated. You may also remove the splash screen credit as long
+> as you follow the MPL-2.0 license and requirements.
 
-`src`
-- All the source code of the product including the engine framework and the toolkit to assist developing a game with this.
-- `./`: the toolkit cli and any future javascript code should be stored here 
-- `engine`: C++ code used to hold the structure of the game engine
-- `static`: a simple example of how the webpage should be setup
-
-`examples`
-- examples used to test the modules of the game engine in a manual environment. They can either be practical examples, or they can be generic tests to see how the features behave.
-
-`tests`
-- All Unit tests are performed here. These tests can either be in JavaScript tested in Jest, or a C++ unit test that gets compiled to WASM before running.
-
-`Assets`
-- All the assets are used for examples
+For further licensing information, please refer to the
+[LICENSE](https://github.com/MesaGuildeTeam/Carpenter-Engine/blob/main/LICENSE)
+and [NOTICE](https://github.com/MesaGuildeTeam/Carpenter-Engine/blob/main/NOTICE.md)
+files.

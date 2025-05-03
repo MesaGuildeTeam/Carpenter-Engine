@@ -1,3 +1,9 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 #ifndef ENGINE_KEYBOARD
 #define ENGINE_KEYBOARD
 
@@ -10,7 +16,10 @@
 namespace Engine::Input {
 
   /**
-   * Singleton class used to handle keyboard input
+   * @brief Singleton class used to handle keyboard input
+   * 
+   * @warning This class is designed to be accessed by an input. There is no 
+   * need to access this class directly
    */
   class Keyboard {
     private:
@@ -26,17 +35,17 @@ namespace Engine::Input {
     public:
 
     /**
-     * Returns the singleton instance
+     * @brief Returns the singleton instance
      */
     static Keyboard& GetInstance();
 
     /**
-     * Adds an input listener to the keyboard
+     * @brief Adds an input listener to the keyboard
      */
     void AddListener(Input* input);
 
     /**
-     * Removes an input listener
+     * @brief Removes an input listener
      */
     void RemoveListener(Input* input);
   };

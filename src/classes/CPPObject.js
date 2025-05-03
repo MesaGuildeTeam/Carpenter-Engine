@@ -1,3 +1,9 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 const fs = require("fs");
 const path = require("path");
 const utils = require("../utils");
@@ -13,21 +19,25 @@ try {
 
 const EMCC =
   process.platform == "win32"
-    ? os.homedir() + "\\.table-engine\\emsdk\\upstream\\emscripten\\em++.bat"
-    : "~/.table-engine/emsdk/upstream/emscripten/em++";
+    ? os.homedir() + "\\.mesaguilde\\emsdk\\upstream\\emscripten\\em++.bat"
+    : "~/.mesaguilde/emsdk/upstream/emscripten/em++";
 
-const outputLocation = buildConfig.outputPath || process.cwd() + "/objs";
+const outputLocation = buildConfig.outputPath || "./objs";
 const includeDir =
   buildConfig.includeDir != null
     ? buildConfig.includeDir
-    : "node_modules/table-engine/src/engine/";
+    : "node_modules/@mesaguilde/carpenter-engine/src/engine/";
 
 const local_dependency_search = /#include "([^"]*)\"/g;
 
 var visitedArray = [];
 
 /**
- * A reference class to a compilable `.cpp` file.
+ * @brief A reference class to a compilable `.cpp` file.
+ * Allows the program to determine if a file needs to be built or not and check
+ * for its dependencies recursively to determine what it needs to link with.
+ * 
+ * @author Roberto Selles
  */
 class CPPObject {
   /**

@@ -1,5 +1,6 @@
 node_modules
 .vscode
+.zed
 
 Doxyfile
 tests
@@ -9,7 +10,7 @@ coverage
 include
 
 src/**/*.cpp
-build
+objs
 Assets
 tableconf.json
 makefile
