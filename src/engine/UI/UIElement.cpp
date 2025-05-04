@@ -33,7 +33,7 @@ void Engine::UI::UIElement::Init() {
 
 Engine::UI::UIElement::~UIElement() {
   Node::~Node();
-  std::cout << "Deleting UI Element " << m_name << std::endl;
+  std::cout << "DEBUG: Deleting UI Element " << m_name << std::endl;
 
   EM_ASM({
     document.getElementById(`${UTF8ToString($1) != "" ? UTF8ToString($1) + "-" : ""}${UTF8ToString($0)}`).remove();
@@ -77,6 +77,5 @@ void Engine::UI::UIElement::OnDisable() {
   Engine::Node::OnEnable();
   EM_ASM({
     document.getElementById(`${UTF8ToString($1) != "" ? UTF8ToString($1) + "-" : ""}${UTF8ToString($0)}`).style.display = "none";
-    console.log("Element disabled");
   }, m_name.c_str(), m_uiClass);
 }

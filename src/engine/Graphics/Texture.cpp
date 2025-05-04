@@ -25,6 +25,8 @@ void Engine::Graphics::Texture::LoadTexture() {
 
   emscripten_wget_data(m_filename, (void**)&data, &size, nullptr);
 
+  while (data == nullptr);
+
   // Load Image
   unsigned char* textureData = stbi_load_from_memory(data, size, &m_dimensions[0],
     &m_dimensions[1], nullptr, 4);
