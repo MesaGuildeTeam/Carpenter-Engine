@@ -24,8 +24,13 @@ function clean() {
     fs.rmSync(folder + "/" + file, { recursive: true, force: true });
   });
 
+  if (!fs.existsSync("./tests/WASM")) return;
+
   utils.processFiles("./tests/WASM", ".js", (file, folder) => {
     fs.rmSync(folder + "/" + file + ".js", { recursive: true, force: true });
+  });
+
+  utils.processFiles("./tests/WASM", ".wasm", (file, folder) => {
     fs.rmSync(folder + "/" + file + ".wasm", { recursive: true, force: true });
   });
 }
