@@ -4,9 +4,9 @@
 # Project related configuration options
 #---------------------------------------------------------------------------
 DOXYFILE_ENCODING      = UTF-8
-PROJECT_NAME           = "Table Engine"
+PROJECT_NAME           = "Carpenter Engine"
 PROJECT_NUMBER         =
-PROJECT_BRIEF          = "A modular game engine written in C++ that takes advantage of the web browser and its DOM through WebAssembly"
+PROJECT_BRIEF          = "A C++ game engine with a build once run anywhere solution"
 PROJECT_LOGO           =
 PROJECT_ICON           =
 OUTPUT_DIRECTORY       = "./docs/doxygen"
@@ -184,7 +184,7 @@ FILE_PATTERNS          = *.c \
                          *.qsf \
                          *.ice
 RECURSIVE              = YES
-EXCLUDE                = 
+EXCLUDE                =
 EXCLUDE_SYMLINKS       = NO
 EXCLUDE_PATTERNS       =
 EXCLUDE_SYMBOLS        =
