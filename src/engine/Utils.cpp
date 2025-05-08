@@ -38,7 +38,7 @@ Engine::Vec3f Engine::Vec3f::operator*(const Vec3f& rhs) {
 }
 
 float Engine::Vec3f::lengthSquared() {
-  return sqrt(x * x + y * y + z * z);
+  return x * x + y * y + z * z;
 }
 
 bool Engine::Vec3f::operator==(const Engine::Vec3f& rhs) {
