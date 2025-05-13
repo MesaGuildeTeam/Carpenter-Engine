@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 cd ~/
 mkdir .mesaguilde
 cd .mesaguilde

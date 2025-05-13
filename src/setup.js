@@ -38,7 +38,7 @@ async function findPathLocal(path) {
  */
 function installEmscripten(config = {}) {
   // Install/Update Emscripten
-  command = `${process.platform === 'win32' ? "powershell.exe -File " : "sh "}"${__dirname}/../scripts/installEmcc.${scriptExtension}"`;
+  command = `${process.platform === 'win32' ? "powershell.exe -ExecutionPolicy ByPass -File " : "sh "}"${__dirname}/../scripts/installEmcc.${scriptExtension}"`;
   utils.execCommand(command, "Installing/Updating Emscripten"); 
 
   console.log("Creating directories");
