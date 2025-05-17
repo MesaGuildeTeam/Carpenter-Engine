@@ -1,6 +1,6 @@
 {
   "name": "@mesaguilde/carpenter-engine",
-  "version": "0.1.2-0",
+  "version": "0.1.2",
   "description": "A C++ game engine with a build once, run anywhere solution",
   "main": "src/index.js",
   "directories": {
