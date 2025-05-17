@@ -30,7 +30,7 @@ const game = {
 // Audio System
 
 /**
- * A callback used to run the music queue when the window has been clicked 
+ * A callback used to run the music queue when the window has been clicked
  * anywhere once.
  *
  * Due to autoplay by default being disabled on browsers, the autoplay must
@@ -38,7 +38,7 @@ const game = {
  * that when the screen is clicked.
  *
  * @namespace Client
- * 
+ *
  * @author Roberto Selles
  */
 function PrepareAudioModule() {
@@ -53,15 +53,15 @@ function PrepareAudioModule() {
  * @brief A sound class container implemented in JavaScript.
  *
  * This class is the JavaScript representation of the engine's Sound class.
- * These are created via `Engine::Audio::Audio` (and its subclasses) to be 
+ * These are created via `Engine::Audio::Audio` (and its subclasses) to be
  * manipulated easier.
- * 
+ *
  * @author Roberto Selles
  */
 game.Audio = class {
   /**
    * The default constructor used to create a sound
-   * @param {string} url to the audio file 
+   * @param {string} url to the audio file
    */
   constructor(filename) {
     this.filename = filename;
@@ -71,7 +71,7 @@ game.Audio = class {
     this.loop = false;
 
     // These are values to be assigned to the buffers when they are created
-    // They are assigned in the constructor for easy access, but they are only 
+    // They are assigned in the constructor for easy access, but they are only
     // used in sounds.
     // - the 1 is the base value of the gain
     // - the 0 is the base value of the panning
@@ -130,7 +130,7 @@ game.Audio = class {
 
       soundClone.play();
 
-      return;
+      return game.musicManager.resume();
     }
 
     if (this.type == "song") {
@@ -139,16 +139,16 @@ game.Audio = class {
       if (game.musicManager.state == "suspended") {
         game.songQueue[0].element.play().catch((e) => {
           console.warn(
-            "WARNING: Engine can not play audio yet. Engine will tell music queue ",
+            "WARNING: Engine can not play audio yet. Engine will tell music queue when audio becomes playable",
           );
           game.playerReady = true;
           window.addEventListener("click", PrepareAudioModule);
         });
-        return;
+        return game.musicManager.resume();
       }
 
       game.songQueue[0].element.play();
-      return;
+      return game.musicManager.resume();
     }
 
     throw new Error(
@@ -192,9 +192,11 @@ function update() {
   var now = new Date().getTime();
   _Engine_CallUpdate((now - lastTime) / 1000);
   lastTime = now;
-};
+}
 
-function draw() {_Engine_CallDraw()};
+function draw() {
+  _Engine_CallDraw();
+}
 
 function windowLoop() {
   if (!game.ready) return setTimeout(windowLoop, 100);
@@ -206,7 +208,7 @@ function windowLoop() {
 }
 
 window.addEventListener("load", () => {
-  game.musicManager = new AudioContext({ autoplay: true });
+  game.musicManager = new (AudioContext || window.webkitAudioContext)();
   game.musicVolume = game.musicManager.createGain();
   game.musicVolume.gain.value = 1;
   game.musicVolume.connect(game.musicManager.destination);
