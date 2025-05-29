@@ -5,67 +5,98 @@
  */
 
 body {
-  margin: 0;
-  overflow: hidden;
+    margin: 0;
+    overflow: hidden;
 
-  background-color: black;
+    background-color: black;
+    height: 100dvh;
 }
 
-#ui-layer {
-  position: absolute;
-  top: 0;
-  left: 0;
+#ui-layer,
+#splashscreen {
+    position: absolute;
+    top: 0;
+    left: 0;
 
-  width: 100vw;
-  height: 100dvh;
+    width: 100vw;
+    height: 100dvh;
 
-  color: white;
+    color: white;
+}
+
+#splashscreen {
+    background-color: #121212;
+    display: flex;
+    justify-content: center;
+
+    transition: all ease 0.5s;
+}
+
+.splashscreen-loaded {
+    transform: translateY(100%);
+}
+
+#splashscreen img {
+    max-width: 100%;
+    height: auto;
+}
+
+#splashscreen-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 350px;
+    height: 100%;
 }
 
 .ui-element {
-  --offset-x: 10px;
-  --offset-y: 10px;
+    --offset-x: 10px;
+    --offset-y: 10px;
 
-  top: var(--offset-y);
-  left: var(--offset-x);
+    top: var(--offset-y);
+    left: var(--offset-x);
 
-  display: block;
-  position: relative;
+    display: block;
+    position: relative;
 }
 
 .ui-element > .ui-element {
-  position: absolute;
+    position: absolute;
 }
 
 .ui-generic {
-  --offset-x: 0px;
-  --offset-y: 0px;
+    --offset-x: 0px;
+    --offset-y: 0px;
 }
 
-.ui-label, .ui-button, .ui-input {
-  position: absolute;
+.ui-label,
+.ui-button,
+.ui-input {
+    position: absolute;
 }
 
 .ui-anchor-topright {
-  left: initial;
-  right: var(--offset-x);
+    left: initial;
+    right: var(--offset-x);
 }
 
 .ui-anchor-bottomleft {
-  top: initial;
-  bottom: var(--offset-y);
+    top: initial;
+    bottom: var(--offset-y);
 }
 
 .ui-anchor-bottomright {
-  top: initial;
-  bottom: var(--offset-y);
-  left: initial;
-  right: var(--offset-x);
+    top: initial;
+    bottom: var(--offset-y);
+    left: initial;
+    right: var(--offset-x);
 }
 
 .ui-anchor-center {
-  top: 50%;
-  left: 50%;
+    top: 50%;
+    left: 50%;
 
-  transform: translateX(calc(var(--offset-x) - 50%)) translateY(calc(var(--offset-y) - 50%));
+    transform: translateX(calc(var(--offset-x) - 50%))
+        translateY(calc(var(--offset-y) - 50%));
 }
