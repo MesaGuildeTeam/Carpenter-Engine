@@ -75,13 +75,13 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="autotoc_md20"></a>The purpose of the CLI is to start offering a minimal toolkit to assist developing with Carpenter Engine. Currently it offers a way to install emscripten, a standardized way to build with the game engine, and a unit testing module to test specific components.</p>
-<div class="fragment"><div class="line">npx table {-v} {options} {--parameters}</div>
+<div class="fragment"><div class="line">npx carp {-v} {options} {--parameters}</div>
 </div><!-- fragment --><blockquote class="doxtable">
-<p>&zwj;If you ever need extra information when using the CLI, you can always use -v before using any of the options. </p>
+<p>&zwj;If you ever need a more descriptive output when using the CLI, you can always use -v before using any of the options. </p>
 </blockquote>
 <h1><a class="anchor" id="autotoc_md21"></a>
 Setup</h1>
-<div class="fragment"><div class="line">npx table setup</div>
+<div class="fragment"><div class="line">npx carp setup</div>
 </div><!-- fragment --><p>Setup will perform the following tasks</p><ul>
 <li>install/update emscripten for use with the game engine</li>
 <li>generate necessary folders for the toolkit to behave as needed</li>
@@ -90,7 +90,7 @@ Setup</h1>
 <p>Another step will make sure that the folders <code>build</code> and <code>objs</code> are generated. These folders will be required folders as mentioned in the building section.</p>
 <h1><a class="anchor" id="autotoc_md22"></a>
 Building</h1>
-<div class="fragment"><div class="line">npx table build {-cldLp} {-m main.cpp}</div>
+<div class="fragment"><div class="line">npx carp build {-cldLp} {-m main.cpp}</div>
 </div><!-- fragment --><p>The build process is standardized so that libraries can be linked easier on compilation. The goal of this system is to generate <code>.o</code> files for webassembly, then link files into either a game, or into a .a archive to be used as a library.</p>
 <h2><a class="anchor" id="autotoc_md23"></a>
 Process</h2>
@@ -106,15 +106,15 @@ Process</h2>
 </ul>
 <h1><a class="anchor" id="autotoc_md24"></a>
 Development</h1>
-<div class="fragment"><div class="line">npx table dev</div>
+<div class="fragment"><div class="line">npx carp dev</div>
 </div><!-- fragment --><p>While developing your game, you can run a development environment using this command. This will for now host a runtime to test your game, but there will be development for an editor for the game engine in the future.</p>
 <h1><a class="anchor" id="autotoc_md25"></a>
 Testing</h1>
-<div class="fragment"><div class="line">npx table test</div>
+<div class="fragment"><div class="line">npx carp test</div>
 </div><!-- fragment --><p>testing compiles and runs all tests in tests/CPP into tests/WASM before running the tests.</p>
 <h2><a class="anchor" id="autotoc_md26"></a>
 Cleaning</h2>
-<div class="fragment"><div class="line">npx table flip</div>
+<div class="fragment"><div class="line">npx carp flip</div>
 </div><!-- fragment --><p>with the <code>flip</code> command, you can clean your project folder, and all of the .o files built in the folder </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
