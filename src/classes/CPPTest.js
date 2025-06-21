@@ -36,7 +36,7 @@ const test_dependency_search = /#include <([A-Za-z0-9\/\\]+).hpp>/g;
  * Similarily to a CPPObject, this class also builds the file if it has not been
  * built since it's last modification. However, this file assumes its directory
  * is "./tests/CPP", so it will look for dependencies in "./src/" instead.
- * 
+ *
  * @author Roberto Selles
  */
 class CPPTest extends CPPObject {
@@ -68,7 +68,7 @@ class CPPTest extends CPPObject {
 
     fs.mkdirSync("./tests/WASM", { recursive: true });
 
-    let execCmd = `${EMCC} "${this.path}/${this.name}.cpp" ${files} -o "./tests/WASM/${this.name}.js" -std=c++20 -I${includeDir} -DTESTNAME="${this.path}/${this.name}.cpp" -sEXPORTED_FUNCTIONS=_Testing_getTestCount,_Testing_getPassedTestCount,_Testing_runTests,_main -sMODULARIZE`;
+    let execCmd = `${EMCC} "${this.path}/${this.name}.cpp" ${files} -o "./tests/WASM/${this.name}.js" -std=c++20 -I${includeDir} -DTESTNAME="${this.path}/${this.name}.cpp" -sEXPORTED_FUNCTIONS=_Testing_getTestCount,_Testing_getPassedTestCount,_Testing_runTests,_main -sMODULARIZE -sALLOW_MEMORY_GROWTH -g -gsource-map`;
 
     utils.execCommand(execCmd, `Compiling test ${this.name}.cpp`);
   }

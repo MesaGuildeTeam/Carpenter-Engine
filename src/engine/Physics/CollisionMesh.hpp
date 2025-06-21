@@ -37,7 +37,20 @@ namespace Engine::Physics {
    * @return a Mesh object representing the box
    */
   extern Mesh BoxMesh(float w, float h, float l);
+
+  /**
+   * @brief creates a sphere mesh with the given radius
+   * @param radius radius of the sphere
+   * @return a Mesh object representing the sphere
+   */
   extern Mesh SphereMesh(float radius);
+
+
+  /**
+   * @brief creates a point mesh
+   * @return a Mesh object representing a point
+   */
+  extern Mesh PointMesh();
 };
 
 #endif

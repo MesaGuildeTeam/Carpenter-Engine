@@ -29,6 +29,10 @@ Engine::Vec3f Engine::Vec3f::operator+(const Engine::Vec3f& rhs) {
   return {x + rhs.x, y + rhs.y, z + rhs.z};
 }
 
+Engine::Vec3f Engine::Vec3f::operator-(const Engine::Vec3f& rhs) {
+  return {x - rhs.x, y - rhs.y, z - rhs.z};
+}
+
 Engine::Vec3f Engine::Vec3f::operator*(const float& rhs) {
   return {x * rhs, y * rhs, z * rhs};
 }
@@ -41,12 +45,15 @@ Engine::Vec3f Engine::operator*(const float& lhs, const Vec3f& rhs) {
   return {lhs * rhs.x, lhs * rhs.y, lhs * rhs.z};
 }
 
-Engine::Vec3f Engine::Vec3f::operator/(const float& rhs) {
+Engine::Vec3f Engine::Vec3f::operator/(const float& rhs) const {
   return {x / rhs, y / rhs, z / rhs};
 }
 
-Engine::Vec3f Engine::Vec3f::operator+=(const Vec3f& rhs) {
-    return *this + rhs;
+Engine::Vec3f& Engine::Vec3f::operator+=(const Vec3f& rhs) {
+    x += rhs.x;
+    y += rhs.y;
+    z += rhs.z;
+    return *this;
 }
 
 float Engine::Vec3f::lengthSquared() {
@@ -55,6 +62,10 @@ float Engine::Vec3f::lengthSquared() {
 
 bool Engine::Vec3f::operator==(const Engine::Vec3f& rhs) {
   return x == rhs.x && y == rhs.y && z == rhs.z;
+}
+
+bool Engine::Vec3f::operator!=(const Engine::Vec3f& rhs) {
+  return !(*this == rhs);
 }
 
 // Vector Rotations

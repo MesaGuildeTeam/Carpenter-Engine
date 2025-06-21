@@ -13,9 +13,9 @@ namespace Engine::Physics {
     std::vector<Physics::Object*> m_objectsList;
 
     public:
-    World();
+    World(Vec3f gravity);
 
-    void AddObject(Physics::Object& obj);
+    void AddObject(Physics::Object* obj);
 
     /**
      * @brief Updates all the objects in the scene

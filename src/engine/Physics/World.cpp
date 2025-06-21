@@ -3,11 +3,12 @@
 #include "Object.hpp"
 
 #include <cmath>
+#include <iostream>
 
-Engine::Physics::World::World() {}
+Engine::Physics::World::World(Engine::Vec3f gravity) : m_gravity(gravity) {}
 
-void Engine::Physics::World::AddObject(Engine::Physics::Object& obj) {
-  m_objectsList.push_back(&obj);
+void Engine::Physics::World::AddObject(Engine::Physics::Object* obj) {
+  m_objectsList.push_back(obj);
 }
 
 bool HasCollision(Engine::Physics::Object* obj1, Engine::Physics::Object* obj2) {
@@ -32,12 +33,12 @@ bool HasCollision(Engine::Physics::Object* obj1, Engine::Physics::Object* obj2) 
   if (obj1->objectMesh.shape == Engine::Physics::Shapes::POINT) {
     // Point-Point Collision
     if (obj2->objectMesh.shape == Engine::Physics::Shapes::POINT)
-      return obj1->position == obj2->position;
+      return (obj1->position == obj2->position);
 
     // Point-Box Collision
     if (obj2->objectMesh.shape == Engine::Physics::Shapes::BOX) {
-      Engine::Vec3f min = obj2->position - obj2->objectMesh.shapeData.Box / 2;
-      Engine::Vec3f max = obj2->position + obj2->objectMesh.shapeData.Box / 2;
+      Engine::Vec3f min = obj2->position - (obj2->objectMesh.shapeData.Box / 2.0f);
+      Engine::Vec3f max = obj2->position + (obj2->objectMesh.shapeData.Box / 2.0f);
       return obj1->position.x >= min.x && obj1->position.x <= max.x &&
         obj1->position.y >= min.y && obj1->position.y <= max.y &&
         obj1->position.z >= min.z && obj1->position.z <= max.z;
@@ -53,13 +54,13 @@ bool HasCollision(Engine::Physics::Object* obj1, Engine::Physics::Object* obj2) 
 
   // Box Collisions
   if (obj1->objectMesh.shape == Engine::Physics::Shapes::BOX) {
-    Engine::Vec3f min1 = obj1->position - obj1->objectMesh.shapeData.Box / 2;
-    Engine::Vec3f max1 = obj1->position + obj1->objectMesh.shapeData.Box / 2;
+    Engine::Vec3f min1 = obj1->position - (obj1->objectMesh.shapeData.Box / 2.0f);
+    Engine::Vec3f max1 = obj1->position + (obj1->objectMesh.shapeData.Box / 2.0f);
 
     // Box-Box Collision
     if (obj2->objectMesh.shape == Engine::Physics::Shapes::BOX) {
-      Engine::Vec3f min2 = obj2->position - obj2->objectMesh.shapeData.Box / 2;
-      Engine::Vec3f max2 = obj2->position + obj2->objectMesh.shapeData.Box / 2;
+      Engine::Vec3f min2 = obj2->position - (obj2->objectMesh.shapeData.Box / 2.0f);
+      Engine::Vec3f max2 = obj2->position + (obj2->objectMesh.shapeData.Box / 2.0f);
       return max1.x >= min2.x && min1.x <= max2.x &&
         max1.y >= min2.y && min1.y <= max2.y &&
         max1.z >= min2.z && min1.z <= max2.z;
@@ -79,10 +80,11 @@ bool HasCollision(Engine::Physics::Object* obj1, Engine::Physics::Object* obj2) 
   }
 
   // Sphere-Sphere Collision
-  if (obj1->objectMesh.shape == Engine::Physics::Shapes::SPHERE && obj2->objectMesh.shape == Engine::Physics::Shapes::SPHERE) {
-      Engine::Vec3f diff = obj1->position - obj2->position;
-      float distance = sqrt(diff.lengthSquared());
-      return distance <= obj2->objectMesh.shapeData.Sphere.radius + obj1->objectMesh.shapeData.Sphere.radius;
+  if (obj1->objectMesh.shape == Engine::Physics::Shapes::SPHERE
+    && obj2->objectMesh.shape == Engine::Physics::Shapes::SPHERE) {
+    Engine::Vec3f diff = obj1->position - obj2->position;
+    float distance = sqrt(diff.lengthSquared());
+    return distance <= obj2->objectMesh.shapeData.Sphere.radius + obj1->objectMesh.shapeData.Sphere.radius;
   }
 
   // Error Fallback
@@ -94,8 +96,11 @@ void Engine::Physics::World::Update(float dt) {
   for (int i = 0; i < m_objectsList.size(); i++) {
     Engine::Physics::Object* obj1 = m_objectsList[i];
 
+    // Call the kinematics update of the object
+    obj1->Update(dt, m_gravity);
+
     // Run Collision Checks
-    for (int j = i+1; i < m_objectsList.size(); j++) {
+    for (int j = i+1; j < m_objectsList.size(); j++) {
       Engine::Physics::Object* obj2 = m_objectsList[j];
       if (obj1 == obj2) continue;
       if (HasCollision(obj1, obj2)) {
@@ -113,8 +118,5 @@ void Engine::Physics::World::Update(float dt) {
         obj2->velocity = newobj2v;
       }
     }
-
-    // Call the kinematics update of the object
-    obj1->Update(dt);
   }
 }

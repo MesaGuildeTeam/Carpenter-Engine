@@ -13,3 +13,8 @@ Engine::Physics::Mesh Engine::Physics::SphereMesh(float radius) {
 
   return {Engine::Physics::Shapes::SPHERE, sphereData};
 }
+
+Engine::Physics::Mesh Engine::Physics::PointMesh() {
+
+  return {Engine::Physics::Shapes::POINT};
+}

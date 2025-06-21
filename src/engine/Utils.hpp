@@ -108,9 +108,9 @@ namespace Engine {
      */
     Vec3f operator*(const Vec3f& rhs);
 
-    Vec3f operator+=(const Vec3f& rhs);
+    Vec3f& operator+=(const Vec3f& rhs);
 
-    Vec3f operator/(const float& rhs);
+    Vec3f operator/(const float& rhs) const;
 
     /**
      * @brief Returns the length of the vector
@@ -118,6 +118,8 @@ namespace Engine {
     float lengthSquared();
 
     bool operator==(const Vec3f& rhs);
+
+    bool operator!=(const Vec3f& rhs);
   };
 
   extern Vec3f operator*(const float& lhs, const Vec3f& rhs);
