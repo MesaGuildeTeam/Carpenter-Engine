@@ -18,11 +18,11 @@ namespace Engine {
    * A generic success type that determines the stabitility of the code.
    * This is recommended to be used as voids that need to check for errors
    * without using try/catch blocks
-   * 
+   *
    * - SUCCESS - The method was run successfully
    * - FAILURE - The method failed to run
    * - WARNING - The method was run successfully but with warnings
-   * 
+   *
    * @brief A generic success type
    * @author Roberto Selles
    */
@@ -94,6 +94,11 @@ namespace Engine {
     Vec3f operator+(const Vec3f& rhs);
 
     /**
+     * @brief Subtracts two Vec3f objects
+     */
+    Vec3f operator-(const Vec3f& rhs);
+
+    /**
      * @brief Compute scalar multiplication
      */
     Vec3f operator*(const float& rhs);
@@ -103,6 +108,10 @@ namespace Engine {
      */
     Vec3f operator*(const Vec3f& rhs);
 
+    Vec3f operator+=(const Vec3f& rhs);
+
+    Vec3f operator/(const float& rhs);
+
     /**
      * @brief Returns the length of the vector
      */
@@ -110,6 +119,8 @@ namespace Engine {
 
     bool operator==(const Vec3f& rhs);
   };
+
+  extern Vec3f operator*(const float& lhs, const Vec3f& rhs);
 
   /**
    * @brief A color struct with 4 components: RGBA
@@ -123,7 +134,7 @@ namespace Engine {
 
   /**
    * @brief Rotates a 2D vector by an angle
-   * 
+   *
    * @param v The vector to rotate
    * @param angle The angle to rotate by
    * @return The rotated vector
@@ -132,7 +143,7 @@ namespace Engine {
 
   /**
    * @brief Rotates a 3D vector in three dimensions
-   * 
+   *
    * @param v The vector to rotate
    * @param angle The angles to rotate by
    * @return The rotated vector
@@ -141,9 +152,9 @@ namespace Engine {
 
   /**
    * @brief returns the inverse square root of a float
-   * 
+   *
    * TODO: Use SIMD Instrinsics to accelerate the calculation
-   * 
+   *
    * @param x The float to take the inverse square root of
    * @return The inverse square root
    */
