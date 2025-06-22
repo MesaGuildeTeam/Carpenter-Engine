@@ -43,7 +43,7 @@ Firefox based browsers too.
 Lead Project Manager and Developer: [Roberto Selles](https://henderythmix.is-a.dev)
 
 Pull Request Monitoring:
-- [*KBPH*](https://github.com/kbph05)
+- [*kbph*](https://github.com/kbph05)
 
 Software Contributions:
 - [*BigChungus21220*](https://github.com/BigChungus21220) - Testing.hpp
