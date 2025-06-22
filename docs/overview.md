@@ -43,13 +43,13 @@ Firefox based browsers too.
 Lead Project Manager and Developer: [Roberto Selles](https://henderythmix.is-a.dev)
 
 Pull Request Monitoring:
-- [Kirstin Horvat](https://github.com/kbph05)
+- [*KBPH*](https://github.com/kbph05)
 
 Software Contributions:
-- [Armand Baril](https://github.com/BigChungus21220) - Testing.hpp
+- [*BigChungus21220*](https://github.com/BigChungus21220) - Testing.hpp
 
 Other:
-- [Iris Jiang](https://github.com/Shenyuanmeigui12) - Carpenter Engine Logo
+- [*Blue*](https://github.com/Shenyuanmeigui12) - Carpenter Engine Logo
 
 ## Licensing
 Carpenter Engine is licensed under the Mozilla Public License 2.0. Any code modified
