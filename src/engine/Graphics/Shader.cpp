@@ -23,7 +23,7 @@ Engine::Graphics::Shader::Shader(const char* frag, const char* vert) {
 
 void Engine::Graphics::Shader::CompileShader() {
   // Load shader scripts
-  char *vScript, *fScript;
+  char *vScript = nullptr, *fScript = nullptr;
   int vertexShaderSize, fragmentShaderSize;
 
   int vScriptError, fScriptError;
@@ -32,12 +32,15 @@ void Engine::Graphics::Shader::CompileShader() {
   emscripten_wget_data(m_frag, (void**)&fScript, &fragmentShaderSize, &fScriptError);
   emscripten_wget_data(m_vert, (void**)&vScript, &vertexShaderSize, &vScriptError);
 
+  while (fScript == 0) emscripten_sleep(0);
+  while (vScript == 0) emscripten_sleep(0);
+
   if (vScriptError != 0)
     std::cerr << "ERROR: Failed to load vertex shader " << m_vert << std::endl;
-  
+
   if (fScriptError != 0)
     std::cerr << "ERROR: Failed to load fragment shader " << m_frag << std::endl;
-  
+
   // Compile and check vertex shader
   unsigned vertexShader = glCreateShader(GL_VERTEX_SHADER);
   glShaderSource(vertexShader, 1, &vScript, &vertexShaderSize);
@@ -49,7 +52,7 @@ void Engine::Graphics::Shader::CompileShader() {
 
   if (!success) {
     glGetShaderInfoLog(vertexShader, 512, 0, infoLog);
-    std::cerr << "ERROR: Vertex Shader Failed to compile\n" 
+    std::cerr << "ERROR: Vertex Shader Failed to compile\n"
       << infoLog << std::endl;
   }
 
@@ -62,7 +65,7 @@ void Engine::Graphics::Shader::CompileShader() {
 
   if (!success) {
     glGetShaderInfoLog(fragmentShader, 512, 0, infoLog);
-    std::cerr << "ERROR: Fragment Shader Failed to compile\n" 
+    std::cerr << "ERROR: Fragment Shader Failed to compile\n"
       << infoLog << std::endl;
   }
 
@@ -75,27 +78,27 @@ void Engine::Graphics::Shader::CompileShader() {
 
   glGetProgramiv(m_shaderProgram, GL_LINK_STATUS, &success);
 
+  // Clean up unneeded data
+  glDeleteShader(vertexShader);
+  glDeleteShader(fragmentShader);
+  delete[] vScript;
+  delete[] fScript;
+
   if (!success) {
     glGetProgramInfoLog(m_shaderProgram, 512, 0, infoLog);
-    std::cerr << "ERROR: Shader Program Failed to link successfully\n" 
+    std::cerr << "ERROR: Shader Program Failed to link successfully\n"
       << infoLog << std::endl;
-    
+
     // set the shader program to the default shader as a fallback
     return;
   } else {
-    std::cout << "DEBUG: Shader Program linked successfully with ID " 
+    std::cout << "DEBUG: Shader Program linked successfully with ID "
       << m_shaderProgram << std::endl;
   }
 
   glBindAttribLocation(m_shaderProgram, 0, "a_Position");
   glBindAttribLocation(m_shaderProgram, 1, "a_UV");
   glBindAttribLocation(m_shaderProgram, 2, "a_Normal");
-
-  // Clean up unneeded data
-  glDeleteShader(vertexShader);
-  glDeleteShader(fragmentShader);
-  delete[] vScript;
-  delete[] fScript;
 }
 
 unsigned int Engine::Graphics::Shader::GetShaderProgram() {
