@@ -25,7 +25,7 @@ void Engine::Graphics::Texture::LoadTexture() {
 
   emscripten_wget_data(m_filename, (void**)&data, &size, nullptr);
 
-  while (data == nullptr);
+  while (data == nullptr) emscripten_sleep(0);
 
   // Load Image
   unsigned char* textureData = stbi_load_from_memory(data, size, &m_dimensions[0],
@@ -38,7 +38,7 @@ void Engine::Graphics::Texture::LoadTexture() {
     return;
   }
 
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
