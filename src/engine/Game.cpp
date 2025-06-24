@@ -31,6 +31,7 @@ Engine::Success Engine::Game::AddScene(const char* id, Scene* scene) {
   if (m_loadedScenes.find(id) != m_loadedScenes.end())
     return FAILURE;
   m_loadedScenes.emplace(id, scene);
+  scene->Init();
   return SUCCESS;
 }
 
