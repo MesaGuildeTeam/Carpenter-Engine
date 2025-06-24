@@ -68,14 +68,20 @@ bool HasCollision(Engine::Physics::Object* obj1, Engine::Physics::Object* obj2) 
 
     // Box-Sphere Collision
     if (obj2->objectMesh.shape == Engine::Physics::Shapes::SPHERE) {
-      Engine::Vec3f closestPoint = {
-        obj1->position.x > obj2->position.x ? max1.x : min1.x,
-        obj1->position.y > obj2->position.y ? max1.y : min1.y,
-        obj1->position.z > obj2->position.z ? max1.z : min1.z
+      // Find the closest sides of the sphere first
+      Engine::Vec3f min2 = {
+        obj2->position.x - obj2->objectMesh.shapeData.Sphere.radius,
+        obj2->position.y - obj2->objectMesh.shapeData.Sphere.radius,
+        obj2->position.z - obj2->objectMesh.shapeData.Sphere.radius
       };
-      Engine::Vec3f diff = closestPoint - obj2->position;
-      float distance = sqrt(diff.lengthSquared());
-      return distance <= obj2->objectMesh.shapeData.Sphere.radius;
+      Engine::Vec3f max2 = {
+        obj2->position.x + obj2->objectMesh.shapeData.Sphere.radius,
+        obj2->position.y + obj2->objectMesh.shapeData.Sphere.radius,
+        obj2->position.z + obj2->objectMesh.shapeData.Sphere.radius
+      };
+      return max1.x >= min2.x && min1.x <= max2.x &&
+        max1.y >= min2.y && min1.y <= max2.y &&
+        max1.z >= min2.z && min1.z <= max2.z;
     }
   }
 
@@ -104,6 +110,7 @@ void Engine::Physics::World::Update(float dt) {
       Engine::Physics::Object* obj2 = m_objectsList[j];
       if (obj1 == obj2) continue;
       if (HasCollision(obj1, obj2)) {
+        std::cout << "Collision Detected!" << std::endl;
         // Implement collision math using conservation of momentum
         Vec3f dv = (obj1->mass * obj1->velocity + obj2->mass * obj2->velocity)
           * (1 / (obj1->mass + obj2->mass));
@@ -114,8 +121,8 @@ void Engine::Physics::World::Update(float dt) {
         Vec3f newobj2v = dv + (obj1->mass * (obj1->velocity - obj2->velocity)
           * (1 / (obj1->mass + obj2->mass)));
 
-        obj1->velocity = newobj1v;
-        obj2->velocity = newobj2v;
+        obj1->velocity = {-newobj1v.x, -newobj1v.y, -newobj1v.z};
+        obj2->velocity = {-newobj2v.x, -newobj2v.y, -newobj2v.z};
       }
     }
   }
