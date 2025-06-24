@@ -8,10 +8,12 @@
     "example": "examples"
   },
   "scripts": {
-    "start": "npx table setup",
+    "start": "npx carp setup",
     "test": "npx jest & npx table test",
     "build_docs": "jsdoc ./ -c jsdoc.json -r -d docs/jsdoc/ -R ./docs/overview.md",
-    "build": "npx table build -clL"
+    "build": "npx carp flip && npx carp build -clL",
+    "publish:latest": "npm run build && npm publish",
+    "publish:preview": "npm run build && npm publish --tag preview"
   },
   "repository": {
     "type": "git",
