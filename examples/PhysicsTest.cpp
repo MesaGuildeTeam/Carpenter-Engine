@@ -16,7 +16,7 @@ class Ground : public GameObject {
 
   void Init() override {
     Position = {0, -1, 10};
-    Scale = {20, 1, 20};
+    Scale = {20, 1.5, 20};
   }
 
   void Draw() override {
