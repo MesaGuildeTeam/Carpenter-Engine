@@ -42,8 +42,8 @@ Engine::Graphics::Renderer::Renderer(const char* id) : m_camera(&DefaultCamera) 
   glClearColor(0.094f, 0.094f, 0.094f, 1.0f);
   glEnable(GL_DEPTH_TEST);
   glEnable(GL_BLEND);
-  glEnable(GL_CULL_FACE);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+  glEnable(GL_CULL_FACE);
   glFrontFace(GL_CCW);
 
   // Generate and configure buffers
@@ -114,11 +114,11 @@ void Engine::Graphics::Renderer::DrawMesh(Engine::Graphics::Mesh* mesh,
     glm::vec3(0.0f, 1.0f, 0.0f)); // rotation
   cameraMatrix = glm::rotate(cameraMatrix, glm::radians(camRot.z),
     glm::vec3(0.0f, 0.0f, 1.0f)); // rotation
-  cameraMatrix = glm::scale(cameraMatrix, glm::vec3(1.0f / FOV, 
+  cameraMatrix = glm::scale(cameraMatrix, glm::vec3(1.0f / FOV,
     1.0f / FOV, 1.0f / FOV)); // scale
 
 
-  cameraMatrix = glm::translate(cameraMatrix, glm::vec3(camPos.x / FOV, 
+  cameraMatrix = glm::translate(cameraMatrix, glm::vec3(camPos.x / FOV,
     camPos.y / FOV, camPos.z / FOV)); // position
 
 
