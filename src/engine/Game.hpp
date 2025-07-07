@@ -9,27 +9,28 @@
 
 #include "Node.hpp"
 #include "Graphics/Renderer.hpp"
+#include "Utils.hpp"
 #include <map>
 
 namespace Engine {
-  
+
   /**
    * @brief The game class singleton used to run the game loop
-   * 
+   *
    * This class communicates with the game DOM to run the game loop.
-   * This allows the programmers to code without worrying about a 
+   * This allows the programmers to code without worrying about a
    * main function. The game can hold multiple scenes and switch between
    * them using the `SwitchScene` method.
-   * 
+   *
    * @warning This class is a singleton and should not be created manually.
    * Instead, you use the `GetInstance` method to get the singleton instance
    * and assign it only to references of the class.
-   * 
-   * ## Example 
+   *
+   * ## Example
    * ```cpp
    * Engine::Game& game = Engine::Game::GetInstance(new SampleScene());
    * ```
-   * 
+   *
    * @author Roberto Selles
    */
   class Game {
@@ -44,28 +45,28 @@ namespace Engine {
 
     /**
      * @brief Constructor with a default scene
-     * 
+     *
      * @param startingScene The scene to start the game with
      */
     Game(Scene* startingScene);
 
     public:
 
-    static Game& getInstance(Engine::Scene* startingScene = nullptr); 
+    static Game& getInstance(Engine::Scene* startingScene = nullptr);
 
     /**
      * Adds a scene to the game
-     * 
+     *
      * @param id The loaded scene ID
      * @param scene The scene to add
-     * 
+     *
      * @return Success if there is no scene with the same ID
      */
     Success AddScene(const char* id, Scene* scene);
 
     /**
      * Switches the scene requested
-     * 
+     *
      * @param id The ID of the scene to switch to
      * @return Success if the scene exists
      */
@@ -73,7 +74,7 @@ namespace Engine {
 
     /**
      * Deletes a loaded scene from the game
-     * 
+     *
      * @param id The ID of the scene to delete
      * @return Success if the scene exists
      */
@@ -96,6 +97,12 @@ namespace Engine {
      */
     Graphics::Renderer& GetRenderer();
 
+    /**
+     * @brief Returns the game window dimensions
+     *
+     * @return Engine::Vec2f The dimensions of the game window
+     */
+    Engine::Vec2f WindowDimensions();
   };
 }
 
