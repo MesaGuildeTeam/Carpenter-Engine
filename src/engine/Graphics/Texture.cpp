@@ -16,27 +16,37 @@ Engine::Graphics::Texture::Texture(const char* path) {
   m_filename = path;
 }
 
-void Engine::Graphics::Texture::LoadTexture() {
-  glGenTextures(1, &m_texture);
-  glBindTexture(GL_TEXTURE_2D, m_texture);
+unsigned Engine::Graphics::Texture::LoadTexture() {
 
-  unsigned char* data;
-  int size;
+  if (m_request.req_state == 0) {
+    m_request.req_state = 1;
+    emscripten_async_wget_data(m_filename, (void*)&m_request,
+      [](void* arg, void* d, int s) {
+        AssetRequest* req = (AssetRequest*)arg;
+        req->data = new unsigned char[s];
+        memcpy((void*)req->data, d, s);
+        req->size = s;
+        req->req_state = 2;
+      }, nullptr);
+  }
+  //emscripten_wget_data(m_filename, (void**)&data, &size, nullptr);
 
-  emscripten_wget_data(m_filename, (void**)&data, &size, nullptr);
-
-  while (data == nullptr) emscripten_sleep(0);
+  while (m_request.req_state == 1) return 0;
 
   // Load Image
-  unsigned char* textureData = stbi_load_from_memory(data, size, &m_dimensions[0],
+  unsigned char* textureData = stbi_load_from_memory(m_request.data, m_request.size, &m_dimensions[0],
     &m_dimensions[1], nullptr, 4);
 
-  free(data);
+  delete[] m_request.data;
 
   if (textureData == nullptr) {
     std::cerr << "ERROR: Failed to load image name: " << m_filename << std::endl;
-    return;
+    m_texture = 0;
+    return 0;
   }
+
+  glGenTextures(1, &m_texture);
+  glBindTexture(GL_TEXTURE_2D, m_texture);
 
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -48,11 +58,12 @@ void Engine::Graphics::Texture::LoadTexture() {
   glGenerateMipmap(GL_TEXTURE_2D);
 
   STBI_FREE(textureData);
+  return m_texture;
 }
 
 unsigned Engine::Graphics::Texture::GetTexture() {
   if (m_texture == -1)
-    LoadTexture();
+    return LoadTexture();
 
   return m_texture;
 }
