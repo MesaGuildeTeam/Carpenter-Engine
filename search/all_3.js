@@ -11,5 +11,6 @@ var searchData=
   ['and_20testing_8',['Compiling and Testing',['../md_docs_21_81__gettingstarted.html#autotoc_md17',1,'']]],
   ['applymaterialparams_9',['ApplyMaterialParams',['../classEngine_1_1Graphics_1_1Material.html#a5d2833dfe7685a24b540bdedd0750ee7',1,'Engine::Graphics::Material']]],
   ['assert_10',['Assert',['../classTesting_1_1TestRunner.html#a6f7a657e114ad82d7624ac0d38e4d573',1,'Testing::TestRunner']]],
-  ['audio_11',['audio',['../classEngine_1_1Audio_1_1Audio.html',1,'Engine::Audio::Audio'],['../classEngine_1_1Audio_1_1Audio.html#aa603d78c3477af66249b6c58cf1bc291',1,'Engine::Audio::Audio::Audio()']]]
+  ['assetrequest_11',['AssetRequest',['../structEngine_1_1AssetRequest.html',1,'Engine']]],
+  ['audio_12',['audio',['../classEngine_1_1Audio_1_1Audio.html',1,'Engine::Audio::Audio'],['../classEngine_1_1Audio_1_1Audio.html#aa603d78c3477af66249b6c58cf1bc291',1,'Engine::Audio::Audio::Audio()']]]
 ];
