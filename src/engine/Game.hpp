@@ -22,6 +22,8 @@ namespace Engine {
    * main function. The game can hold multiple scenes and switch between
    * them using the `SwitchScene` method.
    *
+   * The default scene is called `Scene0`
+   *
    * @warning This class is a singleton and should not be created manually.
    * Instead, you use the `GetInstance` method to get the singleton instance
    * and assign it only to references of the class.
@@ -52,7 +54,18 @@ namespace Engine {
 
     public:
 
+    /**
+     * @brief Get the singleton instance of the game
+     *
+     * @param startingScene The scene to start the game with
+     * @return The singleton instance of the game
+     * @deprecated Use GetInstance instead which follows consistent naming conventions
+     */
     static Game& getInstance(Engine::Scene* startingScene = nullptr);
+
+    static Game& GetInstance(Engine::Scene* startingScene = nullptr) {
+        return getInstance(startingScene);
+    }
 
     /**
      * Adds a scene to the game

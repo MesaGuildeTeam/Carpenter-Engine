@@ -4,6 +4,9 @@
 #include "UIElement.hpp"
 
 namespace Engine::UI {
+  /**
+   * @brief Allows the client to render an image on the UI layer
+   */
   class UIImage : public UIElement {
     protected:
     std::string m_path;

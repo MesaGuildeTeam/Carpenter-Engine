@@ -29,6 +29,10 @@ Engine::Vec3f Engine::Vec3f::operator+(const Engine::Vec3f& rhs) {
   return {x + rhs.x, y + rhs.y, z + rhs.z};
 }
 
+Engine::Vec3f Engine::Vec3f::operator-(const Engine::Vec3f& rhs) {
+  return {x - rhs.x, y - rhs.y, z - rhs.z};
+}
+
 Engine::Vec3f Engine::Vec3f::operator*(const float& rhs) {
   return {x * rhs, y * rhs, z * rhs};
 }
