@@ -6,7 +6,7 @@ which is defined as `lineFunction(float)`. There is math that has been abstracte
 and will be explained in this section.
 
 ### Setup
-- $\text{let }f(t)\in \mathbb{R}^3, t\in\mathbb{a, b}$ is the reference function 
+- $\text{let }\vec{f}(t)\in \mathbb{R}^3, t\in\mathbb{a, b}$ is the reference function 
 `float (&lineFunction)(float)`
 - $a, b \in\mathbb{R}$ are parameters `float start, float end`
 - $i\in\mathbb{R}$ is parameter `interval`. In an ideal situation, $i=0$, but this is a computer
@@ -17,7 +17,7 @@ and we can't really compute limits perfectly, so we will assume $i\approx0$ but 
 We can not perfectly compute derivatives, but to get as close to the tangent as possible we will use the
 following approximation:
 $$
-f'(t)=\frac{f(t+i)-f(t-i)}{2i}
+\vec{f'}(t)=\frac{\vec{f}(t+i)-\vec{f}(t-i)}{2i}
 $$
 
 We will use this derivative to create as close of a tangent line as possible.
@@ -34,6 +34,9 @@ $$
 
 > from here, we will make the abbreviations
 $\theta(t) \Rightarrow \theta$ and $\phi(t) \Rightarrow \phi$.
+The goal of this is to avoid cluttering the math as much as possible, 
+but whenever there is a function with $t$ as a parameter, our angle
+functions will use our $t$ referenced above 
 
 Now we can create the following rotation matrix:
 $$
@@ -59,26 +62,28 @@ $$
 now that we have our rotation matrix, we can apply this to a point on the ring $r(\alpha)\in\mathbb{R}^3, \alpha\in\mathbb{R}$. Overall, we'll be making ring points with this formula:
 
 $$
-f_r(t, dr)=M_R(t)\cdot dr+f(t)
+\vec{f_r}(t, \vec{dr})=M_R(t)\cdot \vec{dr}+\vec{f}(t)
 $$
 
 We do not want to make too many points on each ring, so we will pick four points $r_j, j=1, 2, 3, 4$ that can be described with our thickness $c$:
 $$
-r_1=\langle c, 0, 0\rangle \\
-r_2=\langle 0, 0, c\rangle \\
-r_3=\langle -c, 0, 0\rangle \\
-r_4=\langle 0, 0, -c\rangle \\
+\vec{r_1}=\langle c, 0, 0\rangle \\
+\vec{r_2}=\langle 0, 0, c\rangle \\
+\vec{r_3}=\langle -c, 0, 0\rangle \\
+\vec{r_4}=\langle 0, 0, -c\rangle \\
 $$
 
 We can then abstract the work to get the following ring around an abstract point:
 $$
-f_r(t, r_1)=\langle\cos(\phi)t, \sin(\phi)t, 0\rangle + f(t) \\
+\vec{f_r}(t, \vec{r_1})=M_R(t)\cdot\vec{r_1}+\vec{f}(t)
+=\langle\cos(\phi)t, \sin(\phi)t, 0\rangle + f(t) \\
 
-f_r(t, r_2)=\langle\sin(\phi)\sin(\theta)t, -\cos(\phi)\sin(\theta)t, 
-\cos(\theta)t\rangle + f(t) \\
+\vec{f_r}(t, \vec{r_2})=M_R(t)\cdot\vec{r_2}+\vec{f}(t)
+=\langle\sin(\phi)\sin(\theta)t,-\cos(\phi)\sin(\theta)t, \cos(\theta)t\rangle + f(t) \\
 
-f_r(t, r_3)=\langle-\cos(\phi)t, -\sin(\phi)t, 0\rangle + f(t) \\
+\vec{f_r}(t, \vec{r_3})=M_R(t)\cdot\vec{r_3}+\vec{f}(t)
+=\langle-\cos(\phi)t, -\sin(\phi)t, 0\rangle + f(t) \\
 
-f_r(t, r_4)=\langle\sin(\phi)\sin(\theta)t, -\cos(\phi)\sin(\theta)t, 
-\cos(\theta)t\rangle + f(t) \\
+\vec{f_r}(t, \vec{r_4})=M_R(t)\cdot\vec{r_4}+\vec{f}(t)
+=\langle\sin(\phi)\sin(\theta)t, -\cos(\phi)\sin(\theta)t, \cos(\theta)t\rangle + f(t) \\
 $$
