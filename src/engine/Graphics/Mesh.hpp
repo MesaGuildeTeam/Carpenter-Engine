@@ -4,7 +4,7 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
- #ifndef ENGINE_MESH
+#ifndef ENGINE_MESH
 #define ENGINE_MESH
 
 #include "../Utils.hpp"
