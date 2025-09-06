@@ -69,6 +69,7 @@ namespace Engine::Graphics {
    *      AddTriangle({0.0f, 0.0f, 0.0f}, {1.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f});
    *   }
    * }
+   * ```
    * 
    * @warning All triangles must be loaded in counter-clockwise order 
    * due to the engine's winding order.
