@@ -16,5 +16,5 @@ void main() {
     //float lighting = dot(v_Normal, LightPos / sqrt(2.26));
     float lighting = max(dot(v_Normal, LightPos / sqrt(2.26)), 0.0);
 
-    gl_FragColor = vec4(vec3(lighting), 1.0);
+    gl_FragColor = image * vec4(vec3(lighting), 1.0);
 }
