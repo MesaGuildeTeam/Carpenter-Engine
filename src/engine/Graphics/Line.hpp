@@ -14,7 +14,10 @@ namespace Engine::Graphics {
   /**
    * @brief A mesh class that turns a function with one float intput int a mesh
    * 
-   * Take an Engine::Vec3f (float) and converts it into a mesh.
+   * Take an `Engine::Vec3f function(float)` and converts it into a mesh.
+   * 
+   * @authors
+   * - Henderythmix/Roberto Selles
    */
   class Line : public Mesh {
 

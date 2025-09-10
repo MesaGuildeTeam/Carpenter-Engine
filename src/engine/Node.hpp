@@ -23,7 +23,7 @@ namespace Engine {
    * ## Example
    *
    * ```cpp
-   * class ExampleNode : public Node {
+   * class ExampleNode : public Engine::Node {
    *   public:
    *   Cube mesh;
    *   CubeObject() : Node("Cube") {}
