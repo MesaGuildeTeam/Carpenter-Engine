@@ -6,6 +6,16 @@
 namespace Engine::UI {
   /**
    * @brief Allows the client to render an image on the UI layer
+   * 
+   * The UI element will have the following CSS classes:
+   * 
+   * - `ui-element`
+   * 
+   * - `ui-image`
+   * 
+   * The UI element will have the following CSS IDs:
+   * 
+   * - `ui-image-${name}`
    */
   class UIImage : public UIElement {
     protected:
