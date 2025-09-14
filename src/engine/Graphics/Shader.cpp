@@ -21,7 +21,7 @@ Engine::Graphics::Shader::Shader(const char* frag, const char* vert) {
   m_vert = vert;
 }
 
-void Engine::Graphics::Shader::CompileShader() {
+unsigned int Engine::Graphics::Shader::CompileShader() {
   // Load shader scripts
   char *vScript = nullptr, *fScript = nullptr;
   int vertexShaderSize, fragmentShaderSize;
@@ -34,9 +34,10 @@ void Engine::Graphics::Shader::CompileShader() {
 
   if (m_fragFile.IsClosed()) m_fragFile.Open(m_frag);
   if (m_vertFile.IsClosed()) m_vertFile.Open(m_vert);
-  
-  while (!m_fragFile.IsOpen()) emscripten_sleep(0);
-  while (!m_vertFile.IsOpen()) emscripten_sleep(0);
+ 
+  // Fallback if shader scripts are not ready
+  while (!m_fragFile.IsOpen()) return 0;
+  while (!m_vertFile.IsOpen()) return 0;
 
   fragmentShaderSize = m_vertFile.GetSize();
   vertexShaderSize = m_vertFile.GetSize();
@@ -84,8 +85,8 @@ void Engine::Graphics::Shader::CompileShader() {
   // Clean up unneeded data
   glDeleteShader(vertexShader);
   glDeleteShader(fragmentShader);
-  delete[] vScript;
-  delete[] fScript;
+  m_fragFile.Close();
+  m_vertFile.Close();
 
   if (!success) {
     glGetProgramInfoLog(m_shaderProgram, 512, 0, infoLog);
@@ -93,7 +94,8 @@ void Engine::Graphics::Shader::CompileShader() {
       << infoLog << std::endl;
 
     // set the shader program to the default shader as a fallback
-    return;
+    m_shaderProgram = 0;
+    return 0;
   } else {
     std::cout << "DEBUG: Shader Program linked successfully with ID "
       << m_shaderProgram << std::endl;
@@ -102,11 +104,13 @@ void Engine::Graphics::Shader::CompileShader() {
   glBindAttribLocation(m_shaderProgram, 0, "a_Position");
   glBindAttribLocation(m_shaderProgram, 1, "a_UV");
   glBindAttribLocation(m_shaderProgram, 2, "a_Normal");
+
+  return m_shaderProgram;
 }
 
 unsigned int Engine::Graphics::Shader::GetShaderProgram() {
   if (m_shaderProgram == 0) {
-    CompileShader();
+    return CompileShader();
   }
 
   return m_shaderProgram;

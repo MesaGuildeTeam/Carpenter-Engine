@@ -47,7 +47,7 @@ namespace Engine::Graphics {
     Asset m_fragFile;
     Asset m_vertFile;
 
-    void CompileShader();
+    unsigned int CompileShader();
 
     public:
 
