@@ -10,9 +10,9 @@
 #include <iostream>
 #include "../Game.hpp"
 
-Engine::Graphics::Shader::Shader() : Engine::Graphics::Shader("js/default.frag", "js/default.vert") {}
+Engine::Graphics::Shader::Shader() : Engine::Graphics::Shader("shader/default.frag", "shader/default.vert") {}
 
-Engine::Graphics::Shader::Shader(const char* frag) : Engine::Graphics::Shader(frag, "js/default.vert") {}
+Engine::Graphics::Shader::Shader(const char* frag) : Engine::Graphics::Shader(frag, "shader/default.vert") {}
 
 Engine::Graphics::Shader::Shader(const char* frag, const char* vert) {
   //std::cout << "Creating shader with fragment shader " << std::string(frag) << " and vertex shader " << std::string(vert) << std::endl;
@@ -29,17 +29,20 @@ void Engine::Graphics::Shader::CompileShader() {
   int vScriptError, fScriptError;
 
   //std::cout << "fetching data from vertex shader " << std::string(m_vert) << " and fragment shader " << std::string(m_frag) << std::endl;
-  emscripten_wget_data(m_frag, (void**)&fScript, &fragmentShaderSize, &fScriptError);
-  emscripten_wget_data(m_vert, (void**)&vScript, &vertexShaderSize, &vScriptError);
+  //emscripten_wget_data(m_frag, (void**)&fScript, &fragmentShaderSize, &fScriptError);
+  //emscripten_wget_data(m_vert, (void**)&vScript, &vertexShaderSize, &vScriptError);
 
-  while (fScript == 0) emscripten_sleep(0);
-  while (vScript == 0) emscripten_sleep(0);
+  if (m_fragFile.IsClosed()) m_fragFile.Open(m_frag);
+  if (m_vertFile.IsClosed()) m_vertFile.Open(m_vert);
+  
+  while (!m_fragFile.IsOpen()) emscripten_sleep(0);
+  while (!m_vertFile.IsOpen()) emscripten_sleep(0);
 
-  if (vScriptError != 0)
-    std::cerr << "ERROR: Failed to load vertex shader " << m_vert << std::endl;
+  fragmentShaderSize = m_vertFile.GetSize();
+  vertexShaderSize = m_vertFile.GetSize();
 
-  if (fScriptError != 0)
-    std::cerr << "ERROR: Failed to load fragment shader " << m_frag << std::endl;
+  vScript = (char*)m_vertFile.GetData();
+  fScript = (char*)m_fragFile.GetData();
 
   // Compile and check vertex shader
   unsigned vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -110,6 +113,6 @@ unsigned int Engine::Graphics::Shader::GetShaderProgram() {
 }
 
 Engine::Graphics::Shader& Engine::Graphics::DefaultShader() {
-  static Engine::Graphics::Shader defaultShader("js/default.frag", "js/default.vert");
+  static Engine::Graphics::Shader defaultShader;
   return defaultShader;
 }

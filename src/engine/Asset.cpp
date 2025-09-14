@@ -38,6 +38,8 @@ void Engine::iAsset::Open(const char* path) {
     }
 
     // If Asset is not embedded
+
+    std::cout << "DEBUG: Fetching asset " << path << std::endl;
     emscripten_async_wget_data(path, (void*)&m_assetStatus,
       [](void* arg, void* d, int s) {
         AssetRequest* req = (AssetRequest*)arg;

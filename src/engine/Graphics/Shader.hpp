@@ -7,6 +7,8 @@
 #ifndef ENGINE_SHADER
 #define ENGINE_SHADER
 
+#include "../Asset.hpp"
+
 namespace Engine::Graphics {
 
   /**
@@ -41,6 +43,9 @@ namespace Engine::Graphics {
 
     const char* m_frag;
     const char* m_vert;
+
+    Asset m_fragFile;
+    Asset m_vertFile;
 
     void CompileShader();
 

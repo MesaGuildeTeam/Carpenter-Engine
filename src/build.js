@@ -34,6 +34,7 @@ const EMAR =
 
 const srcLocation = buildConfig.inputPath || process.cwd() + "/src";
 const outputLocation = buildConfig.outputPath || process.cwd() + "/objs";
+const staticLocation = buildConfig.static || process.cwd() + "/node_modules/@mesaguilde/carpenter-engine/src/static"
 
 const FrameworkLibrary =
   buildConfig.frameworkPath != null
@@ -89,7 +90,9 @@ function buildGame(config = defaultBuildSteps) {
 
     let debugMethods = config.debug == true ? "-g -gsource-map" : "";
 
-    let exec = `${EMCC} ${filesList} ${config.mainFile != "" && config.mainFile != null ? config.mainFile + " -I" + includeDir : ""} ${FrameworkLibrary} -o ./build/engine.js -std=c++20 -sEXPORTED_FUNCTIONS=_Engine_CallUpdate,_Engine_CallDraw -sEXPORTED_RUNTIME_METHODS=ccall,cwrap --bind -sALLOW_MEMORY_GROWTH -sMAX_WEBGL_VERSION=2 -sASYNCIFY -sASYNCIFY_STACK_SIZE=4096 ${debugMethods} --preload-file ./Assets/embed/`;
+    let embeds = `--preload-file ./Assets/embed/ --preload-file ${staticDir}/shader@shader/`
+
+    let exec = `${EMCC} ${filesList} ${config.mainFile != "" && config.mainFile != null ? config.mainFile + " -I" + includeDir : ""} ${FrameworkLibrary} -o ./build/engine.js -std=c++20 -sEXPORTED_FUNCTIONS=_Engine_CallUpdate,_Engine_CallDraw -sEXPORTED_RUNTIME_METHODS=ccall,cwrap --bind -sALLOW_MEMORY_GROWTH -sMAX_WEBGL_VERSION=2 -sASYNCIFY -sASYNCIFY_STACK_SIZE=4096 ${debugMethods} ${embeds}`;
 
     if (config.libMode == true)
       exec = `${EMAR} rcs ./build/carpenterengine.a ${filesList}`;
