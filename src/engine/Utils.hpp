@@ -37,7 +37,7 @@ namespace Engine {
    *
    * Keeps track of if the asset is ready
    */
-  typedef struct {
+  typedef struct _AssetRequest {
     unsigned char* data = nullptr;
     int size = 0;
     unsigned char req_state = 0;

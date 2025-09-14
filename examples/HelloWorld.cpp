@@ -18,7 +18,7 @@ class ExampleScene : public Scene {
   UI::UILabel label;
 
   public:
-  ExampleScene() : Scene("ExampleScene"), texture("Assets/placeholder.png"),
+  ExampleScene() : Scene("ExampleScene"), texture("Assets/embed/placeholder.png"),
   label("Label", "Hello World") {
     AddChild(&label);
   }

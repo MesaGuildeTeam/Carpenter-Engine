@@ -7,6 +7,7 @@
 #ifndef ENGINE_TEXTURE
 #define ENGINE_TEXTURE
 
+#include "../Asset.hpp"
 #include "../Utils.hpp"
 
 namespace Engine::Graphics {
@@ -39,6 +40,7 @@ namespace Engine::Graphics {
     const char* m_filename;
 
     AssetRequest m_request;
+    Asset m_file;
 
 
     /**
