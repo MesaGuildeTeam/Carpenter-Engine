@@ -18,6 +18,16 @@ namespace Engine::UI {
    * Takes in a text input, and you can get the input as an integer, double, 
    * or string.
    * 
+   * The UI Element will have the following CSS classes:
+   * 
+   * - `ui-element`
+   * 
+   * - `ui-input`
+   * 
+   * The UI Element will have the following CS IDs:
+   * 
+   * - `ui-input-${name}`
+   * 
    * @see UIElement
    * 
    * @author Roberto Selles

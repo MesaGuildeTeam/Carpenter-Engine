@@ -21,10 +21,10 @@ namespace Engine {
    * 
    * ```cpp
    * // Object of Focus
-   * class CubeObject : public GameObject {
+   * class CubeObject : public Engine::GameObject {
    *   public:
    *   Cube mesh;
-   *   CubeObject() : GameObject("Cube") {
+   *   CubeObject() : Engine::GameObject("Cube") {
    *     Position = {0, 3, 4};
    *   }
    *  

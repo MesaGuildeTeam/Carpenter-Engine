@@ -14,7 +14,17 @@ namespace Engine::UI {
   /**
    * @brief A Label associated with a scene
    * 
-   * Allows the UI to show a simple label of text
+   * Allows the UI to show a simple label of text.
+   * 
+   * This UI element has the following CSS classes:
+   * 
+   * - `ui-element`
+   * 
+   * - `ui-label`
+   * 
+   * This UI element has the following CSS IDs:
+   * 
+   * - `ui-label-${name}`
    * 
    * @see UIElement
    * 

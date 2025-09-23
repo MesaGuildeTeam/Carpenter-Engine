@@ -10,6 +10,7 @@
 #include <UI/UILabel.hpp>
 #include <UI/UIButton.hpp>
 #include <UI/UIInput.hpp>
+#include <UI/UIImage.hpp>
 
 #include <iostream>
 
@@ -30,6 +31,7 @@ class TestScene : public Scene {
   UI::UILabel Label{UI::UILabel("Label", "Hello World")};
   UI::UIButton Button{UI::UIButton("Button", "Click me", functionCallback)};
   UI::UIInput Input{UI::UIInput("Input", "This is a Test Input")};
+  UI::UIImage Image{UI::UIImage("Image", "Assets/placeholder.png")};
 
   TestScene() : Scene("TestScene") {
     std::cout << "TEST: Creating test scene" << std::endl;
@@ -41,6 +43,10 @@ class TestScene : public Scene {
     Base.AddChild(&Label);
     Base.AddChild(&Button);
     Base.AddChild(&Input);
+
+    Base.AddChild(&Image);
+    Image.SetAnchor("center");
+    Image.SetDimensions({100, 100});
 
     Button.SetAnchor("topright");
     Input.SetAnchor("bottomleft");
