@@ -95,11 +95,12 @@ Inheritance diagram for Engine::Node:</div>
   <img src="classEngine_1_1Node.png" usemap="#Engine::Node_map" alt=""/>
   <map id="Engine::Node_map" name="Engine::Node_map">
 <area href="classEngine_1_1GameObject.html" title="A Game Object loaded in the scene." alt="Engine::GameObject" shape="rect" coords="0,56,129,80"/>
-<area href="classEngine_1_1UI_1_1UIElement.html" title="Base class for UI elements." alt="Engine::UI::UIElement" shape="rect" coords="208,56,337,80"/>
+<area href="classEngine_1_1UI_1_1UIElement.html" title="Base class for UI elements." alt="Engine::UI::UIElement" shape="rect" coords="278,56,407,80"/>
 <area href="classEngine_1_1Camera.html" title="Camera class for the game engine." alt="Engine::Camera" shape="rect" coords="0,112,129,136"/>
-<area href="classEngine_1_1UI_1_1UIInput.html" title="An input field for UI." alt="Engine::UI::UIInput" shape="rect" coords="139,112,268,136"/>
-<area href="classEngine_1_1UI_1_1UILabel.html" title="A Label associated with a scene." alt="Engine::UI::UILabel" shape="rect" coords="278,112,407,136"/>
-<area href="classEngine_1_1UI_1_1UIButton.html" title="A Button associated with a scene." alt="Engine::UI::UIButton" shape="rect" coords="278,168,407,192"/>
+<area href="classEngine_1_1UI_1_1UIImage.html" title="Allows the client to render an image on the UI layer." alt="Engine::UI::UIImage" shape="rect" coords="139,112,268,136"/>
+<area href="classEngine_1_1UI_1_1UIInput.html" title="An input field for UI." alt="Engine::UI::UIInput" shape="rect" coords="278,112,407,136"/>
+<area href="classEngine_1_1UI_1_1UILabel.html" title="A Label associated with a scene." alt="Engine::UI::UILabel" shape="rect" coords="417,112,546,136"/>
+<area href="classEngine_1_1UI_1_1UIButton.html" title="A Button associated with a scene." alt="Engine::UI::UIButton" shape="rect" coords="417,168,546,192"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -158,9 +159,9 @@ Protected Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A single node in a game scene. </p>
 <p>Each node is linked with a parent and its children. Nodes can be game objects, scenes, UI elements, etc. There are predefined subclasses, but you can also make your own to manage the behaviour of scenes.</p>
-<h2><a class="anchor" id="autotoc_md9"></a>
+<h2><a class="anchor" id="autotoc_md10"></a>
 Example</h2>
-<div class="fragment"><div class="line"><span class="keyword">class </span>ExampleNode : <span class="keyword">public</span> <a class="code hl_class" href="classEngine_1_1Node.html">Node</a> {</div>
+<div class="fragment"><div class="line"><span class="keyword">class </span>ExampleNode : <span class="keyword">public</span> <a class="code hl_class" href="classEngine_1_1Node.html">Engine::Node</a> {</div>
 <div class="line">  <span class="keyword">public</span>:</div>
 <div class="line">  Cube mesh;</div>
 <div class="line">  CubeObject() : <a class="code hl_class" href="classEngine_1_1Node.html">Node</a>(<span class="stringliteral">&quot;Cube&quot;</span>) {}</div>
@@ -281,7 +282,7 @@ Example</h2>
 </table>
 </div><div class="memdoc">
 
-<p>Reimplemented in <a class="el" href="classEngine_1_1UI_1_1UIButton.html#a4ad657f1c788489934497784475fcc10">Engine::UI::UIButton</a>, <a class="el" href="classEngine_1_1UI_1_1UIElement.html#a518ac16c5f51a327253c4cf12f3be466">Engine::UI::UIElement</a>, <a class="el" href="classEngine_1_1UI_1_1UIInput.html#a0d45b471f4911c40b5205f5385351503">Engine::UI::UIInput</a>, and <a class="el" href="classEngine_1_1UI_1_1UILabel.html#af0d5188499102589726e66d299fc670b">Engine::UI::UILabel</a>.</p>
+<p>Reimplemented in <a class="el" href="classEngine_1_1UI_1_1UIButton.html#a4ad657f1c788489934497784475fcc10">Engine::UI::UIButton</a>, <a class="el" href="classEngine_1_1UI_1_1UIElement.html#a518ac16c5f51a327253c4cf12f3be466">Engine::UI::UIElement</a>, <a class="el" href="classEngine_1_1UI_1_1UIImage.html#a04510feb121f6bf22a532f14d5489f75">Engine::UI::UIImage</a>, <a class="el" href="classEngine_1_1UI_1_1UIInput.html#a0d45b471f4911c40b5205f5385351503">Engine::UI::UIInput</a>, and <a class="el" href="classEngine_1_1UI_1_1UILabel.html#af0d5188499102589726e66d299fc670b">Engine::UI::UILabel</a>.</p>
 
 </div>
 </div>

@@ -74,11 +74,11 @@ $(function() {
   <div class="headertitle"><div class="title">Contributing - Overview</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md37"></a> This file includes everything you need to know about how to modify Carpenter Engine on your own. This file includes:</p><ul>
+<div class="textblock"><p><a class="anchor" id="autotoc_md45"></a> This file includes everything you need to know about how to modify Carpenter Engine on your own. This file includes:</p><ul>
 <li>The tech stack</li>
 <li>building the engine file structure overview</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md38"></a>
+<h1><a class="anchor" id="autotoc_md46"></a>
 Tech Stack</h1>
 <p>Carpender Engine uses both a framework for to assist building games, and a toolkit written with node.js to streamline the game development process. For the bare minimum the only software you will need is Node.js. From here, you will have an easy way to install emsdk for use within developing games for the game engine</p>
 <p>Here are some general tools to view resources:</p>
@@ -94,7 +94,7 @@ Tech Stack</h1>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">JsDoc   </td><td class="markdownTableBodyNone">Generated documentation similar to javadocs for JavaScript   </td></tr>
 </table>
-<h2><a class="anchor" id="autotoc_md39"></a>
+<h2><a class="anchor" id="autotoc_md47"></a>
 Framework</h2>
 <p>Here are the tools used specifically along the game engine framework:</p>
 <table class="markdownTable">
@@ -107,7 +107,7 @@ Framework</h2>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">HTML5/CSS   </td><td class="markdownTableBodyNone">The Foundation to giving the game engine a DOM to work with   </td></tr>
 </table>
-<h2><a class="anchor" id="autotoc_md40"></a>
+<h2><a class="anchor" id="autotoc_md48"></a>
 Toolkit</h2>
 <p>As for the toolkit, here are the important features:</p>
 <table class="markdownTable">
@@ -118,14 +118,14 @@ Toolkit</h2>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">Jest   </td><td class="markdownTableBodyNone">General purpose unit testing   </td></tr>
 </table>
-<h1><a class="anchor" id="autotoc_md41"></a>
+<h1><a class="anchor" id="autotoc_md49"></a>
 Building the Engine Framework</h1>
 <p>If you are building from source, use the following build process to build the engine code.</p>
 <div class="fragment"><div class="line">git clone https://github.com/MesaGuildeTeam/Carpenter-Engine</div>
 <div class="line">cd Carpenter-Engine</div>
 <div class="line">npm install</div>
 <div class="line">npm run build</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md42"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md50"></a>
 Project Structure</h1>
 <p>These folders show</p>
 <p>'Assets'</p><ul>
@@ -156,7 +156,7 @@ Project Structure</h1>
 <p><code>tests</code></p><ul>
 <li>All Unit tests are performed here. These tests can either be in JavaScript tested in Jest, or a C++ unit test that gets compiled to WASM before running.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md43"></a>
+<h1><a class="anchor" id="autotoc_md51"></a>
 Code Style</h1>
 <p>The code style for both C++ and JavaScript for the game engine will follow Google's standard for C++ as close as possible. The main rules that are however required are to keep lines below 80 characters, and documentation generation is created using the <code>/** */</code> comment notation. Header file guards will use the <code>#ifndef</code> style, and the file guards will be defined with the following format where <code>[FILENAME]</code> is the name of the file without the extension.</p>
 <div class="fragment"><div class="line"><span class="preprocessor">#ifndef ENGINE_[FILENAME]</span></div>

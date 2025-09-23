@@ -117,7 +117,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a07b96030f5edd3c3a743917ebf06881f inherit pub_methods_classEngine_1_1UI_1_1UIElement" id="r_a07b96030f5edd3c3a743917ebf06881f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEngine_1_1UI_1_1UIElement.html#a07b96030f5edd3c3a743917ebf06881f">~UIElement</a> () override</td></tr>
 <tr class="separator:a07b96030f5edd3c3a743917ebf06881f inherit pub_methods_classEngine_1_1UI_1_1UIElement"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a43ce8574727c7ae0a4fd945f0f701d94 inherit pub_methods_classEngine_1_1UI_1_1UIElement" id="r_a43ce8574727c7ae0a4fd945f0f701d94"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEngine_1_1UI_1_1UIElement.html#a43ce8574727c7ae0a4fd945f0f701d94">AddTheme</a> (const char *theme)</td></tr>
-<tr class="memdesc:a43ce8574727c7ae0a4fd945f0f701d94 inherit pub_methods_classEngine_1_1UI_1_1UIElement"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the theme of the UI element.  <br /></td></tr>
+<tr class="memdesc:a43ce8574727c7ae0a4fd945f0f701d94 inherit pub_methods_classEngine_1_1UI_1_1UIElement"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a CSS class to the UI element.  <br /></td></tr>
 <tr class="separator:a43ce8574727c7ae0a4fd945f0f701d94 inherit pub_methods_classEngine_1_1UI_1_1UIElement"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a300b1d613bcd41009b1746b5db4c3ab6 inherit pub_methods_classEngine_1_1UI_1_1UIElement" id="r_a300b1d613bcd41009b1746b5db4c3ab6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEngine_1_1UI_1_1UIElement.html#a300b1d613bcd41009b1746b5db4c3ab6">SetAnchor</a> (const char *anchor)</td></tr>
 <tr class="memdesc:a300b1d613bcd41009b1746b5db4c3ab6 inherit pub_methods_classEngine_1_1UI_1_1UIElement"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the anchor of the UI element.  <br /></td></tr>
@@ -191,7 +191,16 @@ std::string&#160;</td><td class="memItemRight" valign="bottom"><b>m_name</b></td
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A Label associated with a scene. </p>
-<p>Allows the UI to show a simple label of text</p>
+<p>Allows the UI to show a simple label of text.</p>
+<p>This UI element has the following CSS classes:</p>
+<ul>
+<li><code>ui-element</code></li>
+<li><code>ui-label</code></li>
+</ul>
+<p>This UI element has the following CSS IDs:</p>
+<ul>
+<li><code>ui-label-${name}</code></li>
+</ul>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classEngine_1_1UI_1_1UIElement.html" title="Base class for UI elements.">UIElement</a></dd></dl>
 <dl class="section author"><dt>Author</dt><dd>Roberto Selles </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>

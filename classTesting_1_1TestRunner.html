@@ -117,7 +117,7 @@ Static Public Member Functions</h2></td></tr>
 <div class="textblock"><p>A Unit tester used to run C++ unit tests. </p>
 <p>The goal of this class is to run C++ unit tests for WebAssembly. This class is a singleton that is accessed with <code><a class="el" href="classTesting_1_1TestRunner.html#ac68517f11d071abbcfc7c3529b0cbc4f">Testing::TestRunner::getInstance()</a></code> and you add tests with <code><a class="el" href="classTesting_1_1TestRunner.html#a6d7de4acbebc206b497a235b61887ecd">Testing::TestRunner::addTest()</a></code>. These tests get processed and compiled to WASM before being run via JavaScript and running <code>table test</code>. There are extern functions defined in the <code>Testing.cpp</code> file that you can access to run tests.</p>
 <dl class="section warning"><dt>Warning</dt><dd>This class is a singleton and should not be created manually. It is a singleton that is accessed with <code><a class="el" href="classTesting_1_1TestRunner.html#ac68517f11d071abbcfc7c3529b0cbc4f">Testing::TestRunner::getInstance()</a></code> and should be assigned to references of the class.</dd></dl>
-<h2><a class="anchor" id="autotoc_md10"></a>
+<h2><a class="anchor" id="autotoc_md11"></a>
 Example</h2>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;Testing.hpp&gt;</span></div>
 <div class="line"> </div>
@@ -199,7 +199,7 @@ BigChungus21220 </dd></dl>
       </table>
 </div><div class="memdoc">
 <p>Asserts that the condition is true. If the condition is false, an error message will be printed in the logs via <code><a class="el" href="classTesting_1_1TestRunner.html#aecbe268dd08dae2416509adc85f39343">TestRunner::DebugError()</a></code></p>
-<h2><a class="anchor" id="autotoc_md11"></a>
+<h2><a class="anchor" id="autotoc_md12"></a>
 Example</h2>
 <div class="fragment"><div class="line">runner.Assert(2 + 2 == 4, <span class="stringliteral">&quot;2 + 2 should equal 4!&quot;</span>);</div>
 </div><!-- fragment --><dl class="params"><dt>Parameters</dt><dd>

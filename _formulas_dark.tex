@@ -1,0 +1,112 @@
+\documentclass{article}
+\usepackage{ifthen}
+\usepackage{epsfig}
+\usepackage[utf8]{inputenc}
+\usepackage{xcolor}
+\color{white}
+\pagecolor{black}
+\usepackage{newunicodechar}
+  \makeatletter
+    \def\doxynewunicodechar#1#2{%
+    \@tempswafalse
+    \edef\nuc@tempa{\detokenize{#1}}%
+    \if\relax\nuc@tempa\relax
+      \nuc@emptyargerr
+    \else
+      \edef\@tempb{\expandafter\@car\nuc@tempa\@nil}%
+      \nuc@check
+      \if@tempswa
+        \@namedef{u8:\nuc@tempa}{#2}%
+      \fi
+    \fi
+  }
+  \makeatother
+  \doxynewunicodechar{⁻}{${}^{-}$}% Superscript minus
+  \doxynewunicodechar{²}{${}^{2}$}% Superscript two
+  \doxynewunicodechar{³}{${}^{3}$}% Superscript three
+
+\pagestyle{empty}
+\begin{document}
+$\text{let }\vec{f}(t)\in \mathbb{R}^3, t\in\mathbb{a, b}$
+\pagebreak
+
+$a, b \in\mathbb{R}$
+\pagebreak
+
+$i\in\mathbb{R}$
+\pagebreak
+
+$i=0$
+\pagebreak
+
+$i\approx0$
+\pagebreak
+
+$c\in\mathbb{R}$
+\pagebreak
+
+\[
+\theta(t)=\arctan\frac{f'(t)_y}{f'(t)_x}
+\\ \space \\
+\phi(t)=\arccos\frac{f'(t)_z}{||f'(t)||}
+\]
+\pagebreak
+
+$\theta(t) \Rightarrow \theta$
+\pagebreak
+
+$\phi(t) \Rightarrow \phi$
+\pagebreak
+
+$t$
+\pagebreak
+
+\[
+M_R(t)=\begin{bmatrix}
+\cos(\phi) & -\sin(\phi) & 0 \\
+\sin(\phi) & \cos(\phi) & 0 \\
+0 & 0 & 1
+\end{bmatrix}\begin{bmatrix}
+1 & 0 & 0 \\
+0 & \cos(\theta) & -\sin(\theta) \\
+0 & \sin(\theta) & \cos(\theta)
+\end{bmatrix}
+\\ \space \\
+\Rightarrow M_R(t)=\begin{bmatrix}
+\cos(\phi) & -\sin(\phi)\cos(\theta) & \sin(\phi)\cos(\theta) \\
+\sin(\phi) & \cos(\phi)\cos(\theta) & -\cos(\phi)\sin(\theta) \\
+0 & 0 & 1
+\end{bmatrix}
+\]
+\pagebreak
+
+$r_j, j=1, 2, 3, 4$
+\pagebreak
+
+$c$
+\pagebreak
+
+\[
+\vec{r_1}=\langle c, 0, 0\rangle \\
+\vec{r_2}=\langle 0, 0, c\rangle \\
+\vec{r_3}=\langle -c, 0, 0\rangle \\
+\vec{r_4}=\langle 0, 0, -c\rangle \\
+\]
+\pagebreak
+
+\[
+\vec{f_r}(t, \vec{r_1})=M_R(t)\cdot\vec{r_1}+\vec{f}(t)
+=\langle\cos(\phi)t, \sin(\phi)t, 0\rangle + f(t) \\
+
+\vec{f_r}(t, \vec{r_2})=M_R(t)\cdot\vec{r_2}+\vec{f}(t)
+=\langle\sin(\phi)\sin(\theta)t,-\cos(\phi)\sin(\theta)t, \cos(\theta)t\rangle + f(t) \\
+
+\vec{f_r}(t, \vec{r_3})=M_R(t)\cdot\vec{r_3}+\vec{f}(t)
+=\langle-\cos(\phi)t, -\sin(\phi)t, 0\rangle + f(t) \\
+
+\vec{f_r}(t, \vec{r_4})=M_R(t)\cdot\vec{r_4}+\vec{f}(t)
+=\langle\sin(\phi)\sin(\theta)t, -\cos(\phi)\sin(\theta)t, \cos(\theta)t\rangle + f(t) \\
+\]
+\pagebreak
+
+\end{document}

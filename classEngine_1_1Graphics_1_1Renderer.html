@@ -96,7 +96,7 @@ Public Member Functions</h2></td></tr>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>ClearBuffer</b> ()</td></tr>
 <tr class="memdesc:a2082f6d21dd496943edd00c25a35cb13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the canvas to the default clear color. <br /></td></tr>
 <tr class="separator:a2082f6d21dd496943edd00c25a35cb13"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a80a9f99d5d33e2c5304258529425dc51" id="r_a80a9f99d5d33e2c5304258529425dc51"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEngine_1_1Graphics_1_1Renderer.html#a80a9f99d5d33e2c5304258529425dc51">DrawMesh</a> (Mesh *mesh, <a class="el" href="structEngine_1_1Vec3f.html">Vec3f</a> position={0, 0, 0}, <a class="el" href="structEngine_1_1Vec3f.html">Vec3f</a> scale={1, 1, 1}, <a class="el" href="structEngine_1_1Vec3f.html">Vec3f</a> rotation={0, 0, 0})</td></tr>
+<tr class="memitem:a80a9f99d5d33e2c5304258529425dc51" id="r_a80a9f99d5d33e2c5304258529425dc51"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEngine_1_1Graphics_1_1Renderer.html#a80a9f99d5d33e2c5304258529425dc51">DrawMesh</a> (<a class="el" href="classEngine_1_1Graphics_1_1Mesh.html">Mesh</a> *mesh, <a class="el" href="structEngine_1_1Vec3f.html">Vec3f</a> position={0, 0, 0}, <a class="el" href="structEngine_1_1Vec3f.html">Vec3f</a> scale={1, 1, 1}, <a class="el" href="structEngine_1_1Vec3f.html">Vec3f</a> rotation={0, 0, 0})</td></tr>
 <tr class="memdesc:a80a9f99d5d33e2c5304258529425dc51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws a mesh to the canvas.  <br /></td></tr>
 <tr class="separator:a80a9f99d5d33e2c5304258529425dc51"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1e40c97c60e24a4fabd908443ebe6bb8" id="r_a1e40c97c60e24a4fabd908443ebe6bb8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classEngine_1_1Graphics_1_1Renderer.html#a1e40c97c60e24a4fabd908443ebe6bb8">UseShader</a> (<a class="el" href="classEngine_1_1Graphics_1_1Shader.html">Shader</a> &amp;shader)</td></tr>
@@ -159,25 +159,25 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>ClearBuffer</b> ()</t
         <tr>
           <td class="memname">void Engine::Graphics::Renderer::DrawMesh </td>
           <td>(</td>
-          <td class="paramtype">Mesh *&#160;</td>
+          <td class="paramtype"><a class="el" href="classEngine_1_1Graphics_1_1Mesh.html">Mesh</a> *&#160;</td>
           <td class="paramname"><em>mesh</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structEngine_1_1Vec3f.html">Vec3f</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="structEngine_1_1Vec3f.html">Engine::Vec3f</a>&#160;</td>
           <td class="paramname"><em>position</em> = <code>{0,&#160;0,&#160;0}</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structEngine_1_1Vec3f.html">Vec3f</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="structEngine_1_1Vec3f.html">Engine::Vec3f</a>&#160;</td>
           <td class="paramname"><em>scale</em> = <code>{1,&#160;1,&#160;1}</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structEngine_1_1Vec3f.html">Vec3f</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="structEngine_1_1Vec3f.html">Engine::Vec3f</a>&#160;</td>
           <td class="paramname"><em>rotation</em> = <code>{0,&#160;0,&#160;0}</code>&#160;</td>
         </tr>
         <tr>
@@ -341,17 +341,18 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>ClearBuffer</b> ()</t
 <li><code>GL_TEXTURE0</code>: Albedo/Color</li>
 <li><code>GL_TEXTURE1</code>: Normal</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md3"></a>
+<h2><a class="anchor" id="autotoc_md4"></a>
 Example</h2>
 <div class="fragment"><div class="line"><a class="code hl_class" href="classEngine_1_1Graphics_1_1Texture.html">Engine::Graphics::Texture</a> texture(<span class="stringliteral">&quot;Assets/placeholder.png&quot;</span>);</div>
 <div class="line"> </div>
 <div class="line"><span class="keyword">class </span>TestObject : <span class="keyword">public</span> <a class="code hl_class" href="classEngine_1_1Node.html">Engine::Node</a> {</div>
 <div class="line">  <span class="keywordtype">void</span> Draw()<span class="keyword"> override </span>{</div>
-<div class="line">    Engine::Game::getInstance().<a class="code hl_function" href="classEngine_1_1Game.html#ac959d914884487685bdcb9e3079e7f6d">GetRenderer</a>().<a class="code hl_function" href="classEngine_1_1Graphics_1_1Renderer.html#a78bdbb5723689bceb7ece2acd9b22601">UseTexture</a>(texture, GL_TEXTURE0);</div>
-<div class="line">    Engine::Game::getInstance().<a class="code hl_function" href="classEngine_1_1Game.html#ac959d914884487685bdcb9e3079e7f6d">GetRenderer</a>().<a class="code hl_function" href="classEngine_1_1Graphics_1_1Renderer.html#a80a9f99d5d33e2c5304258529425dc51">DrawMesh</a>(&amp;mesh);</div>
+<div class="line">    <a class="code hl_function" href="classEngine_1_1Game.html#a50a1c183a0e30ae164345671e5646a81">Engine::Game::getInstance</a>().<a class="code hl_function" href="classEngine_1_1Game.html#ac959d914884487685bdcb9e3079e7f6d">GetRenderer</a>().<a class="code hl_function" href="classEngine_1_1Graphics_1_1Renderer.html#a78bdbb5723689bceb7ece2acd9b22601">UseTexture</a>(texture, GL_TEXTURE0);</div>
+<div class="line">    <a class="code hl_function" href="classEngine_1_1Game.html#a50a1c183a0e30ae164345671e5646a81">Engine::Game::getInstance</a>().<a class="code hl_function" href="classEngine_1_1Game.html#ac959d914884487685bdcb9e3079e7f6d">GetRenderer</a>().<a class="code hl_function" href="classEngine_1_1Graphics_1_1Renderer.html#a80a9f99d5d33e2c5304258529425dc51">DrawMesh</a>(&amp;mesh);</div>
 <div class="line">  }</div>
 <div class="line">};</div>
-<div class="ttc" id="aclassEngine_1_1Game_html_ac959d914884487685bdcb9e3079e7f6d"><div class="ttname"><a href="classEngine_1_1Game.html#ac959d914884487685bdcb9e3079e7f6d">Engine::Game::GetRenderer</a></div><div class="ttdeci">Graphics::Renderer &amp; GetRenderer()</div><div class="ttdef"><b>Definition</b> Game.cpp:66</div></div>
+<div class="ttc" id="aclassEngine_1_1Game_html_a50a1c183a0e30ae164345671e5646a81"><div class="ttname"><a href="classEngine_1_1Game.html#a50a1c183a0e30ae164345671e5646a81">Engine::Game::getInstance</a></div><div class="ttdeci">static Game &amp; getInstance(Engine::Scene *startingScene=nullptr)</div><div class="ttdoc">Get the singleton instance of the game.</div><div class="ttdef"><b>Definition</b> Game.cpp:11</div></div>
+<div class="ttc" id="aclassEngine_1_1Game_html_ac959d914884487685bdcb9e3079e7f6d"><div class="ttname"><a href="classEngine_1_1Game.html#ac959d914884487685bdcb9e3079e7f6d">Engine::Game::GetRenderer</a></div><div class="ttdeci">Graphics::Renderer &amp; GetRenderer()</div><div class="ttdef"><b>Definition</b> Game.cpp:67</div></div>
 <div class="ttc" id="aclassEngine_1_1Graphics_1_1Renderer_html_a78bdbb5723689bceb7ece2acd9b22601"><div class="ttname"><a href="classEngine_1_1Graphics_1_1Renderer.html#a78bdbb5723689bceb7ece2acd9b22601">Engine::Graphics::Renderer::UseTexture</a></div><div class="ttdeci">void UseTexture(Texture &amp;texture, unsigned int slot=GL_TEXTURE0)</div><div class="ttdoc">Takes the texture and binds it to the specified slot.</div><div class="ttdef"><b>Definition</b> Renderer.cpp:149</div></div>
 <div class="ttc" id="aclassEngine_1_1Graphics_1_1Renderer_html_a80a9f99d5d33e2c5304258529425dc51"><div class="ttname"><a href="classEngine_1_1Graphics_1_1Renderer.html#a80a9f99d5d33e2c5304258529425dc51">Engine::Graphics::Renderer::DrawMesh</a></div><div class="ttdeci">void DrawMesh(Mesh *mesh, Vec3f position={0, 0, 0}, Vec3f scale={1, 1, 1}, Vec3f rotation={0, 0, 0})</div><div class="ttdoc">Draws a mesh to the canvas.</div><div class="ttdef"><b>Definition</b> Renderer.cpp:69</div></div>
 <div class="ttc" id="aclassEngine_1_1Graphics_1_1Texture_html"><div class="ttname"><a href="classEngine_1_1Graphics_1_1Texture.html">Engine::Graphics::Texture</a></div><div class="ttdoc">A wrapper class for a texture for the game engine.</div><div class="ttdef"><b>Definition</b> Texture.hpp:35</div></div>
