@@ -5,6 +5,7 @@
  */
 
 #include "Game.hpp"
+#include "Utils.hpp"
 #include <emscripten.h>
 
 Engine::Game& Engine::Game::getInstance(Engine::Scene* startingScene) {
@@ -65,6 +66,17 @@ void Engine::Game::UpdateScene(float dt) {
 
 Engine::Graphics::Renderer& Engine::Game::GetRenderer() {
   return m_renderer;
+}
+
+Engine::Vec2f Engine::Game::WindowDimensions() {
+  return {
+    (float)EM_ASM_DOUBLE({
+      return window.innerWidth;
+    }),
+    (float)EM_ASM_DOUBLE({
+      return window.innerHeight;
+    })
+  };
 }
 
 extern "C" {
