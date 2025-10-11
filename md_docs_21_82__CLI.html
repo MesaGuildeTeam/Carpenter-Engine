@@ -74,12 +74,12 @@ $(function() {
   <div class="headertitle"><div class="title">1.2 - The Command Line Interface</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="autotoc_md21"></a>The purpose of the CLI is to start offering a minimal toolkit to assist developing with Carpenter Engine. Currently it offers a way to install emscripten, a standardized way to build with the game engine, and a unit testing module to test specific components.</p>
+<div class="textblock"><p><a class="anchor" id="autotoc_md20"></a>The purpose of the CLI is to start offering a minimal toolkit to assist developing with Carpenter Engine. Currently it offers a way to install emscripten, a standardized way to build with the game engine, and a unit testing module to test specific components.</p>
 <div class="fragment"><div class="line">npx carp {-v} {options} {--parameters}</div>
 </div><!-- fragment --><blockquote class="doxtable">
 <p>&zwj;If you ever need a more descriptive output when using the CLI, you can always use -v before using any of the options. </p>
 </blockquote>
-<h1><a class="anchor" id="autotoc_md22"></a>
+<h1><a class="anchor" id="autotoc_md21"></a>
 Setup</h1>
 <div class="fragment"><div class="line">npx carp setup</div>
 </div><!-- fragment --><p>Setup will perform the following tasks</p><ul>
@@ -88,11 +88,11 @@ Setup</h1>
 </ul>
 <p>When setting up emscripten, it will create a folder in your user's home directory called <code>.mesaguilde</code>. From here it will clone emscripten, pull any needed changes, install the latest version and activate it.</p>
 <p>Another step will make sure that the folders <code>build</code> and <code>objs</code> are generated. These folders will be required folders as mentioned in the building section.</p>
-<h1><a class="anchor" id="autotoc_md23"></a>
+<h1><a class="anchor" id="autotoc_md22"></a>
 Building</h1>
 <div class="fragment"><div class="line">npx carp build {-cldLp} {-m main.cpp}</div>
 </div><!-- fragment --><p>The build process is standardized so that libraries can be linked easier on compilation. The goal of this system is to generate <code>.o</code> files for webassembly, then link files into either a game, or into a .a archive to be used as a library.</p>
-<h2><a class="anchor" id="autotoc_md24"></a>
+<h2><a class="anchor" id="autotoc_md23"></a>
 Process</h2>
 <ol type="1">
 <li>Generate WASM <code>.o</code> files from <code>.cpp</code></li>
@@ -104,15 +104,15 @@ Process</h2>
 <li>If <code>-L</code> is added during the linking phase, this compiles the <code>.o</code> files into a single <code>.a</code> file for to be used as a library (currently hard coded to build carpenter engine)</li>
 <li><code>-m</code> was implemented to easily test examples in the game engine, but if you do wish to use use it, it is to be used to compile one external C++ file outside of your src data.</li>
 </ul>
-<h1><a class="anchor" id="autotoc_md25"></a>
+<h1><a class="anchor" id="autotoc_md24"></a>
 Development</h1>
 <div class="fragment"><div class="line">npx carp dev</div>
 </div><!-- fragment --><p>While developing your game, you can run a development environment using this command. This will for now host a runtime to test your game, but there will be development for an editor for the game engine in the future.</p>
-<h1><a class="anchor" id="autotoc_md26"></a>
+<h1><a class="anchor" id="autotoc_md25"></a>
 Testing</h1>
 <div class="fragment"><div class="line">npx carp test</div>
 </div><!-- fragment --><p>testing compiles and runs all tests in tests/CPP into tests/WASM before running the tests.</p>
-<h2><a class="anchor" id="autotoc_md27"></a>
+<h2><a class="anchor" id="autotoc_md26"></a>
 Cleaning</h2>
 <div class="fragment"><div class="line">npx carp flip</div>
 </div><!-- fragment --><p>with the <code>flip</code> command, you can clean your project folder, and all of the .o files built in the folder </p>
