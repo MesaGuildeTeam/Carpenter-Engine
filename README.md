@@ -108,9 +108,9 @@ as we can.
 ## Requests
 
 Although we will implement primarily what we need, we are always open to requests
-and suggestions. we will only ask for the request, and how the game engine will 
+and suggestions. we will only ask for the request, and how the game engine will
 benefit from this. If we agree that a feature is in our scope, we will put it in
-our schedule to implement it and it will be done as soon as we can. 
+our schedule to implement it and it will be done as soon as we can.
 
 ## Reporting a Bug
 If you need to report a bug, ensure you have the following:
@@ -130,6 +130,7 @@ not cloned the repo yet), we suggest you start with the following process.
 ```sh
 git clone https://github.com/MesaGuildeTeam/Carpenter-Engine
 cd Carpenter-Engine
+npm install
 npm start
 npm run build
 ```
