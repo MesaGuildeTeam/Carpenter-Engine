@@ -17,6 +17,16 @@ namespace Engine::UI {
    * 
    * Allows a function to be called when the button is clicked
    * 
+   * This class has the following CSS classes:
+   * 
+   * - `ui-element`
+   * 
+   * - `ui-button`
+   * 
+   * This class has the following CSS IDs:
+   * 
+   * - `ui-button-${name}`
+   * 
    * @see UIElement
    * @author Roberto Selles
    */

@@ -104,6 +104,8 @@ namespace Engine {
      */
     Vec3f operator+(const Vec3f& rhs);
 
+    Vec3f operator-(const Vec3f& rhs);
+
     /**
      * @brief Compute scalar multiplication
      */
