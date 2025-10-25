@@ -49,7 +49,7 @@ const includeDir =
 const staticDir =
   buildConfig.static != null
     ? buildConfig.static
-    : "node_modules/@mesaguilde/carpenter-engine/src/static/";
+    : "node_modules/@@mesaguilde/carpenter-engine/src/static";
 
 const defaultBuildSteps = {
   runBuild: true,
@@ -90,7 +90,7 @@ function buildGame(config = defaultBuildSteps) {
 
     let debugMethods = config.debug == true ? "-g -gsource-map" : "";
 
-    let embeds = `--preload-file ./Assets/embed/ --preload-file ${staticDir}/shader@shader/`
+    let embeds = `--preload-file "Assets/embed" --preload-file "${staticDir}/shader@/shader"`
 
     let exec = `${EMCC} ${filesList} ${config.mainFile != "" && config.mainFile != null ? config.mainFile + " -I" + includeDir : ""} ${FrameworkLibrary} -o ./build/engine.js -std=c++20 -sEXPORTED_FUNCTIONS=_Engine_CallUpdate,_Engine_CallDraw -sEXPORTED_RUNTIME_METHODS=ccall,cwrap --bind -sALLOW_MEMORY_GROWTH -sMAX_WEBGL_VERSION=2 -sASYNCIFY -sASYNCIFY_STACK_SIZE=4096 ${debugMethods} ${embeds}`;
 
@@ -101,8 +101,13 @@ function buildGame(config = defaultBuildSteps) {
   }
 
   // Package process
-  if (config.runPackage)
-    console.log(child_process.execSync(`cp -r ${staticDir}/* ./build/`));
+  if (config.runPackage) {
+    // lets make a copy of staticDir to resolve any placements of @@
+    const staticDirClone = staticDir.replace("@@", "@");
+    utils.execCommand(`cp -r ${staticDirClone}/* ./build/`, "Copying html base to game engine");
+    utils.execCommand(`cp -r Assets ./build/`, "Copying assets");
+    utils.execCommand(`rm -r ./build/shader ./build/Assets/embed`, "Removing embedded files");
+  }
 
   console.log("Build process finished successfully!");
 

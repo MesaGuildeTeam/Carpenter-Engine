@@ -14,9 +14,8 @@ Engine::Graphics::Shader::Shader() : Engine::Graphics::Shader("shader/default.fr
 
 Engine::Graphics::Shader::Shader(const char* frag) : Engine::Graphics::Shader(frag, "shader/default.vert") {}
 
-Engine::Graphics::Shader::Shader(const char* frag, const char* vert) {
+Engine::Graphics::Shader::Shader(const char* frag, const char* vert): m_shaderProgram(0) {
   //std::cout << "Creating shader with fragment shader " << std::string(frag) << " and vertex shader " << std::string(vert) << std::endl;
-  m_shaderProgram = 0;
   m_frag = frag;
   m_vert = vert;
 }
@@ -36,8 +35,15 @@ unsigned int Engine::Graphics::Shader::CompileShader() {
   if (m_vertFile.IsClosed()) m_vertFile.Open(m_vert);
  
   // Fallback if shader scripts are not ready
-  while (!m_fragFile.IsOpen()) return 0;
-  while (!m_vertFile.IsOpen()) return 0;
+  
+  // NOTE: I have alternated between using the following, and I have still not
+  // figured out which one it is... Here are all the options we know exist
+  // - `continue`: DO NOT USE. This will deadlock the game
+  // - `return 0`: This usually means a shader is not used, but I need to
+  //   return the correct number
+  // - `emscripten_sleep(0)`: This works best, but this can not run forever.
+  while (!m_fragFile.IsOpen()) emscripten_sleep(0);
+  while (!m_vertFile.IsOpen()) emscripten_sleep(0);
 
   fragmentShaderSize = m_vertFile.GetSize();
   vertexShaderSize = m_vertFile.GetSize();
