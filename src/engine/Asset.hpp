@@ -6,7 +6,13 @@
 #include "Utils.hpp"
 
 namespace Engine {
-    
+
+    enum AssetSource {
+        UNLOADED,
+        GAMEFILE,
+        LOCALSTORAGE,
+    };
+
     /** 
      * @brief a file you can load from within Carpenter Engine
      *
@@ -23,6 +29,7 @@ namespace Engine {
         private:
         
         AssetRequest m_assetStatus;
+        AssetSource m_assetSource;
 
         unsigned int m_index{0};
 
@@ -79,6 +86,53 @@ namespace Engine {
          * @return true if the file is closed and not opening
          */
         bool IsClosed();
+
+        /**
+         * @brief Get the source of the file
+         *
+         * Some files are statically defined while others are from the users's
+         * device. Use this to keep track of the origin of the file 
+         * 
+         * @return the origin of the asset
+         */
+        AssetSource GetAssetSource();
+    };
+
+    /**
+     * @brief loads a file to write to
+     *
+     * The engine will search for the file through the following process: 
+     * - Ensure the file does not exist as a static asset 
+     * - Pick the file in the browser's localStorage
+     */
+    class oAsset {
+        private:
+
+        std::string m_data;
+        const char* m_path;
+        AssetSource m_assetSource;
+
+        public:
+
+        oAsset();
+
+        oAsset(const char* path);
+
+        void Open(const char* path);
+
+        /**
+         * @brief Saves and closes the file
+         * 
+         */
+        void Close();
+
+        bool IsOpen();
+
+        bool IsClosed();
+
+        void Put();
+
+        void Write();
     };
 
     typedef iAsset Asset;

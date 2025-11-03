@@ -77,3 +77,7 @@ bool Engine::iAsset::IsOpen() {
 bool Engine::iAsset::IsClosed() {
     return m_assetStatus.req_state == 0;
 }
+
+Engine::AssetSource Engine::iAsset::GetAssetSource() {
+    return Engine::AssetSource::UNLOADED;
+}
