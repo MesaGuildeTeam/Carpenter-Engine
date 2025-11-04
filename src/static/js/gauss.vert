@@ -12,6 +12,23 @@ varying vec2 v_UV;
 varying vec3 v_Normal;
 varying vec3 v_Position;
 
+uniform sampler2D u_Color;
+
+vec3 convolve3x3(sampler2D tex, vec2 uv, mat3 kernel, float texelSize) {
+    vec3 result = vec3(0.0);
+
+    // Iterate through the 3x3 neighborhood
+    for (int y = -1; y <= 1; y++) {
+        for (int x = -1; x <= 1; x++) {
+            vec2 offset = vec2(float(x), float(y)) * texelSize;
+            vec3 sample = texture2D(tex, uv + offset).rgb;
+            result += sample * kernel[y + 1][x + 1];
+        }
+    }
+
+    return result;
+}
+
 void main() {
 
   // Transform point position
@@ -20,9 +37,11 @@ void main() {
   vec4 newPos =  u_Camera * u_Transform * vec4(a_Position, 1.0);
   
   vec2 proportionalPos = vec2(newPos.x, newPos.y);
+  float PWRatio = u_Window.x / u_Window.y;
 
   if (u_Window.y < u_Window.x) {
     proportionalPos.x = newPos.x * u_Window.y / u_Window.x;
+    PWRatio = u_Window.y / u_Window.x;
   } else {
     proportionalPos.y = newPos.y * u_Window.x / u_Window.y;
   }
@@ -30,7 +49,12 @@ void main() {
   gl_Position = vec4(proportionalPos, (newPos.z - 100.0) / 100.0, 1.0);
   
   // Determine Point Size
-  gl_PointSize = 1.0 / length(gl_Position.xyz) * 70.0;
+  mat3 lap = mat3(0.0, 1.0, 0.0, 1.0, -4.0, 1.0, 0.0, 1.0, 0.0);
+  float edgeStrength = length(convolve3x3(u_Color, a_UV, lap, 0.001)); 
+
+  // 70 is just a sweet spot. There is no exact reason why
+  vec3 pointScale = (u_Transform[3].xyz * u_Camera[3].xyz);
+  gl_PointSize = 10.0 * mix(20.0, 5.0, 0.5 + edgeStrength) * PWRatio / gl_Position.w;
 
   // Forwared Normals and UV 
   v_UV = a_UV;

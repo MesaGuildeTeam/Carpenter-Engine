@@ -30,9 +30,6 @@ Engine::Success Engine::Graphics::GaussMesh::AddTriangle(Vertex v1, Vertex v2, V
 
 float* Engine::Graphics::GaussMesh::GetVertices() {
   // Sort vertexBuffer
-  std::sort(m_vertices.begin(), m_vertices.end(), [](Vertex a, Vertex b) {
-    return a.z > b.z;
-  });
 
   return (float*)(m_vertices.data());
 }
