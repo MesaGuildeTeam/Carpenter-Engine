@@ -31,7 +31,7 @@ namespace Engine::Graphics {
    * - Roberto Selles/Henderythmix
    */
   class Renderer {
-    private:
+    protected:
     unsigned long m_context;
     const char* m_id;
 
@@ -74,7 +74,7 @@ namespace Engine::Graphics {
      * @param scale the scaling of the mesh
      * @param rotation the rotation of the mesh in degrees
      */
-    void DrawMesh(Mesh* mesh, Vec3f position = {0, 0, 0},
+    virtual void DrawMesh(Mesh* mesh, Vec3f position = {0, 0, 0},
       Vec3f scale = {1, 1, 1}, Vec3f rotation = {0, 0, 0});
 
     /**

@@ -10,9 +10,9 @@
 #include <iostream>
 #include "../Game.hpp"
 
-Engine::Graphics::Shader::Shader() : Engine::Graphics::Shader("js/default.frag", "js/default.vert") {}
+Engine::Graphics::Shader::Shader() : Engine::Graphics::Shader("js/gauss.frag", "js/gauss.vert") {}
 
-Engine::Graphics::Shader::Shader(const char* frag) : Engine::Graphics::Shader(frag, "js/default.vert") {}
+Engine::Graphics::Shader::Shader(const char* frag) : Engine::Graphics::Shader(frag, "js/gauss.vert") {}
 
 Engine::Graphics::Shader::Shader(const char* frag, const char* vert) {
   //std::cout << "Creating shader with fragment shader " << std::string(frag) << " and vertex shader " << std::string(vert) << std::endl;
@@ -110,6 +110,6 @@ unsigned int Engine::Graphics::Shader::GetShaderProgram() {
 }
 
 Engine::Graphics::Shader& Engine::Graphics::DefaultShader() {
-  static Engine::Graphics::Shader defaultShader("js/default.frag", "js/default.vert");
+  static Engine::Graphics::Shader defaultShader("js/gauss.frag", "js/gauss.vert");
   return defaultShader;
 }

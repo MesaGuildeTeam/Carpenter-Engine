@@ -8,7 +8,7 @@
 #define ENGINE_GAME
 
 #include "Node.hpp"
-#include "Graphics/Renderer.hpp"
+#include "Graphics/GaussRenderer.hpp"
 #include "Utils.hpp"
 #include <map>
 
@@ -40,7 +40,7 @@ namespace Engine {
     Scene* m_currentScene;
     std::map<const char*, Scene*> m_loadedScenes;
 
-    Graphics::Renderer m_renderer;
+    Graphics::GaussRenderer m_renderer;
 
     // SINGLETON STUFF //
     static Game* m_instance;
@@ -108,7 +108,7 @@ namespace Engine {
     /**
      * Returns the base renderer associated with the game engine
      */
-    Graphics::Renderer& GetRenderer();
+    Graphics::GaussRenderer& GetRenderer();
 
     /**
      * @brief Returns the game window dimensions

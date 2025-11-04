@@ -7,7 +7,7 @@
 #ifndef ENGINE_SHAPES
 #define ENGINE_SHAPES
 
-#include "Mesh.hpp"
+#include "GaussMesh.hpp"
 
 namespace Engine::Graphics {
 
@@ -16,9 +16,9 @@ namespace Engine::Graphics {
    * 
    * A single unit size quad
    */
-  class Plane : public Mesh {
+  class Plane : public GaussMesh {
   public:
-    Plane() : Mesh() {
+    Plane() : GaussMesh() {
       AddQuad({-0.5, -0.5, 0, 0, 1}, {0.5, -0.5, 0, 1, 1}, {0.5, 0.5, 0, 1, 0},
         {-0.5, 0.5, 0, 0, 0});
     }
@@ -29,9 +29,9 @@ namespace Engine::Graphics {
    * 
    * A unit size cube (1x1x1).
    */
-  class Cube : public Mesh {
+  class Cube : public GaussMesh {
   public:
-    Cube() : Mesh() {
+    Cube() : GaussMesh() {
       // Front
       AddQuad({-0.5, -0.5, -0.5, 0, 1}, {0.5, -0.5, -0.5, 1, 1},
         {0.5, 0.5, -0.5, 1, 0}, {-0.5, 0.5, -0.5, 0, 0});

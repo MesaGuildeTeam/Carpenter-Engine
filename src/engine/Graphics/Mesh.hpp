@@ -79,10 +79,10 @@ namespace Engine::Graphics {
    */
   class Mesh {
     private:
-      std::vector<Vertex> m_vertices;
       std::vector<unsigned short> m_indices;
 
     protected:
+      std::vector<Vertex> m_vertices;
 
       /**
        * @brief Adds a triangle to the mesh, and computes the normals for the vertices
@@ -95,7 +95,7 @@ namespace Engine::Graphics {
        * @param v3 The third vertex of the triangle
        * 
        */
-      Success AddTriangle(Vertex v1, Vertex v2, Vertex v3);
+      virtual Success AddTriangle(Vertex v1, Vertex v2, Vertex v3);
 
       /**
        * Adds a quad to the mesh, and computes the normals for the vertices
@@ -115,7 +115,7 @@ namespace Engine::Graphics {
        * 
        * @return A pointer to the vertices array of the mesh
        */
-      float* GetVertices();
+      virtual float* GetVertices();
 
       /**
        * @brief Returns the number of vertices in the vertex buffer
