@@ -2,5 +2,6 @@
   "inputPath": "./src/engine",
   "frameworkPath": "",
   "includeDir": "src/engine/",
-  "static": "src/static"
+  "static": "src/static",
+  "name": "Carpenter Engine Test Demo"
 }

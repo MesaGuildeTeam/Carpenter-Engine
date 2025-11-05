@@ -19,7 +19,7 @@ var buildConfig;
 try {
   buildConfig = require(process.cwd() + "/tableconf.json");
 } catch (exception) {
-  buildConfig = {};
+  buildConfig = utils.defaultBuildConfig;
 }
 
 const EMCC =
@@ -98,8 +98,14 @@ function buildGame(config = defaultBuildSteps) {
   }
 
   // Package process
-  if (config.runPackage)
+  if (config.runPackage) {
     console.log(child_process.execSync(`cp -r ${staticDir}/* ./build/`));
+    // Modify index.html to have the game title instead of it just saying "Carpenter Engine"
+    console.log("Configuring index.html")
+    let indexFile = fs.readFileSync("./build/index.html", "utf-8");
+    let newData = indexFile.replace("<title>Carpenter Engine</title>", `<title>${buildConfig.name}</title>`);
+    fs.writeFileSync("./build/index.html", newData);
+  }
 
   console.log("Build process finished successfully!");
 

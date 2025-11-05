@@ -111,5 +111,8 @@ module.exports = {
   throwError: throwError,
   processFiles: processFiles,
   execCommand: execCommand,
-  setVerbose: setVerbose
+  setVerbose: setVerbose,
+  defaultBuildConfig: {
+    name: "Carpenter Engine"
+  }
 };
