@@ -10,6 +10,7 @@ body {
 
     background-color: black;
     height: 100dvh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 #ui-layer,
@@ -28,12 +29,14 @@ body {
     background-color: #121212;
     display: flex;
     justify-content: center;
+    opacity: 1;
 
     transition: all ease 0.5s;
 }
 
 .splashscreen-loaded {
     transform: translateY(100%);
+    opacity: 0 !important;
 }
 
 #splashscreen img {
@@ -46,8 +49,19 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 350px;
+    min-width: 320px;
+    width: 30%;
     height: 100%;
+}
+
+#splashscreen-content > * {
+    margin: 30px;
+}
+
+#ce-branding {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .ui-element {
