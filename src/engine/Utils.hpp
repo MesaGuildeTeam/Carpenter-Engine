@@ -18,11 +18,11 @@ namespace Engine {
    * A generic success type that determines the stabitility of the code.
    * This is recommended to be used as voids that need to check for errors
    * without using try/catch blocks
-   * 
+   *
    * - SUCCESS - The method was run successfully
    * - FAILURE - The method failed to run
    * - WARNING - The method was run successfully but with warnings
-   * 
+   *
    * @brief A generic success type
    * @author Roberto Selles
    */
@@ -31,6 +31,17 @@ namespace Engine {
     SUCCESS = -2,
     WARNING = -3
   } Success;
+
+  /**
+   * @brief A struct used to manage asset pulling.
+   *
+   * Keeps track of if the asset is ready
+   */
+  typedef struct {
+    unsigned char* data = nullptr;
+    int size = 0;
+    unsigned char req_state = 0;
+  } AssetRequest;
 
   /**
    * @brief A 2D vector struct with overloaded operators
@@ -93,6 +104,8 @@ namespace Engine {
      */
     Vec3f operator+(const Vec3f& rhs);
 
+    Vec3f operator-(const Vec3f& rhs);
+
     /**
      * @brief Compute scalar multiplication
      */
@@ -123,7 +136,7 @@ namespace Engine {
 
   /**
    * @brief Rotates a 2D vector by an angle
-   * 
+   *
    * @param v The vector to rotate
    * @param angle The angle to rotate by
    * @return The rotated vector
@@ -132,7 +145,7 @@ namespace Engine {
 
   /**
    * @brief Rotates a 3D vector in three dimensions
-   * 
+   *
    * @param v The vector to rotate
    * @param angle The angles to rotate by
    * @return The rotated vector
@@ -141,9 +154,9 @@ namespace Engine {
 
   /**
    * @brief returns the inverse square root of a float
-   * 
+   *
    * TODO: Use SIMD Instrinsics to accelerate the calculation
-   * 
+   *
    * @param x The float to take the inverse square root of
    * @return The inverse square root
    */

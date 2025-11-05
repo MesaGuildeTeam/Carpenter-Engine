@@ -65,16 +65,13 @@ void Engine::Node::OnDisable() {
 void Engine::Node::Init() {}
 
 void Engine::Node::Draw() {
-  if (!m_enabled)
-    return;
-
   for (Node* child : m_children)
-    child->Draw();
+    if (child->m_enabled)
+      child->Draw();
 }
 
 void Engine::Node::Update(float dt) {
-  if (!m_enabled)
-    return;
   for (Node* child : m_children)
-    child->Update(dt);
+    if (child->m_enabled)
+      child->Update(dt);
 }

@@ -5,6 +5,7 @@
  */
 
 #include "Game.hpp"
+#include "Utils.hpp"
 #include <emscripten.h>
 
 Engine::Game& Engine::Game::getInstance(Engine::Scene* startingScene) {
@@ -31,6 +32,7 @@ Engine::Success Engine::Game::AddScene(const char* id, Scene* scene) {
   if (m_loadedScenes.find(id) != m_loadedScenes.end())
     return FAILURE;
   m_loadedScenes.emplace(id, scene);
+  scene->Init();
   return SUCCESS;
 }
 
@@ -64,6 +66,17 @@ void Engine::Game::UpdateScene(float dt) {
 
 Engine::Graphics::Renderer& Engine::Game::GetRenderer() {
   return m_renderer;
+}
+
+Engine::Vec2f Engine::Game::WindowDimensions() {
+  return {
+    (float)EM_ASM_DOUBLE({
+      return window.innerWidth;
+    }),
+    (float)EM_ASM_DOUBLE({
+      return window.innerHeight;
+    })
+  };
 }
 
 extern "C" {

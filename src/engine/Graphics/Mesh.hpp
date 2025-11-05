@@ -4,7 +4,7 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
- #ifndef ENGINE_MESH
+#ifndef ENGINE_MESH
 #define ENGINE_MESH
 
 #include "../Utils.hpp"
@@ -69,6 +69,7 @@ namespace Engine::Graphics {
    *      AddTriangle({0.0f, 0.0f, 0.0f}, {1.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f});
    *   }
    * }
+   * ```
    * 
    * @warning All triangles must be loaded in counter-clockwise order 
    * due to the engine's winding order.

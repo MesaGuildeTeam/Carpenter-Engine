@@ -44,8 +44,8 @@ If you are building from source, use the following build process to build the
 engine code.
 
 ```
-git clone https://github.com/MesaGuildeTeam/Table-Engine
-cd Table-Engine
+git clone https://github.com/MesaGuildeTeam/Carpenter-Engine
+cd Carpenter-Engine
 npm install
 npm run build
 ```

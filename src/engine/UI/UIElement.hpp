@@ -19,6 +19,16 @@ namespace Engine::UI {
    * considered an abstract class, you by freely use it as a container for
    * UI Elements.
    * 
+   * The UI element will be assigned the following CSS classes:
+   * 
+   * - `ui-element`
+   * 
+   * - `ui-generic`
+   * 
+   * The UI element will be assigned the following CSS IDs:
+   * 
+   * - `ui-generic-${name}`
+   * 
    * @author Roberto Selles
    */
   class UIElement : public Engine::Node {
@@ -49,10 +59,10 @@ namespace Engine::UI {
     void Init() override;
 
     /**
-     * @brief Sets the theme of the UI element 
+     * @brief Adds a CSS class to the UI element 
      * 
-     * This theme will be applied and is inherited by children elements 
-     * that are attached to this object. 
+     * This class will be applied and is inherited by children elements 
+     * that are attached to this element. 
      * 
      * @param theme The CSS class to use as a theme
      */

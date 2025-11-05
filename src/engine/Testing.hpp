@@ -48,7 +48,7 @@ namespace Testing {
    * ```
    * 
    * @author Roberto Selles
-   * @author Armand Baril
+   * @author BigChungus21220
    */
   class TestRunner {
       private:
