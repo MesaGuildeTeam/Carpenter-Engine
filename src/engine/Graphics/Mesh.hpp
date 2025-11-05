@@ -34,7 +34,7 @@ namespace Engine::Graphics {
   struct Vertex {
     float x, y, z, u, v;
     float nx = 0.0f, ny = 0.0f, nz = 1.0f;
-    float density = 10.0f;
+    float density = 1.0f;
 
     /**
      * @brief Calculates the normal vector of the vertices.

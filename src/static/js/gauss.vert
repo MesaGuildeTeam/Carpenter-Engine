@@ -3,6 +3,7 @@ precision mediump float;
 attribute vec3 a_Position;
 attribute vec2 a_UV;
 attribute vec3 a_Normal;
+attribute float a_Density;
 
 uniform vec2 u_Window;
 uniform mat4 u_Transform;
@@ -49,12 +50,10 @@ void main() {
   gl_Position = vec4(proportionalPos, (newPos.z - 100.0) / 100.0, 1.0);
   
   // Determine Point Size
-  mat3 lap = mat3(0.0, 1.0, 0.0, 1.0, -4.0, 1.0, 0.0, 1.0, 0.0);
-  float edgeStrength = length(convolve3x3(u_Color, a_UV, lap, 0.001)); 
 
   // 70 is just a sweet spot. There is no exact reason why
   vec3 pointScale = (u_Transform[3].xyz * u_Camera[3].xyz);
-  gl_PointSize = 10.0 * mix(20.0, 5.0, 0.5 + edgeStrength) * PWRatio / gl_Position.w;
+  gl_PointSize = (15.0 * a_Density * PWRatio / gl_Position.w) / (1.0 + gl_Position.z);
 
   // Forwared Normals and UV 
   v_UV = a_UV;

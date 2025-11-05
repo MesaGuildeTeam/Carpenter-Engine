@@ -20,10 +20,10 @@ Engine::Success Engine::Graphics::GaussMesh::AddTriangle(Vertex v1, Vertex v2, V
       float norm = std::max(abs(u-0.5), abs(v-0.5));
       float density = exp(-(norm));
       if (u + v > 1.0) {
-        u = 1.0 - u;
-        v = 1.0 - v;
-        if ((float)rand()/RAND_MAX < density*2-1)
-          continue;
+        //u = 1.0 - u;
+        //v = 1.0 - v;
+        //if ((float)rand()/RAND_MAX < density*2-1)
+        continue;
       }
 
       float imgu = n1.u + u*(n2.u - n1.u) + v*(n3.u - n1.u);
