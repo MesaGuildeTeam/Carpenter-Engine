@@ -83,8 +83,8 @@ Engine::Success Engine::Graphics::Mesh::AddTriangle(Vertex v1, Vertex v2,
 
 Engine::Success Engine::Graphics::Mesh::AddQuad(Vertex v1, Vertex v2,
   Vertex v3, Vertex v4) {
-  AddTriangle(v1, v2, v3);
-  AddTriangle(v1, v3, v4);
+  AddTriangle(v2, v3, v1);
+  AddTriangle(v4, v1, v3);
   
   return Engine::SUCCESS;
 }

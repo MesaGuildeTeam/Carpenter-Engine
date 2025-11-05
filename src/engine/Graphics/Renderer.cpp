@@ -57,9 +57,19 @@ Engine::Graphics::Renderer::Renderer(const char* id) : m_camera(&DefaultCamera) 
   glEnableVertexAttribArray(0);
   glEnableVertexAttribArray(1);
   glEnableVertexAttribArray(2);
+  glEnableVertexAttribArray(3);
 
   std::cout << "DEBUG: Canvas Initialized with tag " << id << std::endl;
   UseShader(DefaultShader());
+
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Engine::Graphics::Vertex),
+    (void*)0); // position
+  glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Engine::Graphics::Vertex),
+    (void*)(sizeof(float) * 3)); // texture coordinates
+  glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Engine::Graphics::Vertex),
+    (void*)(sizeof(float) * 5)); // normal
+  glVertexAttribPointer(3, 1, GL_FLOAT, GL_FALSE, sizeof(Engine::Graphics::Vertex),
+    (void*)(sizeof(float) * 8));
 }
 
 void Engine::Graphics::Renderer::ClearBuffer() {
@@ -130,13 +140,6 @@ void Engine::Graphics::Renderer::DrawMesh(Engine::Graphics::Mesh* mesh,
     vertexBuffer, GL_DYNAMIC_DRAW);
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexCount * sizeof(unsigned short),
     indexBuffer, GL_DYNAMIC_DRAW);
-
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Engine::Graphics::Vertex),
-    (void*)0); // position
-  glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Engine::Graphics::Vertex),
-    (void*)(sizeof(float) * 3)); // texture coordinates
-  glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Engine::Graphics::Vertex),
-    (void*)(sizeof(float) * 5)); // normal
 
   glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_SHORT, 0);
 }

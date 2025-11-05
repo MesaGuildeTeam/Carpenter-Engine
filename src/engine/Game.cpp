@@ -16,7 +16,7 @@ Engine::Game& Engine::Game::getInstance(Engine::Scene* startingScene) {
 Engine::Game::Game(Scene* startingScene) {
   AddScene("Scene0", startingScene);
   SwitchScene("Scene0");
-  m_renderer = Graphics::GaussRenderer();
+  m_renderer = new Graphics::GaussRenderer();
 
   EM_ASM(
     game.canvases["canvas"].width = window.innerWidth;
@@ -56,7 +56,7 @@ Engine::Success Engine::Game::UnloadScene(const char* id) {
 }
 
 void Engine::Game::DrawScene() {
-  m_renderer.ClearBuffer();
+  m_renderer->ClearBuffer();
   m_currentScene->Draw();
 }
 
@@ -64,8 +64,8 @@ void Engine::Game::UpdateScene(float dt) {
   m_currentScene->Update(dt);
 }
 
-Engine::Graphics::GaussRenderer& Engine::Game::GetRenderer() {
-  return m_renderer;
+Engine::Graphics::Renderer& Engine::Game::GetRenderer() {
+  return *m_renderer;
 }
 
 Engine::Vec2f Engine::Game::WindowDimensions() {

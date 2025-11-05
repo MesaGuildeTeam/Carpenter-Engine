@@ -64,19 +64,13 @@ void Engine::Graphics::GaussRenderer::DrawMesh(Engine::Graphics::Mesh* mesh, Eng
   cameraMatrix = glm::translate(cameraMatrix, glm::vec3(camPos.x / FOV,
     camPos.y / FOV, camPos.z / FOV)); // position
 
-
   int cameraUniform = glGetUniformLocation(m_currentShaderProgram, "u_Camera");
   glUniformMatrix4fv(cameraUniform, 1, GL_FALSE, &cameraMatrix[0][0]);
 
+
+  // Bind and draw
   glBufferData(GL_ARRAY_BUFFER, vertexCount * sizeof(Engine::Graphics::Vertex),
     vertexBuffer, GL_DYNAMIC_DRAW);
-
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Engine::Graphics::Vertex),
-    (void*)0); // position
-  glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Engine::Graphics::Vertex),
-    (void*)(sizeof(float) * 3)); // texture coordinates
-  glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Engine::Graphics::Vertex),
-    (void*)(sizeof(float) * 5)); // normal
 
   glDrawArrays(GL_POINTS, 0, vertexCount);
 }

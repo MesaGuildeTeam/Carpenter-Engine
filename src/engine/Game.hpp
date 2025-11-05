@@ -40,7 +40,7 @@ namespace Engine {
     Scene* m_currentScene;
     std::map<const char*, Scene*> m_loadedScenes;
 
-    Graphics::GaussRenderer m_renderer;
+    Graphics::Renderer* m_renderer;
 
     // SINGLETON STUFF //
     static Game* m_instance;
@@ -108,7 +108,7 @@ namespace Engine {
     /**
      * Returns the base renderer associated with the game engine
      */
-    Graphics::GaussRenderer& GetRenderer();
+    Graphics::Renderer& GetRenderer();
 
     /**
      * @brief Returns the game window dimensions
