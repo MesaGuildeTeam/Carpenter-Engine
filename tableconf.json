@@ -3,5 +3,7 @@
   "frameworkPath": "",
   "includeDir": "src/engine/",
   "static": "src/static",
-  "name": "Carpenter Engine Test Demo"
+  "name": "Carpenter Engine Test Demo",
+
+  "DevMessage": "If you are reading this file, this is not a template file for preparing your own tableconf.json. This is just used to compile the game engine. Please read the documentation to learn to make one or ask the Discord Server for help."
 }

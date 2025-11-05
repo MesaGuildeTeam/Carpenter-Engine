@@ -14,12 +14,12 @@ const os = require("os");
 const utils = require("./utils");
 const CPPObject = require("./classes/CPPObject");
 
-var buildConfig;
+var buildConfig = utils.defaultBuildConfig;
 
 try {
   buildConfig = require(process.cwd() + "/tableconf.json");
 } catch (exception) {
-  buildConfig = utils.defaultBuildConfig;
+  
 }
 
 const EMCC =
