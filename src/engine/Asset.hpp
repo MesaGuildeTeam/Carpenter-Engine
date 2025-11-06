@@ -18,10 +18,10 @@ namespace Engine {
      *
      * Similar to std::ifstream, this class reads game files as needed
      *
-     * This class looks for files in the following format:
+     * This class looks for files in the following:
      *
      * - Check if the file is embedded into the project
-     *
+     * - Check if the data is saved in the localStorage API
      * - Performs an HTTP GET Request for the file
      *
      */
@@ -131,9 +131,9 @@ namespace Engine {
 
         bool IsClosed();
 
-        void Put();
+        void Put(std::string data);
 
-        void Write(std::string data);
+        void Write();
     };
 
     typedef iAsset Asset;

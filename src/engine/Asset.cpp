@@ -130,9 +130,11 @@ void Engine::oAsset::Open(const char* path) {
     m_assetSource = Engine::LOCALSTORAGE;
 }
 
-void Engine::oAsset::Write(std::string data) {
+void Engine::oAsset::Put(std::string data) {
     m_data = m_data + data;
+}
 
+void Engine::oAsset::Write() {
     EM_ASM({
         localStorage.setItem(UTF8ToString($0), UTF8ToString($1));
     }, m_path, m_data.c_str());

@@ -20,8 +20,8 @@ std::string data{""};
 
 void SaveCallback() {
     oAsset asset("WriteTest.txt");
-
-    asset.Write(data);
+    asset.Put(data);
+    asset.Write();
 }
 
 class ExampleScene : public Scene {
