@@ -1,5 +1,6 @@
 #include "Asset.hpp"
 #include <emscripten.h>
+#include <emscripten/val.h>
 
 #include <fstream>
 #include <iostream>
@@ -14,7 +15,6 @@ Engine::iAsset::iAsset(const char* path) : Engine::iAsset() {
 }
 
 void Engine::iAsset::Open(const char* path) {
-
     m_assetStatus.req_state = 1;
 
     // Try to find file first
@@ -37,8 +37,28 @@ void Engine::iAsset::Open(const char* path) {
         return;
     }
 
-    // If Asset is not embedded
+    using emscripten::val;
 
+    // If Asset is not embedded check LocalStorage if it is saved
+    bool success = EM_ASM_INT({
+        game.tempItem = localStorage.getItem(UTF8ToString($0));
+        if (game.tempItem == undefined) return false;
+        return true;
+    }, path);
+
+    if (success) { 
+        m_assetStatus.size = EM_ASM_INT({return game.tempItem.length;});
+        
+        m_assetStatus.data = new unsigned char[m_assetStatus.size + 1];
+        EM_ASM({
+            stringToUTF8(game.tempItem, $0, game.tempItem.length + 1); 
+        }, m_assetStatus.data);
+
+        m_assetStatus.req_state = 2;
+        return;
+    }
+
+    // Otherwise fallback to HTTP Request
     std::cout << "DEBUG: Fetching asset " << path << std::endl;
     emscripten_async_wget_data(path, (void*)&m_assetStatus,
       [](void* arg, void* d, int s) {
@@ -47,7 +67,13 @@ void Engine::iAsset::Open(const char* path) {
         memcpy((void*)req->data, d, s);
         req->size = s;
         req->req_state = 2;
-      }, nullptr);
+      }, [](void* arg) {
+        AssetRequest* req = (AssetRequest*)arg;
+        req->data = new unsigned char[1];
+        req->data[0] = 0;
+        req->size = 1;
+        req->req_state = 2;
+      });
 }
 
 Engine::iAsset& Engine::iAsset::Read(char* c, unsigned int n) { 
@@ -80,4 +106,34 @@ bool Engine::iAsset::IsClosed() {
 
 Engine::AssetSource Engine::iAsset::GetAssetSource() {
     return Engine::AssetSource::UNLOADED;
+}
+
+/// oAsset ///
+
+Engine::oAsset::oAsset() {
+
+}
+
+Engine::oAsset::oAsset(const char* path): Engine::oAsset() {
+    Open(path); 
+}
+
+void Engine::oAsset::Open(const char* path) {
+    // Do a file check to make sure it's not a game asset
+    std::ifstream file(path, std::ios::binary | std::ios::ate);
+
+    if (!file.fail()) throw 1;
+
+    // Create the data
+    m_path = path;
+    m_data = std::string("");
+    m_assetSource = Engine::LOCALSTORAGE;
+}
+
+void Engine::oAsset::Write(std::string data) {
+    m_data = m_data + data;
+
+    EM_ASM({
+        localStorage.setItem(UTF8ToString($0), UTF8ToString($1));
+    }, m_path, m_data.c_str());
 }

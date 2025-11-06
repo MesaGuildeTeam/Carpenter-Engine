@@ -7,6 +7,8 @@
 /** @namespace Client */
 
 const game = {
+  tempItem: "",
+
   // Graphics & UI
   gl: {},
   canvases: {},

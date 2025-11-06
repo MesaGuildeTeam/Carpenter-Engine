@@ -30,6 +30,7 @@ namespace Engine {
         
         AssetRequest m_assetStatus;
         AssetSource m_assetSource;
+        std::string m_dataAsString;
 
         unsigned int m_index{0};
 
@@ -132,7 +133,7 @@ namespace Engine {
 
         void Put();
 
-        void Write();
+        void Write(std::string data);
     };
 
     typedef iAsset Asset;
