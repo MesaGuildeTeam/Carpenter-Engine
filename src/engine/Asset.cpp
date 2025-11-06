@@ -122,7 +122,7 @@ void Engine::oAsset::Open(const char* path) {
     // Do a file check to make sure it's not a game asset
     std::ifstream file(path, std::ios::binary | std::ios::ate);
 
-    if (!file.fail()) throw 1;
+    if (!file.fail()) throw std::runtime_error("ERROR: File is write only... Probably an embedded game asset...");
 
     // Create the data
     m_path = path;
