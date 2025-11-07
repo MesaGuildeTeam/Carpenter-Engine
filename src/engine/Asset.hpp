@@ -40,6 +40,8 @@ namespace Engine {
 
         iAsset(const char* path);
 
+        ~iAsset();
+
         void Open(const char* path);
 
         /**
@@ -117,6 +119,8 @@ namespace Engine {
 
         oAsset();
 
+        ~oAsset();
+
         oAsset(const char* path);
 
         void Open(const char* path);
@@ -131,9 +135,9 @@ namespace Engine {
 
         bool IsClosed();
 
-        void Put(std::string data);
+        void Put(const char c);
 
-        void Write();
+        void Write(std::string data);
     };
 
     typedef iAsset Asset;

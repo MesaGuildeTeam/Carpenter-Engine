@@ -14,6 +14,10 @@ Engine::iAsset::iAsset(const char* path) : Engine::iAsset() {
     Open(path);
 }
 
+Engine::iAsset::~iAsset() {
+    Close();
+}
+
 void Engine::iAsset::Open(const char* path) {
     m_assetStatus.req_state = 1;
 
@@ -118,11 +122,15 @@ Engine::oAsset::oAsset(const char* path): Engine::oAsset() {
     Open(path); 
 }
 
+Engine::oAsset::~oAsset() {
+    Close();
+}
+
 void Engine::oAsset::Open(const char* path) {
     // Do a file check to make sure it's not a game asset
     std::ifstream file(path, std::ios::binary | std::ios::ate);
 
-    if (!file.fail()) throw std::runtime_error("ERROR: File is write only... Probably an embedded game asset...");
+    if (!file.fail()) throw std::runtime_error("ERROR: File is write only... Probably a game asset...");
 
     // Create the data
     m_path = path;
@@ -130,12 +138,24 @@ void Engine::oAsset::Open(const char* path) {
     m_assetSource = Engine::LOCALSTORAGE;
 }
 
-void Engine::oAsset::Put(std::string data) {
-    m_data = m_data + data;
-}
-
-void Engine::oAsset::Write() {
+void Engine::oAsset::Close() {
     EM_ASM({
         localStorage.setItem(UTF8ToString($0), UTF8ToString($1));
     }, m_path, m_data.c_str());
+}
+
+bool Engine::oAsset::IsClosed() {
+    return m_assetSource == UNLOADED;
+}
+
+bool Engine::oAsset::IsOpen() {
+    return m_assetSource != UNLOADED;
+}
+
+void Engine::oAsset::Put(const char c) {
+    m_data = m_data + c;
+}
+
+void Engine::oAsset::Write(std::string data) { 
+    m_data = m_data + data;
 }
