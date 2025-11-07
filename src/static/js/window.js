@@ -204,6 +204,8 @@ function windowLoop() {
   update();
   draw();
 
+  document.getElementById("splashscreen").classList.add("splashscreen-loaded");
+
   setTimeout(windowLoop, 1000 / 60);
 }
 
@@ -213,5 +215,5 @@ window.addEventListener("load", () => {
   game.musicVolume.gain.value = 1;
   game.musicVolume.connect(game.musicManager.destination);
 
-  windowLoop();
+  setTimeout(windowLoop, 3000);
 });

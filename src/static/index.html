@@ -2,16 +2,18 @@
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at https://mozilla.org/MPL/2.0/. -->
 <!doctype html>
+<!doctype html>
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
         <meta
             name="viewport"
-            content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0"
+            content="width=device-width, initial-scale=1.0, minimum-scale=1, user-scalable=no"
         />
         <link rel="stylesheet" href="css/window.css" />
         <link rel="stylesheet" href="Assets/style.css" />
-        <title>Game Engine</title>
+        <link rel="favicon" href="Assets/favicon.png" />
+        <title>Carpenter Engine</title>
         <script src="engine.js"></script>
     </head>
     <body>
@@ -19,6 +21,15 @@
             <canvas id="canvas" width="800" height="600"></canvas>
         </div>
         <div id="ui-layer"></div>
+        <div id="splashscreen">
+            <div id="splashscreen-content">
+                <img src="Assets/Brand_Logo.png" />
+                <div id="ce-branding">
+                    <div>Made With</div>
+                    <img src="fixed_assets/CarpenterEngine_Logo.png" width="75%" />
+                </div>
+            </div>
+        </div>
         <script defer src="js/window.js"></script>
     </body>
 </html>
