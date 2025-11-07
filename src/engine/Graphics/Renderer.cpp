@@ -68,8 +68,8 @@ Engine::Graphics::Renderer::Renderer(const char* id) : m_camera(&DefaultCamera) 
     (void*)(sizeof(float) * 3)); // texture coordinates
   glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Engine::Graphics::Vertex),
     (void*)(sizeof(float) * 5)); // normal
-  glVertexAttribPointer(3, 1, GL_FLOAT, GL_FALSE, sizeof(Engine::Graphics::Vertex),
-    (void*)(sizeof(float) * 8));
+  glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, sizeof(Engine::Graphics::Vertex),
+    (void*)(sizeof(float) * 8)); // density
 }
 
 void Engine::Graphics::Renderer::ClearBuffer() {
