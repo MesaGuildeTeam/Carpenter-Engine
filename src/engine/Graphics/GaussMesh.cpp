@@ -24,8 +24,8 @@ Engine::Success Engine::Graphics::GaussMesh::AddTriangle(Vertex v1, Vertex v2, V
 
       // take the infinite norm of the face to make the edges less dense
       float norm = std::max(abs(u-0.5), abs(v-0.5));
-      float densityX = exp(-abs(u-0.5));
-      float densityY = exp(-abs(v-0.5));
+      float densityX = exp(-abs(u-0.5)*2);
+      float densityY = exp(-abs(v-0.5)*2);
 
       float imgu = n1.u + u*(n2.u - n1.u) + v*(n3.u - n1.u);
       float imgv = n1.v + u*(n2.v - n1.v) + v*(n3.v - n1.v);

@@ -99,6 +99,7 @@ void Engine::Graphics::Shader::CompileShader() {
   glBindAttribLocation(m_shaderProgram, 0, "a_Position");
   glBindAttribLocation(m_shaderProgram, 1, "a_UV");
   glBindAttribLocation(m_shaderProgram, 2, "a_Normal");
+  glBindAttribLocation(m_shaderProgram, 3, "a_Density");
 }
 
 unsigned int Engine::Graphics::Shader::GetShaderProgram() {

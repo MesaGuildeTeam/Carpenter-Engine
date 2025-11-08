@@ -147,6 +147,14 @@ void Engine::Graphics::Renderer::DrawMesh(Engine::Graphics::Mesh* mesh,
 void Engine::Graphics::Renderer::UseShader(Shader& shader) {
   m_currentShaderProgram = shader.GetShaderProgram();
   glUseProgram(m_currentShaderProgram);
+
+  int colorMap = glGetUniformLocation(m_currentShaderProgram, "u_Color");
+  int aoMap = glGetUniformLocation(m_currentShaderProgram, "u_AO");
+  int normalMap = glGetUniformLocation(m_currentShaderProgram, "u_Normal");
+
+  glUniform1i(colorMap, 0);
+  glUniform1i(aoMap, 1);
+  glUniform1i(normalMap, 2);
 }
 
 void Engine::Graphics::Renderer::UseTexture(Engine::Graphics::Texture& texture,

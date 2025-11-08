@@ -13,6 +13,7 @@ varying vec2 v_UV;
 varying vec3 v_Normal;
 varying vec3 v_Position;
 varying vec2 v_Density;
+varying mat3 v_TBN;
 
 uniform sampler2D u_Color;
 
@@ -33,6 +34,12 @@ void main() {
     return;
   }
 
+  // Calculate Tangent and bitangent
+  vec3 up = abs(v_Normal.z) < 0.999 ? vec3(0.0, 0.0, 1.0) : vec3(1.0, 0.0, 0.0);
+  vec3 tangent = normalize(cross(up, v_Normal));
+  vec3 bitangent = normalize(cross(v_Normal, tangent));
+  v_TBN = mat3(tangent, bitangent, v_Normal);
+
   vec4 newPos =  u_Camera * u_Transform * vec4(a_Position, 1.0);
   
   vec2 proportionalPos = vec2(newPos.x, newPos.y);
@@ -51,7 +58,7 @@ void main() {
 
   // 70 is just a sweet spot. There is no exact reason why
   vec3 pointScale = (u_Transform[3].xyz * u_Camera[3].xyz);
-  gl_PointSize = (14.0 * max(a_Density.x, a_Density.y) * PWRatio / gl_Position.w) / (1.0 + gl_Position.z);
+  gl_PointSize = (7.0 * max(a_Density.x, a_Density.y) * PWRatio / gl_Position.w) / (1.0 + gl_Position.z);
 
   // Forward UV Map
   v_UV = a_UV;
