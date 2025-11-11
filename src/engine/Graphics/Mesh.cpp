@@ -38,6 +38,20 @@ bool Engine::Graphics::Vertex::operator==(const Vertex& rhs) {
   return true; 
 };
 
+unsigned Engine::Graphics::Mesh::AddPoint(Vertex v) {
+  auto hasV = std::find(m_vertices.begin(), m_vertices.end(), v);
+
+  bool isEmpty = m_vertices.size() == 0;
+
+  if (hasV < m_vertices.end() && isEmpty) {
+    return hasV - m_vertices.end();
+  }
+
+  m_vertices.push_back(v);
+
+  return m_vertices.size() - 1;
+}
+
 Engine::Success Engine::Graphics::Mesh::AddTriangle(Vertex v1, Vertex v2,
   Vertex v3) {
   // TODO: Make this more efficient with the following
@@ -47,37 +61,14 @@ Engine::Success Engine::Graphics::Mesh::AddTriangle(Vertex v1, Vertex v2,
   Vertex n1 = v1, n2 = v2, n3 = v3;
   n1.CalculateNormals(n2, n3);
   
-  auto hasV1 = std::find(m_vertices.begin(), m_vertices.end(), n1);
-  auto hasV2 = std::find(m_vertices.begin(), m_vertices.end(), n2);
-  auto hasV3 = std::find(m_vertices.begin(), m_vertices.end(), n3);
+  unsigned i1 = AddPoint(n1);
+  unsigned i2 = AddPoint(n2);
+  unsigned i3 = AddPoint(n3);
+ 
+  m_indices.push_back(i1);
+  m_indices.push_back(i2);
+  m_indices.push_back(i3);
 
-  bool isEmpty = m_vertices.size() == 0;
-
-  // Each unique vertex should only be added once, but we add indices to the mesh regardless
-  // The index refers to the position of the vertex in the vertices array as opengl usually does
-  if (hasV1 < m_vertices.end() && isEmpty) {
-    m_indices.push_back(hasV1 - m_vertices.begin());
-  } else {
-    m_vertices.push_back(n1);
-    m_indices.push_back(m_vertices.size() - 1);
-  }
-
-  isEmpty = m_vertices.size() == 0;
-
-  if (hasV2 < m_vertices.end() && isEmpty) {
-    m_indices.push_back(hasV2 - m_vertices.begin());
-  } else {
-    m_vertices.push_back(n2);
-    m_indices.push_back(m_vertices.size() - 1);
-  }
-
-  if (hasV3 < m_vertices.end() && isEmpty) {
-    m_indices.push_back(hasV3 - m_vertices.begin());
-  } else {
-    m_vertices.push_back(n3);
-    m_indices.push_back(m_vertices.size() - 1);
-  }
-  
   return Engine::SUCCESS;
 }
 

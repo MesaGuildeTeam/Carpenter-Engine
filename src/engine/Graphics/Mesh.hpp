@@ -85,6 +85,8 @@ namespace Engine::Graphics {
     protected:
       std::vector<Vertex> m_vertices;
 
+      unsigned AddPoint(Vertex v);
+
       /**
        * @brief Adds a triangle to the mesh, and computes the normals for the vertices
        * 
