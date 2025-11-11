@@ -19,7 +19,7 @@ class ExampleScene : public Scene {
   Graphics::Texture color;
   Graphics::Texture normal;
   Graphics::Texture AO;
-  //Graphics::Texture Specular;
+  Graphics::Texture Specular;
 
   float time = 0;
   UI::UILabel label;
@@ -27,6 +27,7 @@ class ExampleScene : public Scene {
   public:
   ExampleScene() : Scene("ExampleScene"), color("Assets/Scifi_Hex_Wall_Albedo.jpg"),
   normal("Assets/Scifi_Hex_Wall_normal.jpg"), AO("Assets/Scifi_Hex_Wall_AO.jpg"),
+  Specular("Assets/Scifi_Hex_Wall_specular.jpg"),
   label("Label", "Hello World") {
     AddChild(&label);
   }
@@ -34,9 +35,12 @@ class ExampleScene : public Scene {
   void Draw() override {
     Scene::Draw();
 
+    Game::GetInstance().GetRenderer().SetBackgroundColor(Vec3f{1.0, 1.0, 1.0});
+
     Game::getInstance().GetRenderer().UseTexture(color, GL_TEXTURE0);
     Game::getInstance().GetRenderer().UseTexture(AO, GL_TEXTURE1);
     Game::getInstance().GetRenderer().UseTexture(normal, GL_TEXTURE2);
+    Game::getInstance().GetRenderer().UseTexture(Specular, GL_TEXTURE3);
     Game::getInstance().GetRenderer().DrawMesh(&mesh, {0, 0, 10}, {1, 1, 1},
       {-35, time, 0});
   }

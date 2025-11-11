@@ -151,10 +151,12 @@ void Engine::Graphics::Renderer::UseShader(Shader& shader) {
   int colorMap = glGetUniformLocation(m_currentShaderProgram, "u_Color");
   int aoMap = glGetUniformLocation(m_currentShaderProgram, "u_AO");
   int normalMap = glGetUniformLocation(m_currentShaderProgram, "u_Normal");
+  int specMap = glGetUniformLocation(m_currentShaderProgram, "u_Specular");
 
   glUniform1i(colorMap, 0);
   glUniform1i(aoMap, 1);
   glUniform1i(normalMap, 2);
+  glUniform1i(specMap, 3);
 }
 
 void Engine::Graphics::Renderer::UseTexture(Engine::Graphics::Texture& texture,

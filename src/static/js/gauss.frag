@@ -28,11 +28,13 @@ void main() {
     vec3 normalMap = texture2D(u_Normal, v_UV).rgb * 2.0 - 1.0;
     vec3 worldNormal = v_TBN * normalMap;
     worldNormal /= length(worldNormal);
-    vec3 LightPos = vec3(0.0, -0.5, 1.0);
-    LightPos /= length(LightPos);
+    vec3 LightPos = normalize(vec3(0.0, -0.5, 1.0));
     float lighting = max(dot(worldNormal, LightPos), 0.0);
 
-    gl_FragColor = image * vec4(vec3(lighting), 1.0);
+    // Create Specular
+    
+
+    //gl_FragColor = image * vec4(vec3(1.0), gaussian * v_Normal.z);
     gl_FragColor = image * ao * vec4(vec3(lighting), gaussian * v_Normal.z);
 }
 

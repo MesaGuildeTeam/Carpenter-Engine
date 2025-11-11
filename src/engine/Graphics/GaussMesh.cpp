@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <cmath>
 
-#define GAUSSES_PER_AXIS 30 
+#define GAUSSES_PER_AXIS 50 
 
 Engine::Success Engine::Graphics::GaussMesh::AddTriangle(Vertex v1, Vertex v2, Vertex v3) {
   // Compute New Normals of vertices
@@ -17,9 +17,10 @@ Engine::Success Engine::Graphics::GaussMesh::AddTriangle(Vertex v1, Vertex v2, V
       float v = (j + (float)rand() / RAND_MAX) / GAUSSES_PER_AXIS;
 
       if (u + v > 1.0) {
-        u = 1.0 - u;
-        v = 1.0 - v;
-        if (floor(u*5)/5 != 0 || floor(v*5)/5 != 0) continue;
+        continue;
+        //u = 1.0 - u;
+        //v = 1.0 - v;
+        //if (floor(u*5)/5 != 0 || floor(v*5)/5 != 0) continue;
       }
 
       // take the infinite norm of the face to make the edges less dense

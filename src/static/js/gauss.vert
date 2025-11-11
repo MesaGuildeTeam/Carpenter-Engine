@@ -23,7 +23,6 @@ void main() {
   mat3 normal_transform = mat3(u_Transform[0].xyz, u_Transform[1].xyz, u_Transform[2].xyz);
 
   // Compute Normals ahead of time 
-  v_Density = a_Density / min(a_Density.x, a_Density.y);
   v_Normal = normal_transform * a_Normal;
   v_Normal = v_Normal / length(v_Normal);
 
@@ -53,12 +52,15 @@ void main() {
   }
   
   gl_Position = vec4(proportionalPos, (newPos.z - 100.0) / 100.0, 1.0);
+
+  float FOV = length(vec3(u_Camera[0][0], u_Camera[0][1], u_Camera[0][2]));
   
   // Determine Point Size
 
+  v_Density = a_Density * vec2(u_Transform[1][1], u_Transform[0][0]) / min(a_Density.x * u_Transform[1][1], a_Density.y * u_Transform[0][0]);
+
   // 70 is just a sweet spot. There is no exact reason why
-  vec3 pointScale = (u_Transform[3].xyz * u_Camera[3].xyz);
-  gl_PointSize = (7.0 * max(a_Density.x, a_Density.y) * PWRatio / gl_Position.w) / (1.0 + gl_Position.z);
+  gl_PointSize = (100.0 * max(a_Density.x * u_Transform[1][1], a_Density.y * u_Transform[0][0]) * FOV * PWRatio / gl_Position.w) / (abs(gl_Position.z));
 
   // Forward UV Map
   v_UV = a_UV;
